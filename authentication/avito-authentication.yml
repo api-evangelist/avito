@@ -1,0 +1,77 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/avito-accounts-hierarchy-openapi.json, openapi/avito-auction-openapi.json, openapi/avito-auth-openapi.json,
+  openapi/avito-autoload-openapi.json, openapi/avito-autostrategy-openapi.json, openapi/avito-autoteka-openapi.json,
+  openapi/avito-avito-promo-openapi.json, openapi/avito-calltracking-openapi.json, openapi/avito-cpa-openapi.json,
+  openapi/avito-cpxpromo-openapi.json, openapi/avito-delivery-sandbox-openapi.json, openapi/avito-item-openapi.json
+  ...
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+  - clientCredentials
+schemes:
+- name: AuthorizationCode
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://avito.ru/oauth
+    tokenUrl: https://api.avito.ru/token
+    scopes: 1
+  description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для
+    доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+  sources:
+  - openapi/avito-accounts-hierarchy-openapi.json
+  - openapi/avito-auction-openapi.json
+  - openapi/avito-auth-openapi.json
+  - openapi/avito-autoload-openapi.json
+  - openapi/avito-autostrategy-openapi.json
+  - openapi/avito-cpa-openapi.json
+  - openapi/avito-cpxpromo-openapi.json
+  - openapi/avito-delivery-sandbox-openapi.json
+  - openapi/avito-item-openapi.json
+  - openapi/avito-job-openapi.json
+  - openapi/avito-messenger-openapi.json
+  - openapi/avito-order-management-openapi.json
+  - openapi/avito-promotion-openapi.json
+  - openapi/avito-ratings-openapi.json
+  - openapi/avito-sbc-gateway-openapi.json
+  - openapi/avito-stock-management-openapi.json
+  - openapi/avito-str-openapi.json
+  - openapi/avito-tariff-openapi.json
+  - openapi/avito-trxpromo-openapi.json
+  - openapi/avito-user-openapi.json
+- name: ClientCredentials
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.avito.ru/token
+    scopes: 0
+  description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для
+    доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+  sources:
+  - openapi/avito-accounts-hierarchy-openapi.json
+  - openapi/avito-auction-openapi.json
+  - openapi/avito-auth-openapi.json
+  - openapi/avito-autoload-openapi.json
+  - openapi/avito-autostrategy-openapi.json
+  - openapi/avito-autoteka-openapi.json
+  - openapi/avito-avito-promo-openapi.json
+  - openapi/avito-calltracking-openapi.json
+  - openapi/avito-cpa-openapi.json
+  - openapi/avito-cpxpromo-openapi.json
+  - openapi/avito-delivery-sandbox-openapi.json
+  - openapi/avito-item-openapi.json
+  - openapi/avito-job-openapi.json
+  - openapi/avito-messenger-openapi.json
+  - openapi/avito-order-management-openapi.json
+  - openapi/avito-promotion-openapi.json
+  - openapi/avito-ratings-openapi.json
+  - openapi/avito-realty-reports-openapi.json
+  - openapi/avito-sbc-gateway-openapi.json
+  - openapi/avito-stock-management-openapi.json
+  - openapi/avito-str-openapi.json
+  - openapi/avito-tariff-openapi.json
+  - openapi/avito-trxpromo-openapi.json
+  - openapi/avito-user-openapi.json
