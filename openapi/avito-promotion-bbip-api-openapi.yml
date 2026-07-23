@@ -1,0 +1,575 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: supportautoload@avito.ru
+  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+    '
+  title: Иерархия Аккаунтов Access Promotion_BBIP API
+  version: '1'
+servers:
+- url: https://api.avito.ru/
+tags:
+- description: 'API для управления услугой "Продвижение с прогнозом".
+
+    '
+  name: Promotion_BBIP
+  x-displayName: Услуга "Продвижение с прогнозом"
+paths:
+  /promotion/v1/items/services/bbip/forecasts/get:
+    parameters:
+    - $ref: '#/components/parameters/AuthHeader'
+    - $ref: '#/components/parameters/XIsEmployee'
+    - $ref: '#/components/parameters/XEmployeeOf'
+    post:
+      description: 'Получение прогноза продвижения по объявлениям
+
+
+        **Rate limit:** 100 RPM
+
+        '
+      operationId: get_bbip_forecasts_by_items_v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetBbipForecastByItemsV1Req'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetBbipForecastByItemsV1Resp'
+          description: Ok
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка валидации
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка авторизации
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка доступа
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Объявление не найдено
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка обработки запроса
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Внутренняя ошибка сервиса
+      security:
+      - AuthorizationCode:
+        - items:apply_bbip
+      - ClientCredentials: []
+      summary: BBIP. Прогноз продвижения
+      tags:
+      - Promotion_BBIP
+  /promotion/v1/items/services/bbip/orders/create:
+    parameters:
+    - $ref: '#/components/parameters/AuthHeader'
+    - $ref: '#/components/parameters/XIsEmployee'
+    - $ref: '#/components/parameters/XEmployeeOf'
+    put:
+      description: 'Создать заявку на подключение услуг продвижения.
+
+
+        Создание заявки для набора объявлений возможно только в случае если ни по одному из объявлений не возникло ошибок.
+
+
+        При успешном создании заявки система возвращает `orderId` (идентификатор заявки),
+
+        на основе которого можно проверять как статус заявки, так и статус подключения услуг по объявлениям.
+
+
+        **Rate limit:** 10 RPM
+
+        '
+      operationId: create_bbip_order_for_items_v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderBbipForItemsV1Req'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderBbipForItemsV1Resp'
+          description: Ok
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка валидации
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка авторизации
+        '402':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotEnoughMoneyError'
+          description: Недостаточно средств
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка доступа
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Объявление не найдено
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка обработки запроса
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Внутренняя ошибка сервиса
+      security:
+      - AuthorizationCode:
+        - items:apply_bbip
+      - ClientCredentials: []
+      summary: BBIP. Подключение услуги продвижения
+      tags:
+      - Promotion_BBIP
+  /promotion/v1/items/services/bbip/suggests/get:
+    parameters:
+    - $ref: '#/components/parameters/AuthHeader'
+    - $ref: '#/components/parameters/XIsEmployee'
+    - $ref: '#/components/parameters/XEmployeeOf'
+    post:
+      description: 'Получение доступных вариантов бюджета для продвижения
+
+
+        **Rate limit:** 100 RPM
+
+        '
+      operationId: get_bbip_suggests_by_items_v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetBbipSuggestsV1Req'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetBbipSuggestsV1Resp'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка валидации
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка авторизации
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка доступа
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Объявление не найдено
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка обработки запроса
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Внутренняя ошибка сервиса
+      security:
+      - AuthorizationCode:
+        - items:apply_bbip
+      - ClientCredentials: []
+      summary: BBIP. Варианты бюджета продвижения
+      tags:
+      - Promotion_BBIP
+components:
+  schemas:
+    GetBbipForecastByItemsV1Req:
+      properties:
+        items:
+          description: Данные по объявлениям для запроса прогноза
+          items:
+            $ref: '#/components/schemas/BbipForecastRequestByItemV1'
+          maxItems: 100
+          minItems: 1
+          type: array
+      required:
+      - items
+      type: object
+    GetBbipSuggestsV1Req:
+      properties:
+        itemIds:
+          description: Идентификаторы объявлений
+          items:
+            format: int64
+            type: integer
+          maxItems: 100
+          minItems: 1
+          type: array
+      type: object
+    BbipSuggestByItemV1:
+      description: Вариант бюджета продвижения по объявлению
+      properties:
+        budgets:
+          items:
+            $ref: '#/components/schemas/BbipSuggestBudgetV1'
+          type: array
+        duration:
+          $ref: '#/components/schemas/BbipSuggestDurationRangeV1'
+        itemId:
+          description: Идентификатор объявления
+          example: 2
+          format: int64
+          type: integer
+      required:
+      - itemId
+      - duration
+      - budgets
+      type: object
+    BbipOrderByItemV1:
+      description: Заявка на подключение услуг продвижения BBIP по объявлению
+      properties:
+        duration:
+          description: Период действия продвижения в днях
+          example: 7
+          type: integer
+        itemId:
+          description: Идентификатор объявления
+          format: int64
+          type: integer
+        oldPrice:
+          description: Общая ценность продвижения за один день (в копейках)
+          example: 10000
+          type: integer
+        price:
+          description: Стоимость продвижения за один день (в копейках)
+          example: 10000
+          type: integer
+      required:
+      - itemId
+      - duration
+      - oldPrice
+      - price
+      type: object
+    BbipForecastByItemV1:
+      description: Прогноз продвижения по объявлению
+      properties:
+        itemId:
+          description: Идентификатор объявления
+          example: 2
+          format: int64
+          type: integer
+        max:
+          description: Ожидаемый максимальный прирост просмотров
+          example: 336
+          type: integer
+        min:
+          description: Ожидаемый минимальный прирост просмотров
+          example: 35
+          type: integer
+        totalOldPrice:
+          description: Общая ценность продвижения за весь период до применения скидок и акций (в копейках)
+          example: 26166
+          type: integer
+        totalPrice:
+          description: Общая стоимость продвижения за весь период (в копейках)
+          example: 26166
+          type: integer
+      required:
+      - itemId
+      - min
+      - max
+      - totalOldPrice
+      - totalPrice
+      type: object
+    BbipSuggestDurationRangeV1:
+      description: Вилка доступных периодов для продвижения в днях
+      properties:
+        from:
+          description: Минимальное кол-во дней для продвижения
+          example: 1
+          type: integer
+        recommended:
+          description: Рекомендуемое кол-во дней для продвижения
+          example: 5
+          type: integer
+        to:
+          description: Максимальное кол-во дней для продвижения
+          example: 7
+          type: integer
+      required:
+      - from
+      - to
+      type: object
+    BbipForecastRequestByItemV1:
+      properties:
+        duration:
+          description: Период в днях, для которого запрашивается прогноз
+          example: 7
+          type: integer
+        itemId:
+          description: Идентификатор объявления
+          format: int64
+          type: integer
+        oldPrice:
+          description: Общая ценность продвижения за один день (в копейках)
+          example: 10000
+          type: integer
+        price:
+          description: Стоимость продвижения за один день (в копейках)
+          example: 10000
+          type: integer
+      required:
+      - itemId
+      - duration
+      - oldPrice
+      - price
+      type: object
+    CommonError:
+      properties:
+        details:
+          description: Информация об ошибках в привязке к полям
+          items:
+            properties:
+              message:
+                description: Информация об ошибке
+                type: string
+              path:
+                description: Путь к полю
+                type: string
+              source:
+                description: Источник значения
+                enum:
+                - header
+                - url
+                - query
+                - body
+                type: string
+              value:
+                description: Значение поля в строковом представление
+                nullable: true
+                type: string
+            required:
+            - source
+            - path
+            - message
+            type: object
+          nullable: true
+          type: array
+        message:
+          description: Сообщение об ошибке
+          example: Validation error
+          type: string
+      required:
+      - message
+      type: object
+    GetBbipSuggestsV1Resp:
+      properties:
+        errors:
+          description: Информация об ошибках получения варианта бюджета
+          items:
+            $ref: '#/components/schemas/ErrorByItemV1'
+          type: array
+        items:
+          description: Предлагаемые варианты бюджетов по каждому объявлению
+          items:
+            $ref: '#/components/schemas/BbipSuggestByItemV1'
+          type: array
+      required:
+      - items
+      - errors
+      type: object
+    GetBbipForecastByItemsV1Resp:
+      properties:
+        errors:
+          description: Информация об ошибках по объявлениям
+          items:
+            $ref: '#/components/schemas/ErrorByItemV1'
+          type: array
+        items:
+          description: Прогноз по каждому объявлению
+          items:
+            $ref: '#/components/schemas/BbipForecastByItemV1'
+          type: array
+        totalPrice:
+          description: Общая стоимость по всем объявлениям (в копейках)
+          type: integer
+      required:
+      - items
+      - errors
+      type: object
+    ErrorByItemV1:
+      description: Информация об ошибке выполнения операции по объявлению
+      properties:
+        errorCode:
+          description: Код ошибки
+          example: 1005
+          format: int64
+          type: integer
+        errorText:
+          description: Текст ошибки
+          example: Услуга недоступна для объявлений с типом Резюме
+          type: string
+        itemId:
+          description: Идентификатор объявления
+          example: 2
+          format: int64
+          type: integer
+      required:
+      - itemId
+      - errorCode
+      - errorText
+      type: object
+    NotEnoughMoneyError:
+      properties:
+        message:
+          description: Сообщение об ошибке
+          example: Validation error
+          type: string
+      required:
+      - message
+      type: object
+    OrderBbipForItemsV1Resp:
+      properties:
+        errors:
+          description: Информация об ошибках по объявлениям
+          items:
+            $ref: '#/components/schemas/ErrorByItemV1'
+          type: array
+        orderId:
+          description: Идентификатор созданной заявки на подключение услуг продвижения
+          format: uuid
+          nullable: true
+          type: string
+      required:
+      - errors
+      type: object
+    BbipSuggestBudgetV1:
+      description: Объединённый вариант бюджета продвижения по набору объявлений
+      properties:
+        isRecommended:
+          description: Рекомендуемый вариант бюджета
+          type: boolean
+        oldPrice:
+          description: Общая ценность продвижения за один день до применения скидок и акций (в копейках)
+          example: 10000
+          format: int64
+          type: integer
+        price:
+          description: Стоимость продвижения за один день (в копейках)
+          example: 10000
+          format: int64
+          type: integer
+      required:
+      - price
+      - oldPrice
+      type: object
+    OrderBbipForItemsV1Req:
+      properties:
+        items:
+          description: Заявки на подключение BBIP по отдельным объявлениям
+          items:
+            $ref: '#/components/schemas/BbipOrderByItemV1'
+          maxItems: 100
+          minItems: 1
+          type: array
+      required:
+      - items
+      type: object
+  parameters:
+    XIsEmployee:
+      deprecated: true
+      description: 'Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, "true"\\"false").
+
+        '
+      in: header
+      name: X-Is-Employee
+      schema:
+        type: string
+    XEmployeeOf:
+      description: Идентификатор компании, от имени которой работает сотрудник
+      in: header
+      name: X-Employee-Of
+      schema:
+        minimum: 1
+        nullable: true
+        type: integer
+    AuthHeader:
+      description: Токен для авторизации
+      example: Bearer ACCESS_TOKEN
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    AuthorizationCode:
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://avito.ru/oauth
+          scopes:
+            ah:access: Взаимодействие с иерархией аккаунтов
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2
+    ClientCredentials:
+      description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2

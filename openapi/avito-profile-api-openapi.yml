@@ -1,0 +1,405 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: supportautoload@avito.ru
+  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+    '
+  title: Иерархия Аккаунтов Access profile API
+  version: '1'
+servers:
+- url: https://api.avito.ru/
+tags:
+- description: 'С помощью API данного раздела вы можете получать актуальную информацию о клиентах агентства.
+
+
+    ### Типы авторизации
+
+
+    Для использования данного API запрос должен быть авторизован.
+
+    API Авито Promo использует следующие механизмы авторизации:
+
+
+    <!-- ReDoc-Inject: <security-definitions> -->
+
+    '
+  name: profile
+  x-displayName: Кабинет агентства
+paths:
+  /api/1/agency/clients:
+    post:
+      description: "Данный метод позволяет получить список клиентов агентства с дополнительной информацией о них.\n\n### Параметры тела запроса\n\n- `limit` — инструмент пагинации, ограничивает количество клиентов в ответе (максимум 100).\n- `offset` — инструмент пагинации, выполняет смещение, с которого начинается выборка клиентов (по умолчанию 0).\n- `extra` — настройка дополнительной информации, если нужно включить её в ответ.\n\n#### Дополнительная информация о клиентах\n\nМожно включить в список клиентов дополнительную информацию о них,\n  установив в `true` необходимые опции `extra`:\n\n- `balance` — текущий баланс Кошелька клиента.\n- `subscription` — текущая подписка клиента.\n- `advance` — остаток аванса тарифа клиента, если есть.\n- `statistics` — статистика клиента (расходы, количество объявлений, просмотров и контактов).\n\n### Успешный ответ\n\nМетод возвращает назад список клиентов `result.clients` и общее количество клиентов агентства `result.total`.\n\n#### Клиент\n\n- `clientId` — идентификатор аккаунта клиента, прикреплённого к агентству.\n- `mainUserId` — идентификатор принявшего приглашение клиента\n  (возвращается только для связи по рекламной модели).\n- `name` — наименование клиента.\n- `status` — статус клиента: `active` — активный, `new` — новый клиент, ещё не принял приглашение агентства.\n- `linkType` — тип связи клиента с агентством: `adv` — по рекламной, `trx` — по транзакционной модели.\n- `linkTime` — время прикрепления клиента к агентству в формате RFC3339.\n\nЕсли был запрошен текущий баланс Кошелька клиента,\n  то также возвращается сумма баланса `balance.amount` в копейках.\n\nЕсли была запрошена текущая подписка клиента,\n  то также возвращается информация `subscription` со следующими данными:\n\n- `category` — категория подписки клиента.\n- `level` — уровень подписки клиента.\n- `isActive` — активна (оплачена) ли подписка клиента.\n- `expiredTo` — к какому времени закончится текущий период активной подписки клиента.\n\nЕсли был запрошен остаток аванса тарифа клиента,\n  то также возвращается сумма аванса `advance.amount` в копейках.\n\nЕсли была запрошена статистика клиента, то также возвращается информация `statistics` со следующими данными:\n\n- `spendings` — сумма расходов клиента в копейках.\n- `activeItems` — количество объявлений клиента.\n- `views` — количество просмотров объявлений клиента.\n- `clicks` — количество контактов клиента.\n\n#### Категория подписки\n\n- `auto` — Транспорт.\n- `realty` — Недвижимость.\n- `job` — Работа.\n- `services` — Услуги.\n- `goods` — Товары.\n\n#### Уровень подписки\n\n- `basic` — базовая подписка.\n- `extended` — расширенная подписка.\n- `maximal` — максимальная подписка.\n- `ultra` — ультра-подписка.\n"
+      operationId: agencyClients
+      parameters:
+      - $ref: '#/components/parameters/authHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              additionalProperties: false
+              properties:
+                extra:
+                  additionalProperties: false
+                  description: Настройка дополнительной информации о клиентах
+                  properties:
+                    advance:
+                      $ref: '#/components/schemas/toggle'
+                    balance:
+                      $ref: '#/components/schemas/toggle'
+                    statistics:
+                      $ref: '#/components/schemas/toggle'
+                    subscription:
+                      $ref: '#/components/schemas/toggle'
+                  type: object
+                limit:
+                  description: Ограничение количества сущностей в выборке
+                  example: 100
+                  maximum: 100
+                  minimum: 1
+                  type: integer
+                offset:
+                  $ref: '#/components/schemas/offset'
+              required:
+              - limit
+              type: object
+        description: Тело запроса
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: false
+                properties:
+                  result:
+                    additionalProperties: false
+                    description: Информация о клиентах
+                    properties:
+                      clients:
+                        description: Список клиентов
+                        items:
+                          additionalProperties: false
+                          description: Информация о клиенте
+                          properties:
+                            advance:
+                              additionalProperties: false
+                              description: Информация о балансе аванса тарифа клиента
+                              properties:
+                                amount:
+                                  $ref: '#/components/schemas/amountKopecks'
+                              required:
+                              - amount
+                              type: object
+                            balance:
+                              additionalProperties: false
+                              description: Информация о балансе Кошелька клиента
+                              properties:
+                                amount:
+                                  $ref: '#/components/schemas/amountKopecks'
+                              required:
+                              - amount
+                              type: object
+                            clientId:
+                              $ref: '#/components/schemas/id'
+                            linkTime:
+                              $ref: '#/components/schemas/dateTime'
+                            linkType:
+                              $ref: '#/components/schemas/linkType'
+                            mainUserId:
+                              $ref: '#/components/schemas/id'
+                            name:
+                              description: Наименование клиента
+                              example: Клиент
+                              type: string
+                            statistics:
+                              additionalProperties: false
+                              description: Статистика клиента
+                              properties:
+                                activeItems:
+                                  $ref: '#/components/schemas/counter'
+                                clicks:
+                                  $ref: '#/components/schemas/counter'
+                                spendings:
+                                  $ref: '#/components/schemas/amountKopecks'
+                                views:
+                                  $ref: '#/components/schemas/counter'
+                              required:
+                              - activeItems
+                              - spendings
+                              - views
+                              - clicks
+                              type: object
+                            status:
+                              description: Статус клиента
+                              enum:
+                              - new
+                              - active
+                              example: active
+                              type: string
+                            subscription:
+                              additionalProperties: false
+                              description: Информация о подписке клиента
+                              properties:
+                                category:
+                                  description: Категория подписки клиента
+                                  enum:
+                                  - auto
+                                  - realty
+                                  - services
+                                  - job
+                                  - goods
+                                  example: goods
+                                  type: string
+                                expiredTo:
+                                  $ref: '#/components/schemas/dateTime'
+                                isActive:
+                                  $ref: '#/components/schemas/toggle'
+                                level:
+                                  description: Уровень подписки клиента
+                                  enum:
+                                  - basic
+                                  - extended
+                                  - maximal
+                                  - ultra
+                                  example: maximal
+                                  type: string
+                              required:
+                              - category
+                              - level
+                              - isActive
+                              type: object
+                          required:
+                          - clientId
+                          - name
+                          - status
+                          - linkType
+                          - linkTime
+                          type: object
+                        type: array
+                      total:
+                        $ref: '#/components/schemas/counter'
+                    required:
+                    - total
+                    - clients
+                    type: object
+                  status:
+                    $ref: '#/components/schemas/okResponseStatus'
+                required:
+                - status
+                - result
+                type: object
+          description: Успешный ответ
+        '400':
+          $ref: '#/components/responses/badRequestFieldsWithStatus'
+        '401':
+          $ref: '#/components/responses/unauthorizedWithStatus'
+        '403':
+          $ref: '#/components/responses/forbiddenWithStatus'
+        '429':
+          $ref: '#/components/responses/defaultTooManyRequests'
+        '500':
+          $ref: '#/components/responses/defaultInternalServerError'
+      security:
+      - ClientCredentials: []
+      summary: Получение списка клиентов
+      tags:
+      - profile
+components:
+  schemas:
+    errorMessage:
+      description: Сообщение об ошибке
+      example: Ошибка
+      type: string
+    errorResult:
+      additionalProperties: false
+      description: Результат с ошибкой
+      properties:
+        message:
+          $ref: '#/components/schemas/errorMessage'
+      required:
+      - message
+      type: object
+    defaultErrorResponse:
+      additionalProperties: false
+      properties:
+        error:
+          additionalProperties: false
+          description: Ошибка
+          properties:
+            code:
+              description: Код ошибки
+              example: 1001
+              type: integer
+            message:
+              $ref: '#/components/schemas/errorMessage'
+          required:
+          - code
+          - message
+          type: object
+      required:
+      - error
+      type: object
+    offset:
+      description: Смещение, с которого начинается выборка
+      example: 10
+      minimum: 0
+      type: integer
+    toggle:
+      description: Переключатель
+      example: true
+      type: boolean
+    linkType:
+      description: Тип связи с клиентом
+      enum:
+      - adv
+      - trx
+      example: adv
+      type: string
+    errorFields:
+      description: Ошибки валидации
+      items:
+        additionalProperties: false
+        description: Ошибка валидации поля
+        properties:
+          field:
+            $ref: '#/components/schemas/errorField'
+          message:
+            $ref: '#/components/schemas/errorMessage'
+        required:
+        - field
+        - message
+        type: object
+      type: array
+    dateTime:
+      description: Дата в формате RFC3339
+      example: '2025-05-02T11:00:00+03:00'
+      format: date-time
+      type: string
+    amountKopecks:
+      description: Сумма в копейках
+      example: 100000
+      type: integer
+    forbiddenResponseStatus:
+      description: Статус ответа
+      enum:
+      - forbidden
+      example: forbidden
+      type: string
+    errorField:
+      description: Наименование поля
+      example: userId
+      type: string
+    unauthorizedResponseStatus:
+      description: Статус ответа
+      enum:
+      - unauthorized
+      example: unauthorized
+      type: string
+    badRequestResponseStatus:
+      description: Статус ответа
+      enum:
+      - bad-request
+      example: bad-request
+      type: string
+    counter:
+      description: Счетчик
+      example: 123
+      type: integer
+    id:
+      description: Идентификатор
+      example: 123456
+      minimum: 1
+      type: integer
+    okResponseStatus:
+      description: Статус результата ответа
+      enum:
+      - ok
+      example: ok
+      type: string
+  responses:
+    badRequestFieldsWithStatus:
+      content:
+        application/json:
+          schema:
+            additionalProperties: false
+            properties:
+              result:
+                $ref: '#/components/schemas/errorFields'
+              status:
+                $ref: '#/components/schemas/badRequestResponseStatus'
+            required:
+            - status
+            - result
+            type: object
+      description: Неверный запрос
+    defaultTooManyRequests:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Превышено количество запросов
+    forbiddenWithStatus:
+      content:
+        application/json:
+          schema:
+            additionalProperties: false
+            properties:
+              result:
+                $ref: '#/components/schemas/errorResult'
+              status:
+                $ref: '#/components/schemas/forbiddenResponseStatus'
+            required:
+            - status
+            - result
+            type: object
+      description: Действие запрещено
+    unauthorizedWithStatus:
+      content:
+        application/json:
+          schema:
+            additionalProperties: false
+            properties:
+              result:
+                $ref: '#/components/schemas/errorResult'
+              status:
+                $ref: '#/components/schemas/unauthorizedResponseStatus'
+            required:
+            - status
+            - result
+            type: object
+      description: Требуется авторизация
+    defaultInternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Ошибка сервера
+  parameters:
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
+  securitySchemes:
+    AuthorizationCode:
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://avito.ru/oauth
+          scopes:
+            ah:access: Взаимодействие с иерархией аккаунтов
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2
+    ClientCredentials:
+      description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2

@@ -1,0 +1,564 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: supportautoload@avito.ru
+  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+    '
+  title: Иерархия Аккаунтов Access Promotion API
+  version: '1'
+servers:
+- url: https://api.avito.ru/
+tags:
+- description: 'Общее API для чтения информации об услугах продвижения.
+
+    '
+  name: Promotion
+  x-displayName: Общие методы для работы с услугами продвижения
+paths:
+  /promotion/v1/items/services/dict:
+    parameters:
+    - $ref: '#/components/parameters/AuthHeader'
+    post:
+      description: 'Получение словаря типов услуг продвижения
+
+
+        **Rate limit:** 100 RPM
+
+        '
+      operationId: get_dict_of_services_v1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDictOfServicesV1Resp'
+          description: Ok
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка валидации
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка авторизации
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка доступа
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка обработки запроса
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Внутренняя ошибка сервиса
+      security:
+      - AuthorizationCode:
+        - items:info
+      - ClientCredentials: []
+      summary: Словарь типов услуг продвижения
+      tags:
+      - Promotion
+  /promotion/v1/items/services/get:
+    parameters:
+    - $ref: '#/components/parameters/AuthHeader'
+    - $ref: '#/components/parameters/XIsEmployee'
+    - $ref: '#/components/parameters/XEmployeeOf'
+    post:
+      description: "Получение списка активных услуг продвижения по объявлениям\n \n**Rate limit:** 100 RPM\n"
+      operationId: get_services_by_items_v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetServicesByItemsV1Req'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetServicesByItemsV1Resp'
+          description: Ok
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка валидации
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка авторизации
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка доступа
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Объявления не найдены
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка обработки запроса
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Внутренняя ошибка сервиса
+      security:
+      - AuthorizationCode:
+        - items:info
+      - ClientCredentials: []
+      summary: Список услуг продвижения
+      tags:
+      - Promotion
+  /promotion/v1/items/services/orders/get:
+    parameters:
+    - $ref: '#/components/parameters/AuthHeader'
+    - $ref: '#/components/parameters/XIsEmployee'
+    - $ref: '#/components/parameters/XEmployeeOf'
+    post:
+      description: 'Получение списка заявок на подключение услуг.
+
+
+        **Rate limit:** 100 RPM
+
+        '
+      operationId: list_orders_by_user_v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListOrdersByUserV1Req'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrdersByUserV1Resp'
+          description: Ok
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка валидации
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка доступа
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Объявление не найдено
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка обработки запроса
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Внутренняя ошибка сервиса
+      security:
+      - AuthorizationCode:
+        - items:apply_bbip
+      - ClientCredentials: []
+      summary: Список заявок
+      tags:
+      - Promotion
+  /promotion/v1/items/services/orders/status:
+    parameters:
+    - $ref: '#/components/parameters/AuthHeader'
+    - $ref: '#/components/parameters/XIsEmployee'
+    - $ref: '#/components/parameters/XEmployeeOf'
+    post:
+      description: 'Получение статуса заявки на подключение услуг продвижения
+
+
+        **Rate limit:** 100 RPM
+
+        '
+      operationId: get_order_status_v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetOrderStatusV1Req'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrderStatusV1Resp'
+          description: Ok
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка валидации
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка авторизации
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка доступа
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Объявление не найдено
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Ошибка обработки запроса
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: Внутренняя ошибка сервиса
+      security:
+      - AuthorizationCode:
+        - items:apply_bbip
+      - ClientCredentials: []
+      summary: Статус заявки
+      tags:
+      - Promotion
+components:
+  schemas:
+    ServicesByItemV1:
+      description: Информация об услуге продвижения
+      properties:
+        itemId:
+          description: Идентификатор объявления
+          format: int64
+          type: integer
+        services:
+          description: Список услуг по объявлению
+          items:
+            $ref: '#/components/schemas/ServiceV1'
+          type: array
+      type: object
+    OrderBrief:
+      description: Информация о заявке на подключение услуг продвижения
+      properties:
+        createdAt:
+          description: Дата создания заявки
+          example: '2025-11-10T13:46:15.000Z'
+          format: date-time
+          type: string
+        id:
+          description: Идентификатор заявки
+          format: uuid
+          type: string
+        status:
+          $ref: '#/components/schemas/OrderStatus'
+      type: object
+    GetOrderStatusV1Resp:
+      properties:
+        errors:
+          description: Информация об ошибках получения данных по объявлениям
+          items:
+            $ref: '#/components/schemas/ErrorByItemV1'
+          type: array
+        items:
+          description: Статус заявки на подключение услуги по объявлениям
+          items:
+            $ref: '#/components/schemas/OrderStatusByItemV1'
+          type: array
+        orderId:
+          description: Идентификатор заявки на подключение услуг продвижения
+          format: uuid
+          type: string
+        status:
+          $ref: '#/components/schemas/OrderStatus'
+        totalPrice:
+          description: Общая стоимость заявки (в копейках)
+          example: 26166
+          type: integer
+      type: object
+    ServiceInfoV1:
+      description: Информация об услуге продвижения
+      properties:
+        isDeprecated:
+          description: Признак, что тип услуги устарел и более недоступен для подключения
+          type: boolean
+        name:
+          description: Наименование типа услуги
+          type: string
+        slug:
+          description: Идентификатор типа услуги
+          type: string
+      required:
+      - slug
+      - name
+      type: object
+    ListOrdersByUserV1Resp:
+      properties:
+        orders:
+          description: Список заявок на подключение услуг продвижения по объявлениям
+          items:
+            $ref: '#/components/schemas/OrderBrief'
+          type: array
+        pagination:
+          description: Данные для постраничного чтения
+          properties:
+            hasNextPage:
+              description: Признак наличия следующей страницы
+              type: boolean
+          required:
+          - hasNextPage
+          type: object
+      required:
+      - orders
+      - pagination
+      type: object
+    ServiceV1:
+      description: Информация об услуге продвижения
+      properties:
+        endDate:
+          description: Дата и время завершения продвижения
+          format: date-time
+          type: string
+        name:
+          description: Наименование услуги
+          type: string
+        slug:
+          description: Тип услуги
+          type: string
+        startDate:
+          description: Дата и время начала продвижения
+          format: date-time
+          type: string
+      type: object
+    OrderStatus:
+      description: "Статус заявки, возможные значения: \n- `unknown` - Неизвестный статус заявки\n- `initialized` - Заявка создана и инициализирована\n- `waiting` - Заявка ожидает выполнения\n- `in_process` - Заявка находится в обработке\n- `processed` - Обработка заявки завершена\n"
+      enum:
+      - unknown
+      - initialized
+      - waiting
+      - in_process
+      - processed
+      type: string
+    GetOrderStatusV1Req:
+      properties:
+        orderId:
+          description: Идентификатор заявки на подключение услуг продвижения
+          format: uuid
+          type: string
+      type: object
+    ListOrdersByUserV1Req:
+      properties:
+        pagination:
+          description: Данные для постраничного чтения
+          nullable: true
+          properties:
+            page:
+              default: 1
+              description: Номер страницы
+              format: int32
+              type: integer
+            perPage:
+              default: 20
+              description: Количество записей на странице
+              format: int32
+              maximum: 100
+              minimum: 1
+              type: integer
+          type: object
+      type: object
+    CommonError:
+      properties:
+        details:
+          description: Информация об ошибках в привязке к полям
+          items:
+            properties:
+              message:
+                description: Информация об ошибке
+                type: string
+              path:
+                description: Путь к полю
+                type: string
+              source:
+                description: Источник значения
+                enum:
+                - header
+                - url
+                - query
+                - body
+                type: string
+              value:
+                description: Значение поля в строковом представление
+                nullable: true
+                type: string
+            required:
+            - source
+            - path
+            - message
+            type: object
+          nullable: true
+          type: array
+        message:
+          description: Сообщение об ошибке
+          example: Validation error
+          type: string
+      required:
+      - message
+      type: object
+    GetServicesByItemsV1Resp:
+      properties:
+        errors:
+          description: Информация об ошибках получения варианта бюджета
+          items:
+            $ref: '#/components/schemas/ErrorByItemV1'
+          type: array
+        items:
+          description: Информация об услугах продвижения по объявлениям
+          items:
+            $ref: '#/components/schemas/ServicesByItemV1'
+          type: array
+      type: object
+    GetServicesByItemsV1Req:
+      properties:
+        itemIds:
+          description: Идентификаторы объявлений
+          items:
+            format: int64
+            type: integer
+          maxItems: 100
+          minItems: 1
+          type: array
+      type: object
+    ErrorByItemV1:
+      description: Информация об ошибке выполнения операции по объявлению
+      properties:
+        errorCode:
+          description: Код ошибки
+          example: 1005
+          format: int64
+          type: integer
+        errorText:
+          description: Текст ошибки
+          example: Услуга недоступна для объявлений с типом Резюме
+          type: string
+        itemId:
+          description: Идентификатор объявления
+          example: 2
+          format: int64
+          type: integer
+      required:
+      - itemId
+      - errorCode
+      - errorText
+      type: object
+    OrderStatusByItemV1:
+      description: Информация об услуге продвижения внутри заявки на подключение
+      properties:
+        errorReason:
+          description: Описание ошибки
+          nullable: true
+          type: string
+        itemId:
+          description: Идентификатор объявления
+          format: int64
+          type: integer
+        price:
+          description: Цена услуги на момент создания задачи (в копейках)
+          format: int64
+          type: integer
+        slug:
+          description: Тип услуги
+          type: string
+        status:
+          $ref: '#/components/schemas/OrderStatus'
+      type: object
+    GetDictOfServicesV1Resp:
+      description: Список услуг
+      items:
+        $ref: '#/components/schemas/ServiceInfoV1'
+      type: array
+  parameters:
+    XIsEmployee:
+      deprecated: true
+      description: 'Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, "true"\\"false").
+
+        '
+      in: header
+      name: X-Is-Employee
+      schema:
+        type: string
+    XEmployeeOf:
+      description: Идентификатор компании, от имени которой работает сотрудник
+      in: header
+      name: X-Employee-Of
+      schema:
+        minimum: 1
+        nullable: true
+        type: integer
+    AuthHeader:
+      description: Токен для авторизации
+      example: Bearer ACCESS_TOKEN
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    AuthorizationCode:
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://avito.ru/oauth
+          scopes:
+            ah:access: Взаимодействие с иерархией аккаунтов
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2
+    ClientCredentials:
+      description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2

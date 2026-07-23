@@ -1,0 +1,1215 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: supportautoload@avito.ru
+  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+    '
+  title: Иерархия Аккаунтов Access DeliverySandbox API
+  version: '1'
+servers:
+- url: https://api.avito.ru/
+tags:
+- name: DeliverySandbox
+  x-displayName: Песочница
+  x-subdivName: Песочница
+paths:
+  /delivery-sandbox/v1/cancelAnnouncement:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    post:
+      description: 'Метод доступен только в Песочнице.
+
+
+        Описание работы анонсов [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/anonsy).
+
+
+        Метод запускает процесс отмены тестового анонса.
+
+        При успешном выполнении в ответе должен быть статус success. По предоставленному вами url (параметр options.urlToCancelAnnouncement)
+
+        должно прийти сообщение об отмене анонса.
+
+
+        ### Вариант использования
+
+        Метод призван облегчить тестирование интеграции вашего API по обмену анонсами с Avito.
+
+        В метод необходимо передать ID тестового анонса, созданного ранее посредством [метода создания тестового анонса](#operation/v1createAnnouncement).
+
+
+        ### Описание ошибок
+
+        | http code |   error code                |
+
+        |-----------|-----------------------------|
+
+        |    200    | VALIDATION_ERROR            |
+
+        |    200    | ANNOUNCEMENT_NOT_FOUND      |
+
+        |    500    | INTERNAL_ERROR              |
+
+        '
+      operationId: v1cancelAnnouncement
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SandboxCancelAnnouncementRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SandboxCancelAnnouncementReply'
+          description: Successful
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SandboxCancelAnnouncementReply'
+          description: Error
+      security:
+      - ClientCredentials: []
+      summary: Отправка события об отмене тестового анонса
+      tags:
+      - DeliverySandbox
+  /delivery-sandbox/v1/cancelParcel:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    post:
+      description: 'Метод доступен только в Песочнице.
+
+
+        Метод инициирует [запрет приёма посылки](#operation/prohibitOrderAcceptance) в службе доставки и, если он состоялся, то посылка отменяется.
+
+        Отменить можно только те посылки, которые были созданы с помощью [метода создания тестовой посылки](#operation/v1createParcel).
+
+
+        По умолчанию запрос на запрет приема посылки будет отправлен в мок. Чтобы изменить это поведение и получить запрос у себя в системе,
+
+        воспользуйтесь параметром `options.cancelationUrl`.
+
+        '
+      operationId: v1CancelParcel
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelSandxobParcelRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelSandboxParcelReply'
+          description: Successful
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelSandboxParcelError'
+          description: Error
+      security:
+      - ClientCredentials: []
+      summary: Отмена тестовой посылки
+      tags:
+      - DeliverySandbox
+  /delivery-sandbox/v1/changeParcel:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    post:
+      description: 'Метод доступен только в Песочнице.
+
+
+        Описание механики изменения посылок [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/izmenenie_svoystv_posylok).
+
+
+        Метод создаёт заявку на изменение данных посылки. Например, на изменение ФИО и телефона получателя.
+
+
+        По умолчанию запрос на создание заявки не будет отправлен в вашу систему. Чтобы это произошло, необходимо
+
+        заполнить параметр options.changeParcelUrl.
+
+        '
+      operationId: v1changeParcel
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeParcelRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangeParcelReply'
+          description: Successful
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangeParcelError'
+          description: Error
+      security:
+      - ClientCredentials: []
+      summary: Создание заявки на изменение данных тестовой посылки
+      tags:
+      - DeliverySandbox
+  /delivery-sandbox/v1/createAnnouncement:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    post:
+      description: "Метод доступен только в Песочнице.\n\nОписание работы анонсов [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/anonsy).\n\nМетод запускает процесс создания тестового анонса.\nПри успешном выполнении в ответе должен быть статус success, а предоставленный анонс должен прийти по указанному \nвами URL (параметр options.urlToSendAnnouncement).\n\nПри формировании тестового анонса необходимо указать ID тестовых посылок (параметр packages.parcelIDs). \nID тестовых посылок можно узнать при помощи двух методов [создания тестовой посылки](#operation/v1createParcel)\nи [получения ее ID](#operation/v1getRegisteredParcelID). Обращаем внимание, что для тестирования приема входящих\nанонсов необходимо создать кросс-доставочную посылку (в параметре options.xDelivery.leg выставить флаг X_DELIVERY_LAST_LEG).\n\n### Вариант использования\nМетод призван облегчить тестирование интеграции вашего API по обмену анонсами с Avito.\nВ метод необходимо передать ID посылки, а для этого её нужно создать. Таким образом, шаги будут выглядеть примерно так:\n<ol>\n  <li>Вызываем метод создания тестовой посылки. Получаем orderID.</li>\n  <li>С полученным orderID вызываем метод получения ID тестовой посылки.</li>\n  <li>С полученным ID посылки делаем запрос на создание анонса.</li>\n</ol>\n\n### Описание ошибок\n| http code |   error code       |\n|-----------|--------------------|\n|    200    | VALIDATION_ERROR   |\n|    200    | OBJECT_EXISTS      |\n|    500    | INTERNAL_ERROR     |\n"
+      operationId: v1createAnnouncement
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SandboxCreateAnnouncementRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SandboxCreateAnnouncementReply'
+          description: Successful
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SandboxCreateAnnouncementReply'
+          description: Error
+      security:
+      - ClientCredentials: []
+      summary: Создание тестового анонса
+      tags:
+      - DeliverySandbox
+  /delivery-sandbox/v1/getAnnouncementEvent:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    post:
+      description: "Метод доступен только в Песочнице.\n\nОписание работы анонсов [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/anonsy).\n\nМетод позволяет проверить последнее зарегистрированное событие по анонсу.\n\n### Вариант использования\nМетод призван облегчить тестирование интеграции вашего api по обмену анонсами с Avito.\nМетод можно использовать в связке с [методом отмены анонса](#operation/v1cancelAnnouncement) для проверки того, что \nпоследнее событие тестового анонса изменилось.\n\n### Описание ошибок\n| http code |   error code                |\n|-----------|-----------------------------|\n|    200    | VALIDATION_ERROR            |\n|    200    | ANNOUNCEMENT_NOT_FOUND      |\n|    500    | INTERNAL_ERROR              |\n"
+      operationId: v1getAnnouncementEvent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SandboxGetAnnouncementEventRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SandboxGetAnnouncementEventReply'
+          description: Successful
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SandboxGetAnnouncementEventReply'
+          description: Error
+      security:
+      - ClientCredentials: []
+      summary: Получение последнего события тестового анонса
+      tags:
+      - DeliverySandbox
+  /delivery-sandbox/v1/getChangeParcelInfo:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    post:
+      description: 'Метод доступен только в Песочнице.
+
+
+        Описание механики изменения посылок [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/izmenenie_svoystv_posylok).
+
+
+        Метод возвращает информацию о заявке на изменение данных тестовой посылки. Информацию можно получить только по тем заявкам
+
+        которые были созданы с помощью [метода создания заявки на изменение данных](#operation/v1changeParcel).
+
+        '
+      operationId: v1getChangeParcelInfo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetChangeParcelInfoRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetChangeParcelInfoReply'
+          description: Successful
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetChangeParcelInfoError'
+          description: Error
+      security:
+      - ClientCredentials: []
+      summary: Получение информации об изменении тестовой посылки
+      tags:
+      - DeliverySandbox
+  /delivery-sandbox/v1/getParcelInfo:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    post:
+      description: 'Метод доступен только в Песочнице.
+
+
+        Метод возвращает информацию о тестовой посылке. Информацию можно получить только по тем посылкам
+
+        которые были созданы с помощью [метода создания тестовой посылки](#operation/v1createParcel).
+
+        '
+      operationId: v1getParcelInfo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetSandboxParcelInfoRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSandboxParcelInfoReply'
+          description: Successful
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSandboxParcelInfoError'
+          description: Error
+      security:
+      - ClientCredentials: []
+      summary: Получение информации о тестовой посылке
+      tags:
+      - DeliverySandbox
+  /delivery-sandbox/v1/getRegisteredParcelID:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    post:
+      description: 'Метод доступен только в Песочнице.
+
+
+        Метод возвращает идентификатор зарегистрированной тестовой посылки, созданной с помощью
+
+        [метода создания тестовой посылки](#operation/v1createParcel).
+
+
+        Вариант использования метода см. в описании [метода создания тестовой посылки](#operation/v1createParcel)
+
+
+        ### Описание ошибок
+
+        | http code |   error code       |       error message          |
+
+        |-----------|--------------------|------------------------------|
+
+        |    200    | NOT_FOUND          | parcel not found             |
+
+        |    200    | NOT_REGISTERED     | parcel not registered yet    |
+
+        |    200    | VALIDATION_ERROR   | wrong orderID format         |
+
+        |    500    | INTERNAL_ERROR     | get parcel id failed         |
+
+        '
+      operationId: v1getRegisteredParcelID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetRegisteredParcelIDRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetRegisteredParcelIDReply'
+          description: Successful
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetRegisteredParcelIDError'
+          description: Error
+      security:
+      - ClientCredentials: []
+      summary: Получение ID зарегистрированной тестовой посылки
+      tags:
+      - DeliverySandbox
+  /delivery-sandbox/v2/createParcel:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    post:
+      description: 'Метод доступен только в Песочнице.
+
+
+        Метод запускает процесс создания тестовой посылки.
+
+
+        Описание механики работы и дополнительные требования см. [здесь](#info/sozdanie_testovyh_posylok).
+
+
+        ### Описание ошибок
+
+        | http code |   error code       |       error message          |
+
+        |-----------|--------------------|------------------------------|
+
+        |    200    | UNKNOWN_PROVIDER   | unknown provider             |
+
+        |    200    | VALIDATION_ERROR   | invalid request              |
+
+        |    200    | LIMIT_REACHED      | create parcels limit reached |
+
+        |    500    | INTERNAL_ERROR     | create parcel error          |
+
+        '
+      operationId: CreateSandboxParcelV2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSandboxParcelV2'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateParcelReply'
+          description: Successful
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateSandboxParcelError'
+          description: Error
+      security:
+      - ClientCredentials: []
+      summary: Создание тестовой посылки
+      tags:
+      - DeliverySandbox
+components:
+  schemas:
+    SandboxCreateAnnouncementRequest:
+      properties:
+        announcementID:
+          description: Уникальный идентификатор анонса UUID V4.
+          type: string
+        announcementType:
+          description: Тип анонса.
+          enum:
+          - DELIVERY
+          - PICKUP
+          type: string
+        barcode:
+          description: Штрихкод анонса.
+          type: string
+        date:
+          description: Дата и время создания анонса (UTC).
+          format: date-time
+          type: string
+        options:
+          $ref: '#/components/schemas/SandboxCreateAnnouncementOptions'
+        packages:
+          description: Список грузомест.
+          items:
+            $ref: '#/components/schemas/SandboxCreateAnnouncementPackage'
+          type: array
+        receiver:
+          $ref: '#/components/schemas/SandboxCreateAnnouncementParticipant'
+        sender:
+          $ref: '#/components/schemas/SandboxCreateAnnouncementParticipant'
+      required:
+      - options
+      - announcementID
+      - barcode
+      - sender
+      - receiver
+      - announcementType
+      - date
+      - packages
+      type: object
+    CreateParcelCourierAddressDetails:
+      description: 'Детали адреса курьерской доставки.
+
+        '
+      properties:
+        flat:
+          description: Номер квартиры.
+          example: '23'
+          type: string
+        floor:
+          description: Номер этажа.
+          example: '4'
+          type: string
+        house:
+          description: Номер дома, корпуса, строения пользователя.
+          example: 20с2
+          type: string
+        porch:
+          description: Номер подъезда.
+          example: '2'
+          type: string
+      required:
+      - house
+      - porch
+      - floor
+      - flat
+    ChangeParcelRequest:
+      properties:
+        application:
+          $ref: '#/components/schemas/ChangeParcelRequestApplication'
+        options:
+          $ref: '#/components/schemas/ChangeParcelRequestOptions'
+        parcelID:
+          title: Идентификатор посылки.
+          type: string
+        type:
+          enum:
+          - changeReceiver
+          - prohibitParcelReceive
+          - extendParcelStorage
+          - prohibitParcelAcceptance
+          title: Тип заявки, которую необходимо зарегистрировать.
+          type: string
+      required:
+      - type
+      - parcelID
+      type: object
+    CreateSandboxV2Options:
+      properties:
+        registrationUrl:
+          description: На заданный URL будет отправлен запрос на регистрацию посылки
+          type: string
+      type: object
+    GetChangeParcelInfoReply:
+      properties:
+        data:
+          $ref: '#/components/schemas/GetChangeParcelInfoReplyData'
+        error:
+          $ref: '#/components/schemas/GetChangeParcelInfoError'
+      type: object
+    SandboxGetAnnouncementEventRequest:
+      properties:
+        announcementID:
+          description: Уникальный идентификатор анонса UUID V4.
+          type: string
+      required:
+      - announcementID
+      type: object
+    ChangeParcelReply:
+      properties:
+        data:
+          $ref: '#/components/schemas/ChangeParcelReplyData'
+        error:
+          $ref: '#/components/schemas/ChangeParcelError'
+      type: object
+    GetChangeParcelInfoError:
+      nullable: true
+      properties:
+        code:
+          enum:
+          - VALIDATION_ERROR
+          - INTERNAL_ERROR
+          - APPLICATION_NOT_FOUND
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      type: object
+    CreateParcelUserDeliveryTerminal:
+      properties:
+        id:
+          example: T1000
+          title: Номер терминала
+          type: string
+      title: Терминал
+      type: object
+    CreateSandboxParcelReceiverDelivery:
+      properties:
+        courier:
+          $ref: '#/components/schemas/CreateParcelDeliveryCourier'
+        terminal:
+          $ref: '#/components/schemas/CreateParcelUserDeliveryTerminal'
+      title: Данные по доставке
+      type: object
+    SandboxCreateAnnouncementParticipant:
+      properties:
+        delivery:
+          properties:
+            sortingCenter:
+              $ref: '#/components/schemas/SandboxCreateAnnouncementDeliveryPoint'
+            terminal:
+              $ref: '#/components/schemas/SandboxCreateAnnouncementDeliveryPoint'
+            type:
+              description: Тип пункта отправки/приема.
+              enum:
+              - TERMINAL
+              - SORTING_CENTER
+              type: string
+          required:
+          - type
+          type: object
+        email:
+          description: Электронная почта участника.
+          type: string
+        name:
+          description: Наименование участника доставки (отправителя/получателя).
+          type: string
+        phones:
+          description: Контактные телефоны.
+          items:
+            type: string
+          type: array
+        type:
+          description: Тип участника доставки (отправителя/получателя).
+          enum:
+          - 3PL
+          - ABD
+          type: string
+      required:
+      - type
+      - phones
+      - email
+      - name
+      - delivery
+      type: object
+    CreateParcelDeliveryCourier:
+      properties:
+        address:
+          $ref: '#/components/schemas/CreateParcelCourierAddress'
+        dateTimeInterval:
+          $ref: '#/components/schemas/CreateParcelCourierDateTimeInterval'
+        options:
+          $ref: '#/components/schemas/CreateParcelCourierOptions'
+      title: Данные по курьерской доставке
+      type: object
+    SandboxCreateAnnouncementOptions:
+      description: Опции анонса.
+      properties:
+        urlToSendAnnouncement:
+          description: URL, куда отправлять сформированный анонс.
+          type: string
+      required:
+      - urlToSendAnnouncement
+      type: object
+    CancelSandxobParcelRequest:
+      properties:
+        options:
+          $ref: '#/components/schemas/CancelSandboxParcelOptions'
+        parcelID:
+          type: string
+      required:
+      - parcelID
+      type: object
+    SandboxGetAnnouncementEventError:
+      nullable: true
+      properties:
+        code:
+          enum:
+          - INTERNAL_ERROR
+          - VALIDATION_ERROR
+          - ANNOUNCEMENT_NOT_FOUND
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    CreateParcelCourierAddress:
+      description: Адрес пользователя
+      properties:
+        addressRow:
+          description: Адрес, выбранный пользователем.
+          example: Москва, ул. Лесная, 20с2
+          type: string
+        coordinates:
+          $ref: '#/components/schemas/CreateParcelCourierCoordinates'
+        details:
+          $ref: '#/components/schemas/CreateParcelCourierAddressDetails'
+      required:
+      - addressRow
+      - details
+      - coordinates
+      type: object
+    GetRegisteredParcelIDReply:
+      properties:
+        data:
+          nullable: true
+          properties:
+            parcelID:
+              type: string
+          type: object
+        error:
+          $ref: '#/components/schemas/GetRegisteredParcelIDError'
+      type: object
+    GetChangeParcelInfoReplyData:
+      nullable: true
+      properties:
+        receiver:
+          properties:
+            name:
+              title: Новые ФИО получателя
+              type: string
+            phones:
+              items:
+                type: string
+              title: Новые телефоны получателя
+              type: array
+          type: object
+        status:
+          title: Текущий статус заявки
+          type: string
+      type: object
+    GetSandboxParcelInfoDimensions:
+      nullable: true
+      properties:
+        realHeight:
+          nullable: true
+          type: integer
+        realLength:
+          nullable: true
+          type: integer
+        realWeight:
+          nullable: true
+          type: integer
+        realWidth:
+          nullable: true
+          type: integer
+      title: Реальные весогабаритные параметры посылки
+      type: object
+    GetSandboxParcelInfoTerminals:
+      properties:
+        approximate:
+          title: Расчетный терминал
+          type: string
+        real:
+          nullable: true
+          title: Реальный терминал
+          type: string
+      type: object
+    SandboxCancelAnnouncementRequest:
+      properties:
+        announcementID:
+          description: Уникальный идентификатор анонса UUID V4.
+          format: uuid
+          type: string
+        date:
+          description: Дата события
+          example: '2023-09-20T10:00:00.52Z'
+          format: date-time
+          type: string
+        options:
+          $ref: '#/components/schemas/SandboxCancelAnnouncementOptions'
+      required:
+      - options
+      - announcementID
+      - date
+      type: object
+    SandboxCreateAnnouncementReply:
+      properties:
+        data:
+          nullable: true
+          properties:
+            status:
+              description: Статус выполнения операции.
+              enum:
+              - success
+              - failed
+              type: string
+          type: object
+        error:
+          $ref: '#/components/schemas/SandboxCreateAnnouncementError'
+      type: object
+    ChangeParcelRequestOptions:
+      properties:
+        changeParcelUrl:
+          title: URL, куда должен быть направлен запрос на создание заявки
+          type: string
+      type: object
+    CreateSandboxParcelError:
+      nullable: true
+      properties:
+        code:
+          enum:
+          - VALIDATION_ERROR
+          - INTERNAL_ERROR
+          - UNKNOWN_PROVIDER
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      type: object
+    SandboxCancelAnnouncementError:
+      nullable: true
+      properties:
+        code:
+          enum:
+          - INTERNAL_ERROR
+          - VALIDATION_ERROR
+          - ANNOUNCEMENT_NOT_FOUND
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    GetSandboxParcelInfoParcelHistory:
+      properties:
+        date:
+          format: date-time
+          type: string
+        event:
+          type: string
+        location:
+          nullable: true
+          type: string
+        status:
+          type: string
+      type: object
+    CreateParcelCourierDateTimeInterval:
+      description: Интервал для курьерской доставки.
+      properties:
+        end:
+          description: Дата и время окончания интервала в RFC3339.
+          example: '2025-02-01T10:26:15+03:00'
+          format: date-time
+          type: string
+        start:
+          description: Дата и время начала интервала в RFC3339.
+          example: '2025-02-01T10:26:15+03:00'
+          format: date-time
+          type: string
+      required:
+      - start
+      - end
+    ChangeParcelError:
+      nullable: true
+      properties:
+        code:
+          enum:
+          - VALIDATION_ERROR
+          - INTERNAL_ERROR
+          - UNSUITABLE_PARCEL
+          - PARCEL_NOT_FOUND
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      type: object
+    CreateSandboxParcelUserDelivery:
+      properties:
+        terminal:
+          $ref: '#/components/schemas/CreateParcelUserDeliveryTerminal'
+      title: Данные по доставке
+      type: object
+    CreateParcelItemBreadcrumb:
+      properties:
+        name:
+          description: Название категории
+          example: Спорт и отдых
+          maxLength: 255
+          type: string
+      required:
+      - name
+    ChangeParcelRequestApplication:
+      properties:
+        kind:
+          enum:
+          - buyer
+          - seller
+          title: Инициатор заявки на изменение ФИО и номера телефона. Покупатель или продавец.
+          type: string
+        name:
+          title: Новые ФИО получателя посылки
+          type: string
+        phones:
+          items:
+            type: string
+          title: Новые телефоны получателя посылки
+          type: array
+      title: Заявка на изменение данных
+      type: object
+    SandboxCreateAnnouncementDeliveryPoint:
+      nullable: true
+      properties:
+        accuracy:
+          description: Точность определения точки.
+          enum:
+          - EXACT
+          - APPROXIMATE
+          nullable: true
+          type: string
+        id:
+          description: Идентификатор точки (ПВЗ/сортировочного центра).
+          nullable: true
+          type: string
+        provider:
+          description: Код службы доставки.
+          type: string
+      required:
+      - provider
+      type: object
+    CreateSandboxParcelItem:
+      properties:
+        breadcrumbs:
+          items:
+            $ref: '#/components/schemas/CreateParcelItemBreadcrumb'
+          type: array
+        cost:
+          type: integer
+        description:
+          type: string
+        dimensions:
+          description: 'Габариты товара в сантиметрах. Порядок [ширина, высота, длина]. Например, [15, 25, 35].
+
+            '
+          properties:
+            values:
+              items:
+                type: integer
+              maxItems: 3
+              minItems: 3
+              type: array
+          type: object
+        quantity:
+          maximum: 10
+          minimum: 1
+          type: integer
+        tags:
+          description: "Дополнительные признаки товара. Признаки товара могут определять дополнительные услуги, оказываемые \nпри приеме или выдаче посылки. На текущий момент поддерживается только один признак - `TRY_ON`, \nкоторый означает,что возможна примерка в ПВЗ.\n\nНа определенные значения в тегах можно завязывать логику. \n\nСписок может постоянно пополняться.\n"
+          enum:
+          - TRY_ON
+          type: array
+        title:
+          type: string
+        weight:
+          properties:
+            value:
+              type: integer
+          type: object
+      required:
+      - quantity
+      type: object
+    CreateSandboxParcelV2:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/CreateSandboxParcelItem'
+          type: array
+        options:
+          $ref: '#/components/schemas/CreateSandboxV2Options'
+        receiver:
+          properties:
+            delivery:
+              $ref: '#/components/schemas/CreateSandboxParcelReceiverDelivery'
+          type: object
+        sender:
+          properties:
+            delivery:
+              $ref: '#/components/schemas/CreateSandboxParcelUserDelivery'
+            inn:
+              description: ИНН пользователя, будет работать при tag - B2C.
+              type: string
+          type: object
+        tags:
+          items:
+            type: string
+          type: array
+      type: object
+    SandboxGetAnnouncementEventReply:
+      properties:
+        data:
+          nullable: true
+          properties:
+            announcementEvent:
+              description: Последнее событие анонса.
+              type: string
+          type: object
+        error:
+          $ref: '#/components/schemas/SandboxGetAnnouncementEventError'
+      type: object
+    SandboxCreateAnnouncementError:
+      nullable: true
+      properties:
+        code:
+          enum:
+          - VALIDATION_ERROR
+          - INTERNAL_ERROR
+          - OBJECT_EXISTS
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    GetSandboxParcelInfoRequest:
+      properties:
+        parcelID:
+          type: string
+      required:
+      - parcelID
+      type: object
+    SandboxCreateAnnouncementPackage:
+      properties:
+        id:
+          description: Штрихкод идентификатор грузоместа.
+          type: string
+        parcelIDs:
+          description: Список идентификаторов посылок Авито.
+          items:
+            type: string
+          type: array
+        sealID:
+          description: Номер пломбы грузоместа.
+          nullable: true
+          type: string
+      required:
+      - id
+      - parcelIDs
+      type: object
+    ChangeParcelReplyData:
+      nullable: true
+      properties:
+        applicationID:
+          title: Идентификатор заявки на изменение данных
+          type: string
+      type: object
+    CancelSandboxParcelReply:
+      properties:
+        data:
+          nullable: true
+          properties:
+            status:
+              type: string
+          type: object
+        error:
+          $ref: '#/components/schemas/CancelSandboxParcelError'
+      type: object
+    SandboxCancelAnnouncementOptions:
+      description: Опции отмены анонса.
+      properties:
+        urlToCancelAnnouncement:
+          description: URL, куда отправлять отмену анонса.
+          type: string
+      required:
+      - urlToCancelAnnouncement
+      type: object
+    GetRegisteredParcelIDError:
+      nullable: true
+      properties:
+        code:
+          enum:
+          - NOT_FOUND
+          - NOT_REGISTERED
+          - VALIDATION_ERROR
+          - INTERNAL_ERROR
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      type: object
+    GetSandboxParcelInfoError:
+      nullable: true
+      properties:
+        code:
+          enum:
+          - VALIDATION_ERROR
+          - INTERNAL_ERROR
+          - UNKNOWN_PROVIDER
+          - NOT_FOUND
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      type: object
+    CancelSandboxParcelOptions:
+      properties:
+        cancelationUrl:
+          type: string
+      type: object
+    GetSandboxParcelInfoReplyData:
+      nullable: true
+      properties:
+        dimensions:
+          $ref: '#/components/schemas/GetSandboxParcelInfoDimensions'
+        history:
+          items:
+            $ref: '#/components/schemas/GetSandboxParcelInfoParcelHistory'
+          title: История статусов посылки
+          type: array
+        receiver:
+          properties:
+            terminals:
+              $ref: '#/components/schemas/GetSandboxParcelInfoTerminals'
+          title: Информация о получателе
+          type: object
+        sender:
+          properties:
+            terminals:
+              $ref: '#/components/schemas/GetSandboxParcelInfoTerminals'
+          title: Информация об отправителе
+          type: object
+        status:
+          title: Текущий статус посылки
+          type: string
+      type: object
+    GetSandboxParcelInfoReply:
+      properties:
+        data:
+          $ref: '#/components/schemas/GetSandboxParcelInfoReplyData'
+        error:
+          $ref: '#/components/schemas/GetSandboxParcelInfoError'
+      type: object
+    CreateParcelError:
+      description: 'Ошибка создания посылки.
+
+
+        Поле присутствует, если запрос не был успешно обработан. Если запрос был успешно обработан, то поле отсутствует.
+
+        '
+      properties:
+        code:
+          description: "Код ошибки.\n\n- `VALIDATION_ERROR` – ошибка валидации данных (например, длина передаваемого поля превышает допустимые лимиты, или какое-то поле отсутствует). \nВ поле `error.message` должно содержаться пояснение, какое поле не прошло валидацию.\n- `UNSUPPORTED_PARAM_ERROR` – в запросе получен неподдерживаемый параметр. В поле `error.message` должно содержаться пояснение, какое поле не поддерживается.\n- `TERMINAL_UNAVAILABLE` – терминал, указанный в запросе, недоступен для создания посылки. В поле `error.message` должно содержаться пояснение причины недоступности терминала.\n- `SORTING_CENTER_UNAVAILABLE` – сортировочный центр, указанный в запросе, недоступен для создания посылки. В поле error.message должно содержаться пояснение причины недоступности сортировочного центра.\n\nВсе перечисленные ошибки – \"терминальные\". \nПри получении этих ошибок Avito не будет выполнять повторные запросы, т.к. повтор приведет к тому же результату.\n\nСписок в дальнейшем может пополняться.\n"
+          enum:
+          - VALIDATION_ERROR
+          - UNSUPPORTED_PARAM_ERROR
+          - TERMINAL_UNAVAILABLE
+          - SORTING_CENTER_UNAVAILABLE
+          example: VALIDATION_ERROR
+          type: string
+        message:
+          description: Текстовое описание ошибки
+          example: Текст ошибки
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    GetRegisteredParcelIDRequest:
+      properties:
+        orderID:
+          type: string
+      required:
+      - orderID
+      type: object
+    CreateParcelReply:
+      properties:
+        data:
+          nullable: true
+          properties:
+            orderID:
+              title: Идентификатор заказа
+              type: string
+          type: object
+        error:
+          $ref: '#/components/schemas/CreateParcelError'
+      type: object
+    SandboxCancelAnnouncementReply:
+      properties:
+        data:
+          nullable: true
+          properties:
+            status:
+              description: Статус выполнения операции.
+              enum:
+              - success
+              type: string
+          type: object
+        error:
+          $ref: '#/components/schemas/SandboxCancelAnnouncementError'
+      type: object
+    CreateParcelCourierOptions:
+      properties:
+        comment:
+          description: Комментарий для курьера, оставленный пользователем.
+          example: Комментарий для курьера
+          type: string
+        elevatorAvailable:
+          description: Наличие лифта в доме, способного поднять посылку.
+          example: true
+          type: boolean
+      type: object
+    GetChangeParcelInfoRequest:
+      properties:
+        applicationID:
+          title: Идентификатор заявки на изменение данных посылки
+          type: string
+      required:
+      - applicationID
+      type: object
+    CancelSandboxParcelError:
+      nullable: true
+      properties:
+        code:
+          enum:
+          - VALIDATION_ERROR
+          - INTERNAL_ERROR
+          - UNKNOWN_PROVIDER
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      type: object
+    CreateParcelCourierCoordinates:
+      description: Координаты пользователя
+      properties:
+        latitude:
+          description: Географическая широта, в градусах.
+          example: 55.779003
+          maximum: 90
+          minimum: -90
+          type: number
+        longitude:
+          description: Географическая долгота, в градусах.
+          example: 37.591746
+          maximum: 180
+          minimum: -180
+          type: number
+      required:
+      - latitude
+      - longitude
+  parameters:
+    authHeader:
+      description: Токен для авторизации
+      example: Bearer ACCESS_TOKEN
+      in: header
+      name: Authorization
+      required: true
+  securitySchemes:
+    AuthorizationCode:
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://avito.ru/oauth
+          scopes:
+            ah:access: Взаимодействие с иерархией аккаунтов
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2
+    ClientCredentials:
+      description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2

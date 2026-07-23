@@ -1,0 +1,32 @@
+# generated: '2026-07-18'
+# method: generated
+generated: '2026-07-18'
+method: generated
+skills:
+- file: avito-manage-listings.md
+  name: Manage Avito listings and pricing
+  api: openapi/avito-item-openapi.json
+  operations:
+  - getItemsInfo
+  - getItemInfo
+  - updatePrice
+  - applyVas
+  - itemAnalytics
+- file: avito-respond-in-messenger.md
+  name: Respond to buyers in Avito Messenger
+  api: openapi/avito-messenger-openapi.json
+  operations:
+  - getChatsV2
+  - getChatByIdV2
+  - getMessagesV3
+  - postSendMessage
+  - chatRead
+- file: avito-autoload-feed.md
+  name: Publish listings via Avito Autoload feed
+  api: openapi/avito-autoload-openapi.json
+  operations:
+  - createOrUpdateProfileV2
+  - upload
+  - getCurrentUpload
+  - getLastSuccessfulUpload
+  - getUploads

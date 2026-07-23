@@ -1,0 +1,15 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Avito cpxpromo
+  version: 1.0.0
+extends: openapi/avito-cpxpromo-openapi.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: avito
+      x-apievangelist-api: cpxpromo
+      x-apievangelist-authentication: authentication/avito-authentication.yml
+      x-apievangelist-scopes: scopes/avito-scopes.yml
+      x-apievangelist-rate-limits: rate-limits/avito-rate-limits.yml
+      x-apievangelist-errors: errors/avito-problem-types.yml
+      x-apievangelist-conventions: conventions/avito-conventions.yml

@@ -1,28 +1,3675 @@
 aid: avito
 name: Avito
-description: 'Avito is a company surfaced as a portfolio company of accel, northzone and added to the
-  API Evangelist network as a stub for enrichment. Sector: consumer. This profile is a lead awaiting the
-  enrichment pipeline.'
+description: Avito is Russia's largest online classifieds platform (avito.ru), founded in 2007, where
+  individuals and businesses buy and sell across goods, vehicles, real estate, jobs and services. For
+  business sellers and integrators Avito publishes a public Developer Portal (developers.avito.ru) exposing
+  25 OpenAPI 3.0.0 REST APIs on api.avito.ru covering item/listing management, autoload feed ingestion,
+  the buyer-seller messenger, delivery, order and stock management, ratings and reviews, advertising and
+  CPA/promotion campaigns, short-term rental, jobs (Avito.Rabota), and Autoteka vehicle history. All APIs
+  use OAuth 2.0 (authorization_code for acting on behalf of users, client_credentials for a business's
+  own account) with scoped access and per-minute rate limiting.
 url: https://raw.githubusercontent.com/api-evangelist/avito/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://m.avito.ru/icons/open-graph-default.svg
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - accel
 - northzone
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: public-developer-api
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
 tags:
 - Company
 - Consumer
-apis: []
+- Classifieds
+- Marketplace
+- E-commerce
+- Real Estate
+- Automotive
+- Jobs
+- Advertising
+- Messaging
+- Delivery
+- Russia
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: avito:avito-access-api
+  name: Avito Access API
+  description: >-
+    Для работы с API от своего лица необходимо получить токен авторизации — отдельный для каждой учетной
+    записи на Авито.
+
+
+      1. Получаем **client_id** и **client_secret** в [личном кабинете](https://www.avito.ru/professionals/api)
+      2. Выписываем себе токен:
+         ```
+         curl -L -X POST 'https://api.avito.ru/token/' \
+             -H 'Content-Type: application/x-www-form-urlencoded' \
+             --data-urlencode 'grant_type=client_credentials' \
+             --data-urlencode 'client_id=<CLIENT_ID>' \
+             --data-urlencode 'client_secret=<CLIENT_SECRET>'
+         ```
+      3. Далее выполняем запросы к API с заголовком `Authorization: Bearer <ACCESS_TOKEN>`
+
+      Время действия токена ограничено - 24 часа с момента его получения.
+      После этого вам необходимо получить новый токен.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Access
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-access-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-ads-api
+  name: Avito Ads API
+  description: The Ads API from Avito — 23 operation(s) for ads.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Ads
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-ads-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-applicationaccess-api
+  name: Avito ApplicationAccess API
+  description: >-
+    Для работы с API приложений от лица пользователя есть возможность получить токен через Authorization
+    Code механизм протокола OAuth2. Для этого в первую очередь нужно зарегистрировать приложение на https://developers.avito.ru/applications.
+    После успешной регистрации ваше приложение получит возможность работать с API Авито от лица пользователя
+    (если последний выдаст на это разрешение).
+
+
+    Подробнее об Authorization Code флоу протокола OAuth2 можно почитать [в статье](https://www.digitalocean.com/community/tutorials/oauth-2-ru).
+    Процесс работы с этим флоу в API Авито отличается только незначительными деталями – ниже по шагам
+    описан процесс интеграции.
+
+
+    ### Шаг 1: Регистрация приложения
+
+
+    Регистрируем приложение через https://developers.avito.ru/application. Для регистрации нужно указать:
+
+
+    * Имя приложения, которое будет выводиться пользователям в форме подтверждения прав
+
+    * Redirect URI - адрес, на который сайт Авито средиректит пользователя после подтверждения прав
+
+    * Скоупы, которые необходимы вашему приложению (подробнее о доступных скоупах ниже)
+
+    * Описание приложения - для каких целей вы планируете использовать доступ к данным
+
+
+    В данный момент мы регистрируем только доверенные приложения от наших партнеров.
+
+
+    Скоупы определяют права, на которые ваше приложение сможет рассчитывать после подверждения авторизации
+    пользователем. Доступные скоупы:
+
+    * messenger:read: Чтение сообщений в мессенджере Авито
+
+    * messenger:write: Модифицирование сообщений в мессенджере Авито
+
+    * user_balance:read: Получение баланса пользователя
+
+    * job:write: Изменение объявлений вертикали Работа
+
+    * job:cv: Получение информации резюме
+
+    * job:vacancy: Работа с вакансиями
+
+    * job:applications: Получение информации об откликах на вакансии
+
+    * user_operations:read: Получение истории операций пользователя
+
+    * user:read: Получение информации о пользователе
+
+    * autoload:reports: Получение отчетов Автозагрузки
+
+    * items:info: Получение информации об объявлениях
+
+    * items:apply_vas: Применение дополнительных услуг
+
+    * short_term_rent:read: Получение информации об объявлениях краткосрочной аренды
+
+    * short_term_rent:write: Изменение объявлений краткосрочной аренды
+
+    * stats:read: Получение статистики объявлений
+
+
+    ### Шаг 2: Ссылка с кодом авторизации
+
+
+    Сначала пользователю предоставляется ссылка следующего вида:
+
+
+    ```
+
+    https://avito.ru/oauth?response_type=code&pro_users_flow=true&client_id=<CLIENT_ID>&scope=messenger:read,messenger:write
+
+    ```
+
+
+    ### Шаг 3: Пользователь авторизует приложение
+
+
+    Пользователь переходит по ссылке на Авито, аутентифицируется при необходимости, затем подтверждает
+    выдачу необходимых прав вашему приложению.
+
+
+    ### Шаг 4: Приложение получает код авторизации
+
+
+    Если пользователь выбирает "Авторизовать приложение", Авито перенаправляет пользовательский агент
+    (браузер) по URI перенаправления (Redirect URI), который был задан на этапе регистрации приложения
+    и добавляет в него параметр `code`. Например, если при регистрации в качестве Redirect URI был указан
+    адрес `https://example.com/callback/avito`, то мы перенаправим пользователя на:
+
+
+    ```
+
+    https://example.com/callback/avito?code=<AUTHORIZATION_CODE>
+
+    ```
+
+
+    ### Шаг 5: Приложение запрашивает токен доступа
+
+
+    Приложение запрашивает токен доступа у API Авито путём отправки авторизационного кода и аутентификационной
+    информации (включая секрет приложения). Ниже представлен пример POST-запроса для получения access
+    token:
+
+
+    ```
+         curl -L -X POST 'https://api.avito.ru/token/' \
+             -H 'Content-Type: application/x-www-form-urlencoded' \
+             --data-urlencode 'grant_type=authorization_code' \
+             --data-urlencode 'client_id=<CLIENT_ID>' \
+             --data-urlencode 'client_secret=<CLIENT_SECRET>' \
+             --data-urlencode 'code=<AUTHORIZATION_CODE>'
+    ```
+
+
+    ### Шаг 6: Приложение получает токен доступа
+
+
+    Если авторизация прошла успешно, API возвращает токен доступа (а также токен для обновления токена
+    доступа - refresh token). Весь ответ сервера может выглядеть следующим образом:
+
+
+    ```
+
+    {
+        "access_token": "<ACCESS_TOKEN>",
+        "expires_in": 86400,
+        "refresh_token": "<REFRESH_TOKEN>",
+        "scope": "messenger:read,messenger:write",
+        "token_type": "Bearer"
+    }
+
+    ```
+
+
+    Приложение сохраняет access_token и refresh_token.
+
+
+    ### Шаг 7: Приложение делает запросы к API c токеном доступа
+
+
+    Далее приложение может выполнять запросы к API с заголовком `Authorization: Bearer <ACCESS_TOKEN>`
+
+
+    ### Шаг 8: Приложение обновляет access_token
+
+
+    Время действия access token ограничено - 24 часа с момента его получения. После этого вам необходимо
+    получить новый токен.
+
+
+    После истечения срока действия токена доступа все запросы к API с его использованием будут возвращать
+    код ошибки 403. Сохраненный refresh token может быть использован для получения нового токена доступа
+    от авторизационного сервера.
+
+
+    Ниже представлен пример POST-запроса, использующего refresh token для обновления токена доступа:
+
+
+    ``` curl -L -X POST 'https://api.avito.ru/token/' \
+        -H 'Content-Type: application/x-www-form-urlencoded' \
+        --data-urlencode 'grant_type=refresh_token' \
+        --data-urlencode 'client_id=<CLIENT_ID>' \
+        --data-urlencode 'client_secret=<CLIENT_SECRET>' \
+        --data-urlencode 'refresh_token=<REFRESH_TOKEN>'
+    ```
+
+
+    В ответ приложение получит точно такой же JSON, как и при обмене code на access token. При этом будет
+    получен не только новый access_token, но и новый refresh_token. Обновите оба значения в своей базе
+    данных.
+
+
+    ### Дополнительный параметр state
+
+
+    Для того чтобы защитить данные пользователей мы крайне рекомендуем использовать параметр state. Этот
+    параметр позволяет защититься от CSRF-атак и восстановить состояние вашего приложения на момент начала
+    авторизации. Подробнее, зачем нужен параметр state, можно прочитать [тут](https://auth0.com/docs/protocols/oauth2/oauth-state).
+
+
+    Для того, чтобы использовать state – просто включите его в начальный URL:
+
+
+    ```
+
+    https://avito.ru/oauth?response_type=code&pro_users_flow=true&client_id=<CLIENT_ID>&scope=messenger:read,messenger:write&state=<STATE>
+
+    ```
+
+
+    В итоге state будет содержаться в финальном Redirect URI, на который Авито перенаправляет пользователя
+    после подтверждения прав доступа. Например, если при регистрации в качестве Redirect URI был указан
+    адрес `https://example.com/callback/avito`, то мы перенаправим пользователя на:
+
+
+    ```
+
+    https://example.com/callback/avito?code=<AUTHORIZATION_CODE>&state=<STATE>
+
+    ```
+
+
+    Не передавайте чувствительные данные в открытом виде в этом параметре. Генерируйте уникальное временное
+    значение state в вашем приложении.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - ApplicationAccess
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-applicationaccess-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-auction-api
+  name: Avito Auction API
+  description: The Auction API from Avito — 1 operation(s) for auction.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Auction
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-auction-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-authorization-api
+  name: Avito Authorization API
+  description: The Authorization API from Avito — 1 operation(s) for authorization.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Authorization
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-authorization-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-autoload-api
+  name: Avito Autoload API
+  description: Методы API для получения информации об автозагрузке объявлений
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Autoload
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-autoload-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-autostrategy-api
+  name: Avito Autostrategy API
+  description: API для работы с автостратегией в категории
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Autostrategy
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-autostrategy-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-balance-api
+  name: Avito balance API
+  description: >-
+    С помощью API данного раздела вы можете получить информацию о балансе средств агентства и всех операций
+    с ним.
+
+
+    ### Типы авторизации
+
+
+    Для использования данного API запрос должен быть авторизован.
+
+    API Авито Promo использует следующие механизмы авторизации:
+
+
+    <!-- ReDoc-Inject: <security-definitions> -->
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - balance
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-balance-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-call-api
+  name: Avito Call API
+  description: The Call API from Avito — 4 operation(s) for call.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Call
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-call-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-calltracking-api
+  name: Avito Calltracking API
+  description: The Calltracking API from Avito — 3 operation(s) for calltracking.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Calltracking
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-calltracking-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-chat-api
+  name: Avito Chat API
+  description: The Chat API from Avito — 4 operation(s) for chat.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Chat
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-chat-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-checkahuserv1-api
+  name: Avito CheckAhUserV1 API
+  description: The CheckAhUserV1 API from Avito — 1 operation(s) for checkahuserv1.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - CheckAhUserV1
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-checkahuserv1-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-checkahuserv2-api
+  name: Avito CheckAhUserV2 API
+  description: The CheckAhUserV2 API from Avito — 1 operation(s) for checkahuserv2.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - CheckAhUserV2
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-checkahuserv2-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-core-api
+  name: Avito Core API
+  description: The Core API from Avito — 1 operation(s) for core.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Core
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-core-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-cpa-api
+  name: Avito Cpa API
+  description: >-
+    # Методы для работы с сервисом CPA
+
+    Описание API произведено в формате [**Swagger 3.0**](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md).
+
+    Вы можете использовать данный файл для ознакомления с методами API, а также для генерации базового
+    кода для работы с API на удобном для вас языке программирования с помощью утилиты
+
+    [**Swagger Codegen**](https://swagger.io/swagger-codegen/) или online сервиса [**Swagger Editor**](https://editor.swagger.io/).
+
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+    По всем вопросам работы с API необходимо обращаться в Службу Поддержки профессиональных инструментов:
+
+
+    <li>телефон: <b>+7 495 777-10-66</b></li>
+
+    <li>email: <a href="mailto:supportautoload@avito.ru">supportautoload@avito.ru</a></li>
+
+
+    # Типы авторизации
+
+    Для использования данного API запрос должен быть авторизован. В данный момент API Авито использует
+    следующие механизмы авторизации. <!-- ReDoc-Inject: <security-definitions> -->
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Cpa
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-cpa-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-cpxpromo-api
+  name: Avito Cpxpromo API
+  description: The Cpxpromo API from Avito — 5 operation(s) for cpxpromo.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Cpxpromo
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-cpxpromo-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-deliverysandbox-api
+  name: Avito DeliverySandbox API
+  description: The DeliverySandbox API from Avito — 9 operation(s) for deliverysandbox.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - DeliverySandbox
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-deliverysandbox-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-deliverytariffication-api
+  name: Avito DeliveryTariffication API
+  description: The DeliveryTariffication API from Avito — 3 operation(s) for deliverytariffication.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - DeliveryTariffication
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-deliverytariffication-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-evaluation-api
+  name: Avito Evaluation API
+  description: The Evaluation API from Avito — 5 operation(s) for evaluation.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Evaluation
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-evaluation-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-getahinfov1-api
+  name: Avito GetAhInfoV1 API
+  description: The GetAhInfoV1 API from Avito — 1 operation(s) for getahinfov1.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - GetAhInfoV1
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-getahinfov1-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-getemployeesv1-api
+  name: Avito GetEmployeesV1 API
+  description: The GetEmployeesV1 API from Avito — 1 operation(s) for getemployeesv1.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - GetEmployeesV1
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-getemployeesv1-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-invite-api
+  name: Avito invite API
+  description: >-
+    С помощью API данного раздела вы можете приглашать в агентство новых клиентов.
+
+
+    [Отправьте](#operation/agencyUsersInviteSend) приглашение новому клиенту и получите идентификатор
+    приглашения.
+
+    Затем по идентификатору:
+
+
+    - [проверьте](#operation/agencyUsersInviteStatus) статус приглашения, чтобы понять,
+      было ли приглашение принято или отклонено клиентом;
+    - [убедитесь](#operation/agencyUsersVerificationStatus),
+      что верификация рекламного аккаунта клиента прошла успешно (актуально для рекламной модели).
+
+    ### Типы авторизации
+
+
+    Для использования данного API запрос должен быть авторизован.
+
+    API Авито Promo использует следующие механизмы авторизации:
+
+
+    <!-- ReDoc-Inject: <security-definitions> -->
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - invite
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-invite-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-item-api
+  name: Avito Item API
+  description: >-
+    Общие методы API для работы с объявлениями на Авито
+
+    Описание API произведено в формате [**Swagger 3.0**](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md).
+
+    Вы можете использовать данный файл для ознакомления с методами API, а также для генерации базового
+
+    кода для работы с API на удобном для вас языке программирования с помощью утилиты
+
+    [**Swagger Codegen**](https://swagger.io/swagger-codegen/) или online сервиса [**Swagger Editor**](https://editor.swagger.io/).
+
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+    По всем вопросам работы с API необходимо обращаться в Службу Поддержки профессиональных инструментов:
+
+
+    <li>телефон: <b>+7 495 777-10-66</b></li>
+
+    <li>email: <a href="mailto:supportautoload@avito.ru">supportautoload@avito.ru</a></li>
+
+
+    # Типы авторизации
+
+    Для использования данного API запрос должен быть авторизован. В данный момент API Авито использует
+    следующие механизмы авторизации.
+
+
+    <!-- ReDoc-Inject: <security-definitions> -->
+
+
+    Подробнее о каждом механизме и его назначении можно прочитать в соответствующем разделе.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Item
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-item-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-job-api
+  name: Avito Job API
+  description: >-
+    API для размещения, редактирования и снятия с публикации вакансии Авито Работа
+
+    Описание API произведено в формате [**Swagger 3.0**](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md).
+
+    Вы можете использовать данный файл для ознакомления с методами API, а также для генерации базового
+
+    кода для работы с API на удобном для вас языке программирования с помощью утилиты
+
+    [**Swagger Codegen**](https://swagger.io/swagger-codegen/) или online сервиса [**Swagger Editor**](https://editor.swagger.io/).
+
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+
+    По всем вопросам работы с API необходимо обращаться в Службу Поддержки профессиональных инструментов:
+
+
+    <li>телефон: <b>+7 495 777-10-66</b></li>
+
+    <li>email: <a href="mailto:supportautoload@avito.ru">supportautoload@avito.ru</a></li>
+
+
+    # Типы авторизации
+
+    Для использования данного API запрос должен быть авторизован. В данный момент API Авито использует
+    следующие механизмы авторизации.
+
+
+    <!-- ReDoc-Inject: <security-definitions> -->
+
+
+    Подробнее о каждом механизме и его назначении можно прочитать в соответствующем разделе.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Job
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-job-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-linkitemsv1-api
+  name: Avito LinkItemsV1 API
+  description: The LinkItemsV1 API from Avito — 1 operation(s) for linkitemsv1.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - LinkItemsV1
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-linkitemsv1-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-listcompanyphonesv1-api
+  name: Avito ListCompanyPhonesV1 API
+  description: The ListCompanyPhonesV1 API from Avito — 1 operation(s) for listcompanyphonesv1.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - ListCompanyPhonesV1
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-listcompanyphonesv1-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-listitemsbyemployeeidv1-api
+  name: Avito ListItemsByEmployeeIdV1 API
+  description: The ListItemsByEmployeeIdV1 API from Avito — 1 operation(s) for listitemsbyemployeeidv1.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - ListItemsByEmployeeIdV1
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-listitemsbyemployeeidv1-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-messenger-api
+  name: Avito Messenger API
+  description: API для интеграции между мессенджером Авито и сторонней системой в обе стороны.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Messenger
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-messenger-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-offlinemonitoring-api
+  name: Avito OfflineMonitoring API
+  description: The OfflineMonitoring API from Avito — 4 operation(s) for offlinemonitoring.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - OfflineMonitoring
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-offlinemonitoring-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-order-management-api
+  name: Avito Order Management API
+  description: The Order Management API from Avito — 12 operation(s) for order management.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Order Management
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-order-management-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-parcelprocessing-api
+  name: Avito ParcelProcessing API
+  description: The ParcelProcessing API from Avito — 9 operation(s) for parcelprocessing.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - ParcelProcessing
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-parcelprocessing-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-profile-api
+  name: Avito profile API
+  description: >-
+    С помощью API данного раздела вы можете получать актуальную информацию о клиентах агентства.
+
+
+    ### Типы авторизации
+
+
+    Для использования данного API запрос должен быть авторизован.
+
+    API Авито Promo использует следующие механизмы авторизации:
+
+
+    <!-- ReDoc-Inject: <security-definitions> -->
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - profile
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-profile-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-promotion-api
+  name: Avito Promotion API
+  description: Общее API для чтения информации об услугах продвижения.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Promotion
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-promotion-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-promotion-bbip-api
+  name: Avito Promotion_BBIP API
+  description: API для управления услугой "Продвижение с прогнозом".
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Promotion_BBIP
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-promotion-bbip-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-ratings-api
+  name: Avito Ratings API
+  description: API для работы с рейтингами и отзывами
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Ratings
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-ratings-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-realty-api
+  name: Avito Realty API
+  description: The Realty API from Avito — 7 operation(s) for realty.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Realty
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-realty-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-referencedata-api
+  name: Avito ReferenceData API
+  description: The ReferenceData API from Avito — 2 operation(s) for referencedata.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - ReferenceData
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-referencedata-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-report-api
+  name: Avito Report API
+  description: The Report API from Avito — 10 operation(s) for report.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Report
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-report-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-risksassessment-api
+  name: Avito RisksAssessment API
+  description: The RisksAssessment API from Avito — 2 operation(s) for risksassessment.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - RisksAssessment
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-risksassessment-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-signal-api
+  name: Avito Signal API
+  description: The Signal API from Avito — 1 operation(s) for signal.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Signal
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-signal-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-specialoffers-api
+  name: Avito SpecialOffers API
+  description: The SpecialOffers API from Avito — 5 operation(s) for specialoffers.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - SpecialOffers
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-specialoffers-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-statistics-api
+  name: Avito statistics API
+  description: >-
+    С помощью API данного раздела вы можете получать статистику по объявлениям и расходам клиентов.
+
+
+    ### Типы авторизации
+
+
+    Для использования данного API запрос должен быть авторизован.
+
+    API Авито Promo использует следующие механизмы авторизации:
+
+
+    <!-- ReDoc-Inject: <security-definitions> -->
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - statistics
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-statistics-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-stock-management-api
+  name: Avito Stock Management API
+  description: The Stock Management API from Avito — 2 operation(s) for stock management.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Stock Management
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-stock-management-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-targeting-api
+  name: Avito targeting API
+  description: >-
+    С помощью API данного раздела вы можете узнать статус клиентов, проверив их ИНН.
+
+    За клиентов в статусе «Новый» или «Аплифт» агентству выплачивается комиссия.
+
+    Подробные правила указаны в соглашении о премировании.
+
+
+    [Создайте](#operation/agencyClientsTargetCreate) задачу на проверку ИНН клиентов и получите её идентификатор.
+
+    Затем с помощью идентификатора [проверьте](#operation/agencyClientsTargetResult) её статус
+      и получите результаты проверки, если задача завершилась успешно.
+
+    ### Типы авторизации
+
+
+    Для использования данного API запрос должен быть авторизован.
+
+    API Авито Promo использует следующие механизмы авторизации:
+
+
+    <!-- ReDoc-Inject: <security-definitions> -->
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - targeting
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-targeting-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-tariff-api
+  name: Avito Tariff API
+  description: API для работы с Тарифами
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Tariff
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-tariff-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-teaser-api
+  name: Avito Teaser API
+  description: The Teaser API from Avito — 2 operation(s) for teaser.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Teaser
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-teaser-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-terminalmanagement-api
+  name: Avito TerminalManagement API
+  description: The TerminalManagement API from Avito — 3 operation(s) for terminalmanagement.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - TerminalManagement
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-terminalmanagement-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-transactions-api
+  name: Avito transactions API
+  description: >-
+    С помощью API данного раздела вы можете выполнять переводы средств клиентам и отслеживать транзакции.
+
+
+    [Выполните](#operation/agencyBalance) перевод средств на счёт клиента и получите идентификатор транзакции.
+
+    Затем с помощью идентификатора [проверьте](#operation/agencyTransaction) статус транзакции.
+
+    [Отслеживайте](#operation/agencyTransactions) транзакции, которые ещё не были завершены.
+
+
+    ### Типы авторизации
+
+
+    Для использования данного API запрос должен быть авторизован.
+
+    API Авито Promo использует следующие механизмы авторизации:
+
+
+    <!-- ReDoc-Inject: <security-definitions> -->
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-trx-promo-api
+  name: Avito Trx Promo API
+  description: The Trx Promo API from Avito — 3 operation(s) for trx promo.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - Trx Promo
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-trx-promo-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-user-api
+  name: Avito User API
+  description: >-
+    # API для получения баланса кошелька пользователя, истории операций и инфорации об авторизованном
+    пользователе
+
+    Описание API произведено в формате [**Swagger 3.0**](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md).
+
+    Вы можете использовать данный файл для ознакомления с методами API, а также для генерации базового
+    кода для работы с API на удобном для вас языке программирования с помощью утилиты [**Swagger Codegen**](https://swagger.io/swagger-codegen/)
+    или online сервиса [**Swagger Editor**](https://editor.swagger.io/).
+
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+    По всем вопросам работы с API необходимо обращаться в Службу Поддержки профессиональных инструментов:
+
+    <li>телефон: <b>+7 495 777-10-66</b></li>
+
+    <li>email: <a href="mailto:supportautoload@avito.ru">supportautoload@avito.ru</a></li>
+
+
+    # Типы авторизации
+
+
+    Для использования данного API запрос должен быть авторизован. В данный момент API Авито использует
+    следующие механизмы авторизации.
+
+
+    <!-- ReDoc-Inject: <security-definitions> -->
+
+
+    Подробнее о каждом механизме и его назначении можно прочитать в соответствующем разделе.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-user-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
+- aid: avito:avito-xdelivery-api
+  name: Avito XDelivery API
+  description: The XDelivery API from Avito — 7 operation(s) for xdelivery.
+  humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  baseURL: https://api.avito.ru/
+  tags:
+  - XDelivery
+  properties:
+  - type: OpenAPI
+    url: openapi/avito-xdelivery-api-openapi.yml
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ads/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auction/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/auth/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoload/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autostrategy/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/autoteka/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/avito-promo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/calltracking/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpa/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/cpxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/delivery-sandbox/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/item/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/job/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/messenger/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/order-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/promotion/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/ratings/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/realty-reports/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/sbc-gateway/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/stock-management/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/str/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/tariff/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/trxpromo/documentation
+  - type: Documentation
+    url: https://developers.avito.ru/api-catalog/user/documentation
 common:
+- type: DomainSecurity
+  url: security/avito-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/avito-agentic-access.yml
+- type: OAuthScopes
+  url: scopes/avito-scopes.yml
+- type: Authentication
+  url: authentication/avito-authentication.yml
 - type: Website
   url: http://www.avito.ru
+- type: DeveloperPortal
+  url: https://developers.avito.ru/
+- type: Documentation
+  url: https://developers.avito.ru/api-catalog
+- type: APIReference
+  url: https://developers.avito.ru/api-catalog
+- type: GettingStarted
+  url: https://developers.avito.ru/about-api
+- type: Authorization
+  url: https://developers.avito.ru/api-catalog/auth/documentation
+- type: ChangeLog
+  url: https://developers.avito.ru/api-updates
+- type: Support
+  url: https://support.avito.ru/
+- type: TermsOfService
+  url: https://www.avito.ru/legal/pro_tools/public-api
+- type: PrivacyPolicy
+  url: https://www.avito.ru/safety/personal/company
+- type: SignUp
+  url: https://developers.avito.ru/
+- type: GitHubOrganization
+  url: https://github.com/avito-tech
+- type: Business
+  url: https://www.avito.ru/business
+- type: RateLimits
+  url: rate-limits/avito-rate-limits.yml
+- type: ErrorCatalog
+  url: errors/avito-problem-types.yml
+- type: Conventions
+  url: conventions/avito-conventions.yml
+- type: Lifecycle
+  url: lifecycle/avito-lifecycle.yml
+- type: Conformance
+  url: conformance/avito-conformance.yml
+- type: DataModel
+  url: data-model/avito-data-model.yml
+- type: MCPServer
+  url: mcp/avito-mcp.yml
+- type: LLMsTxt
+  url: llms/avito-llms.txt
+- type: WellKnown
+  url: well-known/avito-well-known.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: AgentSkill
+  url: skills/avito-manage-listings.md
+  name: Manage Avito listings and pricing
+- type: AgentSkill
+  url: skills/avito-respond-in-messenger.md
+  name: Respond to buyers in Avito Messenger
+- type: AgentSkill
+  url: skills/avito-autoload-feed.md
+  name: Publish listings via Avito Autoload feed
+- type: Overlay
+  url: overlays/avito-accounts-hierarchy-overlay.yaml
+- type: Overlay
+  url: overlays/avito-ads-overlay.yaml
+- type: Overlay
+  url: overlays/avito-auction-overlay.yaml
+- type: Overlay
+  url: overlays/avito-auth-overlay.yaml
+- type: Overlay
+  url: overlays/avito-autoload-overlay.yaml
+- type: Overlay
+  url: overlays/avito-autostrategy-overlay.yaml
+- type: Overlay
+  url: overlays/avito-autoteka-overlay.yaml
+- type: Overlay
+  url: overlays/avito-calltracking-overlay.yaml
+- type: Overlay
+  url: overlays/avito-cpa-overlay.yaml
+- type: Overlay
+  url: overlays/avito-cpxpromo-overlay.yaml
+- type: Overlay
+  url: overlays/avito-delivery-sandbox-overlay.yaml
+- type: Overlay
+  url: overlays/avito-item-overlay.yaml
+- type: Overlay
+  url: overlays/avito-job-overlay.yaml
+- type: Overlay
+  url: overlays/avito-messenger-overlay.yaml
+- type: Overlay
+  url: overlays/avito-order-management-overlay.yaml
+- type: Overlay
+  url: overlays/avito-promo-overlay.yaml
+- type: Overlay
+  url: overlays/avito-promotion-overlay.yaml
+- type: Overlay
+  url: overlays/avito-ratings-overlay.yaml
+- type: Overlay
+  url: overlays/avito-realty-reports-overlay.yaml
+- type: Overlay
+  url: overlays/avito-sbc-gateway-overlay.yaml
+- type: Overlay
+  url: overlays/avito-stock-management-overlay.yaml
+- type: Overlay
+  url: overlays/avito-str-overlay.yaml
+- type: Overlay
+  url: overlays/avito-tariff-overlay.yaml
+- type: Overlay
+  url: overlays/avito-trxpromo-overlay.yaml
+- type: Overlay
+  url: overlays/avito-user-overlay.yaml
+- type: Webhooks
+  url: openapi/avito-messenger-openapi.json
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

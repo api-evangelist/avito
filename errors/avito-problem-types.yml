@@ -1,0 +1,68 @@
+# generated: '2026-07-18'
+# method: derived
+# format: avito-error-object
+# source: 4xx/5xx responses across openapi/*.json
+envelope:
+  media_type: application/json
+  shape: '{ "error": { "code": <integer>, "message": <string> } }'
+  note: Avito does NOT use RFC 9457 application/problem+json. Every error response wraps a single `error`
+    object with an integer `code` and human-readable `message`. Validation errors additionally carry field-level
+    `FieldError` entries.
+error_schemas:
+- badRequestError
+- authError
+- notFoundError
+- validatingError
+- serviceError
+- serviceUnavailableError
+- ErrorResponse
+- FieldError
+problems:
+- status: 304
+  title: Not Modified
+  meaning: The resource has not been modified since the cached version.
+  occurrences: 2
+- status: 400
+  title: Bad Request
+  meaning: The request was malformed or a required parameter was missing/invalid.
+  occurrences: 153
+- status: 401
+  title: Unauthorized
+  meaning: No valid OAuth 2.0 access token was provided.
+  occurrences: 143
+- status: 402
+  title: Payment Required
+  meaning: Payment or balance is required to complete the request (e.g. insufficient wallet balance).
+  occurrences: 7
+- status: 403
+  title: Forbidden
+  meaning: The token is valid but lacks the required scope or the account lacks permission.
+  occurrences: 151
+- status: 404
+  title: Not Found
+  meaning: The requested resource does not exist.
+  occurrences: 87
+- status: 409
+  title: Conflict
+  meaning: The request conflicts with the current state of the resource.
+  occurrences: 7
+- status: 422
+  title: Unprocessable Entity
+  meaning: The request was well-formed but failed domain validation.
+  occurrences: 12
+- status: 425
+  title: Too Early
+  meaning: The request was sent too early; retry later.
+  occurrences: 1
+- status: 429
+  title: Too Many Requests
+  meaning: Rate limit exceeded — inspect X-RateLimit-* headers and back off.
+  occurrences: 104
+- status: 500
+  title: Internal Server Error
+  meaning: An unexpected error occurred on Avito servers.
+  occurrences: 197
+- status: 503
+  title: Service Unavailable
+  meaning: The service is temporarily unavailable; retry with backoff.
+  occurrences: 49

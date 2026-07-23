@@ -1,0 +1,849 @@
+# generated: '2026-07-18'
+# method: derived
+# status: candidate
+# source: openapi/*.json operations
+status: candidate
+server:
+  name: avito
+  transport: http
+note: No official Avito MCP server was found. This is a candidate tool list derived one-tool-per-operation
+  from the 25 published OpenAPI specs; it is a starting point for building an MCP server, not a hosted
+  endpoint.
+tool_count: 248
+tools:
+- name: checkAhUserV1
+  description: Получение информации о статусе пользователя в ИА
+  source_operation: openapi/avito-accounts-hierarchy-openapi.json#checkAhUserV1
+- name: checkAhUserV2
+  description: Получение информации о статусе пользователя в ИА
+  source_operation: openapi/avito-accounts-hierarchy-openapi.json#checkAhUserV2
+- name: getAhInfoV1
+  description: Получение полной информации о статусе пользователя в ИА
+  source_operation: openapi/avito-accounts-hierarchy-openapi.json#getAhInfoV1
+- name: getEmployeesV1
+  description: Получение списка сотрудников иерархии
+  source_operation: openapi/avito-accounts-hierarchy-openapi.json#getEmployeesV1
+- name: linkItemsV1
+  description: Прикрепление сотрудника иерархии к объявлениям, перезакрепление объявлений между сотрудниками
+    иерархии
+  source_operation: openapi/avito-accounts-hierarchy-openapi.json#linkItemsV1
+- name: listCompanyPhonesV1
+  description: Получение списка телефонов компании
+  source_operation: openapi/avito-accounts-hierarchy-openapi.json#listCompanyPhonesV1
+- name: listItemsByEmployeeIdV1
+  description: Получение списка объявлений по сотруднику
+  source_operation: openapi/avito-accounts-hierarchy-openapi.json#listItemsByEmployeeIdV1
+- name: V1GetAccountByID
+  description: Получить аккаунт по ID
+  source_operation: openapi/avito-ads-openapi.json#V1GetAccountByID
+- name: V1CreateAccount
+  description: Создать аккаунт в песочнице
+  source_operation: openapi/avito-ads-openapi.json#V1CreateAccount
+- name: V1AddUser
+  description: Добавить пользователя в аккаунт
+  source_operation: openapi/avito-ads-openapi.json#V1AddUser
+- name: V1GetAdvertisersList
+  description: Получить список рекламодателей по фильтрам
+  source_operation: openapi/avito-ads-openapi.json#V1GetAdvertisersList
+- name: V1GetAccountBalanceByID
+  description: Получить баланс аккаунта по ID
+  source_operation: openapi/avito-ads-openapi.json#V1GetAccountBalanceByID
+- name: V1TransferBonus
+  description: Перевод бонусов между аккаунтом родителем и дочерними на одном договоре
+  source_operation: openapi/avito-ads-openapi.json#V1TransferBonus
+- name: V1GetCampaignsList
+  description: Получить список кампаний по фильтрам
+  source_operation: openapi/avito-ads-openapi.json#V1GetCampaignsList
+- name: V1GetCreativesStatistic
+  description: Получить статистику по креативам кампании
+  source_operation: openapi/avito-ads-openapi.json#V1GetCreativesStatistic
+- name: V1GetGroupsStatistic
+  description: Получить статистику по группам кампании
+  source_operation: openapi/avito-ads-openapi.json#V1GetGroupsStatistic
+- name: V1GetCampaignStatistic
+  description: Получить статистику по кампании
+  source_operation: openapi/avito-ads-openapi.json#V1GetCampaignStatistic
+- name: V1GetChildAccountsList
+  description: Получить список дочерних аккаунтов
+  source_operation: openapi/avito-ads-openapi.json#V1GetChildAccountsList
+- name: V1GetChildAccountsWithBalancesList
+  description: Получить список дочерних аккаунтов с балансами
+  source_operation: openapi/avito-ads-openapi.json#V1GetChildAccountsWithBalancesList
+- name: V1GetContractsList
+  description: Получить список договоров по фильтрам
+  source_operation: openapi/avito-ads-openapi.json#V1GetContractsList
+- name: V1CreateAdvertiser
+  description: Создать рекламодателя
+  source_operation: openapi/avito-ads-openapi.json#V1CreateAdvertiser
+- name: V1CreateContract
+  description: Создание изначального договора
+  source_operation: openapi/avito-ads-openapi.json#V1CreateContract
+- name: V1CreateNonPayerAccount
+  description: Создание дочернего аккаунта на договоре родителя
+  source_operation: openapi/avito-ads-openapi.json#V1CreateNonPayerAccount
+- name: V1GetCreativesList
+  description: Получить список креативов по фильтрам
+  source_operation: openapi/avito-ads-openapi.json#V1GetCreativesList
+- name: V1DeleteUser
+  description: Удалить пользователя из аккаунта
+  source_operation: openapi/avito-ads-openapi.json#V1DeleteUser
+- name: V1TransferFunds
+  description: Перевод денег между аккаунтом родителем и дочерними на одном договоре
+  source_operation: openapi/avito-ads-openapi.json#V1TransferFunds
+- name: V1ChangeBudget
+  description: Изменить бюджет группы
+  source_operation: openapi/avito-ads-openapi.json#V1ChangeBudget
+- name: V1ChangePrice
+  description: Изменить цену группы
+  source_operation: openapi/avito-ads-openapi.json#V1ChangePrice
+- name: V1GetGroupsList
+  description: Получить список групп по фильтрам
+  source_operation: openapi/avito-ads-openapi.json#V1GetGroupsList
+- name: V1SetUserRole
+  description: Изменить роль пользователя в аккаунте
+  source_operation: openapi/avito-ads-openapi.json#V1SetUserRole
+- name: V1GetUsersListByAccount
+  description: Получить список пользователей аккаунта
+  source_operation: openapi/avito-ads-openapi.json#V1GetUsersListByAccount
+- name: getUserBids
+  description: Получение информации о действующих и доступных ставках
+  source_operation: openapi/avito-auction-openapi.json#getUserBids
+- name: saveItemBids
+  description: Сохранение новых ставок
+  source_operation: openapi/avito-auction-openapi.json#saveItemBids
+- name: getAccessToken
+  description: Получение access token
+  source_operation: openapi/avito-auth-openapi.json#getAccessToken
+- name: getAccessTokenAuthorizationCode
+  description: Получение access token
+  source_operation: openapi/avito-auth-openapi.json#getAccessTokenAuthorizationCode
+- name: refreshAccessTokenAuthorizationCode
+  description: Обновление access token
+  source_operation: openapi/avito-auth-openapi.json#refreshAccessTokenAuthorizationCode
+- name: getProfile
+  description: Получение профиля пользователя автозагрузки (deprecated)
+  source_operation: openapi/avito-autoload-openapi.json#getProfile
+- name: createOrUpdateProfile
+  description: Создание/редактирование настроек профиля пользователя автозагрузки (deprecated)
+  source_operation: openapi/avito-autoload-openapi.json#createOrUpdateProfile
+- name: upload
+  description: Загрузка файла по ссылке
+  source_operation: openapi/avito-autoload-openapi.json#upload
+- name: userDocsNodeFields
+  description: Получения полей категории
+  source_operation: openapi/avito-autoload-openapi.json#userDocsNodeFields
+- name: userDocsTree
+  description: Получение дерева категорий
+  source_operation: openapi/avito-autoload-openapi.json#userDocsTree
+- name: getAdIdsByAvitoIds
+  description: ID объявлений из файла
+  source_operation: openapi/avito-autoload-openapi.json#getAdIdsByAvitoIds
+- name: getAvitoIdsByAdIds
+  description: ID объявлений на Авито
+  source_operation: openapi/avito-autoload-openapi.json#getAvitoIdsByAdIds
+- name: getProfileV2
+  description: Получение профиля пользователя автозагрузки
+  source_operation: openapi/avito-autoload-openapi.json#getProfileV2
+- name: createOrUpdateProfileV2
+  description: Создание/редактирование настроек профиля пользователя автозагрузки
+  source_operation: openapi/avito-autoload-openapi.json#createOrUpdateProfileV2
+- name: getReportsV2
+  description: Список отчётов автозагрузки (deprecated)
+  source_operation: openapi/avito-autoload-openapi.json#getReportsV2
+- name: getAutoloadItemsInfoV2
+  description: Объявления по ID в автозагрузке (deprecated)
+  source_operation: openapi/avito-autoload-openapi.json#getAutoloadItemsInfoV2
+- name: getLastCompletedReport
+  description: Статистика по последней выгрузке (deprecated)
+  source_operation: openapi/avito-autoload-openapi.json#getLastCompletedReport
+- name: getReportByIdV2
+  description: Статистика по конкретной выгрузке (deprecated)
+  source_operation: openapi/avito-autoload-openapi.json#getReportByIdV2
+- name: getReportItemsById
+  description: Все объявления из конкретной выгрузки (deprecated)
+  source_operation: openapi/avito-autoload-openapi.json#getReportItemsById
+- name: getReportItemsFeesById
+  description: Списания за объявления в конкретной выгрузке (deprecated)
+  source_operation: openapi/avito-autoload-openapi.json#getReportItemsFeesById
+- name: getLastCompletedReportV3
+  description: Статистика по последней выгрузке (deprecated)
+  source_operation: openapi/avito-autoload-openapi.json#getLastCompletedReportV3
+- name: getReportByIdV3
+  description: Статистика по конкретной выгрузке (deprecated)
+  source_operation: openapi/avito-autoload-openapi.json#getReportByIdV3
+- name: getUploads
+  description: История загрузок
+  source_operation: openapi/avito-autoload-openapi.json#getUploads
+- name: getCurrentUpload
+  description: Текущая загрузка
+  source_operation: openapi/avito-autoload-openapi.json#getCurrentUpload
+- name: getCurrentUploadItems
+  description: Объявления текущей загрузки
+  source_operation: openapi/avito-autoload-openapi.json#getCurrentUploadItems
+- name: getLastSuccessfulUpload
+  description: Последняя успешно завершённая загрузка
+  source_operation: openapi/avito-autoload-openapi.json#getLastSuccessfulUpload
+- name: getLastSuccessfulUploadItems
+  description: Объявления последней успешно завершённой загрузки
+  source_operation: openapi/avito-autoload-openapi.json#getLastSuccessfulUploadItems
+- name: getAutostrategyBudget
+  description: Расчет бюджета кампании
+  source_operation: openapi/avito-autostrategy-openapi.json#getAutostrategyBudget
+- name: createAutostrategyCampaign
+  description: Создание новой кампании
+  source_operation: openapi/avito-autostrategy-openapi.json#createAutostrategyCampaign
+- name: editAutostrategyCampaign
+  description: Редактирование кампании
+  source_operation: openapi/avito-autostrategy-openapi.json#editAutostrategyCampaign
+- name: getAutostrategyCampaignInfo
+  description: Получение полной информации о кампании
+  source_operation: openapi/avito-autostrategy-openapi.json#getAutostrategyCampaignInfo
+- name: stopAutostrategyCampaign
+  description: Остановка кампании
+  source_operation: openapi/avito-autostrategy-openapi.json#stopAutostrategyCampaign
+- name: getAutostrategyCampaigns
+  description: Получение списка кампаний
+  source_operation: openapi/avito-autostrategy-openapi.json#getAutostrategyCampaigns
+- name: getAutostrategyStat
+  description: Получение статистики по кампании
+  source_operation: openapi/avito-autostrategy-openapi.json#getAutostrategyStat
+- name: catalogsResolve
+  description: 'Получение актуальных параметров Автокаталога
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#catalogsResolve
+- name: getLeads
+  description: 'Получение событий сервиса Сигнал
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#getLeads
+- name: monitoringBucketAdd
+  description: 'Добавить идентификаторы (vin/frame) на мониторинг
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#monitoringBucketAdd
+- name: monitoringBucketDelete
+  description: 'Полная очистка списка мониторинга
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#monitoringBucketDelete
+- name: monitoringBucketRemove
+  description: 'Удаление идентификаторов из мониторинга (vin/frame)
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#monitoringBucketRemove
+- name: monitoringGetRegActions
+  description: 'Получение событий мониторинга
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#monitoringGetRegActions
+- name: getActivePackage
+  description: 'Запрос остатка отчётов пользователя
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#getActivePackage
+- name: postPreviewByVin
+  description: 'Превью по VIN или номеру кузова
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#postPreviewByVin
+- name: getPreview
+  description: 'Получение превью по его ID
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#getPreview
+- name: postReport
+  description: 'Отчет по превью
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#postReport
+- name: postReportByVehicleId
+  description: 'Отчет по идентификатору авто (vin/frame)
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#postReportByVehicleId
+- name: getReportList
+  description: 'Получение списка отчётов
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#getReportList
+- name: getReport
+  description: 'Получение отчета по его ID
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#getReport
+- name: postPreviewByExternalItem
+  description: 'Превью по ID объявления другой площадки
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#postPreviewByExternalItem
+- name: postPreviewByItemId
+  description: Превью по ID объявления Авито
+  source_operation: openapi/avito-autoteka-openapi.json#postPreviewByItemId
+- name: postPreviewByRegNumber
+  description: 'Превью по государственному номеру
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#postPreviewByRegNumber
+- name: scoringByVehicleId
+  description: 'Скоринг рисков по идентификатору авто (vin/frame)
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#scoringByVehicleId
+- name: scoringGetById
+  description: 'Получение скоринга рисков по его ID
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#scoringGetById
+- name: specificationByPlateNumber
+  description: 'Запрос характеристик по регистрационному номеру
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#specificationByPlateNumber
+- name: specificationByVehicleId
+  description: 'Запрос характеристик по идентификатору авто (vin/frame)
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#specificationByVehicleId
+- name: specificationGetById
+  description: 'Получение характеристик по ID запроса
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#specificationGetById
+- name: postSyncCreateReportByRegNumber
+  description: 'Синхронное создание отчета по ГРЗ
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#postSyncCreateReportByRegNumber
+- name: postSyncCreateReportByVin
+  description: 'Синхронное создание отчёта по VIN или номеру кузова
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#postSyncCreateReportByVin
+- name: postTeaser
+  description: 'Тизер по идентификатору авто (vin/frame)
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#postTeaser
+- name: getTeaser
+  description: 'Получение тизера по ID тизера
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#getTeaser
+- name: valuationBySpecification
+  description: 'Получение оценки по параметрам
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#valuationBySpecification
+- name: getAccessToken
+  description: 'Получение access token
+
+    '
+  source_operation: openapi/avito-autoteka-openapi.json#getAccessToken
+- name: agencyBalance
+  description: Перевод средств на счёт клиента
+  source_operation: openapi/avito-promo-openapi.json#agencyBalance
+- name: agencyTransactions
+  description: Получение списка незавершённых транзакций
+  source_operation: openapi/avito-promo-openapi.json#agencyTransactions
+- name: agencyTransaction
+  description: Получение информации о транзакции
+  source_operation: openapi/avito-promo-openapi.json#agencyTransaction
+- name: agencyClients
+  description: Получение списка клиентов
+  source_operation: openapi/avito-promo-openapi.json#agencyClients
+- name: agencyClientsTargetCreate
+  description: Создание задачи на проверку ИНН клиентов
+  source_operation: openapi/avito-promo-openapi.json#agencyClientsTargetCreate
+- name: agencyClientsTargetResult
+  description: Получение результата проверки ИНН клиентов
+  source_operation: openapi/avito-promo-openapi.json#agencyClientsTargetResult
+- name: agencyFinancesBalance
+  description: Получение баланса агентства
+  source_operation: openapi/avito-promo-openapi.json#agencyFinancesBalance
+- name: agencyFinancesTransactionsHistory
+  description: Получение всех операций с балансом агентства
+  source_operation: openapi/avito-promo-openapi.json#agencyFinancesTransactionsHistory
+- name: agencyUsersInviteSend
+  description: Отправка приглашения нового клиента
+  source_operation: openapi/avito-promo-openapi.json#agencyUsersInviteSend
+- name: agencyUsersInviteStatus
+  description: Получение статуса приглашения нового клиента
+  source_operation: openapi/avito-promo-openapi.json#agencyUsersInviteStatus
+- name: agencyUsersVerificationStatus
+  description: Получение статуса верификации нового клиента
+  source_operation: openapi/avito-promo-openapi.json#agencyUsersVerificationStatus
+- name: statsAccountsItems
+  description: Получение статистических показателей клиента
+  source_operation: openapi/avito-promo-openapi.json#statsAccountsItems
+- name: statsAccountsSpendings
+  description: Получение статистики расходов клиента
+  source_operation: openapi/avito-promo-openapi.json#statsAccountsSpendings
+- name: get_call_by_id
+  description: Звонок по идентификатору
+  source_operation: openapi/avito-calltracking-openapi.json#get_call_by_id
+- name: get_calls
+  description: Звонки по времени
+  source_operation: openapi/avito-calltracking-openapi.json#get_calls
+- name: get_record_by_call_id
+  description: Получение аудиозаписи звонка по идентификатору
+  source_operation: openapi/avito-calltracking-openapi.json#get_record_by_call_id
+- name: getCall
+  description: Запись звонка (deprecated)
+  source_operation: openapi/avito-cpa-openapi.json#getCall
+- name: chatByActionId
+  description: Чат
+  source_operation: openapi/avito-cpa-openapi.json#chatByActionId
+- name: chatsByTime
+  description: Чаты по времени (deprecated)
+  source_operation: openapi/avito-cpa-openapi.json#chatsByTime
+- name: postCreateComplaint
+  description: Создание жалобы для звонков
+  source_operation: openapi/avito-cpa-openapi.json#postCreateComplaint
+- name: createComplaintByActionId
+  description: Создание жалобы для звонков/чатов
+  source_operation: openapi/avito-cpa-openapi.json#createComplaintByActionId
+- name: phonesInfoFromChats
+  description: Информация по номерам телефонов из целевых чатов
+  source_operation: openapi/avito-cpa-openapi.json#phonesInfoFromChats
+- name: balanceInfoV2
+  description: Баланс (deprecated)
+  source_operation: openapi/avito-cpa-openapi.json#balanceInfoV2
+- name: getCallByIdV2
+  description: Звонок
+  source_operation: openapi/avito-cpa-openapi.json#getCallByIdV2
+- name: getCallsByTimeV2
+  description: Звонки по времени
+  source_operation: openapi/avito-cpa-openapi.json#getCallsByTimeV2
+- name: chatsByTime
+  description: Чаты по времени
+  source_operation: openapi/avito-cpa-openapi.json#chatsByTime
+- name: balanceInfoV3
+  description: Баланс
+  source_operation: openapi/avito-cpa-openapi.json#balanceInfoV3
+- name: getBids
+  description: Получение детализированной информации о действующих и доступных ценах за целевые действия
+    и бюджетах
+  source_operation: openapi/avito-cpxpromo-openapi.json#getBids
+- name: getPromotionsByItemIds
+  description: Получение текущих цен за целевое действие и бюджетов по нескольким объявлениям
+  source_operation: openapi/avito-cpxpromo-openapi.json#getPromotionsByItemIds
+- name: removePromotion
+  description: Остановка продвижения
+  source_operation: openapi/avito-cpxpromo-openapi.json#removePromotion
+- name: saveAutoBid
+  description: Применение автоматической настройки
+  source_operation: openapi/avito-cpxpromo-openapi.json#saveAutoBid
+- name: saveManualBid
+  description: Применение ручной настройки
+  source_operation: openapi/avito-cpxpromo-openapi.json#saveManualBid
+- name: CancelAnnouncement3PL
+  description: Отмена анонса в СД
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#CancelAnnouncement3PL
+- name: CreateAnnouncement3PL
+  description: Создание анонса в СД
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#CreateAnnouncement3PL
+- name: createParcel
+  description: Создание посылки
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#createParcel
+- name: CreateAnnouncement
+  description: Создание анонса в Avito
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#CreateAnnouncement
+- name: TrackAnnouncement
+  description: Трекинг анонсов
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#TrackAnnouncement
+- name: customAreaSchedule
+  description: Установка графика работы на определённый день
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#customAreaSchedule
+- name: cancelParcel
+  description: Отмена посылки
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#cancelParcel
+- name: checkConfirmationCode
+  description: Проверка кода подтверждения
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#checkConfirmationCode
+- name: setOrderProperties
+  description: Добавление / изменение параметров доставки посылки
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#setOrderProperties
+- name: setOrderRealAddress
+  description: Фактический адрес приёма / возврата посылки
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#setOrderRealAddress
+- name: tracking
+  description: Трекинг
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#tracking
+- name: prohibitOrderAcceptance
+  description: Запрет приёма посылки от отправителя
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#prohibitOrderAcceptance
+- name: GetSortingCenter
+  description: Получить список сортировочных центров
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#GetSortingCenter
+- name: AddSortingCenter
+  description: Загрузить сортировочные центры
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#AddSortingCenter
+- name: AddAreasSandbox
+  description: Загрузить области доставки
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#AddAreasSandbox
+- name: AddTagsToSortingCenter
+  description: Установка тэгов своим и/или чужим сортировочным центрам
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#AddTagsToSortingCenter
+- name: AddTerminalsSandbox
+  description: Загрузить терминалы
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#AddTerminalsSandbox
+- name: UpdateTerms
+  description: Обновить сроки по тарифу
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#UpdateTerms
+- name: AddTariffSandboxV2
+  description: Загрузить новый тариф v2
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#AddTariffSandboxV2
+- name: GetTask
+  description: Получение информации по задаче
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#GetTask
+- name: v1cancelAnnouncement
+  description: Отправка события об отмене тестового анонса
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#v1cancelAnnouncement
+- name: v1CancelParcel
+  description: Отмена тестовой посылки
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#v1CancelParcel
+- name: v1changeParcel
+  description: Создание заявки на изменение данных тестовой посылки
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#v1changeParcel
+- name: v1createAnnouncement
+  description: Создание тестового анонса
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#v1createAnnouncement
+- name: v1getAnnouncementEvent
+  description: Получение последнего события тестового анонса
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#v1getAnnouncementEvent
+- name: v1getChangeParcelInfo
+  description: Получение информации об изменении тестовой посылки
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#v1getChangeParcelInfo
+- name: v1getParcelInfo
+  description: Получение информации о тестовой посылке
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#v1getParcelInfo
+- name: v1getRegisteredParcelID
+  description: Получение ID зарегистрированной тестовой посылки
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#v1getRegisteredParcelID
+- name: CreateSandboxParcelV2
+  description: Создание тестовой посылки
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#CreateSandboxParcelV2
+- name: ChangeParcelResult
+  description: Отправка результата исполнения заявки
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#ChangeParcelResult
+- name: ChangeParcels
+  description: Обновление свойств посылок
+  source_operation: openapi/avito-delivery-sandbox-openapi.json#ChangeParcels
+- name: vasPrices
+  description: Получение информации о стоимости услуг продвижения и доступных значках
+  source_operation: openapi/avito-item-openapi.json#vasPrices
+- name: postCallsStats
+  description: Получение статистики по звонкам
+  source_operation: openapi/avito-item-openapi.json#postCallsStats
+- name: getItemInfo
+  description: Получение информации по объявлению
+  source_operation: openapi/avito-item-openapi.json#getItemInfo
+- name: putItemVas
+  description: Применение дополнительных услуг
+  source_operation: openapi/avito-item-openapi.json#putItemVas
+- name: getItemsInfo
+  description: Получение информации по объявлениям
+  source_operation: openapi/avito-item-openapi.json#getItemsInfo
+- name: updatePrice
+  description: 'Обновление цены объявления
+
+    '
+  source_operation: openapi/avito-item-openapi.json#updatePrice
+- name: putItemVasPackageV2
+  description: Применение пакета дополнительных услуг
+  source_operation: openapi/avito-item-openapi.json#putItemVasPackageV2
+- name: applyVas
+  description: Применение услуг продвижения
+  source_operation: openapi/avito-item-openapi.json#applyVas
+- name: itemStatsShallow
+  description: Получение статистики по списку объявлений
+  source_operation: openapi/avito-item-openapi.json#itemStatsShallow
+- name: itemAnalytics
+  description: Получение статистических показателей по профилю
+  source_operation: openapi/avito-item-openapi.json#itemAnalytics
+- name: accountSpendings
+  description: Получение статистики расходов профиля
+  source_operation: openapi/avito-item-openapi.json#accountSpendings
+- name: applicationsApplyActions
+  description: 'Батчевая смена статуса откликов
+
+    '
+  source_operation: openapi/avito-job-openapi.json#applicationsApplyActions
+- name: applicationsGetByIds
+  description: 'Получение списка откликов
+
+    '
+  source_operation: openapi/avito-job-openapi.json#applicationsGetByIds
+- name: applicationsGetIds
+  description: 'Получение идентификаторов откликов
+
+    '
+  source_operation: openapi/avito-job-openapi.json#applicationsGetIds
+- name: applicationsGetStates
+  description: 'Получение списка возможных статусов откликов
+
+    '
+  source_operation: openapi/avito-job-openapi.json#applicationsGetStates
+- name: applicationsSetIsViewed
+  description: 'Изменение статуса отклика
+
+    '
+  source_operation: openapi/avito-job-openapi.json#applicationsSetIsViewed
+- name: applicationsWebhookDelete
+  description: 'Отключение уведомлений по откликам (webhook)
+
+    '
+  source_operation: openapi/avito-job-openapi.json#applicationsWebhookDelete
+- name: applicationsWebhookGet
+  description: 'Получение информации о подписках (webhook)
+
+    '
+  source_operation: openapi/avito-job-openapi.json#applicationsWebhookGet
+- name: applicationsWebhookPut
+  description: 'Включение уведомлений по откликам (webhook)
+
+    '
+  source_operation: openapi/avito-job-openapi.json#applicationsWebhookPut
+- name: applicationsWebhooksGet
+  description: 'Получение списка подписок (webhook)
+
+    '
+  source_operation: openapi/avito-job-openapi.json#applicationsWebhooksGet
+- name: resumesGet
+  description: 'Поиск резюме
+
+    '
+  source_operation: openapi/avito-job-openapi.json#resumesGet
+- name: resumeGetContacts
+  description: 'Доступ к контактным данным соискателя
+
+    '
+  source_operation: openapi/avito-job-openapi.json#resumeGetContacts
+- name: vacancyCreate
+  description: Публикация вакансии
+  source_operation: openapi/avito-job-openapi.json#vacancyCreate
+- name: vacancyArchive
+  description: Остановка публикации вакансии
+  source_operation: openapi/avito-job-openapi.json#vacancyArchive
+- name: vacancyUpdate
+  description: Редактирование вакансии
+  source_operation: openapi/avito-job-openapi.json#vacancyUpdate
+- name: vacancyProlongate
+  description: Реактивация вакансии
+  source_operation: openapi/avito-job-openapi.json#vacancyProlongate
+- name: resumeGetItem
+  description: 'Просмотр данных резюме
+
+    '
+  source_operation: openapi/avito-job-openapi.json#resumeGetItem
+- name: searchVacancy
+  description: 'Поиск вакансий
+
+    '
+  source_operation: openapi/avito-job-openapi.json#searchVacancy
+- name: vacancyCreateV2
+  description: Публикация вакансии v2
+  source_operation: openapi/avito-job-openapi.json#vacancyCreateV2
+- name: vacanciesGetByIds
+  description: 'Просмотр данных вакансий
+
+    '
+  source_operation: openapi/avito-job-openapi.json#vacanciesGetByIds
+- name: vacancyGetStatuses
+  description: Получение статуса публикации вакансий V2
+  source_operation: openapi/avito-job-openapi.json#vacancyGetStatuses
+- name: vacancyUpdateV2
+  description: Редактирование вакансии v2
+  source_operation: openapi/avito-job-openapi.json#vacancyUpdateV2
+- name: vacancyGetItem
+  description: 'Просмотр данных вакансии
+
+    '
+  source_operation: openapi/avito-job-openapi.json#vacancyGetItem
+- name: vacancyAutoRenewal
+  description: Автопродление вакансии v2
+  source_operation: openapi/avito-job-openapi.json#vacancyAutoRenewal
+- name: getDicts
+  description: Получение списка доступных словарей
+  source_operation: openapi/avito-job-openapi.json#getDicts
+- name: getDictByID
+  description: Получение доступных значений списка по ID словаря
+  source_operation: openapi/avito-job-openapi.json#getDictByID
+- name: postSendMessage
+  description: Отправка сообщения
+  source_operation: openapi/avito-messenger-openapi.json#postSendMessage
+- name: postSendImageMessage
+  description: Отправка сообщения с изображением
+  source_operation: openapi/avito-messenger-openapi.json#postSendImageMessage
+- name: deleteMessage
+  description: Удаление сообщения
+  source_operation: openapi/avito-messenger-openapi.json#deleteMessage
+- name: chatRead
+  description: Прочитать чат
+  source_operation: openapi/avito-messenger-openapi.json#chatRead
+- name: getVoiceFiles
+  description: Получение голосовых сообщений
+  source_operation: openapi/avito-messenger-openapi.json#getVoiceFiles
+- name: uploadImages
+  description: Загрузка изображений
+  source_operation: openapi/avito-messenger-openapi.json#uploadImages
+- name: getSubscriptions
+  description: Получение подписок (webhooks)
+  source_operation: openapi/avito-messenger-openapi.json#getSubscriptions
+- name: postWebhookUnsubscribe
+  description: Отключение уведомлений (webhooks)
+  source_operation: openapi/avito-messenger-openapi.json#postWebhookUnsubscribe
+- name: postBlacklistV2
+  description: Добавление пользователя в blacklist
+  source_operation: openapi/avito-messenger-openapi.json#postBlacklistV2
+- name: getChatsV2
+  description: Получение информации по чатам
+  source_operation: openapi/avito-messenger-openapi.json#getChatsV2
+- name: getChatByIdV2
+  description: Получение информации по чату
+  source_operation: openapi/avito-messenger-openapi.json#getChatByIdV2
+- name: getMessagesV3
+  description: Получение списка сообщений V3
+  source_operation: openapi/avito-messenger-openapi.json#getMessagesV3
+- name: postWebhookV3
+  description: Включение уведомлений V3 (webhooks)
+  source_operation: openapi/avito-messenger-openapi.json#postWebhookV3
+- name: markings
+  description: Передача честного знака
+  source_operation: openapi/avito-order-management-openapi.json#markings
+- name: acceptReturnOrder
+  description: Выбор отделения отделения Почты России для получения возврата
+  source_operation: openapi/avito-order-management-openapi.json#acceptReturnOrder
+- name: applyTransition
+  description: Изменение статуса заказа
+  source_operation: openapi/avito-order-management-openapi.json#applyTransition
+- name: checkConfirmationCode
+  description: Метод для проверки кода подтверждения заказа.
+  source_operation: openapi/avito-order-management-openapi.json#checkConfirmationCode
+- name: cncSetDetails
+  description: Метод для подготовки заказа с самовывозом
+  source_operation: openapi/avito-order-management-openapi.json#cncSetDetails
+- name: getCourierDeliveryRange
+  description: Метод получения доступных временных промежутков приезда курьера
+  source_operation: openapi/avito-order-management-openapi.json#getCourierDeliveryRange
+- name: setCourierDeliveryRange
+  description: Метод выбора определённого доступного временного промежутка для приезда курьера
+  source_operation: openapi/avito-order-management-openapi.json#setCourierDeliveryRange
+- name: setOrderTrackingNumber
+  description: Передача трек-номера
+  source_operation: openapi/avito-order-management-openapi.json#setOrderTrackingNumber
+- name: getOrders
+  description: Получение информации о заказах
+  source_operation: openapi/avito-order-management-openapi.json#getOrders
+- name: generateLabels
+  description: Создать задачу на генерацию этикеток (до 100).
+  source_operation: openapi/avito-order-management-openapi.json#generateLabels
+- name: generateLabelsExtended
+  description: Создать задачу на генерацию этикеток (до 1000).
+  source_operation: openapi/avito-order-management-openapi.json#generateLabelsExtended
+- name: downloadLabel
+  description: Скачать сгенерированный PDF-файл (этикетку).
+  source_operation: openapi/avito-order-management-openapi.json#downloadLabel
+- name: get_bbip_forecasts_by_items_v1
+  description: BBIP. Прогноз продвижения
+  source_operation: openapi/avito-promotion-openapi.json#get_bbip_forecasts_by_items_v1
+- name: create_bbip_order_for_items_v1
+  description: BBIP. Подключение услуги продвижения
+  source_operation: openapi/avito-promotion-openapi.json#create_bbip_order_for_items_v1
+- name: get_bbip_suggests_by_items_v1
+  description: BBIP. Варианты бюджета продвижения
+  source_operation: openapi/avito-promotion-openapi.json#get_bbip_suggests_by_items_v1
+- name: get_dict_of_services_v1
+  description: Словарь типов услуг продвижения
+  source_operation: openapi/avito-promotion-openapi.json#get_dict_of_services_v1
+- name: get_services_by_items_v1
+  description: Список услуг продвижения
+  source_operation: openapi/avito-promotion-openapi.json#get_services_by_items_v1
+- name: list_orders_by_user_v1
+  description: Список заявок
+  source_operation: openapi/avito-promotion-openapi.json#list_orders_by_user_v1
+- name: get_order_status_v1
+  description: Статус заявки
+  source_operation: openapi/avito-promotion-openapi.json#get_order_status_v1
+- name: createReviewAnswerV1
+  description: Отправка ответа на отзыв
+  source_operation: openapi/avito-ratings-openapi.json#createReviewAnswerV1
+- name: removeReviewAnswerV1
+  description: Запрос на удаление ответа на отзыв
+  source_operation: openapi/avito-ratings-openapi.json#removeReviewAnswerV1
+- name: getRatingsInfoV1
+  description: Получение информации о рейтинге пользователя
+  source_operation: openapi/avito-ratings-openapi.json#getRatingsInfoV1
+- name: getReviewsV1
+  description: Получение списка активных отзывов на пользователя с пагинацией
+  source_operation: openapi/avito-ratings-openapi.json#getReviewsV1
+- name: market_price_correspondence_v1
+  description: Получение соответствия переданной цены рыночной цене
+  source_operation: openapi/avito-realty-reports-openapi.json#market_price_correspondence_v1
+- name: CreateReportForClassified
+  description: Получение аналитического отчета по недвижимости
+  source_operation: openapi/avito-realty-reports-openapi.json#CreateReportForClassified
+- name: openApiAvailable
+  description: Получение информации об объявлениях
+  source_operation: openapi/avito-sbc-gateway-openapi.json#openApiAvailable
+- name: openApiMultiConfirm
+  description: Отправка и оплата рассылки
+  source_operation: openapi/avito-sbc-gateway-openapi.json#openApiMultiConfirm
+- name: openApiMultiCreate
+  description: Создание рассылки
+  source_operation: openapi/avito-sbc-gateway-openapi.json#openApiMultiCreate
+- name: openApiStats
+  description: Получение статистики
+  source_operation: openapi/avito-sbc-gateway-openapi.json#openApiStats
+- name: openApiTariffInfo
+  description: Получение информации о тарифе
+  source_operation: openapi/avito-sbc-gateway-openapi.json#openApiTariffInfo
+- name: post_/stock-management/1/info
+  description: Получение остатков
+  source_operation: openapi/avito-stock-management-openapi.json#post_/stock-management/1/info
+- name: put_/stock-management/1/stocks
+  description: Редактирование остатков
+  source_operation: openapi/avito-stock-management-openapi.json#put_/stock-management/1/stocks
+- name: putBookingsInfo
+  description: Заполнение календаря занятости объекта недвижимости
+  source_operation: openapi/avito-str-openapi.json#putBookingsInfo
+- name: getRealtyBookings
+  description: 'Получение списка броней по объявлению
+
+    '
+  source_operation: openapi/avito-str-openapi.json#getRealtyBookings
+- name: postRealtyPrices
+  description: 'Актуализация параметров для выбранных периодов
+
+    '
+  source_operation: openapi/avito-str-openapi.json#postRealtyPrices
+- name: putIntervals
+  description: Заполнение доступности объекта недвижимости с квотами и без
+  source_operation: openapi/avito-str-openapi.json#putIntervals
+- name: postBaseParams
+  description: 'Установка базовых параметров
+
+    '
+  source_operation: openapi/avito-str-openapi.json#postBaseParams
+- name: getTariffInfo
+  description: Информация по тарифу
+  source_operation: openapi/avito-tariff-openapi.json#getTariffInfo
+- name: api_trx_promo_open_api_apply
+  description: Запуск продвижения
+  source_operation: openapi/avito-trxpromo-openapi.json#api_trx_promo_open_api_apply
+- name: api_trx_promo_open_api_cancel
+  description: Остановка продвижения
+  source_operation: openapi/avito-trxpromo-openapi.json#api_trx_promo_open_api_cancel
+- name: api_trx_promo_open_api_commissions
+  description: Проверка доступности продвижения и размера комиссий
+  source_operation: openapi/avito-trxpromo-openapi.json#api_trx_promo_open_api_commissions
+- name: postOperationsHistory
+  description: Получение истории операций пользователя
+  source_operation: openapi/avito-user-openapi.json#postOperationsHistory
+- name: getUserInfoSelf
+  description: Получение информации об авторизованном пользователе
+  source_operation: openapi/avito-user-openapi.json#getUserInfoSelf
+- name: getUserBalance
+  description: Получение баланса кошелька пользователя
+  source_operation: openapi/avito-user-openapi.json#getUserBalance

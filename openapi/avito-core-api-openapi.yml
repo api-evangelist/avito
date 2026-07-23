@@ -1,0 +1,170 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: supportautoload@avito.ru
+  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+    '
+  title: Иерархия Аккаунтов Access Core API
+  version: '1'
+servers:
+- url: https://api.avito.ru/
+tags:
+- name: Core
+paths:
+  /core/v1/items/{item_id}/update_price:
+    parameters:
+    - $ref: '#/components/parameters/pathItemId'
+    post:
+      description: "Обновляет цену товара по id. \nМаксимальное количество запросов в минуту - 150.\n**Внимание! Доступно для категорий Товары, Запчасти, Авто, Недвижимость (кроме краткосрочной)**\n"
+      operationId: updatePrice
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePriceRequest'
+        description: Набор параметров в теле запроса.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdatePriceResponse'
+          description: Успешный ответ
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequestError'
+          description: Неверный запрос
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authError'
+          description: Требуется аутентификация
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFoundError'
+          description: Неверный user_id в запросе
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tooManyRequests'
+          description: Превышено количество запросов
+      security:
+      - AuthorizationCode: []
+      - ClientCredentials: []
+      summary: 'Обновление цены объявления
+
+        '
+      tags:
+      - Core
+components:
+  parameters:
+    pathItemId:
+      description: Идентификатор объявления на сайте
+      in: path
+      name: item_id
+      required: true
+      schema:
+        format: int64
+        type: integer
+  schemas:
+    badRequestError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 400
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Bad Request
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    tooManyRequests:
+      type: object
+    UpdatePriceResponse:
+      properties:
+        result:
+          properties:
+            success:
+              type: boolean
+          type: object
+      required:
+      - result
+      type: object
+    authError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 401
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Unauthorized
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    notFoundError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 404
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Not found
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    UpdatePriceRequest:
+      properties:
+        price:
+          description: Цена
+          example: 100
+          type: integer
+      required:
+      - price
+      type: object
+  securitySchemes:
+    AuthorizationCode:
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://avito.ru/oauth
+          scopes:
+            ah:access: Взаимодействие с иерархией аккаунтов
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2
+    ClientCredentials:
+      description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2

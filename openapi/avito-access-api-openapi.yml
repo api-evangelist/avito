@@ -1,0 +1,85 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: supportautoload@avito.ru
+  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+    '
+  title: Иерархия Аккаунтов Access API
+  version: '1'
+servers:
+- url: https://api.avito.ru/
+tags:
+- description: "Для работы с API от своего лица необходимо получить токен авторизации — отдельный для каждой учетной записи на Авито.\n\n\n  1. Получаем **client_id** и **client_secret** в [личном кабинете](https://www.avito.ru/professionals/api)\n  2. Выписываем себе токен:\n     ```\n     curl -L -X POST 'https://api.avito.ru/token/' \\\n         -H 'Content-Type: application/x-www-form-urlencoded' \\\n         --data-urlencode 'grant_type=client_credentials' \\\n         --data-urlencode 'client_id=<CLIENT_ID>' \\\n         --data-urlencode 'client_secret=<CLIENT_SECRET>'\n     ```\n  3. Далее выполняем запросы к API с заголовком `Authorization: Bearer <ACCESS_TOKEN>`\n\n  Время действия токена ограничено - 24 часа с момента его получения.\n  После этого вам необходимо получить новый токен.\n"
+  name: Access
+  x-displayName: Персональная авторизация
+paths:
+  /token:
+    post:
+      description: Получения временного ключа для авторизации
+      operationId: getAccessToken
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GetTokenRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                access_token: kChqt9ewQNAcwgbHp4yFd5
+                expires_in: 86400
+                token_type: Bearer
+              schema:
+                properties:
+                  access_token:
+                    description: Ключ для временной авторизации в системе
+                    type: string
+                  expires_in:
+                    description: Время жизни ключа в секундах
+                    format: int32
+                    type: number
+                  token_type:
+                    description: Тип ключа авторизации
+                    type: string
+                type: object
+          description: Успешный ответ
+      summary: Получение access token
+      tags:
+      - Access
+components:
+  schemas:
+    GetTokenRequest:
+      properties:
+        client_id:
+          type: string
+        client_secret:
+          type: string
+        grant_type:
+          default: client_credentials
+          type: string
+      required:
+      - grant_type
+      - client_id
+      - client_secret
+      type: object
+  securitySchemes:
+    AuthorizationCode:
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://avito.ru/oauth
+          scopes:
+            ah:access: Взаимодействие с иерархией аккаунтов
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2
+    ClientCredentials:
+      description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2

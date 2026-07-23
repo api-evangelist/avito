@@ -1,0 +1,525 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: supportautoload@avito.ru
+  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+    '
+  title: Иерархия Аккаунтов Access statistics API
+  version: '1'
+servers:
+- url: https://api.avito.ru/
+tags:
+- description: 'С помощью API данного раздела вы можете получать статистику по объявлениям и расходам клиентов.
+
+
+    ### Типы авторизации
+
+
+    Для использования данного API запрос должен быть авторизован.
+
+    API Авито Promo использует следующие механизмы авторизации:
+
+
+    <!-- ReDoc-Inject: <security-definitions> -->
+
+    '
+  name: statistics
+  x-displayName: Статистика клиентов
+paths:
+  /stats/v2/accounts/{user_id}/items:
+    post:
+      description: "Данный метод позволяет получить различные статистические показатели объявлений клиента.\n\n### Доступ к данным клиента\n\nДля того, чтобы получить данные статистики конкретного клиента,\n  необходимо указать идентификатор аккаунта клиента в качестве значения параметра URL `user_id`,\n  а также значения заголовка `X-AgencyClientId`! \n\n### Параметры тела запроса\n\n- `dateFrom` — дата в формате `YYYY-MM-DD`, с которой требуется получить статистику.\n- `dateTo` — дата в формате `YYYY-MM-DD`, по которую требуется получить статистику (включительно).\n- `grouping` — группировка показателей.\n- `metrics` — набор необходимых показателей.\n\nДобавьте ограничения `filter`, если нужно отфильтровать данные статистики:\n\n- `categoryIDs` — по категориям (идентификаторы). См. доступные значения в\n  [Справочнике идентификаторов категорий](https://www.avito.st/s/openapi/catalog-categories.xml);\n- `employeeIDs` — по сотрудникам (идентификаторы).\n  См. метод [Получение списка сотрудников иерархии](#operation/getEmployeesV1).\n\nДобавьте следующие опции, если нужно настроить пагинацию:\n\n- `limit` — ограничивает количество сущностей статистики в ответе (максимум 1000).\n- `offset` — выполняет смещение, с которого начинается выборка данных статистики.\n- `sort` — сортировка данных статистики. Задается массивом настроек: \n  `key` — показатель, `order` — порядок сортировки: `asc` — в порядке возрастания, `desc` — убывания.\n\n#### Группировка показателей\n\n- `day` — группировка по дням.\n- `week` — группировка по неделям.\n- `month` — группировка по месяцам.\n- `totals` — группировка по общему значению показателя за определённый период, без детализации.\n\n#### Показатель\n\nОсновные показатели:\n\n- `views` — просмотры. Сколько раз объявление показывалось в результатах поиска и рекомендациях.\n  Несколько показов за сутки одному пользователю считаются как один.\n- `contacts` — контакты. Количество пользователей, которые посмотрели ваш номер, \n  написали в чат или откликнулись на скидку после рассылки.\n  Несколько контактов за сутки от одного пользователя считаются как один.\n- `contactsShowPhone` — посмотрели телефон. Количество пользователей,\n  которые посмотрели ваш телефон или нажали «Позвонить».\n  Несколько таких действий за сутки от одного пользователя считаются как один.\n- `contactsMessenger` — написали в чат. Количество пользователей, которые написали вам.\n  Несколько чатов за сутки от одного пользователя считаются как один.\n- `contactsShowPhoneAndMessenger` — посмотрели телефон и написали в чат.\n  Количество пользователей, которые и посмотрели ваш телефон, и написали в чат.\n  Несколько таких действий за сутки от одного пользователя считаются как один.\n- `contactsSbcDiscount` — откликнулись на скидку в чате.\n  Количество пользователей, которые приняли ваше спецпредложение после рассылки.\n- `viewsToContactsConversion` — конверсия из просмотров в контакты.\n  Процент пользователей, которые после перехода в объявление посмотрели ваш телефон или написали в чат.\n- `favorites` — добавили в избранное. Сколько раз объявление добавили в избранное.\n- `averageViewCost` — средняя цена просмотра.\n  Расходы на размещение и продвижение объявлений делятся на число просмотров.\n- `averageContactCost` — средняя цена контакта.\n  Расходы на размещение и продвижение объявлений делятся на число контактов.\n- `impressions` — показы. Сколько раз объявление показывалось в результатах поиска и рекомендациях.\n  Несколько показов за сутки одному пользователю считаются как один.\n- `impressionsToViewsConversion` — конверсия из показов в просмотры. Процент пользователей,\n  которые перешли в объявление после того, как оно показалось в результатах поиска и рекомендациях.\n\nЦелевые действия:\n\n- `clickPackages` — целевые просмотры. Просмотры,\n  которые оплачены из тарифа и считаются целевыми по правилам Авито.\n- `jobContacts` — отклики на вакансии. Отклики,\n  которые оплачены из тарифа и считаются целевыми по правилам Авито.\n\nЗаказы товаров с Авито Доставкой:\n\n- `viewsToOrderedItemsConversion` — конверсия из просмотров в заказанные товары.\n  Процент пользователей, которые после перехода в объявление заказали товар.\n- `orderedItems` — заказано товаров. Количество товаров, которые заказали с Авито Доставкой.\n- `orderedItemsPrice` — стоимость заказанных товаров в копейках. Общая стоимость заказов.\n  Это сумма, которую вы получите на руки, если клиенты примут заказы.\n- `deliveredItems` — доставлено товаров. Количество товаров, которые заказали с Авито Доставкой и уже приняли.\n- `deliveredItemsPrice` — стоимость доставленных товаров в копейках.\n  Общая стоимость заказов, которые покупатели приняли. Это сумма, которую вы получаете на руки.\n\nПосуточная аренда недвижимости:\n\n- `bookingPlacedCount` — получено заявок. Общее количество заявок на бронирование.\n- `bookingPlacedPrice` — стоимость полученных заявок в копейках. Общая стоимость бронирований.\n  Это сумма, которую вы получите на руки, если гости заселятся.\n- `bookingApprovedCount` — подтверждено заявок. Количество заявок на бронирование, которые вы подтвердили.\n- `bookingApprovedPrice` — стоимость подтвержденных заявок в копейках.\n  Общая стоимость бронирований, которые вы подтвердили.\n  Это сумма, которую вы получите на руки, если гости заселятся.\n- `bookingAcceptedCount` — заявки с заселением. Количество бронирований, по которым заселились гости.\n  Заселение засчитывается в 15:00 по Москве на следующий день после заезда.\n- `bookingAcceptedPrice` — стоимость заявок с заселением в копейках.\n  Общая стоимость бронирований, по которым заселились гости. Это сумма, которую вы получаете на руки.\n\nРасходы:\n\n- `allSpending` — все расходы в копейках. Сколько всего денег и бонусов вы потратили на объявления.\n- `spending` — расходы на объявления в копейках.\n  Сколько денег вы потратили на размещение, продвижение, целевые действия и комиссию.\n- `presenceSpending` — расходы на размещение и целевые действия в копейках.\n  Сколько денег вы потратили на размещения и целевые действия — просмотры, чаты, звонки и отклики.\n- `promoSpending` — расходы на продвижение в копейках.\n  Сколько денег вы потратили на продвижение и на услуги, которые влияют на внешний вид объявления.\n- `restSpending` — остальные расходы в копейках.\n  Сколько денег вы потратили на чат-ботов и услуги, которые система не смогла распознать.\n- `commission` — комиссия в копейках. Какую комиссию вы заплатили за заказы с Авито Доставкой,\n  которые приняли покупатели, а также за бронирования жилья.\n- `spendingBonus` — списано бонусов на объявления.\n  Сколько бонусов вы потратили на размещение, продвижение, целевые действия и комиссию.\n\nКоличество объявлений за период:\n\n- `activeItems` — активные объявления. Объявления, которые прошли проверку и появились в поиске.\n- `newActiveItems` — новые и опубликованные заново объявления.\n  Сколько объявлений опубликовано впервые или повторно.\n- `oldActiveItems` — активны с прошлого периода.\n  Сколько объявлений остаются опубликованными с предыдущего периода.\n\n### Успешный ответ\n\nМетод возвращает назад список данных группировок статистики `result.groupings`\n  и общее количество сущностей `result.dataTotalCount`.\n\n#### Данные группировки\n\n- `id` — идентификатор объявления или временная метка (зависит от типа группировки).\n- `type` — группировка показателей.\n- `metrics` — список данных статистических показателей.\n  Представлен массивом объектов: `slug` — показатель, `value` — значение показателя.\n\n### Примечания\n\n- Метод имеет ограничение до 100 запросов в минуту.\n- Глубина данных статистики ограничена 270 днями.\n- Показатель не возвращается, если он не доступен для клиента.\n"
+      operationId: statsAccountsItems
+      parameters:
+      - $ref: '#/components/parameters/userIdPathParameter'
+      - $ref: '#/components/parameters/authHeader'
+      - $ref: '#/components/parameters/agencyClientIdHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              additionalProperties: false
+              properties:
+                dateFrom:
+                  $ref: '#/components/schemas/date'
+                dateTo:
+                  $ref: '#/components/schemas/date'
+                filter:
+                  additionalProperties: false
+                  description: Набор ограничений, по которым будут отфильтрованы данные статистики
+                  properties:
+                    categoryIDs:
+                      $ref: '#/components/schemas/ids'
+                    employeeIDs:
+                      $ref: '#/components/schemas/ids'
+                  type: object
+                grouping:
+                  $ref: '#/components/schemas/statsMetricsGrouping'
+                limit:
+                  $ref: '#/components/schemas/limit'
+                metrics:
+                  description: Набор показателей, которые должны быть в статистике
+                  items:
+                    $ref: '#/components/schemas/statsMetric'
+                  minItems: 1
+                  type: array
+                offset:
+                  $ref: '#/components/schemas/offset'
+                sort:
+                  additionalProperties: false
+                  description: Сортировка данных статистики
+                  properties:
+                    key:
+                      $ref: '#/components/schemas/statsMetric'
+                    order:
+                      description: Порядок сортировки
+                      enum:
+                      - asc
+                      - desc
+                      example: asc
+                      type: string
+                  required:
+                  - key
+                  - order
+                  type: object
+              required:
+              - dateFrom
+              - dateTo
+              - grouping
+              - metrics
+              type: object
+        description: Тело запроса
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: false
+                properties:
+                  result:
+                    additionalProperties: false
+                    description: Статистические показатели клиента
+                    properties:
+                      dataTotalCount:
+                        $ref: '#/components/schemas/counter'
+                      groupings:
+                        description: Группировки статистических показателей клиента
+                        items:
+                          additionalProperties: false
+                          description: Группировка статистических показателей клиента
+                          properties:
+                            id:
+                              $ref: '#/components/schemas/id'
+                            metrics:
+                              description: Статистические показатели
+                              items:
+                                additionalProperties: false
+                                description: Статистический показатель
+                                properties:
+                                  slug:
+                                    $ref: '#/components/schemas/statsMetric'
+                                  value:
+                                    $ref: '#/components/schemas/counter'
+                                required:
+                                - slug
+                                - value
+                                type: object
+                              type: array
+                            type:
+                              $ref: '#/components/schemas/statsMetricsGrouping'
+                          required:
+                          - id
+                          - type
+                          - metrics
+                          type: object
+                        type: array
+                    required:
+                    - dataTotalCount
+                    - groupings
+                    type: object
+                required:
+                - result
+                type: object
+          description: Успешный ответ
+        '400':
+          $ref: '#/components/responses/defaultBadRequest'
+        '401':
+          $ref: '#/components/responses/defaultUnauthorized'
+        '403':
+          $ref: '#/components/responses/defaultForbidden'
+        '429':
+          $ref: '#/components/responses/defaultTooManyRequests'
+        '500':
+          $ref: '#/components/responses/defaultInternalServerError'
+      security:
+      - ClientCredentials: []
+      summary: Получение статистических показателей клиента
+      tags:
+      - statistics
+  /stats/v2/accounts/{user_id}/spendings:
+    post:
+      description: "Данный метод позволяет получить статистику расходов клиента.\n\n### Доступ к данным клиента\n\nДля того, чтобы получить данные статистики конкретного клиента,\n  необходимо указать идентификатор аккаунта клиента в качестве значения параметра URL `user_id`,\n  а также значения заголовка `X-AgencyClientId`!\n\n### Параметры тела запроса\n\n- `dateFrom` — дата в формате `YYYY-MM-DD`, с которой требуется получить статистику.\n- `dateTo` — дата в формате `YYYY-MM-DD`, по которую требуется получить статистику (включительно).\n- `grouping` — группировка расходов.\n- `spendingTypes` — массив необходимых категорий расходов.\n\n Добавьте ограничения `filter`, если нужно отфильтровать данные статистики:\n\n- `categoryIDs` — по категориям (идентификаторы). См. доступные значения в\n  [Справочнике идентификаторов категорий](https://www.avito.st/s/openapi/catalog-categories.xml);\n- `itemIDs` — по объявлениям (идентификаторы).\n\n#### Группировка расходов\n\n- `day` — группировка по дням.\n- `week` — группировка по неделям.\n- `month` — группировка по месяцам.\n\n#### Категория расходов\n\n- `promotion` — продвижение объявлений.\n- `presence` — размещение и целевые действия.\n- `commission` — комиссия.\n- `rest` — остальное.\n\nЧтобы включить в ответ все категории расходов,\n  можно в качестве значения входного параметра `spendingTypes` указать `[\"all\"]` — все расходы.\n\n### Успешный ответ\n\nМетод возвращает назад список данных группировок статистики `result.groupings`\n  и временную метку получения данных статистики `result.timestamp`.\n\n#### Данные группировки\n\n- `date` — дата группировки расходов в формате `YYYY-MM-DD`.\n- `type` — группировка расходов.\n- `spendings` — список данных категории расходов.\n\n#### Данные категории расходов\n\n- `slug` — категория расходов.\n- `value` — сумма расходов в рублях.\n- `services` — список данных расходов категории по услугам.\n\n#### Данные расходов категории\n\n- `slug` — услуга.\n- `value` — сумма расходов в рублях.\n\n#### Услуга\n\n- `bbip` — Продвижение с прогнозом просмотров.\n- `perf_vas` — ×2, ×5, ×10 и другие.\n- `vas_xl` — XL-объявление.\n- `vas_highlight` — Выделение цветом.\n- `sbc_discount` — Рассылка скидок.\n- `vas_sticker` — Значки на XL-объявлении.\n- `vas_package` — Пакеты продвижения.\n- `orders_commission` — Комиссия за заказы.\n- `bookings_commission` — Комиссия за бронирования.\n- `delivery_subsidy` — Cкидка на доставку для покупателей.\n- `fbs_commission` — Комиссия за услугу «кросс-доставка».\n- `tariff_listing` — Размещения из тарифа.\n- `lf` — Разовые размещения.\n- `tariff_remainder` — Неиспользованные размещения.\n- `cpa_click_package` — Целевые просмотры.\n- `cpa_target_call` — Целевые звонки.\n- `cpa_target_chat` — Целевые чаты.\n- `cpa_job_contact` — Отклики.\n- `service_fee` — Объявления сверх лимита.\n- `cpa_rfp_contact` — Целевые лиды.\n- `cpa_transfer_select` — Лиды Селекта.\n- `profile_promo` — Продвижение профиля.\n- `profile_promo_v2` — Реклама профиля.\n- `tariff_ext` — Подписка на инструменты.\n- `chat_bot` — Чат-боты.\n- `cv` — Пакеты резюме.\n- `other` — Другое.\n\n### Примечания\n\n- Метод имеет ограничение до 100 запросов в минуту.\n- Глубина данных статистики ограничена 510 днями.\n"
+      operationId: statsAccountsSpendings
+      parameters:
+      - $ref: '#/components/parameters/userIdPathParameter'
+      - $ref: '#/components/parameters/authHeader'
+      - $ref: '#/components/parameters/agencyClientIdHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              additionalProperties: false
+              properties:
+                dateFrom:
+                  $ref: '#/components/schemas/date'
+                dateTo:
+                  $ref: '#/components/schemas/date'
+                filter:
+                  additionalProperties: false
+                  description: Набор ограничений, по которым будут отфильтрованы данные статистики
+                  properties:
+                    categoryIDs:
+                      $ref: '#/components/schemas/ids'
+                    itemIDs:
+                      $ref: '#/components/schemas/ids'
+                  type: object
+                grouping:
+                  $ref: '#/components/schemas/statsSpendingsGrouping'
+                spendingTypes:
+                  description: Набор категорий расходов клиента
+                  items:
+                    enum:
+                    - all
+                    - promotion
+                    - presence
+                    - commission
+                    - rest
+                    example: all
+                    type: string
+                  type: array
+              required:
+              - dateFrom
+              - dateTo
+              - grouping
+              - spendingTypes
+              type: object
+        description: Тело запроса
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: false
+                properties:
+                  result:
+                    additionalProperties: false
+                    description: Статистика расходов клиента
+                    properties:
+                      groupings:
+                        description: Группировки расходов клиента
+                        items:
+                          additionalProperties: false
+                          description: Группировка расходов клиента
+                          properties:
+                            date:
+                              $ref: '#/components/schemas/date'
+                            spendings:
+                              description: Категории расходов
+                              items:
+                                additionalProperties: false
+                                description: Категория расходов
+                                properties:
+                                  services:
+                                    description: Расходы по услугам
+                                    items:
+                                      additionalProperties: false
+                                      description: Расход по услугам
+                                      properties:
+                                        slug:
+                                          description: Слаг услуг
+                                          enum:
+                                          - bbip
+                                          - perf_vas
+                                          - vas_xl
+                                          - vas_highlight
+                                          - sbc_discount
+                                          - vas_sticker
+                                          - vas_package
+                                          - orders_commission
+                                          - bookings_commission
+                                          - delivery_subsidy
+                                          - fbs_commission
+                                          - tariff_listing
+                                          - lf
+                                          - tariff_remainder
+                                          - cpa_click_package
+                                          - cpa_target_call
+                                          - cpa_target_chat
+                                          - cpa_job_contact
+                                          - service_fee
+                                          - cpa_rfp_contact
+                                          - cpa_transfer_select
+                                          - profile_promo
+                                          - profile_promo_v2
+                                          - tariff_ext
+                                          - chat_bot
+                                          - cv
+                                          - other
+                                          example: vas_xl
+                                          type: string
+                                        value:
+                                          $ref: '#/components/schemas/amountDouble'
+                                      required:
+                                      - slug
+                                      - value
+                                      type: object
+                                    type: array
+                                  slug:
+                                    description: Слаг категории расходов
+                                    enum:
+                                    - promotion
+                                    - presence
+                                    - commission
+                                    - rest
+                                    example: promotion
+                                    type: string
+                                  value:
+                                    $ref: '#/components/schemas/amountDouble'
+                                required:
+                                - slug
+                                - value
+                                - services
+                                type: object
+                              type: array
+                            type:
+                              $ref: '#/components/schemas/statsSpendingsGrouping'
+                          required:
+                          - date
+                          - type
+                          - spendings
+                          type: object
+                        type: array
+                      timestamp:
+                        $ref: '#/components/schemas/timestamp'
+                    required:
+                    - groupings
+                    - timestamp
+                    type: object
+                required:
+                - result
+                type: object
+          description: Успешный ответ
+        '400':
+          $ref: '#/components/responses/defaultBadRequest'
+        '401':
+          $ref: '#/components/responses/defaultUnauthorized'
+        '403':
+          $ref: '#/components/responses/defaultForbidden'
+        '429':
+          $ref: '#/components/responses/defaultTooManyRequests'
+        '500':
+          $ref: '#/components/responses/defaultInternalServerError'
+      security:
+      - ClientCredentials: []
+      summary: Получение статистики расходов клиента
+      tags:
+      - statistics
+components:
+  schemas:
+    errorMessage:
+      description: Сообщение об ошибке
+      example: Ошибка
+      type: string
+    statsMetric:
+      description: Показатель статистики
+      enum:
+      - views
+      - contacts
+      - contactsShowPhone
+      - contactsMessenger
+      - contactsShowPhoneAndMessenger
+      - contactsSbcDiscount
+      - viewsToContactsConversion
+      - favorites
+      - averageViewCost
+      - averageContactCost
+      - impressions
+      - impressionsToViewsConversion
+      - clickPackages
+      - jobContacts
+      - viewsToOrderedItemsConversion
+      - orderedItems
+      - orderedItemsPrice
+      - deliveredItems
+      - deliveredItemsPrice
+      - bookingPlacedCount
+      - bookingPlacedPrice
+      - bookingApprovedCount
+      - bookingApprovedPrice
+      - bookingAcceptedCount
+      - bookingAcceptedPrice
+      - allSpending
+      - spending
+      - presenceSpending
+      - promoSpending
+      - restSpending
+      - commission
+      - spendingBonus
+      - activeItems
+      - newActiveItems
+      - oldActiveItems
+      example: views
+      type: string
+    ids:
+      description: Список идентификаторов
+      items:
+        $ref: '#/components/schemas/id'
+      minItems: 1
+      type: array
+    statsMetricsGrouping:
+      description: Тип группировки показателей
+      enum:
+      - day
+      - week
+      - month
+      - totals
+      example: month
+      type: string
+    defaultErrorResponse:
+      additionalProperties: false
+      properties:
+        error:
+          additionalProperties: false
+          description: Ошибка
+          properties:
+            code:
+              description: Код ошибки
+              example: 1001
+              type: integer
+            message:
+              $ref: '#/components/schemas/errorMessage'
+          required:
+          - code
+          - message
+          type: object
+      required:
+      - error
+      type: object
+    offset:
+      description: Смещение, с которого начинается выборка
+      example: 10
+      minimum: 0
+      type: integer
+    date:
+      description: Дата в формате YYYY-MM-DD
+      example: '2025-05-02'
+      format: date
+      type: string
+    amountDouble:
+      description: Сумма в рублях
+      example: 1000
+      format: double
+      type: number
+    limit:
+      description: Ограничение количества сущностей в выборке
+      example: 100
+      maximum: 1000
+      minimum: 1
+      type: integer
+    timestamp:
+      description: Временная метка
+      example: 1598958000
+      type: integer
+    counter:
+      description: Счетчик
+      example: 123
+      type: integer
+    statsSpendingsGrouping:
+      description: Тип группировки расходов
+      enum:
+      - day
+      - week
+      - month
+      example: month
+      type: string
+    id:
+      description: Идентификатор
+      example: 123456
+      minimum: 1
+      type: integer
+  parameters:
+    userIdPathParameter:
+      description: Идентификатор пользователя клиента
+      in: path
+      name: user_id
+      required: true
+      schema:
+        $ref: '#/components/schemas/id'
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
+    agencyClientIdHeader:
+      description: Идентификатор пользователя клиента
+      in: header
+      name: X-AgencyClientId
+      required: true
+      schema:
+        $ref: '#/components/schemas/id'
+  responses:
+    defaultBadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Неверный запрос
+    defaultForbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Действие запрещено
+    defaultTooManyRequests:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Превышено количество запросов
+    defaultInternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Ошибка сервера
+    defaultUnauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Требуется авторизация
+  securitySchemes:
+    AuthorizationCode:
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://avito.ru/oauth
+          scopes:
+            ah:access: Взаимодействие с иерархией аккаунтов
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2
+    ClientCredentials:
+      description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2

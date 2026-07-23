@@ -1,0 +1,31 @@
+# generated: '2026-07-18'
+# method: derived
+# source: openapi/*.json X-RateLimit-* headers + 429 responses
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+provider: Avito
+providerId: avito
+created: '2026-07-18'
+modified: '2026-07-18'
+tags:
+- Rate Limiting
+- Classifieds
+description: Avito API enforces per-minute request quotas signaled on every response via X-RateLimit-Limit
+  (requests allowed per minute) and X-RateLimit-Remaining (requests left in the current window). Exceeding
+  the quota returns HTTP 429. Specific numeric limits vary per endpoint/product and are published in each
+  API reference.
+sources:
+- https://developers.avito.ru/api-catalog
+headers:
+  limit: X-RateLimit-Limit
+  remaining: X-RateLimit-Remaining
+responseCodes:
+  throttled: 429
+limits:
+- name: Per-minute request quota
+  scope: application/account
+  metric: requests_per_minute
+  timeFrame: minute
+  signaled_by: X-RateLimit-Limit header
+  note: Numeric value is endpoint-specific and returned in the response header rather than a single global
+    figure.

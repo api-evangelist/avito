@@ -1,0 +1,138 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: supportautoload@avito.ru
+  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+    '
+  title: Иерархия Аккаунтов Access CheckAhUserV1 API
+  version: '1'
+servers:
+- url: https://api.avito.ru/
+tags:
+- name: CheckAhUserV1
+paths:
+  /checkAhUserV1:
+    parameters:
+    - description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
+    - description: список зон доступа, полученных приложением
+      example: ah:access
+      in: header
+      name: X-Oauth-Scopes
+      schema:
+        type: string
+    - description: выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)
+      example: authorization_code
+      in: header
+      name: X-Oauth-Flow
+      schema:
+        type: string
+    get:
+      deprecated: true
+      description: 'Устаревший метод, используйте /checkAhUserV2 либо /getAhInfoV1. Ручка для получения информации по ИА для пользователя.
+
+        '
+      operationId: checkAhUserV1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                description: Данные пользователя о статусе в иерархии аккаунтов
+                properties:
+                  avitoCompanyId:
+                    description: ИД компании, к которой принадлежит сотрудник
+                    nullable: true
+                    type: integer
+                  isChief:
+                    description: Признак того, что пользователь является руководителем
+                    type: boolean
+                  isCompany:
+                    description: Признак того, что пользователь является компанией
+                    type: boolean
+                  isEmployee:
+                    description: Признак того, что пользователь является сотрудником
+                    type: boolean
+                type: object
+          description: Успешный ответ
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    properties:
+                      message:
+                        title: Текст ошибки
+                        type: string
+                      slug:
+                        title: Кодовое название ошибки
+                        type: string
+                      type:
+                        title: Тип ошибки
+                        type: string
+                    required:
+                    - message
+                    - slug
+                    type: object
+                required:
+                - error
+                type: object
+          description: Требуется аутентификация
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    properties:
+                      message:
+                        title: Текст ошибки
+                        type: string
+                      slug:
+                        title: Кодовое название ошибки
+                        type: string
+                      type:
+                        title: Тип ошибки
+                        type: string
+                    required:
+                    - message
+                    - slug
+                    type: object
+                required:
+                - error
+                type: object
+          description: Внутренняя ошибка метода API
+      security:
+      - AuthorizationCode:
+        - ah:access
+      - ClientCredentials: []
+      summary: Получение информации о статусе пользователя в ИА
+      tags:
+      - CheckAhUserV1
+components:
+  securitySchemes:
+    AuthorizationCode:
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://avito.ru/oauth
+          scopes:
+            ah:access: Взаимодействие с иерархией аккаунтов
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2
+    ClientCredentials:
+      description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2

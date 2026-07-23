@@ -1,0 +1,214 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: supportautoload@avito.ru
+  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+    '
+  title: Иерархия Аккаунтов Access LinkItemsV1 API
+  version: '1'
+servers:
+- url: https://api.avito.ru/
+tags:
+- name: LinkItemsV1
+paths:
+  /linkItemsV1:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    - $ref: '#/components/parameters/X-Oauth-Scopes'
+    - $ref: '#/components/parameters/X-Oauth-Flow'
+    post:
+      description: 'Для взаимодействия с иерархией аккаунтов необходимо приобрести тариф в [личном кабинете](https://www.avito.ru/paid-services/listing-fees).
+
+        '
+      operationId: linkItemsV1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkItems'
+        required: true
+      responses:
+        '204':
+          description: Успешный ответ
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    properties:
+                      message:
+                        description: Текст ошибки
+                        example: Некорректные данные
+                        type: string
+                      slug:
+                        description: Кодовое название ошибки
+                        example: validation
+                        type: string
+                      type:
+                        description: Тип ошибки
+                        example: bad_data
+                        type: string
+                    required:
+                    - message
+                    - slug
+                    type: object
+                required:
+                - error
+                type: object
+          description: Ошибка валидации
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    properties:
+                      message:
+                        description: Текст ошибки
+                        example: Пользователь не авторизован
+                        type: string
+                      slug:
+                        description: Кодовое название ошибки
+                        example: user_unauthorized
+                        type: string
+                      type:
+                        description: Тип ошибки
+                        example: authorization_error
+                        type: string
+                    required:
+                    - message
+                    - slug
+                    type: object
+                required:
+                - error
+                type: object
+          description: Требуется аутентификация
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    properties:
+                      message:
+                        description: Текст ошибки
+                        example: Перелинковка айтемов не доступна
+                        type: string
+                      slug:
+                        description: Кодовое название ошибки
+                        example: forbidden_link_items
+                        type: string
+                      type:
+                        description: Тип ошибки
+                        example: link_items
+                        type: string
+                    required:
+                    - message
+                    - slug
+                    type: object
+                required:
+                - error
+                type: object
+          description: Перелинковка айтема недоступна
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    properties:
+                      message:
+                        description: Текст ошибки
+                        example: Error while processing request. Please, contact support
+                        type: string
+                      slug:
+                        description: Кодовое название ошибки
+                        example: server
+                        type: string
+                      type:
+                        description: Тип ошибки
+                        example: server
+                        type: string
+                    required:
+                    - message
+                    - slug
+                    type: object
+                required:
+                - error
+                type: object
+          description: Внутренняя ошибка метода API
+      security:
+      - AuthorizationCode:
+        - ah:access
+      - ClientCredentials: []
+      summary: Прикрепление сотрудника иерархии к объявлениям, перезакрепление объявлений между сотрудниками иерархии
+      tags:
+      - LinkItemsV1
+components:
+  schemas:
+    LinkItems:
+      properties:
+        employeeId:
+          description: Идентификатор сотрудника, к которому прилинкуются объявления
+          example: 10800
+          minimum: 1
+          type: integer
+        itemIds:
+          description: Список идентификаторов объявлений для линковки (max 50)
+          example:
+          - 1023900
+          - 1090112
+          - 3610765
+          items:
+            type: integer
+          maxItems: 50
+          minItems: 1
+          type: array
+      required:
+      - itemIds
+      - employeeId
+      type: object
+  parameters:
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
+    X-Oauth-Scopes:
+      description: Список зон доступа, полученных приложением
+      example: ah:access
+      in: header
+      name: X-Oauth-Scopes
+      schema:
+        type: string
+    X-Oauth-Flow:
+      description: Выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)
+      example: authorization_code
+      in: header
+      name: X-Oauth-Flow
+      schema:
+        type: string
+  securitySchemes:
+    AuthorizationCode:
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://avito.ru/oauth
+          scopes:
+            ah:access: Взаимодействие с иерархией аккаунтов
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2
+    ClientCredentials:
+      description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2

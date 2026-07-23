@@ -1,0 +1,363 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: supportautoload@avito.ru
+  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+    '
+  title: Иерархия Аккаунтов Access transactions API
+  version: '1'
+servers:
+- url: https://api.avito.ru/
+tags:
+- description: 'С помощью API данного раздела вы можете выполнять переводы средств клиентам и отслеживать транзакции.
+
+
+    [Выполните](#operation/agencyBalance) перевод средств на счёт клиента и получите идентификатор транзакции.
+
+    Затем с помощью идентификатора [проверьте](#operation/agencyTransaction) статус транзакции.
+
+    [Отслеживайте](#operation/agencyTransactions) транзакции, которые ещё не были завершены.
+
+
+    ### Типы авторизации
+
+
+    Для использования данного API запрос должен быть авторизован.
+
+    API Авито Promo использует следующие механизмы авторизации:
+
+
+    <!-- ReDoc-Inject: <security-definitions> -->
+
+    '
+  name: transactions
+  x-displayName: Перевод средств клиентам
+paths:
+  /agency/balance:
+    post:
+      description: "Данный метод выполняет перевод средств агентства на счёт клиента (актуально для рекламной модели).\nПри пополнении счёта клиента должны совпадать ИНН и КПП для:\n\n- аккаунта, от имени которого выполняется запрос;\n- аккаунта, на чей счёт нужно перевести средства;\n- платежа, из которого берётся указанная сумма.\n\n### Параметры тела запроса\n\n- `userId` — идентификатор клиента, на счёт которого переводятся средства.\n- `amount` — сумма перевода в рублях.\n\n### Успешный ответ\n\nМетод возвращает назад информацию о созданной транзакции:\n\n- `result.transactionId` — идентификатор транзакции,\n  с помощью которого можно получить информацию о транзакции\n  (см. метод [Получение информации о транзакции](#operation/agencyTransaction)).\n- `result.status` — статус транзакции.\n- `result.reason` — причина текущего статуса транзакции.\n\nВ случае успеха статус будет иметь значение `processing` — транзакция в процессе обработки.\nЕсли же при создании транзакции возникает ошибка, то статус будет иметь значение `error`.\nВ таком случае необходимо обратиться в службу поддержки,\n  указав в обращении в том числе значение параметра `result.reason`.\n"
+      operationId: agencyBalance
+      parameters:
+      - $ref: '#/components/parameters/authHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              additionalProperties: false
+              properties:
+                amount:
+                  description: Сумма в рублях
+                  example: 1000
+                  minimum: 1
+                  type: integer
+                userId:
+                  $ref: '#/components/schemas/id'
+              required:
+              - userId
+              - amount
+              type: object
+        description: Тело запроса
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: false
+                properties:
+                  result:
+                    additionalProperties: false
+                    description: Результат перевода средств на счёт клиента
+                    properties:
+                      reason:
+                        description: Причина текущего статуса транзакции
+                        example: Создан запрос на перевод средств
+                        type: string
+                      status:
+                        description: Статус транзакции
+                        enum:
+                        - processing
+                        - error
+                        example: processing
+                        type: string
+                      transactionId:
+                        $ref: '#/components/schemas/transactionId'
+                    required:
+                    - transactionId
+                    - status
+                    - reason
+                    type: object
+                required:
+                - result
+                type: object
+          description: Успешный ответ
+        '400':
+          $ref: '#/components/responses/badRequestFields'
+        '401':
+          $ref: '#/components/responses/unauthorized'
+        '403':
+          $ref: '#/components/responses/unauthorized'
+        '429':
+          $ref: '#/components/responses/defaultTooManyRequests'
+        '500':
+          $ref: '#/components/responses/defaultInternalServerError'
+      security:
+      - ClientCredentials: []
+      summary: Перевод средств на счёт клиента
+      tags:
+      - transactions
+  /agency/transactions:
+    get:
+      description: "Данный метод позволяет получить список незавершённых транзакций.\n\n### Успешный ответ\n\nМетод возвращает назад массив незавершённых транзакций `result`.\n\n#### Транзакция\n\nВ данных транзакции возвращается её идентификатор `transactionId` и статус `status`.\nПо идентификатору транзакции с помощью метода\n  [Получение информации о транзакции](#operation/agencyTransaction) можно получить сообщение об ошибке,\n  если её статус имеет значение `error`.\n\n#### Статус транзакции\n\n- `success` — перевод средств успешно завершён.\n- `processing` — транзакция создана, но её обработка ещё не завершена.\n- `error` — при обработке транзакции произошла ошибка.\n"
+      operationId: agencyTransactions
+      parameters:
+      - $ref: '#/components/parameters/authHeader'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: false
+                properties:
+                  result:
+                    description: Информация о незавершённых транзакциях
+                    items:
+                      additionalProperties: false
+                      description: Информация о транзакции
+                      properties:
+                        status:
+                          $ref: '#/components/schemas/transactionStatus'
+                        transactionId:
+                          $ref: '#/components/schemas/transactionId'
+                      required:
+                      - transactionId
+                      - status
+                      type: object
+                    type: array
+                required:
+                - result
+                type: object
+          description: Успешный ответ
+        '400':
+          $ref: '#/components/responses/badRequestFields'
+        '401':
+          $ref: '#/components/responses/unauthorized'
+        '403':
+          $ref: '#/components/responses/unauthorized'
+        '429':
+          $ref: '#/components/responses/defaultTooManyRequests'
+        '500':
+          $ref: '#/components/responses/defaultInternalServerError'
+      security:
+      - ClientCredentials: []
+      summary: Получение списка незавершённых транзакций
+      tags:
+      - transactions
+  /agency/transactions/{transaction_id}:
+    get:
+      description: "Данный метод позволяет получить информацию о транзакции.\n\n### Параметры тела запроса\n\n- `transactionId` — идентификатор транзакции\n  (см. метод [Перевод средств на счёт клиента](#operation/agencyBalance)).\n\n### Успешный ответ\n\nМетод возвращает назад идентификатор транзакции `result.transactionId` и её статус `result.status`.\nЕсли статус имеет значение `error`, то также возвращается сообщение об ошибке `result.message`.\n\n#### Статус транзакции\n\n- `success` — перевод средств успешно завершён.\n- `processing` — транзакция создана, но её обработка ещё не завершена.\n- `error` — при обработке транзакции произошла ошибка.\n\n#### Сообщение об ошибке\n\n- «transfer not found» — транзакция с заданным `transactionId` не найдена.\n- «Недостаточно средств у рекламного агентства» — транзакцию не удалось выполнить из-за того,\n  что все предварительно внесённые средства исчерпаны.\n- любой другой текст — внутренняя ошибка. Следует обратиться в службу поддержки.\n"
+      operationId: agencyTransaction
+      parameters:
+      - $ref: '#/components/parameters/transactionIdPathParameter'
+      - $ref: '#/components/parameters/authHeader'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: false
+                properties:
+                  result:
+                    additionalProperties: false
+                    description: Информация о транзакции
+                    properties:
+                      message:
+                        $ref: '#/components/schemas/errorMessage'
+                      status:
+                        $ref: '#/components/schemas/transactionStatus'
+                      transactionId:
+                        $ref: '#/components/schemas/transactionId'
+                    required:
+                    - transactionId
+                    - status
+                    type: object
+                required:
+                - result
+                type: object
+          description: Успешный ответ
+        '400':
+          $ref: '#/components/responses/badRequestFields'
+        '401':
+          $ref: '#/components/responses/unauthorized'
+        '403':
+          $ref: '#/components/responses/forbidden'
+        '404':
+          $ref: '#/components/responses/notFound'
+        '429':
+          $ref: '#/components/responses/defaultTooManyRequests'
+        '500':
+          $ref: '#/components/responses/defaultInternalServerError'
+      security:
+      - ClientCredentials: []
+      summary: Получение информации о транзакции
+      tags:
+      - transactions
+components:
+  responses:
+    forbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorResponse'
+      description: Действие запрещено
+    defaultTooManyRequests:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Превышено количество запросов
+    notFound:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorResponse'
+      description: Не найдено
+    unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorResponse'
+      description: Требуется авторизация
+    badRequestFields:
+      content:
+        application/json:
+          schema:
+            additionalProperties: false
+            properties:
+              result:
+                $ref: '#/components/schemas/errorFields'
+            required:
+            - result
+            type: object
+      description: Неверный запрос
+    defaultInternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Ошибка сервера
+  schemas:
+    errorResult:
+      additionalProperties: false
+      description: Результат с ошибкой
+      properties:
+        message:
+          $ref: '#/components/schemas/errorMessage'
+      required:
+      - message
+      type: object
+    transactionStatus:
+      description: Статус транзакции
+      enum:
+      - processing
+      - success
+      - error
+      example: success
+      type: string
+    errorMessage:
+      description: Сообщение об ошибке
+      example: Ошибка
+      type: string
+    errorField:
+      description: Наименование поля
+      example: userId
+      type: string
+    errorResponse:
+      additionalProperties: false
+      properties:
+        result:
+          $ref: '#/components/schemas/errorResult'
+      required:
+      - result
+      type: object
+    defaultErrorResponse:
+      additionalProperties: false
+      properties:
+        error:
+          additionalProperties: false
+          description: Ошибка
+          properties:
+            code:
+              description: Код ошибки
+              example: 1001
+              type: integer
+            message:
+              $ref: '#/components/schemas/errorMessage'
+          required:
+          - code
+          - message
+          type: object
+      required:
+      - error
+      type: object
+    transactionId:
+      description: Идентификатор транзакции
+      example: b52717c26fbc027acc34f165490fd4fdf404f3aa
+      minLength: 1
+      type: string
+    id:
+      description: Идентификатор
+      example: 123456
+      minimum: 1
+      type: integer
+    errorFields:
+      description: Ошибки валидации
+      items:
+        additionalProperties: false
+        description: Ошибка валидации поля
+        properties:
+          field:
+            $ref: '#/components/schemas/errorField'
+          message:
+            $ref: '#/components/schemas/errorMessage'
+        required:
+        - field
+        - message
+        type: object
+      type: array
+  parameters:
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
+    transactionIdPathParameter:
+      description: Идентификатор транзакции
+      in: path
+      name: transaction_id
+      required: true
+      schema:
+        $ref: '#/components/schemas/transactionId'
+  securitySchemes:
+    AuthorizationCode:
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://avito.ru/oauth
+          scopes:
+            ah:access: Взаимодействие с иерархией аккаунтов
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2
+    ClientCredentials:
+      description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2

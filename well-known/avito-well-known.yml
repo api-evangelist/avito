@@ -1,0 +1,15 @@
+# generated: '2026-07-18'
+# method: searched
+# source: live probe of /.well-known/* on api.avito.ru + www.avito.ru
+host: https://api.avito.ru
+note: No /.well-known discovery documents are published on api.avito.ru or www.avito.ru; all probes returned
+  404. Recorded for auditability.
+documents:
+- path: /.well-known/security.txt
+  status: 404
+- path: /.well-known/openid-configuration
+  status: 404
+- path: /.well-known/oauth-authorization-server
+  status: 404
+- path: /.well-known/ai-plugin.json
+  status: 404

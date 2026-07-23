@@ -1,0 +1,255 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: supportautoload@avito.ru
+  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+    '
+  title: Иерархия Аккаунтов Access ReferenceData API
+  version: '1'
+servers:
+- url: https://api.avito.ru/
+tags:
+- name: ReferenceData
+  x-displayName: Справочные данные
+  x-subdivName: Справочные данные
+paths:
+  /autoteka/v1/packages/active_package:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    get:
+      description: 'Возвращает остаток отчётов в текущем пакете пользователя
+
+        '
+      operationId: getActivePackage
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetActivePackageResponseBodyAutoteka'
+          description: Успешный ответ
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forbiddenError'
+          description: Активный пакет не найден
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/internalError'
+          description: Информация об ошибке
+      security:
+      - ClientCredentials: []
+      summary: 'Запрос остатка отчётов пользователя
+
+        '
+      tags:
+      - ReferenceData
+  /autoteka/v1/reports/list/:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    - description: Идентификатор отчета для получения данных постранично.
+      in: query
+      name: lastReportId
+      schema:
+        minimum: 1
+        nullable: true
+        type: integer
+    - description: Количество отчетов в результате
+      in: query
+      name: limit
+      schema:
+        description: По умолчанию 20
+        maximum: 500
+        minimum: 1
+        nullable: true
+        type: integer
+    - description: Фильтр по VIN или номеру кузова
+      in: query
+      name: vin
+      schema:
+        nullable: true
+        type: string
+    get:
+      description: 'Получение списка запрошенных ранее отчетов [запроса на создание отчета](#operation/postReport)
+
+        '
+      operationId: getReportList
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetReportsListResponseDataAutoteka'
+          description: Успешный ответ
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/validatingError'
+          description: Ошибка валидации входных параметров
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/internalError'
+          description: Информация об ошибке
+      security:
+      - ClientCredentials: []
+      summary: 'Получение списка отчётов
+
+        '
+      tags:
+      - ReferenceData
+      x-trailing-slash: true
+components:
+  schemas:
+    GetActivePackageResponseDataAutoteka:
+      properties:
+        package:
+          $ref: '#/components/schemas/PackageAutoteka'
+      type: object
+    ReportItem_autoteka:
+      properties:
+        createdAt:
+          description: Дата и время генерации отчета
+          example: '2020-09-30 16:51:32.187629'
+          type: string
+        reportId:
+          description: Идентификатор сгенерированного отчета, по которому его можно получить
+          example: 1
+          format: int64
+          type: integer
+        vin:
+          description: ВИН-номер
+          example: JSAJTDA4V00105...
+          type: string
+      required:
+      - vin
+      - createdAt
+      - reportId
+      type: object
+    internalError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 500
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Service is temporary unavailable
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    GetActivePackageResponseBodyAutoteka:
+      properties:
+        result:
+          $ref: '#/components/schemas/GetActivePackageResponseDataAutoteka'
+      type: object
+    validatingError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 400
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Validation error
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    GetReportsListResponseDataAutoteka:
+      properties:
+        result:
+          items:
+            $ref: '#/components/schemas/ReportItem_autoteka'
+          type: array
+      required:
+      - result
+      type: object
+    forbiddenError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 403
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Forbidden
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    PackageAutoteka:
+      properties:
+        createdTime:
+          description: Время начала действия текущего пакета
+          example: '2018-10-23 12:37:09.264301'
+          type: string
+        expireTime:
+          description: Время окончания действия текущего пакета
+          example: '2019-08-31 23:59:59'
+          type: string
+        reportsCnt:
+          description: Количество доступных отчётов в пакете
+          example: 5000
+          format: int64
+          type: integer
+        reportsCntRemain:
+          description: Текущий остаток отчётов в пакете
+          example: 1754
+          format: int64
+          type: integer
+      required:
+      - createdTime
+      - expireTime
+      - reportsCnt
+      - reportsCntRemain
+      type: object
+  parameters:
+    authHeader:
+      description: Токен для авторизации
+      example: Bearer ACCESS_TOKEN
+      in: header
+      name: Authorization
+      schema:
+        type: string
+  securitySchemes:
+    AuthorizationCode:
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://avito.ru/oauth
+          scopes:
+            ah:access: Взаимодействие с иерархией аккаунтов
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2
+    ClientCredentials:
+      description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2

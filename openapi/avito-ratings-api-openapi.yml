@@ -1,0 +1,477 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: supportautoload@avito.ru
+  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+    '
+  title: Иерархия Аккаунтов Access Ratings API
+  version: '1'
+servers:
+- url: https://api.avito.ru/
+tags:
+- description: 'API для работы с рейтингами и отзывами
+
+    '
+  name: Ratings
+  x-displayName: Рейтинги и отзывы
+paths:
+  /ratings/v1/answers:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    post:
+      operationId: createReviewAnswerV1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAnswerRequestBody'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAnswerResponse'
+          description: Успешный ответ
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    $ref: '#/components/schemas/ReviewError'
+                type: object
+          description: Неверный запрос
+        '401':
+          description: Требуется аутентификация
+        '403':
+          description: Нет доступа к созданию ответов на отзывы
+        '404':
+          description: Отзыв не найден
+        '500':
+          description: Внутренняя ошибка метода API
+      security:
+      - AuthorizationCode:
+        - ratings:write
+      - ClientCredentials: []
+      summary: Отправка ответа на отзыв
+      tags:
+      - Ratings
+  /ratings/v1/answers/{answer_id}:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    - description: Идентификатор ответа на отзыв
+      example: 1234567
+      in: path
+      name: answer_id
+      required: true
+      schema:
+        format: int64
+        type: integer
+    delete:
+      operationId: removeReviewAnswerV1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoveAnswerResponse'
+          description: Успешный ответ
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    $ref: '#/components/schemas/ReviewError'
+                type: object
+          description: Неверный запрос
+        '401':
+          description: Требуется аутентификация
+        '403':
+          description: Нет доступа к удалению ответов на отзывы
+        '404':
+          description: Ответ не найден
+        '500':
+          description: Внутренняя ошибка метода API
+      security:
+      - AuthorizationCode:
+        - ratings:write
+      - ClientCredentials: []
+      summary: Запрос на удаление ответа на отзыв
+      tags:
+      - Ratings
+  /ratings/v1/info:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    get:
+      operationId: getRatingsInfoV1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetRatingInfoResponse'
+          description: Успешный ответ
+        '401':
+          description: Требуется аутентификация
+        '403':
+          description: Нет доступа к рейтингу
+        '500':
+          description: Внутренняя ошибка метода API
+      security:
+      - AuthorizationCode:
+        - ratings:read
+      - ClientCredentials: []
+      summary: Получение информации о рейтинге пользователя
+      tags:
+      - Ratings
+  /ratings/v1/reviews:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    get:
+      operationId: getReviewsV1
+      parameters:
+      - description: Смещение
+        in: query
+        name: offset
+        required: true
+        schema:
+          example: 10
+          minimum: 0
+          type: integer
+      - description: Лимит количества отзывов
+        in: query
+        name: limit
+        required: true
+        schema:
+          example: 20
+          maximum: 50
+          minimum: 1
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetReviewsResponse'
+          description: Успешный ответ
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    $ref: '#/components/schemas/ReviewError'
+                type: object
+          description: Неверный запрос
+        '401':
+          description: Требуется аутентификация
+        '403':
+          description: Нет доступа к списку отзывов
+        '500':
+          description: Внутренняя ошибка метода API
+      security:
+      - AuthorizationCode:
+        - ratings:read
+      - ClientCredentials: []
+      summary: Получение списка активных отзывов на пользователя с пагинацией
+      tags:
+      - Ratings
+components:
+  schemas:
+    Rating:
+      nullable: true
+      properties:
+        reviewsCount:
+          description: Общее количество активных отзывов
+          example: 21
+          type: integer
+        reviewsWithScoreCount:
+          description: Количество активных отзывов, влияющих на формирование рейтинга
+          example: 12
+          type: integer
+        score:
+          description: Оценка рейтинга
+          example: 4.3
+          format: float
+          type: number
+      required:
+      - score
+      - reviewsWithScoreCount
+      - reviewsCount
+      type: object
+    ReviewItem:
+      description: Структура объявления
+      nullable: true
+      properties:
+        id:
+          description: ID объявления
+          example: 1234567
+          type: integer
+        title:
+          description: Заголовок объявления
+          example: Автомобиль 2020-го года
+          type: string
+      type: object
+    GetRatingInfoResponse:
+      properties:
+        isEnabled:
+          description: Включен ли рейтинг
+          example: true
+          type: boolean
+        rating:
+          $ref: '#/components/schemas/Rating'
+      required:
+      - isEnabled
+      type: object
+    ReviewError:
+      description: Ошибка Bad Request
+      properties:
+        code:
+          description: Код ошибки
+          example: validation
+          type: string
+        message:
+          description: Текст ошибки
+          example: Field `offset` is not integer
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    ReviewSender:
+      description: Структура отправителя отзыва
+      nullable: true
+      properties:
+        name:
+          description: Имя отправителя
+          example: Владимир
+          type: string
+      required:
+      - name
+      type: object
+    ReviewAnswer:
+      description: Структура ответа на отзыв
+      nullable: true
+      properties:
+        createdAt:
+          description: Unix TimeStamp создания ответа
+          example: 1571654040
+          type: integer
+        id:
+          description: ID ответа
+          example: 1234567
+          type: integer
+        reject_reasons:
+          description: Список причин отклонения
+          items:
+            $ref: '#/components/schemas/RejectReason'
+          type: array
+        status:
+          description: "Статус ответа:\n  * `moderation` - на модерации\n  * `published` - опубликован\n  * `rejected` - отклонен\n"
+          enum:
+          - moderation
+          - published
+          - rejected
+          example: published
+          type: string
+        text:
+          description: Текст ответа
+          example: Спасибо за отзыв!
+          type: string
+      required:
+      - id
+      - text
+      - status
+      - createdAt
+      type: object
+    CreateAnswerResponse:
+      properties:
+        createdAt:
+          description: Timestamp создания ответа
+          example: 1571654040
+          type: integer
+        id:
+          description: ID ответа
+          example: 1234567
+          type: integer
+      required:
+      - id
+      - createdAt
+      type: object
+    ReviewImageSize:
+      description: Структура изображения определенного разрешения
+      properties:
+        size:
+          description: Разрешение изображения в формате 100x100
+          example: 100x100
+          type: string
+        url:
+          description: Ссылка на изображение
+          type: string
+      required:
+      - size
+      - url
+      type: object
+    GetReviewsResponse:
+      properties:
+        reviews:
+          description: Список отзывов
+          items:
+            $ref: '#/components/schemas/Review'
+          type: array
+        total:
+          description: Количество всех отзывов
+          example: 35
+          type: integer
+      required:
+      - total
+      - reviews
+      type: object
+    RejectReason:
+      description: Причина отклонения отзыва
+      properties:
+        id:
+          description: ID причины отклонения
+          example: 100
+          type: integer
+        title:
+          description: Заголовок причины отклонения
+          example: Нецензурная лексика
+          type: string
+      required:
+      - id
+      - title
+      type: object
+    Review:
+      description: Структура отзыва
+      properties:
+        answer:
+          $ref: '#/components/schemas/ReviewAnswer'
+        canAnswer:
+          description: Можно ли оставить ответ на отзыв
+          example: true
+          type: boolean
+        createdAt:
+          description: Unix TimeStamp создания отзыва
+          example: 1571654040
+          type: integer
+        extraParams:
+          description: Дополнительные опциональные параметры отзыва
+          properties:
+            vin:
+              description: VIN-номер автомобиля в объявлении
+              example: 4Y1SL65848Z411439
+              type: string
+          type: object
+        id:
+          description: ID отзыва
+          example: 92312343
+          type: integer
+        images:
+          items:
+            $ref: '#/components/schemas/ReviewImage'
+          type: array
+        item:
+          $ref: '#/components/schemas/ReviewItem'
+        score:
+          description: Оценка
+          example: 5
+          type: integer
+        sender:
+          $ref: '#/components/schemas/ReviewSender'
+        stage:
+          description: "Стадия сделки:\n  * `done` - Сделка состоялась\n  * `fell_through` - Сделка сорвалсь\n  * `not_agree` - Не договорились\n  * `not_communicate` - Не общались\n"
+          enum:
+          - done
+          - fell_through
+          - not_agree
+          - not_communicate
+          example: fell_through
+          type: string
+        text:
+          description: Текст отзыва
+          example: Отличный продавец! Рекомендую :)
+          type: string
+        usedInScore:
+          description: Участвует ли отзыв в формирование оценки
+          example: true
+          type: boolean
+      required:
+      - id
+      - score
+      - stage
+      - text
+      - usedInScore
+      - canAnswer
+      - createdAt
+      type: object
+    CreateAnswerRequestBody:
+      properties:
+        message:
+          description: Текст ответа на отзыв
+          example: Спасибо за отзыв
+          type: string
+        reviewId:
+          description: ID отзыва
+          example: 1234567
+          type: integer
+      required:
+      - reviewId
+      - message
+      type: object
+    RemoveAnswerResponse:
+      properties:
+        success:
+          description: Статус успешности запроса
+          example: true
+          type: boolean
+      required:
+      - success
+      type: object
+    ReviewImage:
+      description: Структура изображения, приложенного к отзыву
+      properties:
+        number:
+          description: Порядковый номер изображения
+          example: 1
+          type: integer
+        sizes:
+          description: Список размеров изображения
+          items:
+            $ref: '#/components/schemas/ReviewImageSize'
+          type: array
+      required:
+      - number
+      - sizes
+      type: object
+  parameters:
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
+  securitySchemes:
+    AuthorizationCode:
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://avito.ru/oauth
+          scopes:
+            ah:access: Взаимодействие с иерархией аккаунтов
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2
+    ClientCredentials:
+      description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2

@@ -1,0 +1,32 @@
+# generated: '2026-07-18'
+# method: derived
+# source: openapi/*.json deprecated flags + developers.avito.ru/api-updates
+versioning:
+  scheme: uri-path
+  observed_prefixes:
+    v1: 131
+    v2: 32
+    v3: 5
+    v4: 5
+  docs: https://developers.avito.ru/api-catalog
+change_log: https://developers.avito.ru/api-updates
+deprecation:
+  mechanism: 'operations flagged `deprecated: true` in OpenAPI; superseded by V2/V3 successors'
+  policy_url: null
+  sunset_header: false
+status_page: null
+deprecated_operations:
+- openapi/avito-accounts-hierarchy-openapi.json#checkAhUserV1
+- openapi/avito-autoload-openapi.json#getProfile
+- openapi/avito-autoload-openapi.json#createOrUpdateProfile
+- openapi/avito-autoload-openapi.json#getReportsV2
+- openapi/avito-autoload-openapi.json#getAutoloadItemsInfoV2
+- openapi/avito-autoload-openapi.json#getLastCompletedReport
+- openapi/avito-autoload-openapi.json#getReportByIdV2
+- openapi/avito-autoload-openapi.json#getReportItemsById
+- openapi/avito-autoload-openapi.json#getReportItemsFeesById
+- openapi/avito-autoload-openapi.json#getLastCompletedReportV3
+- openapi/avito-autoload-openapi.json#getReportByIdV3
+- openapi/avito-cpa-openapi.json#getCall
+- openapi/avito-cpa-openapi.json#balanceInfoV2
+- openapi/avito-cpa-openapi.json#getCallByIdV2

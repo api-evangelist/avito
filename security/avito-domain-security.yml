@@ -1,0 +1,26 @@
+generated: '2026-07-18'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.avito.ru
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Jan  3 15:33:41 2027 GMT
+  hsts: false
+- host: developers.avito.ru
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Jan  3 15:33:41 2027 GMT
+  hsts: false
+- host: api.avito.ru
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Jan  3 15:33:41 2027 GMT
+  hsts: false
+domains:
+- domain: avito.ru
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject

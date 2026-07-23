@@ -1,0 +1,48 @@
+# generated: '2026-07-18'
+# method: derived
+# source: openapi/*.json + developers.avito.ru/api-catalog
+description: Cross-cutting request/response conventions shared across all 25 Avito APIs on api.avito.ru.
+base_url: https://api.avito.ru/
+api_style: REST over HTTPS, JSON request/response
+authentication:
+  scheme: OAuth 2.0
+  flows:
+  - authorization_code (act on behalf of a user)
+  - client_credentials (act as your own business account)
+  authorization_url: https://avito.ru/oauth
+  token_url: https://api.avito.ru/token
+  detail: authentication/avito-authentication.yml
+  scopes: scopes/avito-scopes.yml
+idempotency:
+  supported: false
+  note: No idempotency-key header or parameter is documented in the OpenAPI specs. Retries of unsafe operations
+    are not deduplicated by the platform.
+pagination:
+  style: offset/page
+  observed_params:
+    cursor: 2
+    per_page: 4
+    page: 8
+    limit: 2
+    offset: 1
+  note: Pagination parameters vary by product; common forms include per_page/offset and page-based paging.
+rate_limiting:
+  signaled: true
+  headers:
+  - X-RateLimit-Limit
+  - X-RateLimit-Remaining
+  throttled_status: 429
+  detail: rate-limits/avito-rate-limits.yml
+versioning:
+  scheme: uri-path
+  observed_prefixes:
+    v1: 131
+    v2: 32
+    v3: 5
+    v4: 5
+  note: Version segments (e.g. /core/v1, /v2, /v3) are embedded in the path; multiple versions coexist
+    and older ones are marked deprecated.
+error_envelope:
+  shape: '{ "error": { "code": int, "message": string } }'
+  detail: errors/avito-problem-types.yml
+lifecycle: lifecycle/avito-lifecycle.yml

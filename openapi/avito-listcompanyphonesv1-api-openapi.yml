@@ -1,0 +1,208 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: supportautoload@avito.ru
+  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+    '
+  title: Иерархия Аккаунтов Access ListCompanyPhonesV1 API
+  version: '1'
+servers:
+- url: https://api.avito.ru/
+tags:
+- name: ListCompanyPhonesV1
+paths:
+  /listCompanyPhonesV1:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    - $ref: '#/components/parameters/X-Oauth-Scopes'
+    - $ref: '#/components/parameters/X-Oauth-Flow'
+    - $ref: '#/components/parameters/XIsEmployee'
+    - $ref: '#/components/parameters/XEmployeeOf'
+    get:
+      description: 'Для взаимодействия с иерархией аккаунтов необходимо приобрести тариф в [личном кабинете](https://www.avito.ru/paid-services/listing-fees).
+
+        '
+      operationId: listCompanyPhonesV1
+      parameters:
+      - description: Курсор для получения следующей страницы. Передается из предыдущего ответа.
+        in: query
+        name: cursor
+        schema:
+          nullable: true
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyPhonesResult'
+          description: Успешный ответ
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenApiError'
+          description: Ошибка валидации
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    properties:
+                      message:
+                        description: Текст ошибки
+                        example: Пользователь не авторизован
+                        type: string
+                      slug:
+                        description: Кодовое название ошибки
+                        example: user_unauthorized
+                        type: string
+                      type:
+                        description: Тип ошибки
+                        example: authorization_error
+                        type: string
+                    required:
+                    - message
+                    - slug
+                    type: object
+                required:
+                - error
+                type: object
+          description: Требуется аутентификация
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    properties:
+                      message:
+                        description: Текст ошибки
+                        example: Error while processing request. Please, contact support
+                        type: string
+                      slug:
+                        description: Кодовое название ошибки
+                        example: server
+                        type: string
+                      type:
+                        description: Тип ошибки
+                        example: server
+                        type: string
+                    required:
+                    - message
+                    - slug
+                    type: object
+                required:
+                - error
+                type: object
+          description: Внутренняя ошибка метода API
+      security:
+      - AuthorizationCode:
+        - ah:access
+      - ClientCredentials: []
+      summary: Получение списка телефонов компании
+      tags:
+      - ListCompanyPhonesV1
+components:
+  parameters:
+    XIsEmployee:
+      deprecated: true
+      description: 'Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании.
+
+        '
+      in: header
+      name: X-Is-Employee
+      schema:
+        nullable: true
+        type: boolean
+    X-Oauth-Scopes:
+      description: Список зон доступа, полученных приложением
+      example: ah:access
+      in: header
+      name: X-Oauth-Scopes
+      schema:
+        type: string
+    XEmployeeOf:
+      description: Идентификатор компании, от имени которой работает сотрудник.
+      in: header
+      name: X-Employee-Of
+      schema:
+        minimum: 1
+        nullable: true
+        type: integer
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
+    X-Oauth-Flow:
+      description: Выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)
+      example: authorization_code
+      in: header
+      name: X-Oauth-Flow
+      schema:
+        type: string
+  schemas:
+    CompanyPhonesResult:
+      properties:
+        result:
+          properties:
+            cursor:
+              description: Курсор следующей страницы. Если не вернулся, список закончился.
+              nullable: true
+              type: string
+            phones:
+              description: массив номеров телефонов
+              items:
+                example: '75003670850'
+                type: string
+              type: array
+          type: object
+      type: object
+    OpenApiError:
+      properties:
+        error:
+          properties:
+            message:
+              description: Текст ошибки
+              example: Пользователь не авторизован
+              type: string
+            slug:
+              description: Кодовое название ошибки
+              example: user_unauthorized
+              type: string
+            type:
+              description: Тип ошибки
+              example: authorization_error
+              type: string
+          required:
+          - message
+          - slug
+          type: object
+      required:
+      - error
+      type: object
+  securitySchemes:
+    AuthorizationCode:
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://avito.ru/oauth
+          scopes:
+            ah:access: Взаимодействие с иерархией аккаунтов
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2
+    ClientCredentials:
+      description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2

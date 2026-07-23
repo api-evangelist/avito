@@ -1,0 +1,421 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: supportautoload@avito.ru
+  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+    '
+  title: Иерархия Аккаунтов Access Cpa API
+  version: '1'
+servers:
+- url: https://api.avito.ru/
+tags:
+- description: '# Методы для работы с сервисом CPA
+
+    Описание API произведено в формате [**Swagger 3.0**](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md).
+
+    Вы можете использовать данный файл для ознакомления с методами API, а также для генерации базового кода для работы с API на удобном для вас языке программирования с помощью утилиты
+
+    [**Swagger Codegen**](https://swagger.io/swagger-codegen/) или online сервиса [**Swagger Editor**](https://editor.swagger.io/).
+
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+    По всем вопросам работы с API необходимо обращаться в Службу Поддержки профессиональных инструментов:
+
+
+    <li>телефон: <b>+7 495 777-10-66</b></li>
+
+    <li>email: <a href="mailto:supportautoload@avito.ru">supportautoload@avito.ru</a></li>
+
+
+    # Типы авторизации
+
+    Для использования данного API запрос должен быть авторизован. В данный момент API Авито использует следующие механизмы авторизации. <!-- ReDoc-Inject: <security-definitions> -->
+
+    '
+  name: Cpa
+  x-displayName: API CPA Авито
+paths:
+  /cpa/v1/phonesInfoFromChats:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    - $ref: '#/components/parameters/sourceHeader'
+    post:
+      description: Получение информации по номерам телефонов из целевых чатов Максимальное количество запросов в минуту - 5.
+      operationId: phonesInfoFromChats
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OpenAPIPhonesInfoFromChatsIn'
+        description: Время с которого нужного производить поиск чатов, размер выборки и смещение
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  results:
+                    items:
+                      $ref: '#/components/schemas/OpenAPIPhonesInfoFromChatsOut'
+                    type: array
+                  total:
+                    description: Число найденных чатов
+                    example: 128
+                    type: integer
+                required:
+                - total
+                - results
+                type: object
+          description: Успешный ответ
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tooManyRequestsError'
+          description: Превышено допустимое количество запросов
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/X-RateLimit-Limit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/X-RateLimit-Remaining'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - ClientCredentials: []
+      summary: Информация по номерам телефонов из целевых чатов
+      tags:
+      - Cpa
+  /cpa/v2/balanceInfo:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    - $ref: '#/components/parameters/sourceHeader'
+    post:
+      deprecated: true
+      description: __Используйте endpoint [balanceInfoV3](https://developers.avito.ru/api-catalog/cpa/documentation#operation/balanceInfoV3)__<br> Получение информации о балансе пользователя (баланс, долг, аванс текущего месяца) в копейках. Максимальное количество запросов в минуту - 1.
+      operationId: balanceInfoV2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: Пожалуйста, передайте `{}` в тело запроса чтобы он прошел валидацию.
+              example: '{}'
+              type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  advance:
+                    example: 1
+                    title: Аванс, выставленный на текущий период в копейках
+                    type: integer
+                  balance:
+                    example: -5000
+                    title: Текущий баланс пользователя в копейках
+                    type: integer
+                  debt:
+                    example: 0
+                    title: Долг пользователя за предыдущий период в копейках
+                    type: integer
+                  error:
+                    $ref: '#/components/schemas/CpaError'
+                type: object
+          description: Успешный ответ или сообщение об ошибке
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tooManyRequestsError'
+          description: Превышено допустимое количество запросов
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/X-RateLimit-Limit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/X-RateLimit-Remaining'
+      security:
+      - ClientCredentials: []
+      summary: Баланс (deprecated)
+      tags:
+      - Cpa
+  /cpa/v3/balanceInfo:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    - $ref: '#/components/parameters/sourceHeader'
+    post:
+      description: Получение информации о текущем балансе пользователя в копейках. Максимальное количество запросов в минуту - 1.
+      operationId: balanceInfoV3
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: Пожалуйста, передайте `{}` в тело запроса чтобы он прошел валидацию.
+              example: '{}'
+              type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  balance:
+                    example: -5000
+                    title: Текущий баланс пользователя в копейках
+                    type: integer
+                type: object
+          description: Успешный ответ или сообщение об ошибке
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tooManyRequestsError'
+          description: Превышено допустимое количество запросов
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/X-RateLimit-Limit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/X-RateLimit-Remaining'
+      security:
+      - ClientCredentials: []
+      summary: Баланс
+      tags:
+      - Cpa
+components:
+  schemas:
+    OpenAPIPhonesInfoFromChatsOut:
+      properties:
+        date:
+          description: Время отправки сообщения
+          format: string
+          type: string
+        group:
+          description: Прайсинговая группа объявления
+          type: string
+        id:
+          description: ID ЦД
+          type: integer
+        phone_number:
+          description: Номер телефона из сообщения
+          nullable: true
+          type: string
+        pricePenny:
+          description: Цена ЦД в копейках
+          type: integer
+        url:
+          description: URL до картинки с превью
+          type: string
+      required:
+      - id
+      - date
+      - pricePenny
+      - group
+      - url
+      type: object
+    OpenApiError:
+      properties:
+        result:
+          properties:
+            error:
+              properties:
+                code:
+                  example: 1001
+                  title: Код ошибки
+                  type: integer
+                message:
+                  example: Ошибка валидации запроса
+                  title: Текст ошибки
+                  type: string
+                payload:
+                  properties:
+                    error:
+                      example: invalid character  looking for beginning of object key string
+                      type: string
+                  type: object
+              required:
+              - code
+              - message
+              type: object
+          required:
+          - error
+          type: object
+      required:
+      - result
+      type: object
+    CpaError:
+      properties:
+        code:
+          description: 'Внутренний код ошибки
+
+
+            Возможные значения:
+
+            - 1000 - пустой запрос
+
+            - 1001 - ошибка валидации
+
+            - 1002 - ошибка авторизации
+
+            - 1003 - внутренняя ошибка
+
+            - 1004 - не найдено
+
+            '
+          format: int64
+          type: integer
+        message:
+          description: Текст ошибки
+          example: ЦД недоступно для обжалования
+          type: string
+      type: object
+    tooManyRequestsError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 429
+              format: int32
+              type: integer
+          required:
+          - code
+          type: object
+      type: object
+    CpaErrorChat:
+      properties:
+        result:
+          properties:
+            message:
+              description: Текст ошибки
+              example: invalid access token
+              type: string
+            status:
+              example: 'false'
+              type: boolean
+          type: object
+      type: object
+    InternalError:
+      properties:
+        result:
+          properties:
+            error:
+              properties:
+                code:
+                  example: 1003
+                  title: Код ошибки
+                  type: integer
+                message:
+                  example: не удалось получить результаты поиска чатов
+                  title: Текст ошибки
+                  type: string
+              required:
+              - code
+              - message
+              type: object
+          required:
+          - error
+          type: object
+      required:
+      - result
+      type: object
+    OpenAPIPhonesInfoFromChatsIn:
+      properties:
+        dateTimeFrom:
+          description: Время с которого начинается поиск
+          type: string
+        limit:
+          type: integer
+        offset:
+          type: integer
+      required:
+      - dateTimeFrom
+      - offset
+      - limit
+      type: object
+  headers:
+    X-RateLimit-Limit:
+      description: Количество запросов в минуту
+      schema:
+        format: int32
+        type: integer
+    X-RateLimit-Remaining:
+      description: Доступное количество запросов в текущем временном окне
+      schema:
+        format: int32
+        type: integer
+  responses:
+    '500':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InternalError'
+      description: Internal Error
+    '404':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CpaError'
+      description: Not Found
+    '400':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OpenApiError'
+      description: Bad Request
+    '401':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CpaError'
+      description: Unauthorized
+    '403':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CpaErrorChat'
+      description: Forbidden
+  parameters:
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
+    sourceHeader:
+      description: Имя сервиса, отправляющего запрос
+      in: header
+      name: X-Source
+      required: true
+      schema:
+        example: someName
+        type: string
+  securitySchemes:
+    AuthorizationCode:
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://avito.ru/oauth
+          scopes:
+            ah:access: Взаимодействие с иерархией аккаунтов
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2
+    ClientCredentials:
+      description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2

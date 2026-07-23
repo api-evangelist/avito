@@ -1,0 +1,642 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/avito-accounts-hierarchy-openapi.json, openapi/avito-auction-openapi.json, openapi/avito-auth-openapi.json,
+  openapi/avito-autoload-openapi.json, openapi/avito-autostrategy-openapi.json, openapi/avito-autoteka-openapi.json,
+  openapi/avito-avito-promo-openapi.json, openapi/avito-calltracking-openapi.json, openapi/avito-cpa-openapi.json,
+  openapi/avito-cpxpromo-openapi.json, openapi/avito-delivery-sandbox-openapi.json, openapi/avito-item-openapi.json,
+  openapi/avito-job-openapi.json, openapi/avito-messenger-openapi.json, openapi/avito-order-management-openapi.json,
+  openapi/avito-promotion-openapi.json, openapi/avito-ratings-openapi.json, openapi/avito-realty-reports-openapi.json,
+  openapi/avito-sbc-gateway-openapi.json, openapi/avito-stock-management-openapi.json, openapi/avito-str-openapi.json,
+  openapi/avito-tariff-openapi.json, openapi/avito-trxpromo-openapi.json, openapi/avito-user-openapi.json
+schemes:
+- name: AuthorizationCode
+  source: openapi/avito-accounts-hierarchy-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://avito.ru/oauth
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для
+    доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+- name: ClientCredentials
+  source: openapi/avito-accounts-hierarchy-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для
+    доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+- name: AuthorizationCode
+  source: openapi/avito-auction-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://avito.ru/oauth
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для
+    доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](#tag/ApplicationAccess)
+- name: ClientCredentials
+  source: openapi/avito-auction-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для
+    доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+- name: AuthorizationCode
+  source: openapi/avito-auth-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://avito.ru/oauth
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для
+    доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](#tag/ApplicationAccess)
+- name: ClientCredentials
+  source: openapi/avito-auth-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для
+    доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+- name: AuthorizationCode
+  source: openapi/avito-autoload-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://avito.ru/oauth
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для
+    доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+- name: ClientCredentials
+  source: openapi/avito-autoload-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для
+    доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+- name: AuthorizationCode
+  source: openapi/avito-autostrategy-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://avito.ru/oauth
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для
+    доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+- name: ClientCredentials
+  source: openapi/avito-autostrategy-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для
+    доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+- name: ClientCredentials
+  source: openapi/avito-autoteka-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://pro.autoteka.ru/token
+  description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для
+    доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+- name: ClientCredentials
+  source: openapi/avito-avito-promo-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.avito.ru/token
+  description: Используйте OAuth2 с механизмом `client_credentials` для доступа к возможностям
+    учётной записи агентства. [Подробнее](#tag/Access)
+- name: ClientCredentials
+  source: openapi/avito-calltracking-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для
+    доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+- name: AuthorizationCode
+  source: openapi/avito-cpa-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://avito.ru/oauth
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для
+    доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+- name: ClientCredentials
+  source: openapi/avito-cpa-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для
+    доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+- name: AuthorizationCode
+  source: openapi/avito-cpxpromo-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://avito.ru/oauth
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для
+    доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](#tag/ApplicationAccess)
+- name: ClientCredentials
+  source: openapi/avito-cpxpromo-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для
+    доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+- name: AuthorizationCode
+  source: openapi/avito-delivery-sandbox-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://avito.ru/oauth
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для
+    доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+- name: ClientCredentials
+  source: openapi/avito-delivery-sandbox-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для
+    доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+- name: AuthorizationCode
+  source: openapi/avito-item-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://avito.ru/oauth
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для
+    доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+- name: ClientCredentials
+  source: openapi/avito-item-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для
+    доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+- name: AuthorizationCode
+  source: openapi/avito-job-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://avito.ru/oauth
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для
+    доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+- name: ClientCredentials
+  source: openapi/avito-job-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для
+    доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+- name: AuthorizationCode
+  source: openapi/avito-messenger-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://avito.ru/oauth
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для
+    доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+- name: ClientCredentials
+  source: openapi/avito-messenger-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для
+    доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+- name: AuthorizationCode
+  source: openapi/avito-order-management-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://avito.ru/oauth
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для
+    доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](#tag/ApplicationAccess)
+- name: ClientCredentials
+  source: openapi/avito-order-management-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для
+    доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+- name: AuthorizationCode
+  source: openapi/avito-promotion-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://avito.ru/oauth
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для
+    доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+- name: ClientCredentials
+  source: openapi/avito-promotion-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для
+    доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+- name: AuthorizationCode
+  source: openapi/avito-ratings-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://avito.ru/oauth
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для
+    доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+- name: ClientCredentials
+  source: openapi/avito-ratings-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для
+    доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+- name: ClientCredentials
+  source: openapi/avito-realty-reports-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для
+    доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+- name: AuthorizationCode
+  source: openapi/avito-sbc-gateway-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://avito.ru/oauth
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для
+    доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+- name: ClientCredentials
+  source: openapi/avito-sbc-gateway-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для
+    доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+- name: AuthorizationCode
+  source: openapi/avito-stock-management-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://avito.ru/oauth
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для
+    доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](#tag/ApplicationAccess)
+- name: ClientCredentials
+  source: openapi/avito-stock-management-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для
+    доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+- name: AuthorizationCode
+  source: openapi/avito-str-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://avito.ru/oauth
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для
+    доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+- name: ClientCredentials
+  source: openapi/avito-str-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для
+    доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+- name: AuthorizationCode
+  source: openapi/avito-tariff-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://avito.ru/oauth
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для
+    доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+- name: ClientCredentials
+  source: openapi/avito-tariff-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для
+    доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+- name: AuthorizationCode
+  source: openapi/avito-trxpromo-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://avito.ru/oauth
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для
+    доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](#tag/ApplicationAccess)
+- name: ClientCredentials
+  source: openapi/avito-trxpromo-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для
+    доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+- name: AuthorizationCode
+  source: openapi/avito-user-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://avito.ru/oauth
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для
+    доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+- name: ClientCredentials
+  source: openapi/avito-user-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.avito.ru/token
+  description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для
+    доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+scopes:
+- scope: ah:access
+  description: Взаимодействие с иерархией аккаунтов
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-accounts-hierarchy-openapi.json
+- scope: autoload:reports
+  description: Получение отчетов Автозагрузки
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-auth-openapi.json
+  - openapi/avito-autoload-openapi.json
+  - openapi/avito-autostrategy-openapi.json
+  - openapi/avito-cpa-openapi.json
+  - openapi/avito-delivery-sandbox-openapi.json
+  - openapi/avito-item-openapi.json
+  - openapi/avito-messenger-openapi.json
+  - openapi/avito-ratings-openapi.json
+  - openapi/avito-str-openapi.json
+  - openapi/avito-tariff-openapi.json
+  - openapi/avito-user-openapi.json
+- scope: cpa-auction:bids
+  description: Управление ставками
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-auction-openapi.json
+- scope: cpxpromo:edit
+  description: Редактирование цен за целевые действия
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-cpxpromo-openapi.json
+- scope: cpxpromo:read
+  description: Получение цен за целевые действия
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-cpxpromo-openapi.json
+- scope: items:apply_bbip
+  description: Применение услуг продвижения BBIP
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-promotion-openapi.json
+- scope: items:apply_vas
+  description: Применение дополнительных услуг
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-auth-openapi.json
+  - openapi/avito-autoload-openapi.json
+  - openapi/avito-autostrategy-openapi.json
+  - openapi/avito-cpa-openapi.json
+  - openapi/avito-delivery-sandbox-openapi.json
+  - openapi/avito-item-openapi.json
+  - openapi/avito-messenger-openapi.json
+  - openapi/avito-ratings-openapi.json
+  - openapi/avito-str-openapi.json
+  - openapi/avito-tariff-openapi.json
+  - openapi/avito-user-openapi.json
+- scope: items:info
+  description: Получение информации об объявлениях
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-auth-openapi.json
+  - openapi/avito-autoload-openapi.json
+  - openapi/avito-autostrategy-openapi.json
+  - openapi/avito-cpa-openapi.json
+  - openapi/avito-delivery-sandbox-openapi.json
+  - openapi/avito-item-openapi.json
+  - openapi/avito-messenger-openapi.json
+  - openapi/avito-promotion-openapi.json
+  - openapi/avito-ratings-openapi.json
+  - openapi/avito-str-openapi.json
+  - openapi/avito-tariff-openapi.json
+  - openapi/avito-user-openapi.json
+- scope: job:applications
+  description: Получение информации об откликах на вакансии
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-auth-openapi.json
+  - openapi/avito-autoload-openapi.json
+  - openapi/avito-autostrategy-openapi.json
+  - openapi/avito-cpa-openapi.json
+  - openapi/avito-delivery-sandbox-openapi.json
+  - openapi/avito-item-openapi.json
+  - openapi/avito-job-openapi.json
+  - openapi/avito-messenger-openapi.json
+  - openapi/avito-ratings-openapi.json
+  - openapi/avito-str-openapi.json
+  - openapi/avito-tariff-openapi.json
+  - openapi/avito-user-openapi.json
+- scope: job:cv
+  description: Получение информации резюме
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-auth-openapi.json
+  - openapi/avito-autoload-openapi.json
+  - openapi/avito-autostrategy-openapi.json
+  - openapi/avito-cpa-openapi.json
+  - openapi/avito-delivery-sandbox-openapi.json
+  - openapi/avito-item-openapi.json
+  - openapi/avito-job-openapi.json
+  - openapi/avito-messenger-openapi.json
+  - openapi/avito-ratings-openapi.json
+  - openapi/avito-str-openapi.json
+  - openapi/avito-tariff-openapi.json
+  - openapi/avito-user-openapi.json
+- scope: job:vacancy
+  description: Работа с вакансиями
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-auth-openapi.json
+  - openapi/avito-job-openapi.json
+- scope: job:write
+  description: Изменение объявлений вертикали Работа
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-auth-openapi.json
+  - openapi/avito-autoload-openapi.json
+  - openapi/avito-autostrategy-openapi.json
+  - openapi/avito-cpa-openapi.json
+  - openapi/avito-delivery-sandbox-openapi.json
+  - openapi/avito-item-openapi.json
+  - openapi/avito-job-openapi.json
+  - openapi/avito-messenger-openapi.json
+  - openapi/avito-ratings-openapi.json
+  - openapi/avito-str-openapi.json
+  - openapi/avito-tariff-openapi.json
+  - openapi/avito-user-openapi.json
+- scope: messenger:read
+  description: Чтение сообщений в мессенджере Авито
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-auth-openapi.json
+  - openapi/avito-autoload-openapi.json
+  - openapi/avito-autostrategy-openapi.json
+  - openapi/avito-cpa-openapi.json
+  - openapi/avito-delivery-sandbox-openapi.json
+  - openapi/avito-item-openapi.json
+  - openapi/avito-messenger-openapi.json
+  - openapi/avito-ratings-openapi.json
+  - openapi/avito-str-openapi.json
+  - openapi/avito-tariff-openapi.json
+  - openapi/avito-user-openapi.json
+- scope: messenger:write
+  description: Модифицирование сообщений в мессенджере Авито
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-auth-openapi.json
+  - openapi/avito-autoload-openapi.json
+  - openapi/avito-autostrategy-openapi.json
+  - openapi/avito-cpa-openapi.json
+  - openapi/avito-delivery-sandbox-openapi.json
+  - openapi/avito-item-openapi.json
+  - openapi/avito-messenger-openapi.json
+  - openapi/avito-ratings-openapi.json
+  - openapi/avito-str-openapi.json
+  - openapi/avito-tariff-openapi.json
+  - openapi/avito-user-openapi.json
+- scope: ratings:read
+  description: Получение отзывов
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-ratings-openapi.json
+- scope: ratings:write
+  description: Отправка ответа на отзыв
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-ratings-openapi.json
+- scope: short_term_rent:read
+  description: Получение информации об объявлениях краткосрочной аренды
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-auth-openapi.json
+  - openapi/avito-autoload-openapi.json
+  - openapi/avito-autostrategy-openapi.json
+  - openapi/avito-cpa-openapi.json
+  - openapi/avito-delivery-sandbox-openapi.json
+  - openapi/avito-item-openapi.json
+  - openapi/avito-messenger-openapi.json
+  - openapi/avito-ratings-openapi.json
+  - openapi/avito-str-openapi.json
+  - openapi/avito-tariff-openapi.json
+  - openapi/avito-user-openapi.json
+- scope: short_term_rent:write
+  description: Изменение объявлений краткосрочной аренды
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-auth-openapi.json
+  - openapi/avito-autoload-openapi.json
+  - openapi/avito-autostrategy-openapi.json
+  - openapi/avito-cpa-openapi.json
+  - openapi/avito-delivery-sandbox-openapi.json
+  - openapi/avito-item-openapi.json
+  - openapi/avito-messenger-openapi.json
+  - openapi/avito-ratings-openapi.json
+  - openapi/avito-str-openapi.json
+  - openapi/avito-tariff-openapi.json
+  - openapi/avito-user-openapi.json
+- scope: special_offers:sending
+  description: Маркетинговые рассылки
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/avito-sbc-gateway-openapi.json
+- scope: stats:read
+  description: Получение статистики объявлений
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-auth-openapi.json
+  - openapi/avito-autoload-openapi.json
+  - openapi/avito-autostrategy-openapi.json
+  - openapi/avito-cpa-openapi.json
+  - openapi/avito-delivery-sandbox-openapi.json
+  - openapi/avito-item-openapi.json
+  - openapi/avito-messenger-openapi.json
+  - openapi/avito-ratings-openapi.json
+  - openapi/avito-str-openapi.json
+  - openapi/avito-tariff-openapi.json
+  - openapi/avito-user-openapi.json
+- scope: trx:apply
+  description: применение продвижения за комиссию
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-trxpromo-openapi.json
+- scope: trx:cancel
+  description: отмена продвижения за комиссию
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-trxpromo-openapi.json
+- scope: trx:commission
+  description: получение настроек продвижения за комиссию
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-trxpromo-openapi.json
+- scope: user:read
+  description: Получение информации о пользователе
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-auth-openapi.json
+  - openapi/avito-autoload-openapi.json
+  - openapi/avito-autostrategy-openapi.json
+  - openapi/avito-cpa-openapi.json
+  - openapi/avito-delivery-sandbox-openapi.json
+  - openapi/avito-item-openapi.json
+  - openapi/avito-messenger-openapi.json
+  - openapi/avito-ratings-openapi.json
+  - openapi/avito-str-openapi.json
+  - openapi/avito-tariff-openapi.json
+  - openapi/avito-user-openapi.json
+- scope: user_balance:read
+  description: Получение баланса пользователя
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-auth-openapi.json
+  - openapi/avito-autoload-openapi.json
+  - openapi/avito-autostrategy-openapi.json
+  - openapi/avito-cpa-openapi.json
+  - openapi/avito-delivery-sandbox-openapi.json
+  - openapi/avito-item-openapi.json
+  - openapi/avito-messenger-openapi.json
+  - openapi/avito-ratings-openapi.json
+  - openapi/avito-str-openapi.json
+  - openapi/avito-tariff-openapi.json
+  - openapi/avito-user-openapi.json
+- scope: user_operations:read
+  description: Получение истории операций пользователя
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/avito-auth-openapi.json
+  - openapi/avito-autoload-openapi.json
+  - openapi/avito-autostrategy-openapi.json
+  - openapi/avito-cpa-openapi.json
+  - openapi/avito-delivery-sandbox-openapi.json
+  - openapi/avito-item-openapi.json
+  - openapi/avito-messenger-openapi.json
+  - openapi/avito-ratings-openapi.json
+  - openapi/avito-str-openapi.json
+  - openapi/avito-tariff-openapi.json
+  - openapi/avito-user-openapi.json

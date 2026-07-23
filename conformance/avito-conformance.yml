@@ -1,0 +1,26 @@
+# generated: '2026-07-18'
+# method: derived
+# source: openapi/*.json
+standards:
+- id: oauth2
+  conforms: true
+  evidence: securitySchemes AuthorizationCode + ClientCredentials (OAuth 2.0 authorization_code and client_credentials
+    flows)
+- id: oidc
+  conforms: false
+  evidence: no openid-configuration; no id_token / openIdConnect scheme
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: errors use a custom {error:{code,message}} envelope, not application/problem+json
+- id: rfc6585-rate-limit
+  conforms: true
+  evidence: 429 responses with X-RateLimit-Limit / X-RateLimit-Remaining headers
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: deprecation expressed via OpenAPI deprecated flag, no Sunset header observed
+- id: json:api
+  conforms: false
+  evidence: plain JSON, not JSON:API media type
+- id: openapi-3.0
+  conforms: true
+  evidence: all 25 APIs published as OpenAPI 3.0.0

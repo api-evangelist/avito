@@ -1,0 +1,40 @@
+# Avito
+
+> Avito is Russia's largest online classifieds platform (avito.ru). Its public Developer Portal (developers.avito.ru) exposes 25 OpenAPI 3.0.0 REST APIs on api.avito.ru for business sellers and integrators, secured with OAuth 2.0 (authorization_code and client_credentials) and per-minute rate limiting.
+
+## Developer
+
+- [Developer Portal](https://developers.avito.ru/)
+- [API Catalog](https://developers.avito.ru/api-catalog)
+- [Getting Started](https://developers.avito.ru/about-api)
+- [Authorization](https://developers.avito.ru/api-catalog/auth/documentation)
+- [API Updates / Changelog](https://developers.avito.ru/api-updates)
+- [API Terms of Use](https://www.avito.ru/legal/pro_tools/public-api)
+
+## APIs
+
+- [Иерархия Аккаунтов (accounts-hierarchy)](https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation): OpenAPI at openapi/avito-accounts-hierarchy-openapi.json
+- [Авито Реклама (ads)](https://developers.avito.ru/api-catalog/ads/documentation): OpenAPI at openapi/avito-ads-openapi.json
+- [CPA-аукцион (auction)](https://developers.avito.ru/api-catalog/auction/documentation): OpenAPI at openapi/avito-auction-openapi.json
+- [Авторизация (auth)](https://developers.avito.ru/api-catalog/auth/documentation): OpenAPI at openapi/avito-auth-openapi.json
+- [Автозагрузка (autoload)](https://developers.avito.ru/api-catalog/autoload/documentation): OpenAPI at openapi/avito-autoload-openapi.json
+- [Автостратегия (autostrategy)](https://developers.avito.ru/api-catalog/autostrategy/documentation): OpenAPI at openapi/avito-autostrategy-openapi.json
+- [Автотека (autoteka)](https://developers.avito.ru/api-catalog/autoteka/documentation): OpenAPI at openapi/avito-autoteka-openapi.json
+- [Авито Promo (avito-promo)](https://developers.avito.ru/api-catalog/avito-promo/documentation): OpenAPI at openapi/avito-avito-promo-openapi.json
+- [CallTracking[КТ] (calltracking)](https://developers.avito.ru/api-catalog/calltracking/documentation): OpenAPI at openapi/avito-calltracking-openapi.json
+- [CPA Авито (cpa)](https://developers.avito.ru/api-catalog/cpa/documentation): OpenAPI at openapi/avito-cpa-openapi.json
+- [Настройка цены целевого действия (cpxpromo)](https://developers.avito.ru/api-catalog/cpxpromo/documentation): OpenAPI at openapi/avito-cpxpromo-openapi.json
+- [Доставка (delivery-sandbox)](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation): OpenAPI at openapi/avito-delivery-sandbox-openapi.json
+- [Объявления (item)](https://developers.avito.ru/api-catalog/item/documentation): OpenAPI at openapi/avito-item-openapi.json
+- [Авито.Работа (job)](https://developers.avito.ru/api-catalog/job/documentation): OpenAPI at openapi/avito-job-openapi.json
+- [Мессенджер (messenger)](https://developers.avito.ru/api-catalog/messenger/documentation): OpenAPI at openapi/avito-messenger-openapi.json
+- [Управление заказами (order-management)](https://developers.avito.ru/api-catalog/order-management/documentation): OpenAPI at openapi/avito-order-management-openapi.json
+- [Продвижение (promotion)](https://developers.avito.ru/api-catalog/promotion/documentation): OpenAPI at openapi/avito-promotion-openapi.json
+- [Рейтинги и отзывы (ratings)](https://developers.avito.ru/api-catalog/ratings/documentation): OpenAPI at openapi/avito-ratings-openapi.json
+- [Аналитика по недвижимости (realty-reports)](https://developers.avito.ru/api-catalog/realty-reports/documentation): OpenAPI at openapi/avito-realty-reports-openapi.json
+- [Рассылка скидок и спецпредложений в мессенджере (beta-version) (sbc-gateway)](https://developers.avito.ru/api-catalog/sbc-gateway/documentation): OpenAPI at openapi/avito-sbc-gateway-openapi.json
+- [Управление остатками (stock-management)](https://developers.avito.ru/api-catalog/stock-management/documentation): OpenAPI at openapi/avito-stock-management-openapi.json
+- [Краткосрочная аренда (str)](https://developers.avito.ru/api-catalog/str/documentation): OpenAPI at openapi/avito-str-openapi.json
+- [Тарифы (tariff)](https://developers.avito.ru/api-catalog/tariff/documentation): OpenAPI at openapi/avito-tariff-openapi.json
+- [TrxPromo (trxpromo)](https://developers.avito.ru/api-catalog/trxpromo/documentation): OpenAPI at openapi/avito-trxpromo-openapi.json
+- [Информация о пользователе (user)](https://developers.avito.ru/api-catalog/user/documentation): OpenAPI at openapi/avito-user-openapi.json

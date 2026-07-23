@@ -1,0 +1,392 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: supportautoload@avito.ru
+  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+    '
+  title: Иерархия Аккаунтов Access invite API
+  version: '1'
+servers:
+- url: https://api.avito.ru/
+tags:
+- description: "С помощью API данного раздела вы можете приглашать в агентство новых клиентов.\n\n[Отправьте](#operation/agencyUsersInviteSend) приглашение новому клиенту и получите идентификатор приглашения.\nЗатем по идентификатору:\n\n- [проверьте](#operation/agencyUsersInviteStatus) статус приглашения, чтобы понять,\n  было ли приглашение принято или отклонено клиентом;\n- [убедитесь](#operation/agencyUsersVerificationStatus),\n  что верификация рекламного аккаунта клиента прошла успешно (актуально для рекламной модели).\n\n### Типы авторизации\n\nДля использования данного API запрос должен быть авторизован.\nAPI Авито Promo использует следующие механизмы авторизации:\n\n<!-- ReDoc-Inject: <security-definitions> -->\n"
+  name: invite
+  x-displayName: Приглашения новых клиентов
+paths:
+  /api/1/agency/users/invite/send:
+    post:
+      description: "Данный метод отправляет приглашение новому клиенту.\n\n### Параметры тела запроса\n\n- `userId` — идентификатор приглашаемого пользователя.\n- `type` — тип необходимой связи клиента с агентством: `adv` — по рекламной, `trx` — по транзакционной модели.\n\n### Успешный ответ\n\nМетод возвращает назад идентификатор приглашения `result.inviteId`,\n  с помощью которого можно будет получить его статус\n  (см. метод [Получение статуса приглашения нового клиента](#operation/agencyUsersInviteStatus)),\n  а также статус верификации рекламного аккаунта клиента\n  (см. метод [Получение статуса верификации нового клиента](#operation/agencyUsersVerificationStatus)).\n"
+      operationId: agencyUsersInviteSend
+      parameters:
+      - $ref: '#/components/parameters/authHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              additionalProperties: false
+              properties:
+                type:
+                  $ref: '#/components/schemas/linkType'
+                userId:
+                  $ref: '#/components/schemas/id'
+              required:
+              - userId
+              - type
+              type: object
+        description: Тело запроса
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: false
+                properties:
+                  result:
+                    $ref: '#/components/schemas/inviteId'
+                  status:
+                    $ref: '#/components/schemas/okResponseStatus'
+                required:
+                - status
+                - result
+                type: object
+          description: Успешный ответ
+        '400':
+          $ref: '#/components/responses/badRequestWithStatus'
+        '401':
+          $ref: '#/components/responses/unauthorized'
+        '403':
+          $ref: '#/components/responses/forbidden'
+        '404':
+          $ref: '#/components/responses/notFoundWithStatus'
+        '429':
+          $ref: '#/components/responses/defaultTooManyRequests'
+        '500':
+          $ref: '#/components/responses/defaultInternalServerError'
+      security:
+      - ClientCredentials: []
+      summary: Отправка приглашения нового клиента
+      tags:
+      - invite
+  /api/1/agency/users/invite/status:
+    post:
+      description: "Данный метод позволяет получить статус отправленного приглашения нового клиента.\n\n### Параметры тела запроса\n\n- `inviteId` — идентификатор отправленного приглашения\n  (см. метод [Отправка приглашения нового клиента](#operation/agencyUsersInviteSend)).\n\n### Успешный ответ\n\nМетод возвращает назад статус приглашения `result.status`:\n\n- `pending` — приглашение ожидает подтверждения клиентом.\n- `success` — приглашение успешно подтверждено.\n- `decline` — приглашение отклонено клиентом.\n"
+      operationId: agencyUsersInviteStatus
+      parameters:
+      - $ref: '#/components/parameters/authHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/inviteId'
+        description: Тело запроса
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: false
+                properties:
+                  result:
+                    additionalProperties: false
+                    description: Информация о приглашении нового клиента
+                    properties:
+                      status:
+                        description: Статус приглашения нового клиента
+                        enum:
+                        - pending
+                        - success
+                        - decline
+                        example: success
+                        type: string
+                    required:
+                    - status
+                    type: object
+                  status:
+                    $ref: '#/components/schemas/okResponseStatus'
+                required:
+                - status
+                - result
+                type: object
+          description: Успешный ответ
+        '400':
+          $ref: '#/components/responses/badRequestFieldsWithStatus'
+        '401':
+          $ref: '#/components/responses/unauthorized'
+        '403':
+          $ref: '#/components/responses/forbidden'
+        '404':
+          $ref: '#/components/responses/notFoundWithStatus'
+        '429':
+          $ref: '#/components/responses/defaultTooManyRequests'
+        '500':
+          $ref: '#/components/responses/defaultInternalServerError'
+      security:
+      - ClientCredentials: []
+      summary: Получение статуса приглашения нового клиента
+      tags:
+      - invite
+  /api/1/agency/users/verificationStatus:
+    post:
+      description: "Данный метод позволяет получить статус верификации подтвердившего приглашение клиента.\n\n### Параметры тела запроса\n\n- `inviteId` — идентификатор приглашения клиента\n  (см. метод [Отправка приглашения нового клиента](#operation/agencyUsersInviteSend)).\n\n### Успешный ответ\n\nМетод возвращает назад статус приглашения `result.status`:\n\n- `verified` — клиент верифицирован.\n- `not-verified` — клиент ещё не верифицирован.\n\nВ том числе метод возвращает идентификатор подтвердившего приглашение клиента `result.userId`.\nЕсли при приглашении был указан тип связи по рекламной модели\n  (см. метод [Отправка приглашения нового клиента](#operation/agencyUsersInviteSend)),\n  то также возвращается идентификатор рекламного аккаунта клиента `result.agencyClientUserId`.\n"
+      operationId: agencyUsersVerificationStatus
+      parameters:
+      - $ref: '#/components/parameters/authHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/inviteId'
+        description: Тело запроса
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: false
+                properties:
+                  result:
+                    additionalProperties: false
+                    description: Информация о статусе верификации нового клиента
+                    properties:
+                      agencyClientUserId:
+                        $ref: '#/components/schemas/id'
+                      status:
+                        description: Статус верификации нового клиента
+                        enum:
+                        - verified
+                        - not-verified
+                        example: verified
+                        type: string
+                      userId:
+                        $ref: '#/components/schemas/id'
+                    required:
+                    - status
+                    - userId
+                    type: object
+                  status:
+                    $ref: '#/components/schemas/okResponseStatus'
+                required:
+                - status
+                - result
+                type: object
+          description: Успешный ответ
+        '400':
+          $ref: '#/components/responses/badRequestFieldsWithStatus'
+        '401':
+          $ref: '#/components/responses/unauthorized'
+        '403':
+          $ref: '#/components/responses/forbidden'
+        '404':
+          $ref: '#/components/responses/notFoundWithStatus'
+        '429':
+          $ref: '#/components/responses/defaultTooManyRequests'
+        '500':
+          $ref: '#/components/responses/defaultInternalServerError'
+      security:
+      - ClientCredentials: []
+      summary: Получение статуса верификации нового клиента
+      tags:
+      - invite
+components:
+  responses:
+    forbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorResponse'
+      description: Действие запрещено
+    badRequestWithStatus:
+      content:
+        application/json:
+          schema:
+            additionalProperties: false
+            properties:
+              result:
+                $ref: '#/components/schemas/errorResult'
+              status:
+                $ref: '#/components/schemas/badRequestResponseStatus'
+            required:
+            - status
+            - result
+            type: object
+      description: Неверный запрос
+    badRequestFieldsWithStatus:
+      content:
+        application/json:
+          schema:
+            additionalProperties: false
+            properties:
+              result:
+                $ref: '#/components/schemas/errorFields'
+              status:
+                $ref: '#/components/schemas/badRequestResponseStatus'
+            required:
+            - status
+            - result
+            type: object
+      description: Неверный запрос
+    unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorResponse'
+      description: Требуется авторизация
+    defaultTooManyRequests:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Превышено количество запросов
+    notFoundWithStatus:
+      content:
+        application/json:
+          schema:
+            additionalProperties: false
+            properties:
+              result:
+                $ref: '#/components/schemas/errorResult'
+              status:
+                $ref: '#/components/schemas/notFoundResponseStatus'
+            required:
+            - status
+            - result
+            type: object
+      description: Не найдено
+    defaultInternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Ошибка сервера
+  schemas:
+    errorMessage:
+      description: Сообщение об ошибке
+      example: Ошибка
+      type: string
+    notFoundResponseStatus:
+      description: Статус ответа
+      enum:
+      - not-found
+      example: not-found
+      type: string
+    errorResult:
+      additionalProperties: false
+      description: Результат с ошибкой
+      properties:
+        message:
+          $ref: '#/components/schemas/errorMessage'
+      required:
+      - message
+      type: object
+    inviteId:
+      additionalProperties: false
+      description: Идентификатор приглашения нового клиента
+      properties:
+        inviteId:
+          $ref: '#/components/schemas/id'
+      required:
+      - inviteId
+      type: object
+    errorResponse:
+      additionalProperties: false
+      properties:
+        result:
+          $ref: '#/components/schemas/errorResult'
+      required:
+      - result
+      type: object
+    defaultErrorResponse:
+      additionalProperties: false
+      properties:
+        error:
+          additionalProperties: false
+          description: Ошибка
+          properties:
+            code:
+              description: Код ошибки
+              example: 1001
+              type: integer
+            message:
+              $ref: '#/components/schemas/errorMessage'
+          required:
+          - code
+          - message
+          type: object
+      required:
+      - error
+      type: object
+    linkType:
+      description: Тип связи с клиентом
+      enum:
+      - adv
+      - trx
+      example: adv
+      type: string
+    errorFields:
+      description: Ошибки валидации
+      items:
+        additionalProperties: false
+        description: Ошибка валидации поля
+        properties:
+          field:
+            $ref: '#/components/schemas/errorField'
+          message:
+            $ref: '#/components/schemas/errorMessage'
+        required:
+        - field
+        - message
+        type: object
+      type: array
+    errorField:
+      description: Наименование поля
+      example: userId
+      type: string
+    badRequestResponseStatus:
+      description: Статус ответа
+      enum:
+      - bad-request
+      example: bad-request
+      type: string
+    id:
+      description: Идентификатор
+      example: 123456
+      minimum: 1
+      type: integer
+    okResponseStatus:
+      description: Статус результата ответа
+      enum:
+      - ok
+      example: ok
+      type: string
+  parameters:
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
+  securitySchemes:
+    AuthorizationCode:
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://avito.ru/oauth
+          scopes:
+            ah:access: Взаимодействие с иерархией аккаунтов
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2
+    ClientCredentials:
+      description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2

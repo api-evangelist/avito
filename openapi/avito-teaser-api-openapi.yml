@@ -1,0 +1,453 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: supportautoload@avito.ru
+  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+    '
+  title: Иерархия Аккаунтов Access Teaser API
+  version: '1'
+servers:
+- url: https://api.avito.ru/
+tags:
+- name: Teaser
+  x-displayName: Тизер Автотеки
+  x-subdivName: Тизер Автотеки
+paths:
+  /autoteka/v1/teasers:
+    post:
+      description: 'Метод для создания тизера по идентификатору авто (vin/frame), возвращает идентификатор отчета, по которому сформированный тизер можно получить в [методе для получения тизера по идентификатору отчета](#operation/getTeaser). При запросе происходит списание доступных отчетов.
+
+
+        Чтобы подключить эту возможность, обратитесь к менеджеру Автотеки. Обратите внимание, что для её подключения надо завести отдельную учётную запись Автотеки.
+
+        '
+      operationId: postTeaser
+      parameters:
+      - $ref: '#/components/parameters/authHeader'
+      requestBody:
+        content:
+          application/json:
+            example:
+              vehicleId: XTA210990Y2766111
+            schema:
+              $ref: '#/components/schemas/RequestTeaserByVehicleIdAutoteka'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTeaserResponseBodyAutoteka'
+          description: Успешный ответ
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/X-RateLimit-Limit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/X-RateLimit-Remaining'
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/validatingError'
+          description: Ошибка валидации входных параметров
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forbiddenError'
+          description: Операцию невозможно выполнить
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFoundError'
+          description: Информация не найдена
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tooManyRequestsError'
+          description: Превышено допустимое количество запросов
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/X-RateLimit-Limit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/X-RateLimit-Remaining'
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/internalError'
+          description: Информация об ошибке
+      security:
+      - ClientCredentials: []
+      summary: 'Тизер по идентификатору авто (vin/frame)
+
+        '
+      tags:
+      - Teaser
+      x-trailing-slash: true
+  /autoteka/v1/teasers/{teaser_id}:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    - description: Идентификатор тизера.
+      in: path
+      name: teaser_id
+      required: true
+      schema:
+        minimum: 1
+        type: integer
+    get:
+      description: 'Получение тизера по его идентификатору, полученному из [запроса на создание тизера](#operation/postTeaser).
+
+
+        Чтобы подключить эту возможность, обратитесь к менеджеру Автотеки. Обратите внимание, что для её подключения надо завести отдельную учётную запись Автотеки.
+
+        '
+      operationId: getTeaser
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeaserResponse'
+          description: Успешный ответ
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/validatingError'
+          description: Ошибка валидации входных параметров
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forbiddenError'
+          description: Операцию невозможно выполнить
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFoundError'
+          description: Информация не найдена
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/internalError'
+          description: Информация об ошибке
+      security:
+      - ClientCredentials: []
+      summary: 'Получение тизера по ID тизера
+
+        '
+      tags:
+      - Teaser
+      x-trailing-slash: true
+components:
+  schemas:
+    TeaserWithoutDataAutoteka:
+      properties:
+        status:
+          description: Текущий статус генерации тизера
+          enum:
+          - success
+          - processing
+          example: processing
+          type: string
+        teaserId:
+          description: Идентификатор сгенерированного тизера, по которому его можно получить
+          example: 1
+          format: int64
+          minimum: 1
+          type: integer
+      required:
+      - teaserId
+      - status
+      type: object
+    internalError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 500
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Service is temporary unavailable
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    tooManyRequestsError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 429
+              format: int32
+              type: integer
+          required:
+          - code
+          type: object
+      type: object
+    CreateTeaserResponseDataAutoteka:
+      properties:
+        teaser:
+          $ref: '#/components/schemas/TeaserWithoutDataAutoteka'
+      type: object
+    validatingError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 400
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Validation error
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    RequestTeaserByVehicleIdAutoteka:
+      properties:
+        vehicleId:
+          description: Идентификатор запрашиваемого авто (vin/frame).
+          type: string
+      required:
+      - vehicleId
+      type: object
+    forbiddenError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 403
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Forbidden
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    notFoundError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 404
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Not found
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    CreateTeaserResponseBodyAutoteka:
+      properties:
+        result:
+          $ref: '#/components/schemas/CreateTeaserResponseDataAutoteka'
+      type: object
+    Teaser:
+      description: Тизер
+      nullable: true
+      properties:
+        availableInfo:
+          description: Доступная информация в отчете
+          items:
+            properties:
+              index:
+                description: Порядковый номер в тизере (общая нумерация с элементами insights)
+                example: 2
+                type: integer
+              title:
+                description: Название группы
+                example: Проверка на ДТП
+                type: string
+              values:
+                description: Название подпунктов для формирования строки
+                items:
+                  example: тяжесть повреждений
+                  type: string
+                type: array
+            required:
+            - title
+            - values
+            - index
+            type: object
+          type: array
+        avitoPlacements:
+          description: Информация о размещениях на Авито
+          properties:
+            photosCount:
+              description: Количество фото
+              example: 3
+              type: integer
+            placementsCount:
+              description: Количество размещений
+              example: 2
+              type: integer
+          required:
+          - placementsCount
+          - photosCount
+          type: object
+        brand:
+          description: Бренд авто
+          example: Audi
+          nullable: true
+          type: string
+        color:
+          description: Цвет авто
+          example: Черный
+          nullable: true
+          type: string
+        insights:
+          description: Перечень инсайтов
+          items:
+            properties:
+              index:
+                description: Порядковый номер в тизере (общая нумерация с элементами availableInfo)
+                type: integer
+              title:
+                description: Текстовое описание признака
+                example: 6 владельцев по ПТС
+                type: string
+            required:
+            - title
+            - index
+            type: object
+          type: array
+        mileage:
+          description: Информация о пробеге
+          properties:
+            isRealMileage:
+              description: Реальный пробег
+              type: boolean
+          required:
+          - isRealMileage
+          type: object
+        model:
+          description: Модель авто
+          example: A4
+          nullable: true
+          type: string
+        owners:
+          description: Информация о владельцах
+          properties:
+            count:
+              description: Количество владельцев
+              example: 2
+              type: integer
+          required:
+          - count
+          type: object
+        service:
+          description: Информация о сервисном обслуживании
+          properties:
+            recordsCount:
+              description: Количество записей
+              example: 12
+              type: integer
+            recordsFirstDate:
+              description: Дата первой записи пробега
+              example: '2015-08-06 03:00:00'
+              type: string
+          required:
+          - recordsCount
+          - recordsFirstDate
+          type: object
+        year:
+          description: Год выпуска авто
+          example: 2012
+          nullable: true
+          type: integer
+      required:
+      - brand
+      - model
+      - year
+      - color
+      - owners
+      - mileage
+      - service
+      - avitoPlacements
+      - insights
+      - availableInfo
+      type: object
+    TeaserResponse:
+      description: Тизер и статус готовности
+      properties:
+        data:
+          $ref: '#/components/schemas/Teaser'
+        status:
+          description: Статус готовности
+          enum:
+          - success
+          - processing
+          type: string
+        teaserId:
+          description: Идентификатор тизера
+          example: 1234567
+          type: integer
+      required:
+      - teaserId
+      - status
+      - data
+      type: object
+  headers:
+    X-RateLimit-Limit:
+      description: Количество запросов в минуту
+      schema:
+        format: int32
+        type: integer
+    X-RateLimit-Remaining:
+      description: Доступное количество запросов в текущем временном окне
+      schema:
+        format: int32
+        type: integer
+  parameters:
+    authHeader:
+      description: Токен для авторизации
+      example: Bearer ACCESS_TOKEN
+      in: header
+      name: Authorization
+      schema:
+        type: string
+  securitySchemes:
+    AuthorizationCode:
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://avito.ru/oauth
+          scopes:
+            ah:access: Взаимодействие с иерархией аккаунтов
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2
+    ClientCredentials:
+      description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2

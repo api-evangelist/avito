@@ -1,0 +1,328 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: supportautoload@avito.ru
+  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+    '
+  title: Иерархия Аккаунтов Access Signal API
+  version: '1'
+servers:
+- url: https://api.avito.ru/
+tags:
+- name: Signal
+  x-displayName: Сигнал
+  x-subdivName: Сигнал
+paths:
+  /autoteka/v1/get-leads/:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    post:
+      description: 'Метод получения событий сервиса Сигнал
+
+        '
+      operationId: getLeads
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestGetLeads'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseGetLeads'
+          description: Успешный ответ
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/validatingError'
+          description: Ошибка валидации входных параметров
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forbiddenError'
+          description: У пользователя нет доступа к разделу
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/internalError'
+          description: Информация об ошибке
+      security:
+      - ClientCredentials: []
+      summary: 'Получение событий сервиса Сигнал
+
+        '
+      tags:
+      - Signal
+components:
+  schemas:
+    RequestGetLeads:
+      properties:
+        lastId:
+          description: Последний успешно-прочитанный id, указывается для постраничной выдачи
+          nullable: true
+          type: integer
+        limit:
+          description: Количество записей в ответе
+          maximum: 10000
+          nullable: true
+          type: integer
+        subscriptionId:
+          description: Идентификатор подписки
+          minimum: 1
+          type: integer
+      required:
+      - subscriptionId
+      type: object
+    internalError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 500
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Service is temporary unavailable
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    validatingError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 400
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Validation error
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    ResponseGetLeads:
+      properties:
+        pagination:
+          properties:
+            lastId:
+              example: 1230414
+              nullable: true
+              type: integer
+          type: object
+        result:
+          items:
+            properties:
+              id:
+                example: 1230414
+                type: integer
+              payload:
+                properties:
+                  brand:
+                    example: ВАЗ (LADA)
+                    type: string
+                  condition:
+                    example: Не битый
+                    type: string
+                  controlCode:
+                    example: a2430986
+                    type: string
+                  description:
+                    type: string
+                  extraPayload:
+                    properties:
+                      cityName:
+                        example: Елец
+                        nullable: true
+                        type: string
+                      hasPledge:
+                        example: false
+                        nullable: true
+                        type: boolean
+                      isProSeller:
+                        example: false
+                        nullable: true
+                        type: boolean
+                      phoneNumber:
+                        example: 79309991023
+                        nullable: true
+                        type: string
+                      pledge:
+                        example: Залог не найден
+                        nullable: true
+                        type: string
+                      priceAnalytics:
+                        nullable: true
+                        properties:
+                          averageDaysInSale:
+                            example: 29
+                            nullable: true
+                            type: integer
+                          estimateSellPrice:
+                            example: 165000
+                            type: integer
+                          liquidityRating:
+                            example: B-
+                            type: string
+                          sellerPriceDiff:
+                            example: 65000
+                            nullable: true
+                            type: integer
+                        type: object
+                      regionName:
+                        example: Липецкая область
+                        nullable: true
+                        type: string
+                      seller:
+                        example: Частное лицо
+                        nullable: true
+                        type: string
+                      teaser:
+                        nullable: true
+                        properties:
+                          crashesBadge:
+                            example: true
+                            type: boolean
+                          realMileageBadge:
+                            example: false
+                            type: boolean
+                        required:
+                        - crashesBadge
+                        - realMileageBadge
+                        type: object
+                    type: object
+                  itemCreatedAt:
+                    example: 2021-01-10 16:07
+                    type: string
+                  itemId:
+                    example: 2075191323
+                    type: integer
+                  itemUpdatedAt:
+                    example: 2021-02-09 16:10
+                    type: string
+                  mileage:
+                    example: 125000
+                    type: integer
+                  model:
+                    example: Kalina
+                    type: string
+                  owners:
+                    nullable: true
+                    type: string
+                  price:
+                    example: 230000
+                    type: integer
+                  regionId:
+                    example: 637260
+                    type: integer
+                  triggerPayload:
+                    properties:
+                      lastEvents:
+                        items:
+                          properties:
+                            eventDate:
+                              example: '2018-10-08'
+                              type: string
+                            eventTitle:
+                              example: Сервисное обслуживание
+                              type: string
+                          type: object
+                        type: array
+                    type: object
+                  url:
+                    example: https://avito.ru/elets/avtomobili/lada_kalina_2010_2075191323?utm_source=autoteka_leads&utm_medium=referral&utm_campaign=43|api
+                    type: string
+                  vin:
+                    example: XTA111830A0219549
+                    type: string
+                  year:
+                    example: 2010
+                    type: integer
+                required:
+                - vin
+                - year
+                - brand
+                - model
+                - price
+                - itemId
+                - controlCode
+                - mileage
+                - url
+                - regionId
+                - condition
+                - itemCreatedAt
+                - itemUpdatedAt
+                - owners
+                - triggerPayload
+                - extraPayload
+                - description
+                type: object
+              subscriptionId:
+                example: 8132
+                type: integer
+            required:
+            - id
+            - subscriptionId
+            - payload
+            type: object
+          type: array
+      type: object
+    forbiddenError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 403
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Forbidden
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+  parameters:
+    authHeader:
+      description: Токен для авторизации
+      example: Bearer ACCESS_TOKEN
+      in: header
+      name: Authorization
+      schema:
+        type: string
+  securitySchemes:
+    AuthorizationCode:
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://avito.ru/oauth
+          scopes:
+            ah:access: Взаимодействие с иерархией аккаунтов
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2
+    ClientCredentials:
+      description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2

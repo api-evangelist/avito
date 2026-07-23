@@ -1,0 +1,383 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: supportautoload@avito.ru
+  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+    '
+  title: Иерархия Аккаунтов Access targeting API
+  version: '1'
+servers:
+- url: https://api.avito.ru/
+tags:
+- description: "С помощью API данного раздела вы можете узнать статус клиентов, проверив их ИНН.\nЗа клиентов в статусе «Новый» или «Аплифт» агентству выплачивается комиссия.\nПодробные правила указаны в соглашении о премировании.\n\n[Создайте](#operation/agencyClientsTargetCreate) задачу на проверку ИНН клиентов и получите её идентификатор.\nЗатем с помощью идентификатора [проверьте](#operation/agencyClientsTargetResult) её статус\n  и получите результаты проверки, если задача завершилась успешно.\n\n### Типы авторизации\n\nДля использования данного API запрос должен быть авторизован.\nAPI Авито Promo использует следующие механизмы авторизации:\n\n<!-- ReDoc-Inject: <security-definitions> -->\n"
+  name: targeting
+  x-displayName: Проверка ИНН клиентов
+paths:
+  /api/1/agency/clients/target/create:
+    post:
+      description: "Данный метод запускает задачу на проверку ИНН клиентов.\n\n### Параметры запроса\n\n- `innList` — не пустой список до 100 ИНН.\n\n### Успешный ответ\n\nМетод возвращает назад идентификатор задачи `result.taskId`,\n  с помощью которого можно будет получить её статус и результаты проверки\n  (см. метод [Получение результата проверки ИНН клиентов](#operation/agencyClientsTargetResult)).\n"
+      operationId: agencyClientsTargetCreate
+      parameters:
+      - $ref: '#/components/parameters/authHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              additionalProperties: false
+              properties:
+                innList:
+                  description: Список ИНН
+                  items:
+                    $ref: '#/components/schemas/inn'
+                  maxItems: 100
+                  minItems: 1
+                  type: array
+              required:
+              - innList
+              type: object
+        description: Тело запроса
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: false
+                properties:
+                  result:
+                    $ref: '#/components/schemas/targetTaskId'
+                  status:
+                    $ref: '#/components/schemas/okResponseStatus'
+                required:
+                - status
+                - result
+                type: object
+          description: Успешный ответ
+        '400':
+          $ref: '#/components/responses/badRequestFieldsWithStatus'
+        '401':
+          $ref: '#/components/responses/unauthorizedWithStatus'
+        '403':
+          $ref: '#/components/responses/forbiddenWithStatus'
+        '404':
+          $ref: '#/components/responses/notFoundWithStatus'
+        '429':
+          $ref: '#/components/responses/defaultTooManyRequests'
+        '500':
+          $ref: '#/components/responses/defaultInternalServerError'
+      security:
+      - ClientCredentials: []
+      summary: Создание задачи на проверку ИНН клиентов
+      tags:
+      - targeting
+  /api/1/agency/clients/target/result:
+    post:
+      description: "Данный метод позволяет получить по идентификатору статус задачи проверки ИНН клиентов,\n  а также результаты этой проверки, если задача завершилась успешно.\n\n### Параметры тела запроса\n\n- `taskId` — идентификатор задачи\n  (см. метод [Создание задачи на проверку ИНН клиентов](#operation/agencyClientsTargetCreate)).\n\n### Успешный ответ\n\nМетод возвращает назад статус задачи `result.status` и итог проверки `result.items`,\n  если задача успешно завершена.\n\n#### Статус задачи\n\n- `pending` — задача ещё в процессе выполнения.\n- `success` — задача успешно завершена.\n\n#### Итог проверки\n\nИтог проверки представлен массивом результатов по каждому из исходного списка ИНН:\n\n- `inn` — проверенный ИНН.\n- `isError` — была ли ошибка при проверке.\n  Если да, то результат проверки такого ИНН следует игнорировать.\n- `results` — результаты проверки ИНН по категориям.\n\nРезультаты представлены массивом статусов в категориях:\n\n- `category` — категория.\n- `status` — статус ИНН в категории.\n\n#### Категория\n\n- `goods` — Товары.\n- `services` —Услуги.\n- `machinery` — Спецтехника.\n- `jobs` — Работа.\n\n#### Статус ИНН\n\n- `new` — «Новый»: клиент,\n  у которого были нулевые или незначительные траты на Авито до подключения к агентству.\n- `uplift` — «Аплифт»: клиент, который уже пользовался платными услугами до подключения к агентству,\n  комиссия может начисляться только с роста его расходов на услуги размещения.\n- `unavailable` — «Недоступен»: клиент недоступен для работы с агентствами в данной категории.\n  Для подключения клиента в других категориях свяжитесь с менеджером.\n"
+      operationId: agencyClientsTargetResult
+      parameters:
+      - $ref: '#/components/parameters/authHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/targetTaskId'
+        description: Тело запроса
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: false
+                properties:
+                  result:
+                    additionalProperties: false
+                    description: Информация о проверке ИНН клиентов
+                    properties:
+                      items:
+                        description: Список результатов проверки ИНН клиентов
+                        items:
+                          additionalProperties: false
+                          description: Результат проверки ИНН клиента
+                          properties:
+                            inn:
+                              $ref: '#/components/schemas/inn'
+                            isError:
+                              description: Наличие ошибки при проверке ИНН клиента
+                              example: false
+                              type: boolean
+                            results:
+                              description: Результаты проверки ИНН клиента по категориям
+                              items:
+                                additionalProperties: false
+                                description: Результат проверки ИНН клиента в категории
+                                properties:
+                                  category:
+                                    description: Категория
+                                    enum:
+                                    - goods
+                                    - services
+                                    - machinery
+                                    - jobs
+                                    example: goods
+                                    type: string
+                                  status:
+                                    description: Статус ИНН клиента в категории
+                                    enum:
+                                    - new
+                                    - uplift
+                                    - unavailable
+                                    example: new
+                                    type: string
+                                required:
+                                - category
+                                - status
+                                type: object
+                              type: array
+                          required:
+                          - inn
+                          - isError
+                          - results
+                          type: object
+                        type: array
+                      status:
+                        description: Статус задачи проверки ИНН клиентов
+                        enum:
+                        - pending
+                        - success
+                        example: success
+                        type: string
+                    required:
+                    - status
+                    - items
+                    type: object
+                  status:
+                    $ref: '#/components/schemas/okResponseStatus'
+                required:
+                - status
+                - result
+                type: object
+          description: Успешный ответ
+        '400':
+          $ref: '#/components/responses/badRequestFieldsWithStatus'
+        '401':
+          $ref: '#/components/responses/unauthorizedWithStatus'
+        '403':
+          $ref: '#/components/responses/forbiddenWithStatus'
+        '404':
+          $ref: '#/components/responses/notFoundWithStatus'
+        '429':
+          $ref: '#/components/responses/defaultTooManyRequests'
+        '500':
+          $ref: '#/components/responses/defaultInternalServerError'
+      security:
+      - ClientCredentials: []
+      summary: Получение результата проверки ИНН клиентов
+      tags:
+      - targeting
+components:
+  schemas:
+    errorMessage:
+      description: Сообщение об ошибке
+      example: Ошибка
+      type: string
+    notFoundResponseStatus:
+      description: Статус ответа
+      enum:
+      - not-found
+      example: not-found
+      type: string
+    errorResult:
+      additionalProperties: false
+      description: Результат с ошибкой
+      properties:
+        message:
+          $ref: '#/components/schemas/errorMessage'
+      required:
+      - message
+      type: object
+    defaultErrorResponse:
+      additionalProperties: false
+      properties:
+        error:
+          additionalProperties: false
+          description: Ошибка
+          properties:
+            code:
+              description: Код ошибки
+              example: 1001
+              type: integer
+            message:
+              $ref: '#/components/schemas/errorMessage'
+          required:
+          - code
+          - message
+          type: object
+      required:
+      - error
+      type: object
+    inn:
+      description: ИНН
+      example: 1234567890
+      maxLength: 12
+      minLength: 10
+      type: string
+    errorFields:
+      description: Ошибки валидации
+      items:
+        additionalProperties: false
+        description: Ошибка валидации поля
+        properties:
+          field:
+            $ref: '#/components/schemas/errorField'
+          message:
+            $ref: '#/components/schemas/errorMessage'
+        required:
+        - field
+        - message
+        type: object
+      type: array
+    forbiddenResponseStatus:
+      description: Статус ответа
+      enum:
+      - forbidden
+      example: forbidden
+      type: string
+    errorField:
+      description: Наименование поля
+      example: userId
+      type: string
+    targetTaskId:
+      additionalProperties: false
+      description: Идентификатор задачи проверки ИНН клиентов
+      properties:
+        taskId:
+          $ref: '#/components/schemas/id'
+      required:
+      - taskId
+      type: object
+    unauthorizedResponseStatus:
+      description: Статус ответа
+      enum:
+      - unauthorized
+      example: unauthorized
+      type: string
+    badRequestResponseStatus:
+      description: Статус ответа
+      enum:
+      - bad-request
+      example: bad-request
+      type: string
+    id:
+      description: Идентификатор
+      example: 123456
+      minimum: 1
+      type: integer
+    okResponseStatus:
+      description: Статус результата ответа
+      enum:
+      - ok
+      example: ok
+      type: string
+  responses:
+    badRequestFieldsWithStatus:
+      content:
+        application/json:
+          schema:
+            additionalProperties: false
+            properties:
+              result:
+                $ref: '#/components/schemas/errorFields'
+              status:
+                $ref: '#/components/schemas/badRequestResponseStatus'
+            required:
+            - status
+            - result
+            type: object
+      description: Неверный запрос
+    defaultTooManyRequests:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Превышено количество запросов
+    notFoundWithStatus:
+      content:
+        application/json:
+          schema:
+            additionalProperties: false
+            properties:
+              result:
+                $ref: '#/components/schemas/errorResult'
+              status:
+                $ref: '#/components/schemas/notFoundResponseStatus'
+            required:
+            - status
+            - result
+            type: object
+      description: Не найдено
+    forbiddenWithStatus:
+      content:
+        application/json:
+          schema:
+            additionalProperties: false
+            properties:
+              result:
+                $ref: '#/components/schemas/errorResult'
+              status:
+                $ref: '#/components/schemas/forbiddenResponseStatus'
+            required:
+            - status
+            - result
+            type: object
+      description: Действие запрещено
+    unauthorizedWithStatus:
+      content:
+        application/json:
+          schema:
+            additionalProperties: false
+            properties:
+              result:
+                $ref: '#/components/schemas/errorResult'
+              status:
+                $ref: '#/components/schemas/unauthorizedResponseStatus'
+            required:
+            - status
+            - result
+            type: object
+      description: Требуется авторизация
+    defaultInternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Ошибка сервера
+  parameters:
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
+  securitySchemes:
+    AuthorizationCode:
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://avito.ru/oauth
+          scopes:
+            ah:access: Взаимодействие с иерархией аккаунтов
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2
+    ClientCredentials:
+      description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2

@@ -1,0 +1,571 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: supportautoload@avito.ru
+  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+    '
+  title: Иерархия Аккаунтов Access Chat API
+  version: '1'
+servers:
+- url: https://api.avito.ru/
+tags:
+- name: Chat
+paths:
+  /cpa/v1/chatByActionId/{actionId}:
+    get:
+      description: Получение модели чата по идентификатору Максимальное количество запросов в минуту - 3.
+      operationId: chatByActionId
+      parameters:
+      - $ref: '#/components/parameters/authHeader'
+      - $ref: '#/components/parameters/sourceHeader'
+      - description: Идентификатор целевого действия
+        in: path
+        name: actionId
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  chat:
+                    $ref: '#/components/schemas/OpenApiChatsComposition'
+                type: object
+          description: Успешный ответ
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tooManyRequestsError'
+          description: Превышено допустимое количество запросов
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/X-RateLimit-Limit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/X-RateLimit-Remaining'
+        '500':
+          $ref: '#/components/responses/500'
+      summary: Чат
+      tags:
+      - Chat
+  /cpa/v1/chatsByTime:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    - $ref: '#/components/parameters/sourceHeader'
+    post:
+      description: Получение списка чатов по времени создания (deprecated). Максимальное количество запросов в минуту - 60.
+      operationId: chatsByTime
+      requestBody:
+        content:
+          application/json:
+            example:
+              dateTimeFrom: '2023-03-21T15:04:05Z'
+              limit: 100
+              offset: 0
+            schema:
+              $ref: '#/components/schemas/OpenAPIChatsByTimeIn'
+        description: Время с которого нужного производить поиск чатов, размер выборки и смещение
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  chats:
+                    items:
+                      $ref: '#/components/schemas/OpenApiChatsComposition'
+                    type: array
+                type: object
+          description: Успешный ответ
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tooManyRequestsError'
+          description: Превышено допустимое количество запросов
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/X-RateLimit-Limit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/X-RateLimit-Remaining'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - ClientCredentials: []
+      summary: Чаты по времени (deprecated)
+      tags:
+      - Chat
+  /cpa/v1/createComplaintByActionId:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    - $ref: '#/components/parameters/sourceHeader'
+    post:
+      description: Создание жалобы на целевое действие по actionId. Максимальное количество запросов в минуту - 3.
+      operationId: createComplaintByActionId
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateComplaintV4In'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    $ref: '#/components/schemas/CpaError'
+                  success:
+                    title: Флаг статуса запроса
+                    type: boolean
+                type: object
+          description: Успешный ответ или сообщение об ошибке
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tooManyRequestsError'
+          description: Превышено допустимое количество запросов
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/X-RateLimit-Limit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/X-RateLimit-Remaining'
+        '500':
+          $ref: '#/components/responses/500'
+      summary: Создание жалобы для звонков/чатов
+      tags:
+      - Chat
+  /cpa/v2/chatsByTime:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    - $ref: '#/components/parameters/sourceHeader'
+    post:
+      description: Получение списка чатов по времени создания. Максимальное количество запросов в минуту - 40.
+      operationId: chatsByTime
+      requestBody:
+        content:
+          application/json:
+            example:
+              dateTimeFrom: '2023-03-21T15:04:05Z'
+              limit: 100
+              offset: 0
+            schema:
+              $ref: '#/components/schemas/OpenAPIChatsByTimeV2In'
+        description: Время с которого нужного производить поиск чатов, размер выборки и смещение
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  chats:
+                    items:
+                      $ref: '#/components/schemas/OpenApiChatsComposition'
+                    type: array
+                type: object
+          description: Успешный ответ
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tooManyRequestsError'
+          description: Превышено допустимое количество запросов
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/X-RateLimit-Limit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/X-RateLimit-Remaining'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - ClientCredentials: []
+      summary: Чаты по времени
+      tags:
+      - Chat
+components:
+  schemas:
+    OpenAPIChatsByTimeIn:
+      properties:
+        dateTimeFrom:
+          description: Время с которого нужно начинать поиск чатов по date (строка в формате RFC3339)
+          example: '2021-01-02T15:04:05Z'
+          type: string
+        limit:
+          description: Размер выборки (значение в поле должно быть не более 100)
+          type: integer
+        offset:
+          description: 'Смещение выборки (по-умолчанию 0). Для улучшения производительности лучше использовать максимальный startTime чата из предыдущей выборки
+
+            '
+          type: integer
+      required:
+      - dateTimeFrom
+      - offset
+      - limit
+      type: object
+    tooManyRequestsError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 429
+              format: int32
+              type: integer
+          required:
+          - code
+          type: object
+      type: object
+    InternalError:
+      properties:
+        result:
+          properties:
+            error:
+              properties:
+                code:
+                  example: 1003
+                  title: Код ошибки
+                  type: integer
+                message:
+                  example: не удалось получить результаты поиска чатов
+                  title: Текст ошибки
+                  type: string
+              required:
+              - code
+              - message
+              type: object
+          required:
+          - error
+          type: object
+      required:
+      - result
+      type: object
+    OpenAPIChatsByTimeV2In:
+      properties:
+        dateTimeFrom:
+          description: Время с которого нужно начинать поиск чатов по date (строка в формате RFC3339)
+          example: '2021-01-02T15:04:05Z'
+          type: string
+        limit:
+          description: Размер выборки (значение в поле должно быть не более 100)
+          type: integer
+        offset:
+          description: 'Смещение выборки (по-умолчанию 0). Для улучшения производительности лучше использовать максимальный date чата из предыдущей выборки
+
+            '
+          type: integer
+      required:
+      - dateTimeFrom
+      - offset
+      - limit
+      type: object
+    OpenApiChatsComposition:
+      properties:
+        buyer:
+          $ref: '#/components/schemas/OpenApiChatsBuyer'
+        chat:
+          $ref: '#/components/schemas/OpenApiChat'
+        isArbitrageAvailable:
+          description: Доступность опротестования ЦД
+          type: boolean
+        item:
+          $ref: '#/components/schemas/OpenApiChatsItem'
+      required:
+      - chat
+      - item
+      - buyer
+      - isArbitrageAvailable
+      type: object
+    OpenApiChat:
+      properties:
+        actionId:
+          description: ID ЦД
+          example: 1806968517
+          type: integer
+        channelId:
+          description: ID канала чата
+          example: u2i-4HzWMRUoAAVnH5i2CC8meg
+          type: string
+        contactType:
+          description: Тип контакта (email/phone/nick/other)
+          example: Телефон
+          type: string
+        date:
+          description: Время отправки сообщения
+          example: '2023-04-05T12:36:33+03:00'
+          format: string
+          type: string
+        group:
+          description: Прайсинговая группа объявления
+          example: Автомобили · Новые
+          type: string
+        message:
+          description: Текст сообщения
+          example: Привет набери меня 89689999999
+          type: string
+        messageId:
+          description: ID сообщения
+          example: 030dcaa076676cf3f76b4eb7771bec15
+          type: string
+        pricePenny:
+          description: Цена ЦД в копейках
+          example: 346300
+          type: integer
+        status:
+          description: Статус ЦД
+          example: Целевой
+          type: string
+        targetChatType:
+          description: Тип целевого чата (Контакты/Cделка/Переключения)
+          example: Контакты
+          type: string
+      required:
+      - actionId
+      - channelId
+      - messageId
+      - message
+      - date
+      - pricePenny
+      - status
+      - group
+      - contactType
+      - targetChatType
+      type: object
+    CreateComplaintV4In:
+      properties:
+        actionId:
+          description: ID действия (action), по которому подаётся жалоба
+          example: 123456789
+          type: integer
+        message:
+          description: Сообщение, прикрепленное к жалобе
+          example: это не был обмен контактами в чате
+          type: string
+      required:
+      - actionId
+      - message
+      type: object
+    CpaError:
+      properties:
+        code:
+          description: 'Внутренний код ошибки
+
+
+            Возможные значения:
+
+            - 1000 - пустой запрос
+
+            - 1001 - ошибка валидации
+
+            - 1002 - ошибка авторизации
+
+            - 1003 - внутренняя ошибка
+
+            - 1004 - не найдено
+
+            '
+          format: int64
+          type: integer
+        message:
+          description: Текст ошибки
+          example: ЦД недоступно для обжалования
+          type: string
+      type: object
+    OpenApiChatsBuyer:
+      properties:
+        buyerId:
+          description: ID баера
+          example: 251670956
+          type: integer
+        name:
+          description: Имя баера
+          example: Дмитрий
+          type: string
+        url:
+          description: URL до картинки с превью
+          example: https://static.avito.ru/stub_avatars/%D0%90/***_256x256.png
+          type: string
+      required:
+      - buyerId
+      - name
+      - url
+      type: object
+    CpaErrorChat:
+      properties:
+        result:
+          properties:
+            message:
+              description: Текст ошибки
+              example: invalid access token
+              type: string
+            status:
+              example: 'false'
+              type: boolean
+          type: object
+      type: object
+    OpenApiChatsItem:
+      properties:
+        itemId:
+          description: ID объявления
+          example: 2899744878
+          type: integer
+        pricePenny:
+          description: Цена объявления в копейках
+          example: 34430000
+          type: integer
+        title:
+          description: Название объявления
+          example: Avatr 11, 2023
+          type: string
+        url:
+          description: URL до картинки с превью
+          example: https://00.img.avito.st/image/1/1.MWVPp7a-11YxhBk2PIYceYXsFn4rxDD-NQQafjv8GB4wrBZ8.pnMhzb5SRXbfS8mdsWWNNrliVOs1IMusB-7AgMnoSuI
+          type: string
+      required:
+      - itemId
+      - title
+      - pricePenny
+      - url
+      type: object
+    OpenApiError:
+      properties:
+        result:
+          properties:
+            error:
+              properties:
+                code:
+                  example: 1001
+                  title: Код ошибки
+                  type: integer
+                message:
+                  example: Ошибка валидации запроса
+                  title: Текст ошибки
+                  type: string
+                payload:
+                  properties:
+                    error:
+                      example: invalid character  looking for beginning of object key string
+                      type: string
+                  type: object
+              required:
+              - code
+              - message
+              type: object
+          required:
+          - error
+          type: object
+      required:
+      - result
+      type: object
+  responses:
+    '401':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CpaError'
+      description: Unauthorized
+    '403':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CpaErrorChat'
+      description: Forbidden
+    '500':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InternalError'
+      description: Internal Error
+    '404':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CpaError'
+      description: Not Found
+    '400':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OpenApiError'
+      description: Bad Request
+  headers:
+    X-RateLimit-Limit:
+      description: Количество запросов в минуту
+      schema:
+        format: int32
+        type: integer
+    X-RateLimit-Remaining:
+      description: Доступное количество запросов в текущем временном окне
+      schema:
+        format: int32
+        type: integer
+  parameters:
+    sourceHeader:
+      description: Имя сервиса, отправляющего запрос
+      in: header
+      name: X-Source
+      required: true
+      schema:
+        example: someName
+        type: string
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
+  securitySchemes:
+    AuthorizationCode:
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://avito.ru/oauth
+          scopes:
+            ah:access: Взаимодействие с иерархией аккаунтов
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2
+    ClientCredentials:
+      description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2

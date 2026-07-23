@@ -1,0 +1,188 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: supportautoload@avito.ru
+  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+
+    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+
+    '
+  title: Иерархия Аккаунтов Access ListItemsByEmployeeIdV1 API
+  version: '1'
+servers:
+- url: https://api.avito.ru/
+tags:
+- name: ListItemsByEmployeeIdV1
+paths:
+  /listItemsByEmployeeIdV1:
+    parameters:
+    - $ref: '#/components/parameters/authHeader'
+    - $ref: '#/components/parameters/X-Oauth-Scopes'
+    - $ref: '#/components/parameters/X-Oauth-Flow'
+    - $ref: '#/components/parameters/XIsEmployee'
+    - $ref: '#/components/parameters/XEmployeeOf'
+    post:
+      description: Ручка для получения списка объявлений по сотруднику с фильтром по категории объявлений. Получение объявлений по компании недоступно.
+      operationId: listItemsByEmployeeIdV1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListItemsByEmployeeIdBody'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListItemsByEmployeeIdResult'
+          description: Успешный ответ
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenApiError'
+          description: Ошибка валидации
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenApiError'
+          description: Требуется аутентификация
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenApiError'
+          description: Перелинковка айтема недоступна
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenApiError'
+          description: Внутренняя ошибка метода API
+      security:
+      - AuthorizationCode:
+        - ah:access
+      - ClientCredentials: []
+      summary: Получение списка объявлений по сотруднику
+      tags:
+      - ListItemsByEmployeeIdV1
+components:
+  parameters:
+    XIsEmployee:
+      deprecated: true
+      description: 'Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании.
+
+        '
+      in: header
+      name: X-Is-Employee
+      schema:
+        nullable: true
+        type: boolean
+    X-Oauth-Scopes:
+      description: Список зон доступа, полученных приложением
+      example: ah:access
+      in: header
+      name: X-Oauth-Scopes
+      schema:
+        type: string
+    XEmployeeOf:
+      description: Идентификатор компании, от имени которой работает сотрудник.
+      in: header
+      name: X-Employee-Of
+      schema:
+        minimum: 1
+        nullable: true
+        type: integer
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
+    X-Oauth-Flow:
+      description: Выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)
+      example: authorization_code
+      in: header
+      name: X-Oauth-Flow
+      schema:
+        type: string
+  schemas:
+    ListItemsByEmployeeIdBody:
+      properties:
+        categoryId:
+          description: Идентификатор категории объявления
+          minimum: 1
+          type: integer
+        employeeId:
+          description: Идентификатор сотрудника, к которому прилинкованы объявления
+          minimum: 1
+          type: integer
+        lastItemId:
+          description: Идентификатор объявления для пагинации по курсору
+          minimum: 1
+          nullable: true
+          type: integer
+      required:
+      - employeeId
+      - categoryId
+      type: object
+    ListItemsByEmployeeIdResult:
+      description: Список объявлений по сотруднику компании
+      properties:
+        hasNext:
+          description: Можно пагинировать дальше по списку
+          type: boolean
+        items:
+          description: Список идентификаторов объявлений
+          items:
+            description: Идентификатор объявления
+            type: integer
+          type: array
+      required:
+      - hasNext
+      - items
+      type: object
+    OpenApiError:
+      properties:
+        error:
+          properties:
+            message:
+              description: Текст ошибки
+              example: Пользователь не авторизован
+              type: string
+            slug:
+              description: Кодовое название ошибки
+              example: user_unauthorized
+              type: string
+            type:
+              description: Тип ошибки
+              example: authorization_error
+              type: string
+          required:
+          - message
+          - slug
+          type: object
+      required:
+      - error
+      type: object
+  securitySchemes:
+    AuthorizationCode:
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://avito.ru/oauth
+          scopes:
+            ah:access: Взаимодействие с иерархией аккаунтов
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2
+    ClientCredentials:
+      description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2
