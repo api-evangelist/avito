@@ -1,0 +1,1940 @@
+{
+  "item": [
+    {
+      "id": "4d0f7400-5748-4379-b3cf-428602680fe5",
+      "name": "Promotion_BBIP",
+      "description": {
+        "content": "API для управления услугой \"Продвижение с прогнозом\".\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ea148aa9-1232-463b-b199-f73712f8b88c",
+          "name": "BBIP. Прогноз продвижения",
+          "request": {
+            "name": "BBIP. Прогноз продвижения",
+            "description": {
+              "content": "Получение прогноза продвижения по объявлениям\n\n**Rate limit:** 100 RPM\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "promotion",
+                "v1",
+                "items",
+                "services",
+                "bbip",
+                "forecasts",
+                "get"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                "key": "X-Is-Employee",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Идентификатор компании, от имени которой работает сотрудник",
+                "key": "X-Employee-Of",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"itemId\": \"<long>\",\n      \"duration\": \"<integer>\",\n      \"oldPrice\": \"<integer>\",\n      \"price\": \"<integer>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0c981ccc-53a1-45b2-85a0-82b33f6e2c45",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "promotion",
+                    "v1",
+                    "items",
+                    "services",
+                    "bbip",
+                    "forecasts",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                    "key": "X-Is-Employee",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"itemId\": \"<long>\",\n      \"duration\": 7,\n      \"oldPrice\": 10000,\n      \"price\": 10000\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"itemId\": 2,\n      \"min\": 35,\n      \"max\": 336,\n      \"totalOldPrice\": 26166,\n      \"totalPrice\": 26166\n    },\n    {\n      \"itemId\": 2,\n      \"min\": 35,\n      \"max\": 336,\n      \"totalOldPrice\": 26166,\n      \"totalPrice\": 26166\n    }\n  ],\n  \"errors\": [\n    {\n      \"itemId\": 2,\n      \"errorCode\": 1005,\n      \"errorText\": \"Услуга недоступна для объявлений с типом Резюме\"\n    },\n    {\n      \"itemId\": 2,\n      \"errorCode\": 1005,\n      \"errorText\": \"Услуга недоступна для объявлений с типом Резюме\"\n    }\n  ],\n  \"totalPrice\": 3304\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fce9c07-1e5d-495c-8ee8-e3d6bc580aa4",
+              "name": "Ошибка валидации",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "promotion",
+                    "v1",
+                    "items",
+                    "services",
+                    "bbip",
+                    "forecasts",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                    "key": "X-Is-Employee",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"itemId\": \"<long>\",\n      \"duration\": 7,\n      \"oldPrice\": 10000,\n      \"price\": 10000\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Validation error\",\n  \"details\": [\n    {\n      \"source\": \"url\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"source\": \"url\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b30d29aa-4ff7-4669-ae21-f321bc66986d",
+              "name": "Ошибка авторизации",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "promotion",
+                    "v1",
+                    "items",
+                    "services",
+                    "bbip",
+                    "forecasts",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                    "key": "X-Is-Employee",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"itemId\": \"<long>\",\n      \"duration\": 7,\n      \"oldPrice\": 10000,\n      \"price\": 10000\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Validation error\",\n  \"details\": [\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c7dd108-55a2-45ad-8880-72fe2c47e498",
+              "name": "Ошибка доступа",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "promotion",
+                    "v1",
+                    "items",
+                    "services",
+                    "bbip",
+                    "forecasts",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                    "key": "X-Is-Employee",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"itemId\": \"<long>\",\n      \"duration\": 7,\n      \"oldPrice\": 10000,\n      \"price\": 10000\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Validation error\",\n  \"details\": [\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa304e2f-78f6-41c0-ac37-6f91f0500860",
+              "name": "Объявление не найдено",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "promotion",
+                    "v1",
+                    "items",
+                    "services",
+                    "bbip",
+                    "forecasts",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                    "key": "X-Is-Employee",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"itemId\": \"<long>\",\n      \"duration\": 7,\n      \"oldPrice\": 10000,\n      \"price\": 10000\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Validation error\",\n  \"details\": [\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c274f6ff-997a-43a8-abec-2bf23ba11521",
+              "name": "Ошибка обработки запроса",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "promotion",
+                    "v1",
+                    "items",
+                    "services",
+                    "bbip",
+                    "forecasts",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                    "key": "X-Is-Employee",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"itemId\": \"<long>\",\n      \"duration\": 7,\n      \"oldPrice\": 10000,\n      \"price\": 10000\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Validation error\",\n  \"details\": [\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf92582b-6dc5-4895-a398-4e3c2cf44810",
+              "name": "Внутренняя ошибка сервиса",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "promotion",
+                    "v1",
+                    "items",
+                    "services",
+                    "bbip",
+                    "forecasts",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                    "key": "X-Is-Employee",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"itemId\": \"<long>\",\n      \"duration\": 7,\n      \"oldPrice\": 10000,\n      \"price\": 10000\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Validation error\",\n  \"details\": [\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2a4e462f-0de3-4f40-b428-bc3d4d7de5ec",
+          "name": "BBIP. Подключение услуги продвижения",
+          "request": {
+            "name": "BBIP. Подключение услуги продвижения",
+            "description": {
+              "content": "Создать заявку на подключение услуг продвижения.\n\nСоздание заявки для набора объявлений возможно только в случае если ни по одному из объявлений не возникло ошибок.\n\nПри успешном создании заявки система возвращает `orderId` (идентификатор заявки),\nна основе которого можно проверять как статус заявки, так и статус подключения услуг по объявлениям.\n\n**Rate limit:** 10 RPM\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "promotion",
+                "v1",
+                "items",
+                "services",
+                "bbip",
+                "orders",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                "key": "X-Is-Employee",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Идентификатор компании, от имени которой работает сотрудник",
+                "key": "X-Employee-Of",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"itemId\": \"<long>\",\n      \"duration\": \"<integer>\",\n      \"oldPrice\": \"<integer>\",\n      \"price\": \"<integer>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0ea6533d-4b2e-4f54-9812-6aa689b7a1de",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "promotion",
+                    "v1",
+                    "items",
+                    "services",
+                    "bbip",
+                    "orders",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                    "key": "X-Is-Employee",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"itemId\": \"<long>\",\n      \"duration\": 7,\n      \"oldPrice\": 10000,\n      \"price\": 10000\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"itemId\": 2,\n      \"errorCode\": 1005,\n      \"errorText\": \"Услуга недоступна для объявлений с типом Резюме\"\n    },\n    {\n      \"itemId\": 2,\n      \"errorCode\": 1005,\n      \"errorText\": \"Услуга недоступна для объявлений с типом Резюме\"\n    }\n  ],\n  \"orderId\": \"61abf209-86f2-d059-b318-b7d0c36b3950\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee3d7503-390f-4f67-929c-fe0602989d00",
+              "name": "Ошибка валидации",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "promotion",
+                    "v1",
+                    "items",
+                    "services",
+                    "bbip",
+                    "orders",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                    "key": "X-Is-Employee",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"itemId\": \"<long>\",\n      \"duration\": 7,\n      \"oldPrice\": 10000,\n      \"price\": 10000\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Validation error\",\n  \"details\": [\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92c485e8-fcfa-4263-8ee4-3be2b5f2cd72",
+              "name": "Ошибка авторизации",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "promotion",
+                    "v1",
+                    "items",
+                    "services",
+                    "bbip",
+                    "orders",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                    "key": "X-Is-Employee",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"itemId\": \"<long>\",\n      \"duration\": 7,\n      \"oldPrice\": 10000,\n      \"price\": 10000\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Validation error\",\n  \"details\": [\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b0a9252c-e3ce-4695-963c-cc9463ed0098",
+              "name": "Недостаточно средств",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "promotion",
+                    "v1",
+                    "items",
+                    "services",
+                    "bbip",
+                    "orders",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                    "key": "X-Is-Employee",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"itemId\": \"<long>\",\n      \"duration\": 7,\n      \"oldPrice\": 10000,\n      \"price\": 10000\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Validation error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "40774ede-3528-410d-823b-ebc1f11078ce",
+              "name": "Ошибка доступа",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "promotion",
+                    "v1",
+                    "items",
+                    "services",
+                    "bbip",
+                    "orders",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                    "key": "X-Is-Employee",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"itemId\": \"<long>\",\n      \"duration\": 7,\n      \"oldPrice\": 10000,\n      \"price\": 10000\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Validation error\",\n  \"details\": [\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89836b89-8a77-41c3-a74d-745c82b0d498",
+              "name": "Объявление не найдено",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "promotion",
+                    "v1",
+                    "items",
+                    "services",
+                    "bbip",
+                    "orders",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                    "key": "X-Is-Employee",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"itemId\": \"<long>\",\n      \"duration\": 7,\n      \"oldPrice\": 10000,\n      \"price\": 10000\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Validation error\",\n  \"details\": [\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "84ff4d69-b36e-4f2e-a7e9-d37674c15213",
+              "name": "Ошибка обработки запроса",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "promotion",
+                    "v1",
+                    "items",
+                    "services",
+                    "bbip",
+                    "orders",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                    "key": "X-Is-Employee",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"itemId\": \"<long>\",\n      \"duration\": 7,\n      \"oldPrice\": 10000,\n      \"price\": 10000\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Validation error\",\n  \"details\": [\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb6325be-7b56-4fce-bd57-1b03870ba0f2",
+              "name": "Внутренняя ошибка сервиса",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "promotion",
+                    "v1",
+                    "items",
+                    "services",
+                    "bbip",
+                    "orders",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                    "key": "X-Is-Employee",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"itemId\": \"<long>\",\n      \"duration\": 7,\n      \"oldPrice\": 10000,\n      \"price\": 10000\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Validation error\",\n  \"details\": [\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4bcd4c3d-4cc3-4c88-8b6b-2b08be1ecdf7",
+          "name": "BBIP. Варианты бюджета продвижения",
+          "request": {
+            "name": "BBIP. Варианты бюджета продвижения",
+            "description": {
+              "content": "Получение доступных вариантов бюджета для продвижения\n\n**Rate limit:** 100 RPM\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "promotion",
+                "v1",
+                "items",
+                "services",
+                "bbip",
+                "suggests",
+                "get"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                "key": "X-Is-Employee",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Идентификатор компании, от имени которой работает сотрудник",
+                "key": "X-Employee-Of",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itemIds\": [\n    \"<long>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a307b441-5425-4066-aee7-2564fe500e0f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "promotion",
+                    "v1",
+                    "items",
+                    "services",
+                    "bbip",
+                    "suggests",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                    "key": "X-Is-Employee",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    \"<long>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"itemId\": 2,\n      \"duration\": {\n        \"from\": 1,\n        \"to\": 7,\n        \"recommended\": 5\n      },\n      \"budgets\": [\n        {\n          \"price\": 10000,\n          \"oldPrice\": 10000,\n          \"isRecommended\": true\n        },\n        {\n          \"price\": 10000,\n          \"oldPrice\": 10000,\n          \"isRecommended\": true\n        }\n      ]\n    },\n    {\n      \"itemId\": 2,\n      \"duration\": {\n        \"from\": 1,\n        \"to\": 7,\n        \"recommended\": 5\n      },\n      \"budgets\": [\n        {\n          \"price\": 10000,\n          \"oldPrice\": 10000,\n          \"isRecommended\": false\n        },\n        {\n          \"price\": 10000,\n          \"oldPrice\": 10000,\n          \"isRecommended\": true\n        }\n      ]\n    }\n  ],\n  \"errors\": [\n    {\n      \"itemId\": 2,\n      \"errorCode\": 1005,\n      \"errorText\": \"Услуга недоступна для объявлений с типом Резюме\"\n    },\n    {\n      \"itemId\": 2,\n      \"errorCode\": 1005,\n      \"errorText\": \"Услуга недоступна для объявлений с типом Резюме\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8400d920-225c-4439-8123-12959b7e8754",
+              "name": "Ошибка валидации",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "promotion",
+                    "v1",
+                    "items",
+                    "services",
+                    "bbip",
+                    "suggests",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                    "key": "X-Is-Employee",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    \"<long>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Validation error\",\n  \"details\": [\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0307311-ce4f-4014-98d7-da3e7293cb47",
+              "name": "Ошибка авторизации",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "promotion",
+                    "v1",
+                    "items",
+                    "services",
+                    "bbip",
+                    "suggests",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                    "key": "X-Is-Employee",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    \"<long>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Validation error\",\n  \"details\": [\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cdb94f31-be01-4057-90f2-f098f548a383",
+              "name": "Ошибка доступа",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "promotion",
+                    "v1",
+                    "items",
+                    "services",
+                    "bbip",
+                    "suggests",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                    "key": "X-Is-Employee",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    \"<long>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Validation error\",\n  \"details\": [\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e8e6fb24-bf05-46bb-8ead-f156a427bb4e",
+              "name": "Объявление не найдено",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "promotion",
+                    "v1",
+                    "items",
+                    "services",
+                    "bbip",
+                    "suggests",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                    "key": "X-Is-Employee",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    \"<long>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Validation error\",\n  \"details\": [\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e688bc78-1204-4a5e-a393-0758dcb7023b",
+              "name": "Ошибка обработки запроса",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "promotion",
+                    "v1",
+                    "items",
+                    "services",
+                    "bbip",
+                    "suggests",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                    "key": "X-Is-Employee",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    \"<long>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Validation error\",\n  \"details\": [\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "24171ec2-7827-484f-9f8a-26a7aed43529",
+              "name": "Внутренняя ошибка сервиса",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "promotion",
+                    "v1",
+                    "items",
+                    "services",
+                    "bbip",
+                    "suggests",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании (boolean, \"true\"\\\\\"false\").\n",
+                    "key": "X-Is-Employee",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    \"<long>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Validation error\",\n  \"details\": [\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"source\": \"body\",\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.avito.ru/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4e72a110-ce51-45a4-bc6a-171cb04504b4",
+    "name": "Иерархия Аккаунтов Access Promotion_BBIP API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API для взаимодействия с иерархией аккаунтов в Авито\n**Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**\n\n\nContact Support:\n Email: supportautoload@avito.ru",
+      "type": "text/plain"
+    }
+  }
+}

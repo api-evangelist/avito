@@ -1,0 +1,569 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access Messenger API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Messenger",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Отправка сообщения",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/messenger/v1/accounts/:user_id/chats/:chat_id/messages",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор пользователя (клиента)"
+              },
+              {
+                "name": "chat_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор чата (клиента)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "На данный момент можно отправить только текстовое сообщение\n"
+        },
+        {
+          "info": {
+            "name": "Отправка сообщения с изображением",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/messenger/v1/accounts/:user_id/chats/:chat_id/messages/image",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор пользователя (клиента)"
+              },
+              {
+                "name": "chat_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор чата (клиента)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод используется для отправки сообщения с изображением.\n\nДля отправки сообщения с изображением необходимо передать в запросе id изображения, полученного после загрузки.\n"
+        },
+        {
+          "info": {
+            "name": "Удаление сообщения",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/messenger/v1/accounts/:user_id/chats/:chat_id/messages/:message_id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор пользователя (клиента)"
+              },
+              {
+                "name": "chat_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор чата (клиента)"
+              },
+              {
+                "name": "message_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор сообщения"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Сообщение не пропадает из истории, а меняет свой тип на deleted.\nУдалять сообщения можно не позднее часа с момента их отправки.\n"
+        },
+        {
+          "info": {
+            "name": "Прочитать чат",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/messenger/v1/accounts/:user_id/chats/:chat_id/read",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор пользователя (клиента)"
+              },
+              {
+                "name": "chat_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор чата (клиента)"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "После успешного получения списка сообщений необходимо вызвать этот метод для того, чтобы чат стал прочитанным.\n"
+        },
+        {
+          "info": {
+            "name": "Получение голосовых сообщений",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/messenger/v1/accounts/:user_id/getVoiceFiles",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор пользователя (клиента)"
+              },
+              {
+                "name": "voice_ids",
+                "value": "",
+                "type": "query",
+                "description": "Получение файлов голосовых сообщений с указанными voice_id"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод используется для получения ссылки на файл с голосовым сообщением по идентификатору voice_id, получаемому из тела сообщения с типом voice.\n\nОсобенности работы с голосовыми сообщениями:\n- Голосовые сообщения Авито используют кодек **[opus](https://ru.wikipedia.org/wiki/Opus_(%D0%BA%D0%BE%D0%B4%D0%B5%D0%BA))** внутри **.mp4** контейнера; \n- Ссылка на голосовое сообщение доступна в течение **одного часа** с момента запроса. Попытка получить файл по ссылке спустя это время приведёт к ошибке. Дл"
+        },
+        {
+          "info": {
+            "name": "Загрузка изображений",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/messenger/v1/accounts/:user_id/uploadImages",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор пользователя (клиента)"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "uploadfile[]",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод используется для загрузки изображений в формате JPEG, HEIC, GIF, BMP или PNG.\n\nОсобенности работы с загрузкой изображений:\n- Метод поддерживает только одиночные изображения; для загрузки нескольких картинок необходимо сделать несколько запросов;\n- Максимальный размер файла — 24 МБ;\n- Максимальное разрешение — 75 мегапиксилей;\n"
+        },
+        {
+          "info": {
+            "name": "Получение подписок (webhooks)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/messenger/v1/subscriptions",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Получение списка подписок\n"
+        },
+        {
+          "info": {
+            "name": "Отключение уведомлений (webhooks)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/messenger/v1/webhook/unsubscribe",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Отключение уведомлений\n"
+        },
+        {
+          "info": {
+            "name": "Добавление пользователя в blacklist",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/messenger/v2/accounts/:user_id/blacklist",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор пользователя (клиента)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Добавление пользователя в blacklist\n"
+        },
+        {
+          "info": {
+            "name": "Получение информации по чатам",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/messenger/v2/accounts/:user_id/chats",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор пользователя (клиента)"
+              },
+              {
+                "name": "item_ids",
+                "value": "",
+                "type": "query",
+                "description": "Получение чатов только по объявлениям с указанными item_id"
+              },
+              {
+                "name": "unread_only",
+                "value": "",
+                "type": "query",
+                "description": "При значении true метод возвращает только непрочитанные чаты"
+              },
+              {
+                "name": "chat_types",
+                "value": "",
+                "type": "query",
+                "description": "Фильтрация возвращаемых чатов. \n* u2i — чаты по объявлениям;\n* u2u — чаты между пользователями;\n* a2u — чаты между пользователями и Авито;\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Количество сообщений / чатов для запроса"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Сдвиг сообщений / чатов для запроса"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Возвращает список чатов\n"
+        },
+        {
+          "info": {
+            "name": "Получение информации по чату",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/messenger/v2/accounts/:user_id/chats/:chat_id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор пользователя (клиента)"
+              },
+              {
+                "name": "chat_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор чата (клиента)"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Возвращает данные чата и последнее сообщение в нем\n"
+        },
+        {
+          "info": {
+            "name": "Получение списка сообщений V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/messenger/v3/accounts/:user_id/chats/:chat_id/messages/",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор пользователя (клиента)"
+              },
+              {
+                "name": "chat_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор чата (клиента)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Количество сообщений / чатов для запроса"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Сдвиг сообщений / чатов для запроса"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Получение списка сообщений.  **Не помечает чат прочитанным.**\nПосле успешного получения списка сообщений необходимо вызвать [метод](https://api.avito.ru/docs/api.html#operation/chatRead), который сделает сообщения прочитанными.\nДля получения новых сообщений в реальном времени используйте [webhooks](https://api.avito.ru/docs/api.html#operation/postWebhookV3)\n"
+        },
+        {
+          "info": {
+            "name": "Включение уведомлений V3 (webhooks)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/messenger/v3/webhook",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Включение webhook-уведомлений. \n\nСхему JSON приходящего в webhook сообщения можно увидеть в примерах ответов.\n\nПосле регистрации url'а для получения веб-хуков, убедитесь, что он доступен, работает и возвращает статус 200 ОК соблюдая timeout 2s,\nнапример, выполнив запрос:\n\ncurl --connect-timeout 2 <url-вашего-вебхука> -i -d '{}'\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

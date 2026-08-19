@@ -1,0 +1,1643 @@
+{
+  "item": [
+    {
+      "id": "3e08106a-e303-4941-8f7c-6a8f865ba044",
+      "name": "SpecialOffers",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cb27434a-85b8-4aa4-9e27-260bc7c432fa",
+          "name": "Получение информации об объявлениях",
+          "request": {
+            "name": "Получение информации об объявлениях",
+            "description": {
+              "content": "Позволяет проверить доступность услуги по каждому из переданных объявлений\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "special-offers",
+                "v1",
+                "available"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itemIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e1ac2c73-4e0a-49a7-ab49-9b34250f43af",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "special-offers",
+                    "v1",
+                    "available"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    392567890,\n    492569890\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"isAvailable\": true,\n      \"itemId\": 392567890\n    },\n    {\n      \"isAvailable\": false,\n      \"itemId\": 492569890,\n      \"reason\": \"Для данного объявления услуга недоступна\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8abb0a6a-b8f7-4e8c-9e1e-b46f102f3436",
+              "name": "Ошибка валидации входных параметров",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "special-offers",
+                    "v1",
+                    "available"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    392567890,\n    492569890\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Bad request\",\n    \"code\": 400\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "422f7a76-9c69-4a6f-91db-cf01f27eef72",
+              "name": "Авторизованный user не найден",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "special-offers",
+                    "v1",
+                    "available"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    392567890,\n    492569890\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Unauthorized access\",\n    \"code\": 401\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2982be7-02df-4e93-bb2d-e97efc19b7a8",
+              "name": "Нет доступа к объявлению/-ям",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "special-offers",
+                    "v1",
+                    "available"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    392567890,\n    492569890\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Access denied\",\n    \"code\": 403\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e4d948db-6bef-4673-b922-37d9567cf1f9",
+              "name": "Внутренняя ошибка",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "special-offers",
+                    "v1",
+                    "available"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    392567890,\n    492569890\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Internal error\",\n    \"code\": 500\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dc2e68e4-58d6-4a17-8788-967da16f14e4",
+          "name": "Отправка и оплата рассылки",
+          "request": {
+            "name": "Отправка и оплата рассылки",
+            "description": {
+              "content": "Подтверждение отправки рассылки и ее оплата (из кошелька Авито)\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "special-offers",
+                "v1",
+                "multiConfirm"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dispatches\": [\n    {\n      \"dispatchId\": \"<integer>\",\n      \"recipientsCount\": \"<integer>\",\n      \"offerSlug\": \"<string>\",\n      \"discountValue\": \"<integer>\"\n    },\n    {\n      \"dispatchId\": \"<integer>\",\n      \"recipientsCount\": \"<integer>\",\n      \"offerSlug\": \"<string>\",\n      \"discountValue\": \"<integer>\"\n    }\n  ],\n  \"expiresAt\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a5c395ea-8bd0-4a7d-9b72-774ec429dc30",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "special-offers",
+                    "v1",
+                    "multiConfirm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dispatches\": [\n    {\n      \"discountValue\": 50000,\n      \"dispatchId\": 76579,\n      \"offerSlug\": \"price_discount\",\n      \"recipientsCount\": 5\n    },\n    {\n      \"dispatchId\": 76581,\n      \"offerSlug\": \"auto_tires\",\n      \"recipientsCount\": 5\n    }\n  ],\n  \"expiresAt\": 1675976400\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92f47d26-9f94-4872-9726-85bda38ed20f",
+              "name": "Ошибка валидации входных параметров",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "special-offers",
+                    "v1",
+                    "multiConfirm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dispatches\": [\n    {\n      \"discountValue\": 50000,\n      \"dispatchId\": 76579,\n      \"offerSlug\": \"price_discount\",\n      \"recipientsCount\": 5\n    },\n    {\n      \"dispatchId\": 76581,\n      \"offerSlug\": \"auto_tires\",\n      \"recipientsCount\": 5\n    }\n  ],\n  \"expiresAt\": 1675976400\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Bad request\",\n    \"code\": 400\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "786a351c-7992-4df6-9389-b6da3e5956e8",
+              "name": "Авторизованный user не найден",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "special-offers",
+                    "v1",
+                    "multiConfirm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dispatches\": [\n    {\n      \"discountValue\": 50000,\n      \"dispatchId\": 76579,\n      \"offerSlug\": \"price_discount\",\n      \"recipientsCount\": 5\n    },\n    {\n      \"dispatchId\": 76581,\n      \"offerSlug\": \"auto_tires\",\n      \"recipientsCount\": 5\n    }\n  ],\n  \"expiresAt\": 1675976400\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Unauthorized access\",\n    \"code\": 401\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9fc99acb-c24f-45d8-84e2-ef2620c9cdf0",
+              "name": "Невозможно подтвердить оплату рассылки",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "special-offers",
+                    "v1",
+                    "multiConfirm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dispatches\": [\n    {\n      \"discountValue\": 50000,\n      \"dispatchId\": 76579,\n      \"offerSlug\": \"price_discount\",\n      \"recipientsCount\": 5\n    },\n    {\n      \"dispatchId\": 76581,\n      \"offerSlug\": \"auto_tires\",\n      \"recipientsCount\": 5\n    }\n  ],\n  \"expiresAt\": 1675976400\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 403,\n    \"message\": \"Недостаточно средств. Пополните кошелек\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4dfb5ea3-2893-48c0-b2bc-911eb6c00e27",
+              "name": "Внутренняя ошибка",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "special-offers",
+                    "v1",
+                    "multiConfirm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dispatches\": [\n    {\n      \"discountValue\": 50000,\n      \"dispatchId\": 76579,\n      \"offerSlug\": \"price_discount\",\n      \"recipientsCount\": 5\n    },\n    {\n      \"dispatchId\": 76581,\n      \"offerSlug\": \"auto_tires\",\n      \"recipientsCount\": 5\n    }\n  ],\n  \"expiresAt\": 1675976400\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Internal error\",\n    \"code\": 500\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c0d7514c-6f07-45c9-bb06-fe301f6f7ce5",
+          "name": "Создание рассылки",
+          "request": {
+            "name": "Создание рассылки",
+            "description": {
+              "content": "Создание рассылки по нескольким объявлениям, c фиксацией аудитории для рассылки\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "special-offers",
+                "v1",
+                "multiCreate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itemIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c16ef36b-1244-4bcb-9011-c5820e240161",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "special-offers",
+                    "v1",
+                    "multiCreate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    123890775,\n    233890766\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"common\": {\n    \"offers\": [\n      {\n        \"expiresAt\": {\n          \"max\": 1678568399,\n          \"min\": 1675976400\n        },\n        \"offerText\": \"скидку {{discount}}\",\n        \"slug\": \"price_discount\",\n        \"type\": \"discount\"\n      },\n      {\n        \"expiresAt\": {\n          \"max\": 1678568399,\n          \"min\": 1675976400\n        },\n        \"offerText\": \"шины в подарок к покупке автомобиля\",\n        \"slug\": \"auto_tires\",\n        \"type\": \"text\"\n      }\n    ]\n  },\n  \"dispatches\": [\n    {\n      \"availableAudienceCount\": 5,\n      \"discount\": {\n        \"maxDiscount\": 4500,\n        \"minDiscount\": 400\n      },\n      \"error\": {},\n      \"id\": 76579,\n      \"item\": {\n        \"id\": 123890775\n      },\n      \"messagePrice\": 10,\n      \"offers\": [\n        \"price_discount\"\n      ],\n      \"status\": \"created\"\n    },\n    {\n      \"availableAudienceCount\": 0,\n      \"discount\": {\n        \"maxDiscount\": 5750,\n        \"minDiscount\": 500\n      },\n      \"error\": {},\n      \"id\": 0,\n      \"item\": {\n        \"id\": 14389997\n      },\n      \"messagePrice\": 15,\n      \"offers\": [\n        \"price_discount\",\n        \"auto_tires\"\n      ],\n      \"status\": \"notCreated\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e2d2a0c-fa70-48f8-9a4f-3c45f9a9df40",
+              "name": "Ошибка валидации входных параметров",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "special-offers",
+                    "v1",
+                    "multiCreate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    123890775,\n    233890766\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Bad request\",\n    \"code\": 400\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "738e0f39-c5f6-42f9-858d-42fd4339577d",
+              "name": "Авторизованный user не найден",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "special-offers",
+                    "v1",
+                    "multiCreate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    123890775,\n    233890766\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Unauthorized access\",\n    \"code\": 401\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c55917fc-7bc1-49ad-88ab-5611922c7173",
+              "name": "Нельзя отправить рассылку по объявлению/-ям",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "special-offers",
+                    "v1",
+                    "multiCreate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    123890775,\n    233890766\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Access denied\",\n    \"code\": 403\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d36e5814-fd7a-436d-b540-239955b603d5",
+              "name": "Внутренняя ошибка",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "special-offers",
+                    "v1",
+                    "multiCreate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    123890775,\n    233890766\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Internal error\",\n    \"code\": 500\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c0ba0e0-a3e1-4f3a-a5ff-e3ee6ed5a0ff",
+          "name": "Получение статистики",
+          "request": {
+            "name": "Получение статистики",
+            "description": {
+              "content": "Статистика по отправленным рассылкам за период\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "special-offers",
+                "v1",
+                "stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dateTimeFrom\": \"<string>\",\n  \"dateTimeTo\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "def4cfe9-9958-43b2-b479-fcc06ed9226d",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "special-offers",
+                    "v1",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateTimeFrom\": \"2022-02-24T05:00:00Z\",\n  \"dateTimeTo\": \"2022-03-01T12:00:00Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"stats\": [\n    {\n      \"accepted\": 10,\n      \"count\": 78,\n      \"expiresAt\": \"2022-03-01T23:59:59Z\",\n      \"itemId\": 392567890,\n      \"offerSlug\": \"subsidized_mortgage\",\n      \"price\": 15000,\n      \"sentAt\": \"2022-02-27T15:04:05Z\"\n    },\n    {\n      \"accepted\": 2,\n      \"count\": 7,\n      \"discount\": 3000,\n      \"expiresAt\": \"2022-03-05T23:59:59Z\",\n      \"itemId\": 492567450,\n      \"offerSlug\": \"price_discount\",\n      \"price\": 9000,\n      \"sentAt\": \"2022-02-28T11:18:00Z\"\n    },\n    {\n      \"accepted\": 21,\n      \"count\": 200,\n      \"discount\": 170000,\n      \"expiresAt\": \"2022-03-11T23:59:59Z\",\n      \"itemId\": 6992567450,\n      \"offerSlug\": \"price_discount\",\n      \"price\": 0,\n      \"sentAt\": \"2022-03-01T01:58:26Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d3dc94f-2681-4cfd-990f-a403884cd95e",
+              "name": "Ошибка валидации входных параметров",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "special-offers",
+                    "v1",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateTimeFrom\": \"2022-02-24T05:00:00Z\",\n  \"dateTimeTo\": \"2022-03-01T12:00:00Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Bad request\",\n    \"code\": 400\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b59e2d2-93d8-488f-9dd3-340f8b3d0e6d",
+              "name": "Авторизованный user не найден",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "special-offers",
+                    "v1",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateTimeFrom\": \"2022-02-24T05:00:00Z\",\n  \"dateTimeTo\": \"2022-03-01T12:00:00Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Unauthorized access\",\n    \"code\": 401\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0d130e4-3e15-4790-b1b9-878f90f7f3a0",
+              "name": "Внутренняя ошибка",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "special-offers",
+                    "v1",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateTimeFrom\": \"2022-02-24T05:00:00Z\",\n  \"dateTimeTo\": \"2022-03-01T12:00:00Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Internal error\",\n    \"code\": 500\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4878e0cf-0415-4ed6-ab91-20285d4c53ba",
+          "name": "Получение информации о тарифе",
+          "request": {
+            "name": "Получение информации о тарифе",
+            "description": {
+              "content": "Узнать сколько осталось рассылок в тарифе (если активного тарифа нет, придет пустой ответ)\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "special-offers",
+                "v1",
+                "tariffInfo"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8c1be43b-3414-419f-aa65-262d7c6d0b13",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "special-offers",
+                    "v1",
+                    "tariffInfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tariffInfo\": {\n    \"sendsLeft\": 392,\n    \"totalSends\": 1000\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5147d607-e1d8-44af-bfd0-20227bc40c35",
+              "name": "Авторизованный user не найден",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "special-offers",
+                    "v1",
+                    "tariffInfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Unauthorized access\",\n    \"code\": 401\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "31e2e61f-4962-4849-bf09-7128e6ef6163",
+              "name": "Внутренняя ошибка",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "special-offers",
+                    "v1",
+                    "tariffInfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Internal error\",\n    \"code\": 500\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.avito.ru/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "1cc42030-38c3-4aa4-8616-1025fb6692ea",
+    "name": "Иерархия Аккаунтов Access SpecialOffers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API для взаимодействия с иерархией аккаунтов в Авито\n**Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**\n\n\nContact Support:\n Email: supportautoload@avito.ru",
+      "type": "text/plain"
+    }
+  }
+}

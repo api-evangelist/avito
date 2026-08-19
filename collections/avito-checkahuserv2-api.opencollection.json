@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access CheckAhUserV2 API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CheckAhUserV2",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Получение информации о статусе пользователя в ИА",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/checkAhUserV2",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Oauth-Scopes",
+                "value": "ah:access"
+              },
+              {
+                "name": "X-Oauth-Flow",
+                "value": "authorization_code"
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Ручка для получения информации по ИА для пользователя. Если запрос делается от имени сотрудника, то необходимо указать заголовок X-Employee-Of.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

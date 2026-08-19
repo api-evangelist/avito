@@ -1,0 +1,1011 @@
+{
+  "item": [
+    {
+      "id": "b7dd33dc-d8e7-4222-917a-3ff40f4cf3be",
+      "name": "DeliveryTariffication",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ef600cf9-8447-4613-92fa-2a55ca008ad9",
+          "name": "Загрузить области доставки",
+          "request": {
+            "name": "Загрузить области доставки",
+            "description": {
+              "content": "Метод позволяет загрузить области, в которых возможна услуга курьерской доставки/забора\nВ качестве классификатора адресов используются индесы Почты России, то есть в 1 индекс включаются все адреса,\nкоторые к нему относятся.\n\n### Описание ошибок\n| http code |   error code      |       error message                                       |\n|-----------|-------------------|-----------------------------------------------------------|\n|    200    | URL_PATH_INVALID  | Tariff id must be int url path                            |\n|    200    | TERMINALS_INVALID | Failed to convert areas: {error description}          |\n|    200    | TERMINALS_INVALID | Failed to get terminals from request: {error description} |\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery-sandbox",
+                "tariffs",
+                ":tariff_id",
+                "areas"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "tariff_id",
+                  "description": "(Required) id тарифа, к которому должны быть прикреплены добавляемые области"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"directionTag\": \"<string>\",\n    \"providerAreaNumber\": \"<string>\",\n    \"services\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"utcTimezone\": \"<string>\",\n    \"zipCodes\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"restrictions\": {\n      \"maxWeight\": \"<integer>\",\n      \"maxDimensions\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"maxDeclaredCost\": \"<integer>\",\n      \"dimensionalFactor\": \"<integer>\",\n      \"maxDimensionalWeight\": \"<integer>\"\n    },\n    \"deliverySchedule\": {\n      \"cutoff\": {\n        \"cutoffTime\": \"<hh:mm:ss>\",\n        \"daysBeforeCutoff\": \"<integer>\",\n        \"daysAfterCutoff\": \"<integer>\"\n      },\n      \"regularSchedule\": {\n        \"mon\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"tue\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"wed\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"thu\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"fri\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sat\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sun\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    },\n    \"intakeSchedule\": {\n      \"cutoff\": {\n        \"cutoffTime\": \"<hh:mm:ss>\",\n        \"daysBeforeCutoff\": \"<integer>\",\n        \"daysAfterCutoff\": \"<integer>\"\n      },\n      \"regularSchedule\": {\n        \"mon\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"tue\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"wed\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"thu\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"fri\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sat\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sun\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"directionTag\": \"<string>\",\n    \"providerAreaNumber\": \"<string>\",\n    \"services\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"utcTimezone\": \"<string>\",\n    \"zipCodes\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"restrictions\": {\n      \"maxWeight\": \"<integer>\",\n      \"maxDimensions\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"maxDeclaredCost\": \"<integer>\",\n      \"dimensionalFactor\": \"<integer>\",\n      \"maxDimensionalWeight\": \"<integer>\"\n    },\n    \"deliverySchedule\": {\n      \"cutoff\": {\n        \"cutoffTime\": \"<hh:mm:ss>\",\n        \"daysBeforeCutoff\": \"<integer>\",\n        \"daysAfterCutoff\": \"<integer>\"\n      },\n      \"regularSchedule\": {\n        \"mon\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"tue\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"wed\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"thu\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"fri\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sat\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sun\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    },\n    \"intakeSchedule\": {\n      \"cutoff\": {\n        \"cutoffTime\": \"<hh:mm:ss>\",\n        \"daysBeforeCutoff\": \"<integer>\",\n        \"daysAfterCutoff\": \"<integer>\"\n      },\n      \"regularSchedule\": {\n        \"mon\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"tue\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"wed\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"thu\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"fri\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sat\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sun\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    }\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8cccfa8b-f55d-4a4f-8673-55c373c3bfbb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "tariffs",
+                    ":tariff_id",
+                    "areas"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "tariff_id",
+                      "description": "(Required) id тарифа, к которому должны быть прикреплены добавляемые области"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"directionTag\": \"moscow-2020-12-12\",\n    \"providerAreaNumber\": \"7989jgftyf-jkghtd\",\n    \"services\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"utcTimezone\": \"<string>\",\n    \"zipCodes\": [\n      \"324654\",\n      \"324654\"\n    ],\n    \"restrictions\": {\n      \"maxWeight\": 1000,\n      \"maxDimensions\": [\n        200,\n        50,\n        30\n      ],\n      \"maxDeclaredCost\": 1000,\n      \"dimensionalFactor\": 1000,\n      \"maxDimensionalWeight\": 1000\n    },\n    \"deliverySchedule\": {\n      \"cutoff\": {\n        \"cutoffTime\": \"15:04:05\",\n        \"daysBeforeCutoff\": 0,\n        \"daysAfterCutoff\": 1\n      },\n      \"regularSchedule\": {\n        \"mon\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"tue\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"wed\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"thu\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"fri\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sat\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sun\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    },\n    \"intakeSchedule\": {\n      \"cutoff\": {\n        \"cutoffTime\": \"15:04:05\",\n        \"daysBeforeCutoff\": 0,\n        \"daysAfterCutoff\": 1\n      },\n      \"regularSchedule\": {\n        \"mon\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"tue\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"wed\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"thu\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"fri\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sat\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sun\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"directionTag\": \"moscow-2020-12-12\",\n    \"providerAreaNumber\": \"7989jgftyf-jkghtd\",\n    \"services\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"utcTimezone\": \"<string>\",\n    \"zipCodes\": [\n      \"324654\",\n      \"324654\"\n    ],\n    \"restrictions\": {\n      \"maxWeight\": 1000,\n      \"maxDimensions\": [\n        200,\n        50,\n        30\n      ],\n      \"maxDeclaredCost\": 1000,\n      \"dimensionalFactor\": 1000,\n      \"maxDimensionalWeight\": 1000\n    },\n    \"deliverySchedule\": {\n      \"cutoff\": {\n        \"cutoffTime\": \"15:04:05\",\n        \"daysBeforeCutoff\": 0,\n        \"daysAfterCutoff\": 1\n      },\n      \"regularSchedule\": {\n        \"mon\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"tue\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"wed\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"thu\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"fri\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sat\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sun\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    },\n    \"intakeSchedule\": {\n      \"cutoff\": {\n        \"cutoffTime\": \"15:04:05\",\n        \"daysBeforeCutoff\": 0,\n        \"daysAfterCutoff\": 1\n      },\n      \"regularSchedule\": {\n        \"mon\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"tue\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"wed\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"thu\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"fri\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sat\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sun\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    }\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"taskId\": 3680\n  },\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5155d7db-7c93-4652-b8f9-6b08f293368d",
+              "name": "Ошибка аутентификации. Например, некорректный токен.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "tariffs",
+                    ":tariff_id",
+                    "areas"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "tariff_id",
+                      "description": "(Required) id тарифа, к которому должны быть прикреплены добавляемые области"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"directionTag\": \"moscow-2020-12-12\",\n    \"providerAreaNumber\": \"7989jgftyf-jkghtd\",\n    \"services\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"utcTimezone\": \"<string>\",\n    \"zipCodes\": [\n      \"324654\",\n      \"324654\"\n    ],\n    \"restrictions\": {\n      \"maxWeight\": 1000,\n      \"maxDimensions\": [\n        200,\n        50,\n        30\n      ],\n      \"maxDeclaredCost\": 1000,\n      \"dimensionalFactor\": 1000,\n      \"maxDimensionalWeight\": 1000\n    },\n    \"deliverySchedule\": {\n      \"cutoff\": {\n        \"cutoffTime\": \"15:04:05\",\n        \"daysBeforeCutoff\": 0,\n        \"daysAfterCutoff\": 1\n      },\n      \"regularSchedule\": {\n        \"mon\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"tue\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"wed\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"thu\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"fri\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sat\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sun\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    },\n    \"intakeSchedule\": {\n      \"cutoff\": {\n        \"cutoffTime\": \"15:04:05\",\n        \"daysBeforeCutoff\": 0,\n        \"daysAfterCutoff\": 1\n      },\n      \"regularSchedule\": {\n        \"mon\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"tue\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"wed\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"thu\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"fri\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sat\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sun\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"directionTag\": \"moscow-2020-12-12\",\n    \"providerAreaNumber\": \"7989jgftyf-jkghtd\",\n    \"services\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"utcTimezone\": \"<string>\",\n    \"zipCodes\": [\n      \"324654\",\n      \"324654\"\n    ],\n    \"restrictions\": {\n      \"maxWeight\": 1000,\n      \"maxDimensions\": [\n        200,\n        50,\n        30\n      ],\n      \"maxDeclaredCost\": 1000,\n      \"dimensionalFactor\": 1000,\n      \"maxDimensionalWeight\": 1000\n    },\n    \"deliverySchedule\": {\n      \"cutoff\": {\n        \"cutoffTime\": \"15:04:05\",\n        \"daysBeforeCutoff\": 0,\n        \"daysAfterCutoff\": 1\n      },\n      \"regularSchedule\": {\n        \"mon\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"tue\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"wed\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"thu\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"fri\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sat\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sun\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    },\n    \"intakeSchedule\": {\n      \"cutoff\": {\n        \"cutoffTime\": \"15:04:05\",\n        \"daysBeforeCutoff\": 0,\n        \"daysAfterCutoff\": 1\n      },\n      \"regularSchedule\": {\n        \"mon\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"tue\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"wed\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"thu\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"fri\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sat\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sun\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    }\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "91847b7a-9d2c-4ff0-80fd-f8f4917778db",
+              "name": "Ошибка авторизации. Например, нет прав для выполнения операции.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "tariffs",
+                    ":tariff_id",
+                    "areas"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "tariff_id",
+                      "description": "(Required) id тарифа, к которому должны быть прикреплены добавляемые области"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"directionTag\": \"moscow-2020-12-12\",\n    \"providerAreaNumber\": \"7989jgftyf-jkghtd\",\n    \"services\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"utcTimezone\": \"<string>\",\n    \"zipCodes\": [\n      \"324654\",\n      \"324654\"\n    ],\n    \"restrictions\": {\n      \"maxWeight\": 1000,\n      \"maxDimensions\": [\n        200,\n        50,\n        30\n      ],\n      \"maxDeclaredCost\": 1000,\n      \"dimensionalFactor\": 1000,\n      \"maxDimensionalWeight\": 1000\n    },\n    \"deliverySchedule\": {\n      \"cutoff\": {\n        \"cutoffTime\": \"15:04:05\",\n        \"daysBeforeCutoff\": 0,\n        \"daysAfterCutoff\": 1\n      },\n      \"regularSchedule\": {\n        \"mon\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"tue\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"wed\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"thu\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"fri\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sat\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sun\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    },\n    \"intakeSchedule\": {\n      \"cutoff\": {\n        \"cutoffTime\": \"15:04:05\",\n        \"daysBeforeCutoff\": 0,\n        \"daysAfterCutoff\": 1\n      },\n      \"regularSchedule\": {\n        \"mon\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"tue\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"wed\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"thu\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"fri\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sat\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sun\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"directionTag\": \"moscow-2020-12-12\",\n    \"providerAreaNumber\": \"7989jgftyf-jkghtd\",\n    \"services\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"utcTimezone\": \"<string>\",\n    \"zipCodes\": [\n      \"324654\",\n      \"324654\"\n    ],\n    \"restrictions\": {\n      \"maxWeight\": 1000,\n      \"maxDimensions\": [\n        200,\n        50,\n        30\n      ],\n      \"maxDeclaredCost\": 1000,\n      \"dimensionalFactor\": 1000,\n      \"maxDimensionalWeight\": 1000\n    },\n    \"deliverySchedule\": {\n      \"cutoff\": {\n        \"cutoffTime\": \"15:04:05\",\n        \"daysBeforeCutoff\": 0,\n        \"daysAfterCutoff\": 1\n      },\n      \"regularSchedule\": {\n        \"mon\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"tue\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"wed\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"thu\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"fri\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sat\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sun\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    },\n    \"intakeSchedule\": {\n      \"cutoff\": {\n        \"cutoffTime\": \"15:04:05\",\n        \"daysBeforeCutoff\": 0,\n        \"daysAfterCutoff\": 1\n      },\n      \"regularSchedule\": {\n        \"mon\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"tue\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"wed\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"thu\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"fri\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sat\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sun\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    }\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "580366f5-ca62-47f1-818a-8f2dce700c26",
+              "name": "internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "tariffs",
+                    ":tariff_id",
+                    "areas"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "tariff_id",
+                      "description": "(Required) id тарифа, к которому должны быть прикреплены добавляемые области"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"directionTag\": \"moscow-2020-12-12\",\n    \"providerAreaNumber\": \"7989jgftyf-jkghtd\",\n    \"services\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"utcTimezone\": \"<string>\",\n    \"zipCodes\": [\n      \"324654\",\n      \"324654\"\n    ],\n    \"restrictions\": {\n      \"maxWeight\": 1000,\n      \"maxDimensions\": [\n        200,\n        50,\n        30\n      ],\n      \"maxDeclaredCost\": 1000,\n      \"dimensionalFactor\": 1000,\n      \"maxDimensionalWeight\": 1000\n    },\n    \"deliverySchedule\": {\n      \"cutoff\": {\n        \"cutoffTime\": \"15:04:05\",\n        \"daysBeforeCutoff\": 0,\n        \"daysAfterCutoff\": 1\n      },\n      \"regularSchedule\": {\n        \"mon\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"tue\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"wed\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"thu\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"fri\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sat\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sun\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    },\n    \"intakeSchedule\": {\n      \"cutoff\": {\n        \"cutoffTime\": \"15:04:05\",\n        \"daysBeforeCutoff\": 0,\n        \"daysAfterCutoff\": 1\n      },\n      \"regularSchedule\": {\n        \"mon\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"tue\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"wed\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"thu\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"fri\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sat\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sun\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"directionTag\": \"moscow-2020-12-12\",\n    \"providerAreaNumber\": \"7989jgftyf-jkghtd\",\n    \"services\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"utcTimezone\": \"<string>\",\n    \"zipCodes\": [\n      \"324654\",\n      \"324654\"\n    ],\n    \"restrictions\": {\n      \"maxWeight\": 1000,\n      \"maxDimensions\": [\n        200,\n        50,\n        30\n      ],\n      \"maxDeclaredCost\": 1000,\n      \"dimensionalFactor\": 1000,\n      \"maxDimensionalWeight\": 1000\n    },\n    \"deliverySchedule\": {\n      \"cutoff\": {\n        \"cutoffTime\": \"15:04:05\",\n        \"daysBeforeCutoff\": 0,\n        \"daysAfterCutoff\": 1\n      },\n      \"regularSchedule\": {\n        \"mon\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"tue\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"wed\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"thu\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"fri\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sat\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sun\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    },\n    \"intakeSchedule\": {\n      \"cutoff\": {\n        \"cutoffTime\": \"15:04:05\",\n        \"daysBeforeCutoff\": 0,\n        \"daysAfterCutoff\": 1\n      },\n      \"regularSchedule\": {\n        \"mon\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"tue\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"wed\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"thu\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"fri\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sat\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"sun\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    }\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "602f241d-7239-40c4-9be5-08c130470ce2",
+          "name": "Обновить сроки по тарифу",
+          "request": {
+            "name": "Обновить сроки по тарифу",
+            "description": {
+              "content": "Создание задачи на обновление сроков в тарифе. Подробнее про сроки можно почитать в разделе загрузки тарифа https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#operation/AddTariffSandboxV2.  \n\nВажно ! Список новых сроков должен полностью соответствовать по deliveryProviderZoneId и name списку сроков, переданному при создании тарифа.\nТ.е. необходимо перечислить все те же deliveryProviderZoneId и name, но можете поменять сроки (maxTerm и/или minTerm).\nЕсли в какой-то зоне сроки не меняются, то необходимо все равно передать ее в исходном виде (без изменения в maxTerm и minTerm.\nПри загрузке неполного списка обновление сроков упадет с ошибкой (об этом узнать можно будет через [метод получения результата выполнения задачи](#operation/GetTask))\n\n### Описание ошибок\n| http code |   error code                  |       error message                                                   |\n|-----------|-------------------------------|-----------------------------------------------------------------------|\n|    200    | INVALID_ENTITY                | Не удалось декодировать тело запрос, проверьте структуру              |\n|    200    | INVALID_ENTITY                | Передан пустой список                                                 |\n|    200    | INVALID_ENTITY                | Не указан или указан невалидный tariff_id, должно быть передано число |\n|    200    | INVALID_ENTITY                | Передан tariff_id равный 0                                            |\n|    500    | FAILED_TO_UPDATE_TERMS        | Ошибка обработки сроков                                               |\n\nИтоговый результат операции необходимо проверять через:  \n[метод получения результата выполнения задачи](#operation/GetTask)\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery-sandbox",
+                "tariffs",
+                ":tariff_id",
+                "terms"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "tariff_id",
+                  "description": "(Required) id тарифа, к которому должны быть прикреплены добавляемые области"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"deliveryProviderZoneId\": \"<string>\",\n    \"maxTerm\": \"<integer>\",\n    \"minTerm\": \"<integer>\",\n    \"name\": \"<string>\"\n  },\n  {\n    \"deliveryProviderZoneId\": \"<string>\",\n    \"maxTerm\": \"<integer>\",\n    \"minTerm\": \"<integer>\",\n    \"name\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "57fb9807-f1fe-4e97-bf9e-153b074b9057",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "tariffs",
+                    ":tariff_id",
+                    "terms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "tariff_id",
+                      "description": "(Required) id тарифа, к которому должны быть прикреплены добавляемые области"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"deliveryProviderZoneId\": \"z42\",\n    \"maxTerm\": 2,\n    \"minTerm\": 1,\n    \"name\": \"зона z42\"\n  },\n  {\n    \"deliveryProviderZoneId\": \"z42\",\n    \"maxTerm\": 2,\n    \"minTerm\": 1,\n    \"name\": \"зона z42\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"taskId\": 6083\n  },\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8956e3b-ce6c-4551-9a2f-f6ddd682abcd",
+              "name": "Ошибка аутентификации. Например, некорректный токен.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "tariffs",
+                    ":tariff_id",
+                    "terms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "tariff_id",
+                      "description": "(Required) id тарифа, к которому должны быть прикреплены добавляемые области"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"deliveryProviderZoneId\": \"z42\",\n    \"maxTerm\": 2,\n    \"minTerm\": 1,\n    \"name\": \"зона z42\"\n  },\n  {\n    \"deliveryProviderZoneId\": \"z42\",\n    \"maxTerm\": 2,\n    \"minTerm\": 1,\n    \"name\": \"зона z42\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "01aa2f4d-1997-4d27-be64-2ec68936a655",
+              "name": "Ошибка авторизации. Например, нет прав для выполнения операции.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "tariffs",
+                    ":tariff_id",
+                    "terms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "tariff_id",
+                      "description": "(Required) id тарифа, к которому должны быть прикреплены добавляемые области"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"deliveryProviderZoneId\": \"z42\",\n    \"maxTerm\": 2,\n    \"minTerm\": 1,\n    \"name\": \"зона z42\"\n  },\n  {\n    \"deliveryProviderZoneId\": \"z42\",\n    \"maxTerm\": 2,\n    \"minTerm\": 1,\n    \"name\": \"зона z42\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1bdc4b08-7fd1-4ebc-9ad3-9c8de3c71a98",
+              "name": "internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "tariffs",
+                    ":tariff_id",
+                    "terms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "tariff_id",
+                      "description": "(Required) id тарифа, к которому должны быть прикреплены добавляемые области"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"deliveryProviderZoneId\": \"z42\",\n    \"maxTerm\": 2,\n    \"minTerm\": 1,\n    \"name\": \"зона z42\"\n  },\n  {\n    \"deliveryProviderZoneId\": \"z42\",\n    \"maxTerm\": 2,\n    \"minTerm\": 1,\n    \"name\": \"зона z42\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3b89dbee-d868-47b5-8c09-a37096deb1d1",
+          "name": "Загрузить новый тариф v2",
+          "request": {
+            "name": "Загрузить новый тариф v2",
+            "description": {
+              "content": "\nНефункциональные требования:\n\nМаксимальный размер тела запроса - 400MB<br/>\nМаксимальное количество направлений - 1 миллион\n\nМетод позволяет службам доставки самостоятельно управлять:\n  1. Доступностью направлений доставки\n  2. Стоимостью доставки по каждому из направлений\n  3. Сроками доставки по каждому из направлений\n\n## Используемые термины:\n\n- **Пункт выдачи заказов (ПВЗ)(Terminal)** - место, в котором в зависимости от списка предоставляемых услуг пользователь может сдать/получить/вернуть посылку\n\n- **Область доставки (Area)** - зона (список индексов Почты России), в которой осуществляется курьерская доставка/забор посылок\n\n- **Хаб/Сортировочный центр (SortingCenter)** - место, где сортируются посылки для дальнейшей отправки в ПВЗ (используется для кросс-доставки)\n\n- **Тэг направления(Tag)** - используется для объединения в группу ПВЗ/Областей доставки/Сортировочных центров\n    является свойством объекта ПВЗ или области доставки.\n\n    Допускается распределять тэги по ПВЗ/Областям доставки/Сортировочным центрам любым образом, при этом наиболее распространенным критерием для тэгирования является географическая близость ПВЗ/Областей доставки/Сортировочных центров друг к другу или принадлежность к одному административному субъекту.\n\n- **Тарифная зона доставки(TariffZone)** - список правил и параметров необходимых для расчета стоимости различных услуг, которые будут оказаны в процессе доставки заказа, в том числе с разделением на C2C и B2C.\n    Сумма стоимостей по всем услугам перечисленным в тарифной зоне равна расчетной стоимости, которую Авито заплатит службе доставки за доставку заказа.\n    Важно отметить, что допускается загрузка только уникальных тарифных зон - то есть, в одном тарифе не может существовать двух тарифных зон с одинаковыми значениями поля *items*\n\n- **Зона сроков доставки(TermsZone)** - список правил и параметров необходимых для расчета сроков доставки.\n    Как минимальный, так и максимальный срок передаются в рабочих днях.\n    Важно отметить, что допускается загрузка только уникальных зон сроков доставки - то есть, в одном тарифе не может существовать двух зон сроков доставки с одинаковыми значениями поля *minTerm* и *maxTerm*\n\n- **Направление доставки(Direction)** - объект определяющий возможность доставки из directionTagFrom (группа ПВЗ / список индексов_Почты_России в случае курьерской доставки), в directionTagTo (группу ПВЗ / список индексов_Почты_России в случае курьерской доставки).\n    При этом направление так же определяет условия, на которых доставка будет осуществляться: тарифную зону и сроки доставки\n\n- **Тарифный план(Tariff)** - список всех возможных направлений доставки, действующий на определенном интервале времени (например, до подписания договора об изменении тарифов)\n\n## Диаграмма связей между используемыми объектами:\n\n<img src=\"https://www.avito.st/s/avito/components/api-description/delivery/images/tariff_diagram_v2.svg\" />\n\n### Инсталляция (первое добавление службой доставки тарифов):\n>1. [Создать тариф](#operation/AddTariffSandboxV2)\n>Для каждого направления в тарифе нужно указать те типы доставки, которые по нему доступны.\n>2. Загрузить [ПВЗ](#operation/AddTerminalsSandbox)/[Области_доставки](#operation/AddAreasSandbox) и свои [сортировочные центры](#operation/AddSortingCenter), если требуется\n--\n\n*Дополнительно для подключения к кросс доставке:*  \n>3. [Скачать чужие сортировочные центры](#operation/GetSortingCenter)  \n>4. Установить чужим сортировочным центрам тэги из своего тарифа, который был загружен на шаге 1  \n>5. [Загрузить чужие сортировочные центры с тэгами из своего тарифа](#operation/AddTagsToSortingCenter)  \n\n#### Схема работы кросс доставочного тарифа\n\n<img src=\"https://avito.st/static/ims/1a890394-cde9-49cf-b2e0-dd5b00dd9a97_new_xdelivery_common_2490x1380.png\" />\n\n### Бесшовное обновление тарифа\n\nПри использовании данного подхода к обновлению тарифа отсутствует момент даунтайма - то есть отсутствия ПВЗ/Областей_доставки службы доставки на карте Авито.\n  1. Необходимо загрузить новый тариф и сообщить номер залитого тарифа вашему менеджеру по логистике в Авито\n    - Для загрузки тарифа используется [метод загрузки тарифа](#operation/AddTariffSandbox)\n    - Для получения результата загрузки тарифа используется [метод получения результата выполнения задачи](#operation/GetTariffTaskSandbox). Необходимо убедиться в отсутствии ошибок загрузки тарифа\n  2. Дождаться пока ваш менеджер подтвердит, что загруженные данные корректны\n  3. Добавить к загруженному выше тарифу ПВЗ/Области доставки/Сортировочные центры\n    - Для загрузки ПВЗ используется [метод загрузки ПВЗ](#operation/AddTerminalsSandbox). Важно учесть, что в URL необходимо указать id загруженного на предыдущем этапе тарифа\n    - Для получения результата загрузки ПВЗ используется [метод получения результата выполнения задачи](#operation/GetTerminalsTaskSandbox). Необходимо убедиться в отсутствии ошибок загрузки ПВЗ\n  4. Сообщить вашему менеджеру по логистике в Авито о том, что ПВЗ к тарифу успешно загружены\n\n### Дополнительная валидация\n\nЕсли существует направление `тег 1` -> `тег 2` S-PUDO2S-PUDO, то **обязательно** должно существовать направление `тег 2` -> `тег 1` S-PUDO2S-PUDO для возможности возврата товара. \nВ таком случае при обработке задачи на загрузку тарифа будет ошибка вида `X directions have no reverse direction. Each tag1->tag2 S-PUDO2S-PUDO must have tag2->tag1 S-PUDO2S-PUDO direction as reverse.` Ошибка будет получена в [методе получения информации о задаче](#operation/GetTask). \n\n\n### Описание ошибок\n| http code |   error code   |       error message                                      |\n|-----------|----------------|----------------------------------------------------------|\n|    200    | INVALID_ENTITY | Failed to convert entities: {error description}          |\n|    200    | INVALID_ENTITY | Failed to get entities from request: {error description} |\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery-sandbox",
+                "tariffsV2"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"deliveryProviderTariffId\": \"<string>\",\n  \"directions\": [\n    {\n      \"providerDirectionId\": \"<string>\",\n      \"tagFrom\": \"<string>\",\n      \"tagTo\": \"<string>\",\n      \"zones\": [\n        {\n          \"tariffZoneId\": \"<string>\",\n          \"termsZoneId\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"tariffZoneId\": \"<string>\",\n          \"termsZoneId\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"providerDirectionId\": \"<string>\",\n      \"tagFrom\": \"<string>\",\n      \"tagTo\": \"<string>\",\n      \"zones\": [\n        {\n          \"tariffZoneId\": \"<string>\",\n          \"termsZoneId\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"tariffZoneId\": \"<string>\",\n          \"termsZoneId\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"tariffZones\": [\n    {\n      \"name\": \"<string>\",\n      \"items\": [\n        {\n          \"serviceName\": \"<string>\",\n          \"calculationMechanic\": \"<string>\",\n          \"chargeableParameter\": \"<string>\"\n        },\n        {\n          \"serviceName\": \"<string>\",\n          \"calculationMechanic\": \"<string>\",\n          \"chargeableParameter\": \"<string>\"\n        }\n      ],\n      \"deliveryProviderZoneId\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"items\": [\n        {\n          \"serviceName\": \"<string>\",\n          \"calculationMechanic\": \"<string>\",\n          \"chargeableParameter\": \"<string>\"\n        },\n        {\n          \"serviceName\": \"<string>\",\n          \"calculationMechanic\": \"<string>\",\n          \"chargeableParameter\": \"<string>\"\n        }\n      ],\n      \"deliveryProviderZoneId\": \"<string>\"\n    }\n  ],\n  \"termsZones\": [\n    {\n      \"deliveryProviderZoneId\": \"<string>\",\n      \"maxTerm\": \"<integer>\",\n      \"minTerm\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"deliveryProviderZoneId\": \"<string>\",\n      \"maxTerm\": \"<integer>\",\n      \"minTerm\": \"<integer>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"tariffType\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5cc2e7b4-52c2-483b-a782-e66332542442",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "tariffsV2"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Быстрый от 2020-02-10\",\n  \"deliveryProviderTariffId\": \"FAST_FROM_2020-02-10\",\n  \"directions\": [\n    {\n      \"providerDirectionId\": \"12-34\",\n      \"tagFrom\": \"moscow\",\n      \"tagTo\": \"kazan\",\n      \"zones\": [\n        {\n          \"tariffZoneId\": \"t42\",\n          \"termsZoneId\": \"z42\",\n          \"type\": \"0\"\n        },\n        {\n          \"tariffZoneId\": \"t42\",\n          \"termsZoneId\": \"z42\",\n          \"type\": \"0\"\n        }\n      ]\n    },\n    {\n      \"providerDirectionId\": \"12-34\",\n      \"tagFrom\": \"moscow\",\n      \"tagTo\": \"kazan\",\n      \"zones\": [\n        {\n          \"tariffZoneId\": \"t42\",\n          \"termsZoneId\": \"z42\",\n          \"type\": \"0\"\n        },\n        {\n          \"tariffZoneId\": \"t42\",\n          \"termsZoneId\": \"z42\",\n          \"type\": \"0\"\n        }\n      ]\n    }\n  ],\n  \"tariffZones\": [\n    {\n      \"name\": \"Тарифная зона t42\",\n      \"items\": [\n        {\n          \"serviceName\": \"DELIVERY\",\n          \"calculationMechanic\": \"<string>\",\n          \"chargeableParameter\": \"WEIGHT\"\n        },\n        {\n          \"serviceName\": \"DELIVERY\",\n          \"calculationMechanic\": \"<string>\",\n          \"chargeableParameter\": \"WEIGHT\"\n        }\n      ],\n      \"deliveryProviderZoneId\": \"t42\"\n    },\n    {\n      \"name\": \"Тарифная зона t42\",\n      \"items\": [\n        {\n          \"serviceName\": \"DELIVERY\",\n          \"calculationMechanic\": \"<string>\",\n          \"chargeableParameter\": \"WEIGHT\"\n        },\n        {\n          \"serviceName\": \"DELIVERY\",\n          \"calculationMechanic\": \"<string>\",\n          \"chargeableParameter\": \"WEIGHT\"\n        }\n      ],\n      \"deliveryProviderZoneId\": \"t42\"\n    }\n  ],\n  \"termsZones\": [\n    {\n      \"deliveryProviderZoneId\": \"z42\",\n      \"maxTerm\": 2,\n      \"minTerm\": 1,\n      \"name\": \"зона z42\"\n    },\n    {\n      \"deliveryProviderZoneId\": \"z42\",\n      \"maxTerm\": 2,\n      \"minTerm\": 1,\n      \"name\": \"зона z42\"\n    }\n  ],\n  \"tariffType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"taskId\": 1930\n  },\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8391c601-4a9d-4645-ac8e-5c752bac392a",
+              "name": "Ошибка аутентификации. Например, некорректный токен.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "tariffsV2"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Быстрый от 2020-02-10\",\n  \"deliveryProviderTariffId\": \"FAST_FROM_2020-02-10\",\n  \"directions\": [\n    {\n      \"providerDirectionId\": \"12-34\",\n      \"tagFrom\": \"moscow\",\n      \"tagTo\": \"kazan\",\n      \"zones\": [\n        {\n          \"tariffZoneId\": \"t42\",\n          \"termsZoneId\": \"z42\",\n          \"type\": \"0\"\n        },\n        {\n          \"tariffZoneId\": \"t42\",\n          \"termsZoneId\": \"z42\",\n          \"type\": \"0\"\n        }\n      ]\n    },\n    {\n      \"providerDirectionId\": \"12-34\",\n      \"tagFrom\": \"moscow\",\n      \"tagTo\": \"kazan\",\n      \"zones\": [\n        {\n          \"tariffZoneId\": \"t42\",\n          \"termsZoneId\": \"z42\",\n          \"type\": \"0\"\n        },\n        {\n          \"tariffZoneId\": \"t42\",\n          \"termsZoneId\": \"z42\",\n          \"type\": \"0\"\n        }\n      ]\n    }\n  ],\n  \"tariffZones\": [\n    {\n      \"name\": \"Тарифная зона t42\",\n      \"items\": [\n        {\n          \"serviceName\": \"DELIVERY\",\n          \"calculationMechanic\": \"<string>\",\n          \"chargeableParameter\": \"WEIGHT\"\n        },\n        {\n          \"serviceName\": \"DELIVERY\",\n          \"calculationMechanic\": \"<string>\",\n          \"chargeableParameter\": \"WEIGHT\"\n        }\n      ],\n      \"deliveryProviderZoneId\": \"t42\"\n    },\n    {\n      \"name\": \"Тарифная зона t42\",\n      \"items\": [\n        {\n          \"serviceName\": \"DELIVERY\",\n          \"calculationMechanic\": \"<string>\",\n          \"chargeableParameter\": \"WEIGHT\"\n        },\n        {\n          \"serviceName\": \"DELIVERY\",\n          \"calculationMechanic\": \"<string>\",\n          \"chargeableParameter\": \"WEIGHT\"\n        }\n      ],\n      \"deliveryProviderZoneId\": \"t42\"\n    }\n  ],\n  \"termsZones\": [\n    {\n      \"deliveryProviderZoneId\": \"z42\",\n      \"maxTerm\": 2,\n      \"minTerm\": 1,\n      \"name\": \"зона z42\"\n    },\n    {\n      \"deliveryProviderZoneId\": \"z42\",\n      \"maxTerm\": 2,\n      \"minTerm\": 1,\n      \"name\": \"зона z42\"\n    }\n  ],\n  \"tariffType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "288d6822-ec46-4b40-b85e-601c4bfd9eb8",
+              "name": "Ошибка авторизации. Например, нет прав для выполнения операции.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "tariffsV2"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Быстрый от 2020-02-10\",\n  \"deliveryProviderTariffId\": \"FAST_FROM_2020-02-10\",\n  \"directions\": [\n    {\n      \"providerDirectionId\": \"12-34\",\n      \"tagFrom\": \"moscow\",\n      \"tagTo\": \"kazan\",\n      \"zones\": [\n        {\n          \"tariffZoneId\": \"t42\",\n          \"termsZoneId\": \"z42\",\n          \"type\": \"0\"\n        },\n        {\n          \"tariffZoneId\": \"t42\",\n          \"termsZoneId\": \"z42\",\n          \"type\": \"0\"\n        }\n      ]\n    },\n    {\n      \"providerDirectionId\": \"12-34\",\n      \"tagFrom\": \"moscow\",\n      \"tagTo\": \"kazan\",\n      \"zones\": [\n        {\n          \"tariffZoneId\": \"t42\",\n          \"termsZoneId\": \"z42\",\n          \"type\": \"0\"\n        },\n        {\n          \"tariffZoneId\": \"t42\",\n          \"termsZoneId\": \"z42\",\n          \"type\": \"0\"\n        }\n      ]\n    }\n  ],\n  \"tariffZones\": [\n    {\n      \"name\": \"Тарифная зона t42\",\n      \"items\": [\n        {\n          \"serviceName\": \"DELIVERY\",\n          \"calculationMechanic\": \"<string>\",\n          \"chargeableParameter\": \"WEIGHT\"\n        },\n        {\n          \"serviceName\": \"DELIVERY\",\n          \"calculationMechanic\": \"<string>\",\n          \"chargeableParameter\": \"WEIGHT\"\n        }\n      ],\n      \"deliveryProviderZoneId\": \"t42\"\n    },\n    {\n      \"name\": \"Тарифная зона t42\",\n      \"items\": [\n        {\n          \"serviceName\": \"DELIVERY\",\n          \"calculationMechanic\": \"<string>\",\n          \"chargeableParameter\": \"WEIGHT\"\n        },\n        {\n          \"serviceName\": \"DELIVERY\",\n          \"calculationMechanic\": \"<string>\",\n          \"chargeableParameter\": \"WEIGHT\"\n        }\n      ],\n      \"deliveryProviderZoneId\": \"t42\"\n    }\n  ],\n  \"termsZones\": [\n    {\n      \"deliveryProviderZoneId\": \"z42\",\n      \"maxTerm\": 2,\n      \"minTerm\": 1,\n      \"name\": \"зона z42\"\n    },\n    {\n      \"deliveryProviderZoneId\": \"z42\",\n      \"maxTerm\": 2,\n      \"minTerm\": 1,\n      \"name\": \"зона z42\"\n    }\n  ],\n  \"tariffType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b513d20-e8c3-4b5a-b810-c54a2026fbc2",
+              "name": "internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "tariffsV2"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Быстрый от 2020-02-10\",\n  \"deliveryProviderTariffId\": \"FAST_FROM_2020-02-10\",\n  \"directions\": [\n    {\n      \"providerDirectionId\": \"12-34\",\n      \"tagFrom\": \"moscow\",\n      \"tagTo\": \"kazan\",\n      \"zones\": [\n        {\n          \"tariffZoneId\": \"t42\",\n          \"termsZoneId\": \"z42\",\n          \"type\": \"0\"\n        },\n        {\n          \"tariffZoneId\": \"t42\",\n          \"termsZoneId\": \"z42\",\n          \"type\": \"0\"\n        }\n      ]\n    },\n    {\n      \"providerDirectionId\": \"12-34\",\n      \"tagFrom\": \"moscow\",\n      \"tagTo\": \"kazan\",\n      \"zones\": [\n        {\n          \"tariffZoneId\": \"t42\",\n          \"termsZoneId\": \"z42\",\n          \"type\": \"0\"\n        },\n        {\n          \"tariffZoneId\": \"t42\",\n          \"termsZoneId\": \"z42\",\n          \"type\": \"0\"\n        }\n      ]\n    }\n  ],\n  \"tariffZones\": [\n    {\n      \"name\": \"Тарифная зона t42\",\n      \"items\": [\n        {\n          \"serviceName\": \"DELIVERY\",\n          \"calculationMechanic\": \"<string>\",\n          \"chargeableParameter\": \"WEIGHT\"\n        },\n        {\n          \"serviceName\": \"DELIVERY\",\n          \"calculationMechanic\": \"<string>\",\n          \"chargeableParameter\": \"WEIGHT\"\n        }\n      ],\n      \"deliveryProviderZoneId\": \"t42\"\n    },\n    {\n      \"name\": \"Тарифная зона t42\",\n      \"items\": [\n        {\n          \"serviceName\": \"DELIVERY\",\n          \"calculationMechanic\": \"<string>\",\n          \"chargeableParameter\": \"WEIGHT\"\n        },\n        {\n          \"serviceName\": \"DELIVERY\",\n          \"calculationMechanic\": \"<string>\",\n          \"chargeableParameter\": \"WEIGHT\"\n        }\n      ],\n      \"deliveryProviderZoneId\": \"t42\"\n    }\n  ],\n  \"termsZones\": [\n    {\n      \"deliveryProviderZoneId\": \"z42\",\n      \"maxTerm\": 2,\n      \"minTerm\": 1,\n      \"name\": \"зона z42\"\n    },\n    {\n      \"deliveryProviderZoneId\": \"z42\",\n      \"maxTerm\": 2,\n      \"minTerm\": 1,\n      \"name\": \"зона z42\"\n    }\n  ],\n  \"tariffType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.avito.ru/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "78c63dc4-429d-4466-a1a4-c2389ce2faf2",
+    "name": "Иерархия Аккаунтов Access DeliveryTariffication API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API для взаимодействия с иерархией аккаунтов в Авито\n**Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**\n\n\nContact Support:\n Email: supportautoload@avito.ru",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,335 @@
+{
+  "item": [
+    {
+      "id": "e2701484-837c-4d04-8800-5ad19a11c85e",
+      "name": "Signal",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dd52c6cb-8884-41b1-9350-4dbc0fc0b305",
+          "name": "Получение событий сервиса Сигнал\n",
+          "request": {
+            "name": "Получение событий сервиса Сигнал\n",
+            "description": {
+              "content": "Метод получения событий сервиса Сигнал\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "autoteka",
+                "v1",
+                "get-leads",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subscriptionId\": \"<integer>\",\n  \"lastId\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "952efc0f-f89a-486d-a01b-9bfd2ff98ebd",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "get-leads",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subscriptionId\": \"<integer>\",\n  \"lastId\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pagination\": {\n    \"lastId\": 1230414\n  },\n  \"result\": [\n    {\n      \"id\": 1230414,\n      \"subscriptionId\": 8132,\n      \"payload\": {\n        \"vin\": \"XTA111830A0219549\",\n        \"year\": 2010,\n        \"brand\": \"ВАЗ (LADA)\",\n        \"model\": \"Kalina\",\n        \"price\": 230000,\n        \"itemId\": 2075191323,\n        \"controlCode\": \"a2430986\",\n        \"mileage\": 125000,\n        \"url\": \"https://avito.ru/elets/avtomobili/lada_kalina_2010_2075191323?utm_source=autoteka_leads&utm_medium=referral&utm_campaign=43|api\",\n        \"regionId\": 637260,\n        \"condition\": \"Не битый\",\n        \"itemCreatedAt\": \"2021-01-10 16:07\",\n        \"itemUpdatedAt\": \"2021-02-09 16:10\",\n        \"owners\": \"string\",\n        \"triggerPayload\": {\n          \"lastEvents\": [\n            {\n              \"eventDate\": \"2018-10-08\",\n              \"eventTitle\": \"Сервисное обслуживание\"\n            },\n            {\n              \"eventDate\": \"2018-10-08\",\n              \"eventTitle\": \"Сервисное обслуживание\"\n            }\n          ]\n        },\n        \"extraPayload\": {\n          \"cityName\": \"Елец\",\n          \"hasPledge\": false,\n          \"isProSeller\": false,\n          \"phoneNumber\": \"string\",\n          \"pledge\": \"Залог не найден\",\n          \"priceAnalytics\": {\n            \"averageDaysInSale\": 29,\n            \"estimateSellPrice\": 165000,\n            \"liquidityRating\": \"B-\",\n            \"sellerPriceDiff\": 65000\n          },\n          \"regionName\": \"Липецкая область\",\n          \"seller\": \"Частное лицо\",\n          \"teaser\": {\n            \"crashesBadge\": true,\n            \"realMileageBadge\": false\n          }\n        },\n        \"description\": \"string\"\n      }\n    },\n    {\n      \"id\": 1230414,\n      \"subscriptionId\": 8132,\n      \"payload\": {\n        \"vin\": \"XTA111830A0219549\",\n        \"year\": 2010,\n        \"brand\": \"ВАЗ (LADA)\",\n        \"model\": \"Kalina\",\n        \"price\": 230000,\n        \"itemId\": 2075191323,\n        \"controlCode\": \"a2430986\",\n        \"mileage\": 125000,\n        \"url\": \"https://avito.ru/elets/avtomobili/lada_kalina_2010_2075191323?utm_source=autoteka_leads&utm_medium=referral&utm_campaign=43|api\",\n        \"regionId\": 637260,\n        \"condition\": \"Не битый\",\n        \"itemCreatedAt\": \"2021-01-10 16:07\",\n        \"itemUpdatedAt\": \"2021-02-09 16:10\",\n        \"owners\": \"string\",\n        \"triggerPayload\": {\n          \"lastEvents\": [\n            {\n              \"eventDate\": \"2018-10-08\",\n              \"eventTitle\": \"Сервисное обслуживание\"\n            },\n            {\n              \"eventDate\": \"2018-10-08\",\n              \"eventTitle\": \"Сервисное обслуживание\"\n            }\n          ]\n        },\n        \"extraPayload\": {\n          \"cityName\": \"Елец\",\n          \"hasPledge\": false,\n          \"isProSeller\": false,\n          \"phoneNumber\": \"string\",\n          \"pledge\": \"Залог не найден\",\n          \"priceAnalytics\": {\n            \"averageDaysInSale\": 29,\n            \"estimateSellPrice\": 165000,\n            \"liquidityRating\": \"B-\",\n            \"sellerPriceDiff\": 65000\n          },\n          \"regionName\": \"Липецкая область\",\n          \"seller\": \"Частное лицо\",\n          \"teaser\": {\n            \"crashesBadge\": true,\n            \"realMileageBadge\": false\n          }\n        },\n        \"description\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5180ff02-6dff-4fcd-8826-9d3b7477d2da",
+              "name": "Ошибка валидации входных параметров",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "get-leads",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subscriptionId\": \"<integer>\",\n  \"lastId\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Validation error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e7e0322-10b6-49db-bf3f-94f929cb372f",
+              "name": "У пользователя нет доступа к разделу",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "get-leads",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subscriptionId\": \"<integer>\",\n  \"lastId\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 403,\n    \"message\": \"Forbidden\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc7db50d-b68b-42f9-b868-7e18eb810bdf",
+              "name": "Информация об ошибке",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "get-leads",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subscriptionId\": \"<integer>\",\n  \"lastId\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 500,\n    \"message\": \"Service is temporary unavailable\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.avito.ru/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "73f22e86-b8a5-4067-a160-076e8033fd56",
+    "name": "Иерархия Аккаунтов Access Signal API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API для взаимодействия с иерархией аккаунтов в Авито\n**Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**\n\n\nContact Support:\n Email: supportautoload@avito.ru",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,403 @@
+{
+  "item": [
+    {
+      "id": "13310095-c259-499a-8a7c-7ec6d2aa272b",
+      "name": "CheckAhUserV2",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7a7426ef-1e71-4448-a96a-d295b6a12f45",
+          "name": "Получение информации о статусе пользователя в ИА",
+          "request": {
+            "name": "Получение информации о статусе пользователя в ИА",
+            "description": {
+              "content": "Ручка для получения информации по ИА для пользователя. Если запрос делается от имени сотрудника, то необходимо указать заголовок X-Employee-Of.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "checkAhUserV2"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "список зон доступа, полученных приложением",
+                "key": "X-Oauth-Scopes",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)",
+                "key": "X-Oauth-Flow",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании.\n",
+                "key": "X-Is-Employee",
+                "value": "<boolean>"
+              },
+              {
+                "disabled": false,
+                "description": "Идентификатор компании, от имени которой работает сотрудник.",
+                "key": "X-Employee-Of",
+                "value": "<integer>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "680df1f1-a2aa-4d6e-946e-581c44ee34dd",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkAhUserV2"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "список зон доступа, полученных приложением",
+                    "key": "X-Oauth-Scopes",
+                    "value": "ah:access"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)",
+                    "key": "X-Oauth-Flow",
+                    "value": "authorization_code"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании.\n",
+                    "key": "X-Is-Employee",
+                    "value": "<boolean>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник.",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"avitoCompanyId\": 2747,\n  \"isChief\": false,\n  \"isCompany\": false,\n  \"isEmployee\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "83b6aaf9-77ef-4a79-8526-d3f3aba4b16f",
+              "name": "Ошибка валидации",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkAhUserV2"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "список зон доступа, полученных приложением",
+                    "key": "X-Oauth-Scopes",
+                    "value": "ah:access"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)",
+                    "key": "X-Oauth-Flow",
+                    "value": "authorization_code"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании.\n",
+                    "key": "X-Is-Employee",
+                    "value": "<boolean>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник.",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Пользователь не авторизован\",\n    \"slug\": \"user_unauthorized\",\n    \"type\": \"authorization_error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e77b6863-a7cb-4bfb-a401-0fa328af1029",
+              "name": "Требуется аутентификация",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkAhUserV2"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "список зон доступа, полученных приложением",
+                    "key": "X-Oauth-Scopes",
+                    "value": "ah:access"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)",
+                    "key": "X-Oauth-Flow",
+                    "value": "authorization_code"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании.\n",
+                    "key": "X-Is-Employee",
+                    "value": "<boolean>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник.",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Пользователь не авторизован\",\n    \"slug\": \"user_unauthorized\",\n    \"type\": \"authorization_error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7ad94641-960a-425a-9a69-367bfcea0e95",
+              "name": "Внутренняя ошибка метода API",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkAhUserV2"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "список зон доступа, полученных приложением",
+                    "key": "X-Oauth-Scopes",
+                    "value": "ah:access"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)",
+                    "key": "X-Oauth-Flow",
+                    "value": "authorization_code"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании.\n",
+                    "key": "X-Is-Employee",
+                    "value": "<boolean>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Идентификатор компании, от имени которой работает сотрудник.",
+                    "key": "X-Employee-Of",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Пользователь не авторизован\",\n    \"slug\": \"user_unauthorized\",\n    \"type\": \"authorization_error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.avito.ru/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0544cbfc-8b2b-4821-95cc-cbcc6f48f8fb",
+    "name": "Иерархия Аккаунтов Access CheckAhUserV2 API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API для взаимодействия с иерархией аккаунтов в Авито\n**Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**\n\n\nContact Support:\n Email: supportautoload@avito.ru",
+      "type": "text/plain"
+    }
+  }
+}

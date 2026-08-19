@@ -1,0 +1,124 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access DeliveryTariffication API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DeliveryTariffication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Загрузить области доставки",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery-sandbox/tariffs/:tariff_id/areas",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "params": [
+              {
+                "name": "tariff_id",
+                "value": "",
+                "type": "path",
+                "description": "id тарифа, к которому должны быть прикреплены добавляемые области"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод позволяет загрузить области, в которых возможна услуга курьерской доставки/забора\nВ качестве классификатора адресов используются индесы Почты России, то есть в 1 индекс включаются все адреса,\nкоторые к нему относятся.\n\n### Описание ошибок\n| http code |   error code      |       error message                                       |\n|-----------|-------------------|-----------------------------------------------------------|\n|    200    | URL_PATH_INVALID  | Tariff id must be int url path   "
+        },
+        {
+          "info": {
+            "name": "Обновить сроки по тарифу",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery-sandbox/tariffs/:tariff_id/terms",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "params": [
+              {
+                "name": "tariff_id",
+                "value": "",
+                "type": "path",
+                "description": "id тарифа, к которому должны быть прикреплены добавляемые области"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Создание задачи на обновление сроков в тарифе. Подробнее про сроки можно почитать в разделе загрузки тарифа https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#operation/AddTariffSandboxV2.  \n\nВажно ! Список новых сроков должен полностью соответствовать по deliveryProviderZoneId и name списку сроков, переданному при создании тарифа.\nТ.е. необходимо перечислить все те же deliveryProviderZoneId и name, но можете поменять сроки (maxTerm и/или minTerm).\nЕсли в какой-то зоне сроки "
+        },
+        {
+          "info": {
+            "name": "Загрузить новый тариф v2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery-sandbox/tariffsV2",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "\nНефункциональные требования:\n\nМаксимальный размер тела запроса - 400MB<br/>\nМаксимальное количество направлений - 1 миллион\n\nМетод позволяет службам доставки самостоятельно управлять:\n  1. Доступностью направлений доставки\n  2. Стоимостью доставки по каждому из направлений\n  3. Сроками доставки по каждому из направлений\n\n## Используемые термины:\n\n- **Пункт выдачи заказов (ПВЗ)(Terminal)** - место, в котором в зависимости от списка предоставляемых услуг пользователь может сдать/получить/вернуть "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

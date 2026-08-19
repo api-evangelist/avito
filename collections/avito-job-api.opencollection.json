@@ -1,0 +1,1253 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access Job API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Job",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Батчевая смена статуса откликов\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/job/v1/applications/apply_actions",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Переводит сразу несколько откликов в новый статус одним запросом. В запросе нужно передать целевой статус, а также список идентификаторов откликов, к которым он должен быть применён\nМаксимальный размер батча — не более 100 идентификаторов откликов в одном запросе\n"
+        },
+        {
+          "info": {
+            "name": "Получение списка откликов\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/job/v1/applications/get_by_ids",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Получение списка откликов по uuid, полученным по  [подписке на уведомления](https://developers.avito.ru/api-catalog/job/documentation#operation/applicationsWebhookPut) (webhook) и через метод  [получение идентификаторов откликов](https://developers.avito.ru/api-catalog/job/documentation#operation/applicationsGetIds) Максимальный лимит = 100\n"
+        },
+        {
+          "info": {
+            "name": "Получение идентификаторов откликов\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/job/v1/applications/get_ids",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "updatedAtFrom",
+                "value": "",
+                "type": "query",
+                "description": "Фильтр по дате обновления (от). Обязателен, если не указан updatedAtFrom. Формат YYYY-MM-DD."
+              },
+              {
+                "name": "createdAtFrom",
+                "value": "",
+                "type": "query",
+                "description": "Фильтр по дате создания (от). Обязателен, если не указан createdAtFrom. Формат YYYY-MM-DD."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "<p>Идентификатор последнего отклика из предыдущего запроса</p>\n\n<p>Пример использования параметра:</p>\n\n<p>Получение первой страницы откликов, с датой обновления от 12 июня 2022 года:</p>\n\n<p><code>GET /job/v1/applications/get_ids?updatedAtFrom=2022-06-12</code></p>\n\n<p><code>[<br>\n  &nbsp{\"id\": \"62e3e7e542c3d9af3d85205e\",<...>},<br>\n  &nbsp<...>,<br>\n  &nbsp{\"id\": \"<strong>623850d1d3819d935dd02702</strong>\",<...>}<br>\n]</code></p>\n\n<p>Получение следующей страницы откликов:</p>\n\n<p><code>GET /job/v1/applications/get_ids?updatedAtFrom=2022-06-12&cursor=<strong>623850d1d3819d935dd02702</strong></code></p>\n"
+              },
+              {
+                "name": "vacancyIds",
+                "value": "",
+                "type": "query",
+                "description": "Идентификаторы вакансий. Опциональный фильтр (можно указать одно или несколько значений через запятую)"
+              },
+              {
+                "name": "is_viewed",
+                "value": "",
+                "type": "query",
+                "description": "Отклик просмотрен"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Статус отклика. Опциональный фильтр по текущему статусу отклика"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Возвращает лимитированное количество идентификаторов откликов отсортированных по дате создания  начиная с самых свежих, для последующего получения по ним расширенной информации через метод [получение списка откликов](https://developers.avito.ru/api-catalog/job/documentation#operation/applicationsGetByIds).\nМаксимальный лимит = 100\n"
+        },
+        {
+          "info": {
+            "name": "Получение списка возможных статусов откликов\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/job/v1/applications/get_states",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Возвращает список доступных статусов откликов и их описания\n"
+        },
+        {
+          "info": {
+            "name": "Изменение статуса отклика\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/job/v1/applications/set_is_viewed",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Возвращает информацию по откликам и статусу просмотренности отклика, при изменении статуса также статус изменится в Авито Pro.  Максимальный лимит = 100\n"
+        },
+        {
+          "info": {
+            "name": "Получение информации о подписках (webhook)\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/job/v1/applications/webhook",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Получение информации по существующим подпискам на создание и обновление откликов. Будет возвращен самый старый активный вебхук. Если авторизация происходит от имени приложения, будет возвращен вебхук приложения\n"
+        },
+        {
+          "info": {
+            "name": "Включение уведомлений по откликам (webhook)\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.avito.ru/job/v1/applications/webhook",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Подписка на уведомления о создании и обновлении откликов на вакансии. Если авторизация происходит от имени приложения, вебхук будет привязан к приложению. Исключение:\n  - изменение сотрудника относящегося к объявлению (employee_id)\n\nВажно: \n  Проверьте доступность url, при его недоступности из контура Авито webhook не будет создан/перезаписан.\n  Если url недоступен больше месяца, то он удаляется и на него не придут новые уведомления.\n  Список адресов с которых идут запросы по url IP 185.89.12.0/"
+        },
+        {
+          "info": {
+            "name": "Отключение уведомлений по откликам (webhook)\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.avito.ru/job/v1/applications/webhook",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "url",
+                "value": "",
+                "type": "query",
+                "description": "URL, на который отправляются уведомления"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Отписка от уведомлений о создании и обновлении откликов на вакансии. Если авторизация происходит от имени приложения, отписка от вебхука будет для приложения\n"
+        },
+        {
+          "info": {
+            "name": "Получение списка подписок (webhook)\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/job/v1/applications/webhooks",
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Получение списка активных подписок на создание и обновление откликов в хронологическом порядке от самого старого к самому новому. Если авторизация происходит от имени приложения, будут возвращены вебхуки приложения\n"
+        },
+        {
+          "info": {
+            "name": "Поиск резюме\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/job/v1/resumes/",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Количество записей на странице (положительное число от 1 до 100)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Номер страницы (положительное число больше 0, произведение page на per_page не должно превышать 5000)"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Курсор поиска (если не указан, будет начат новый поиск и его курсор будет возвращен в ответе)"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Поля ответа (можно указать несколько значений через запятую)"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Поисковая фраза"
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "query",
+                "description": "Идентификатор региона поиска (можно указать несколько значений через запятую)\n<br>\nМетод принимает идентификаторы сущностей Region и City из [справочника](https://autoload.avito.ru/format/Locations.xml).\n"
+              },
+              {
+                "name": "metro",
+                "value": "",
+                "type": "query",
+                "description": "Идентификатор метро поиска (можно указать несколько значений через запятую)\n<br>\nМетод принимает идентификаторы сущности Subway из [справочника](https://autoload.avito.ru/format/Locations.xml).\n"
+              },
+              {
+                "name": "district",
+                "value": "",
+                "type": "query",
+                "description": "Идентификатор района поиска (можно указать несколько значений через запятую)\n<br>\nМетод принимает идентификаторы сущности District из [справочника](https://autoload.avito.ru/format/Locations.xml).\n"
+              },
+              {
+                "name": "radius",
+                "value": "",
+                "type": "query",
+                "description": "Радиус поиска\n"
+              },
+              {
+                "name": "specialization",
+                "value": "",
+                "type": "query",
+                "description": "Идентификатор сферы деятельности (можно указать несколько значений через запятую)\n<br>\nВозможные значения:\n- 10166 - IT, интернет, телеком\n- 10167 - Медицина, фармацевтика\n- 10168 - Продажи\n- 10169 - Страхование\n- 10170 - Транспорт, логистика\n- 10171 - Образование, наука\n- 10172 - Строительство\n- 10173 - Туризм, рестораны\n- 10174 - Фитнес, салоны красоты\n- 10175 - Без опыта, студенты\n- 10180 - Автомобильный бизнес\n- 10181 - Бухгалтерия, финансы\n- 10182 - Высший менеджмент\n- 10183 - Госслужба, НКО\n- 10184 - ЖКХ, эксплуатация\n- 10185 - Искусство, развлечения\n- 10186 - Консультирование\n- 10187 - Маркетинг, реклама, PR\n- 10188 - Охрана, безопасность\n- 10189 - Управление персоналом\n- 10190 - Юриспруденция\n- 10191 - Административная работа\n- 10192 - Банки, инвестиции\n- 10193 - Производство, сырьё, с/х\n- 16844 - Домашний персонал\n- 2804251 - Курьерская доставка\n- 2804250 - Такси\n"
+              },
+              {
+                "name": "schedule",
+                "value": "",
+                "type": "query",
+                "description": "График работы (можно указать несколько значений через запятую)\n<br>\nВозможные значения:\n- partial-day - Неполный рабочий день\n- full-day - Полный рабочий день\n- fly-in-fly-out - Вахтовый метод\n- flexible - Гибкий график\n- shift - Сменный график\n- remote - Удаленная работа\n"
+              },
+              {
+                "name": "business_trip_readiness",
+                "value": "",
+                "type": "query",
+                "description": "Готовность к командировкам (можно указать несколько значений через запятую)\n<br>\nВозможные значения:\n- ready - Готов\n- never - Не готов\n- sometimes - Иногда\n"
+              },
+              {
+                "name": "relocation_readiness",
+                "value": "",
+                "type": "query",
+                "description": "Готовность к переезду (можно указать несколько значений через запятую)\n<br>\nВозможные значения:\n- possible - Возможен\n- never - Невозможен\n"
+              },
+              {
+                "name": "gender",
+                "value": "",
+                "type": "query",
+                "description": "Пол (можно указать несколько значений через запятую)\n<br>\nВозможные значения:\n- female - Женщина\n- male - Мужчина\n"
+              },
+              {
+                "name": "age_min",
+                "value": "",
+                "type": "query",
+                "description": "Минимальный возраст (включительно, положительное число от 14 до 99)"
+              },
+              {
+                "name": "age_max",
+                "value": "",
+                "type": "query",
+                "description": "Максимальный возраст (включительно, положительное число от 18 до 99)"
+              },
+              {
+                "name": "education_level",
+                "value": "",
+                "type": "query",
+                "description": "Уровень образования (можно указать несколько значений через запятую)\n<br>\nВозможные значения:\n- higher - Высшее\n- unfinished-higher - Неоконченное высшее\n- secondary - Среднее\n- special-secondary - Среднее специальное\n"
+              },
+              {
+                "name": "experience_min",
+                "value": "",
+                "type": "query",
+                "description": "Минимальный стаж работы (включительно, положительное число от 0 до 50)"
+              },
+              {
+                "name": "experience_max",
+                "value": "",
+                "type": "query",
+                "description": "Максимальный стаж работы (включительно, положительное число от 0 до 50)"
+              },
+              {
+                "name": "salary_min",
+                "value": "",
+                "type": "query",
+                "description": "Минимальный размер заработной платы (включительно, положительное число)"
+              },
+              {
+                "name": "salary_max",
+                "value": "",
+                "type": "query",
+                "description": "Максимальный размер заработной платы (включительно, положительное число)"
+              },
+              {
+                "name": "updated_at",
+                "value": "",
+                "type": "query",
+                "description": "Дата последнего обновления (от updated_at до текущей даты)"
+              },
+              {
+                "name": "updated_from",
+                "value": "",
+                "type": "query",
+                "description": "Дата последнего обновления (от updated_at)"
+              },
+              {
+                "name": "updated_to",
+                "value": "",
+                "type": "query",
+                "description": "Дата последнего обновления (до updated_at)"
+              },
+              {
+                "name": "nationality",
+                "value": "",
+                "type": "query",
+                "description": "Идентификатор гражданства(можно указать несколько значений через запятую)</br>\nсм. идентификаторы гражданства в [справочнике](https://www.avito.st/s/openapi/catalog_nationality.xml)</br>\nРаспространенные значения:\n- 15973 - Россия\n- 15974 - Украина\n- 15975 - Белоруссия\n- 15979 - Азербайджан\n- 15985 - Армения\n- 16020 - Грузия\n- 15976 - Казахстан\n- 16046 - Киргизия\n- 16082 - Молдавия\n- 16129 - Таджикистан\n- 16140 - Узбекистан\n"
+              },
+              {
+                "name": "driver_licence",
+                "value": "",
+                "type": "query",
+                "description": "Водительское удостоверение\n<br>\nВозможные значения:\n- yes - Удостоверение есть\n- no - Удостоверения нет\n"
+              },
+              {
+                "name": "driver_licence_category",
+                "value": "",
+                "type": "query",
+                "description": "Категория водительского удостоверения (можно указать несколько значений через запятую)\n<br>\nВозможные значения:\n  - a\n  - b\n  - be\n  - c\n  - ce\n  - d\n  - de\n  - m\n  - tm\n  - tb\n"
+              },
+              {
+                "name": "driving_experience",
+                "value": "",
+                "type": "query",
+                "description": "Стаж вождения (можно указать несколько значений через запятую)\n<br>\nВозможные значения:\n  - less-than-three-years - Стаж вождения меньше трех лет\n  - more-than-three-years - Стаж вождения больше трех лет\n"
+              },
+              {
+                "name": "own_transport",
+                "value": "",
+                "type": "query",
+                "description": "Свой транспорт (можно указать несколько значений через запятую)\n<br>\nВозможные значения:\n  - no - Нет\n  - car - Легковое авто\n  - cargo-car - Грузовое авто\n  - bike - Мотоцикл\n  - scooter - Мопед\n"
+              },
+              {
+                "name": "medical_book",
+                "value": "",
+                "type": "query",
+                "description": "Медкнижка\n<br>\nВозможные значения:\n  - yes - Медкнижка есть\n  - no - Медкнижки нет\n"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Поиск резюме\n"
+        },
+        {
+          "info": {
+            "name": "Доступ к контактным данным соискателя\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/job/v1/resumes/:resume_id/contacts/",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "resume_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор резюме"
+              },
+              {
+                "name": "employee_id",
+                "value": "",
+                "type": "query",
+                "description": "Идентификатор сотрудника компании в рамках иерархии аккаунтов. Используется для возможности списать контакт с лимита на покупку резюме для указанного сотрудника.\n"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Для получения контактов пользователя необходимо приобрести пакет просмотров в [личном кабинете](https://www.avito.ru/paid-services/contact-packages/cvs). Если резюме было получено из отклика, контакты предоставляются без списания из пакета просмотров.\n"
+        },
+        {
+          "info": {
+            "name": "Публикация вакансии",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/job/v1/vacancies",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Для публикации вакансии необходимо приобрести тариф в [личном кабинете](https://www.avito.ru/paid-services/listing-fees).\n"
+        },
+        {
+          "info": {
+            "name": "Остановка публикации вакансии",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.avito.ru/job/v1/vacancies/archived/:vacancy_id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "vacancy_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор вакансии на сайте"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Снимает с публикации объявление в категории Вакансии.\n"
+        },
+        {
+          "info": {
+            "name": "Редактирование вакансии",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.avito.ru/job/v1/vacancies/:vacancy_id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "vacancy_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор вакансии на сайте"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Редактирует объявление в категории Вакансии. Необходимо приобрести тариф в [личном кабинете](https://www.avito.ru/paid-services/listing-fees).\n"
+        },
+        {
+          "info": {
+            "name": "Реактивация вакансии",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/job/v1/vacancies/:vacancy_id/prolongate",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "vacancy_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор вакансии на сайте"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Реактивирует объявление в категории Вакансии. Необходимо приобрести тариф в [личном кабинете](https://www.avito.ru/paid-services/listing-fees).\n"
+        },
+        {
+          "info": {
+            "name": "Просмотр данных резюме\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/job/v2/resumes/:resume_id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "resume_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор резюме"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Поля основного тела ответа (можно указать несколько значений через запятую). По умолчанию отображаются все поля."
+              },
+              {
+                "name": "params",
+                "value": "",
+                "type": "query",
+                "description": "Дополнительные поля, которые входят в params (можно указать несколько значений через запятую). По умолчанию отображаются все поля."
+              },
+              {
+                "name": "photos",
+                "value": "",
+                "type": "query",
+                "description": "Признак того, нужно ли отдавать картинки, по умолчанию false"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "По умолчанию fields и params выводятся все. Если указана только часть полей - остальные поля будут отсутствовать в ответе.\n"
+        },
+        {
+          "info": {
+            "name": "Поиск вакансий\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/job/v2/vacancies",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Количество записей на странице (положительное число от 10 до 100)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Номер страницы (положительное число больше 0, произведение page на per_page не должно превышать 5000)"
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "query",
+                "description": "Идентификатор региона поиска (можно указать несколько значений через запятую)\n<br>\nМетод принимает идентификаторы сущностей Region и City из [справочника](https://autoload.avito.ru/format/Locations.xml).\n"
+              },
+              {
+                "name": "business_area",
+                "value": "",
+                "type": "query",
+                "description": "Идентификатор сферы деятельности  <br> Получить актуальный список доступных значений можно из справочника `business_area` через метод [getDictByID](/api-catalog/job/documentation#operation/getDictByID). <br> Статичный [справочник](https://www.avito.st/s/openapi/catalog-business-area.xml) объявлен устаревшим и более не будет использоваться.  <br>\n"
+              },
+              {
+                "name": "work_format",
+                "value": "",
+                "type": "query",
+                "description": "Формат работы (можно указать несколько значений через запятую) <br> Получить актуальный список доступных значений можно из справочника `work_format` через метод [getDictByID](/api-catalog/job/documentation#operation/getDictByID). <br>\n"
+              },
+              {
+                "name": "schedule",
+                "value": "",
+                "type": "query",
+                "description": "Режим работы (можно указать несколько значений через запятую) <br> Получить актуальный список доступных значений можно из справочника `schedules` через метод [getDictByID](/api-catalog/job/documentation#operation/getDictByID). <br>\n"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Поиск вакансий\n"
+        },
+        {
+          "info": {
+            "name": "Публикация вакансии v2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/job/v2/vacancies",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Для публикации вакансии необходимо приобрести тариф в [личном кабинете](https://www.avito.ru/paid-services/listing-fees).\nДля проверки статуса публикации используйте полученный идентификатор в [методе получения статуса](https://developers.avito.ru/api-catalog/job/documentation#operation/vacancyGetStatuses).\n"
+        },
+        {
+          "info": {
+            "name": "Просмотр данных вакансий\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/job/v2/vacancies/batch",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "По умолчанию fields и params выводятся все. Если указана только часть полей - остальные поля будут отсутствовать в ответе.\nДля просмотра данных необходимо быть владельцем вакансии.\n"
+        },
+        {
+          "info": {
+            "name": "Получение статуса публикации вакансий V2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/job/v2/vacancies/statuses",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Получение списка статусов процесса публикации и модерации вакансий.\nВ запросе используйте идентификатор, полученный [методе\nпубликации вакансии v2](https://developers.avito.ru/api-catalog/job/documentation#operation/vacancyCreateV2)\n"
+        },
+        {
+          "info": {
+            "name": "Редактирование вакансии v2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/job/v2/vacancies/update/:vacancy_uuid",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "vacancy_uuid",
+                "value": "",
+                "type": "path",
+                "description": "UUID Идентификатор вакансии для V2 ручек\n(возвращается ручкой [Публикация вакансии V2](https://developers.avito.ru/api-catalog/job/documentation#operation/vacancyCreateV2) )\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Редактирует объявление в категории Вакансии. Необходимо приобрести тариф в [личном кабинете](https://www.avito.ru/paid-services/listing-fees).\n"
+        },
+        {
+          "info": {
+            "name": "Просмотр данных вакансии\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/job/v2/vacancies/:vacancy_id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "vacancy_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор вакансии"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Поля основного тела ответа (можно указать несколько значений через запятую). По умолчанию отображаются все поля."
+              },
+              {
+                "name": "params",
+                "value": "",
+                "type": "query",
+                "description": "Дополнительные поля, которые входят в params (можно указать несколько\nзначений через запятую). Если значение не задано - возвращаются все поля.\n\nУстаревшие значения:\n* change (используйте shifts)\n* is_remote (используйте work_format)\n\nУдалённые значения (более недоступны):\n* manufacturing_type\n* industry_type\n* piecework_flag\n* programs\n* warehouse_functionality\n* where_to_work\n"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "По умолчанию fields и params выводятся все. Если указана только часть полей - остальные поля будут отсутствовать в ответе.\nДля просмотра данных необходимо быть владельцем вакансии.\n"
+        },
+        {
+          "info": {
+            "name": "Автопродление вакансии v2",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.avito.ru/job/v2/vacancies/:vacancy_uuid/auto_renewal",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "vacancy_uuid",
+                "value": "",
+                "type": "path",
+                "description": "UUID Идентификатор вакансии для V2 ручек\n(возвращается ручкой [Публикация вакансии V2](https://developers.avito.ru/api-catalog/job/documentation#operation/vacancyCreateV2) )\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Включает или выключает автопродление вакансии. Если вакансия в архиве, то при включении автопродления вакансия будет автоматически поднята из архива.\n"
+        },
+        {
+          "info": {
+            "name": "Получение списка доступных словарей",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/job/v2/vacancy/dict",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Возвращает все доступные словари (Заменяет существующие списки)"
+        },
+        {
+          "info": {
+            "name": "Получение доступных значений списка по ID словаря",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/job/v2/vacancy/dict/:dictionary_id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "dictionary_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор словаря"
+              }
+            ]
+          },
+          "docs": "Возвращает доступные значения по имени справочника. Значения с признаком deprecated не могут использоваться при создании и обновлении вакансий."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

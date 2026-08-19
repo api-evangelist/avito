@@ -1,0 +1,319 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access Realty API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Realty",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Получение соответствия переданной цены рыночной цене",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/realty/v1/marketPriceCorrespondence/:itemId/:price",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "Идентифиактор объявления"
+              },
+              {
+                "name": "price",
+                "value": "",
+                "type": "path",
+                "description": "Цена"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Получение соответствия переданной цены рыночной цене\n\n**Данный метод доступен только пользователям с активной подпиской «Лидер» в категории «Недвижимость»**\n"
+        },
+        {
+          "info": {
+            "name": "Получение аналитического отчета по недвижимости",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/realty/v1/report/create/:itemId",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор объявления"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Получение аналитического отчета по недвижимости\n\n**Данный метод доступен только пользователям с активной подпиской «Лидер» в категории «Недвижимость»**\n"
+        },
+        {
+          "info": {
+            "name": "Заполнение календаря занятости объекта недвижимости",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/core/v1/accounts/:user_id/items/:item_id/bookings",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "Номер пользователя в Личном кабинете Авито"
+              },
+              {
+                "name": "item_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор объявления на сайте"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Заполнение календаря занятости объекта недвижимости (для краткосрочной аренды)\n"
+        },
+        {
+          "info": {
+            "name": "Получение списка броней по объявлению\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/realty/v1/accounts/:user_id/items/:item_id/bookings",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "Номер пользователя в Личном кабинете Авито"
+              },
+              {
+                "name": "item_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор объявления на сайте"
+              },
+              {
+                "name": "skip_error",
+                "value": "",
+                "type": "query",
+                "description": "Флаг, с которым вместо ошибок(если ошибка произошла с айтемом) возвращается 200 статус, без ошибки"
+              },
+              {
+                "name": "date_start",
+                "value": "",
+                "type": "query",
+                "description": "Фильтр, ограничивающий выборку по нижней границе дат, не в прошлом"
+              },
+              {
+                "name": "date_end",
+                "value": "",
+                "type": "query",
+                "description": "Фильтр, ограничивающий выборку по верхней границе дат, не в прошлом"
+              },
+              {
+                "name": "with_unpaid",
+                "value": "",
+                "type": "query",
+                "description": "Флаг, позволяющий получить неоплаченные брони (возвращаются в статусе pending)"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Возвращает информацию о бронированиях объекта за весь период.\n"
+        },
+        {
+          "info": {
+            "name": "Актуализация параметров для выбранных периодов\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/realty/v1/accounts/:user_id/items/:item_id/prices",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "Номер пользователя в Личном кабинете Авито"
+              },
+              {
+                "name": "item_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор объявления на сайте"
+              },
+              {
+                "name": "skip_error",
+                "value": "",
+                "type": "query",
+                "description": "Флаг, с которым вместо ошибок(если ошибка произошла с айтемом) возвращается 200 статус, без ошибки"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Обновляет параметры (цена за ночь, доплата за гостя, минимальная продолжительность брони) для каждого из переданных диапазонов дат, изменения применяются к каждой дате диапазона. В случае, если на занимаемые даты есть брони в неподтвержденных статусах, то брони переводятся в статус overbook.\n"
+        },
+        {
+          "info": {
+            "name": "Заполнение доступности объекта недвижимости с квотами и без",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/realty/v1/items/intervals",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "params": [
+              {
+                "name": "skip_error",
+                "value": "",
+                "type": "query",
+                "description": "Флаг, с которым вместо ошибок(если ошибка произошла с айтемом) возвращается 200 статус, без ошибки"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Заполнение календаря доступности объекта недвижимости с квотами и без (для краткосрочной аренды)\n"
+        },
+        {
+          "info": {
+            "name": "Установка базовых параметров\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/realty/v1/items/:item_id/base",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "params": [
+              {
+                "name": "item_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор объявления на сайте"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Обновляет базовые параметры: цена за ночь, минимальное количество ночей, доплата за гостя,  количество гостей больше которых активируется опция доплаты за гостя, период бесплатной отмены, параметры мгновенного бронирования (активность, максимальное/минимальное количество дней до заселения), скидки на бронирование.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

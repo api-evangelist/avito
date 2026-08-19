@@ -1,0 +1,1361 @@
+{
+  "item": [
+    {
+      "id": "0b0da822-e9af-47ed-ac36-a33f6d8b61e0",
+      "name": "Trx Promo",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f0253add-5c30-4bce-a2e2-3513b3458c0d",
+          "name": "Запуск продвижения",
+          "request": {
+            "name": "Запуск продвижения",
+            "description": {
+              "content": "Запуск продвижения. Этот метод применяет настройки продвижения к вашим объявлениям.\n\nУкажите плату за продвижение: от 1 до 15%.  Ещё выберите даты продвижения: все свободные или период.\n\nПлата за продвижение прибавится к базовой комиссии — получится общая комиссия. А базовая комиссия будет [зависеть от мгновенного бронирования](https://www.avito.ru/realestate/kratkosrochnaya_arenda/test_commission/)\n\nНапример, если выбрали плату за продвижение 2%, то в поле commission  напишите «200».\n\nВ ответе вы получите детальную информацию по каждому объявлению. Если продвижение не запустится, вы увидите ошибки:\n\n1001 — ошибка валидации параметров\n\n1002 — вам недоступно продвижение за комиссию\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "trx-promo",
+                "1",
+                "apply"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Список зон доступа",
+                "key": "x-oauth-scopes",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Выбранный флоу авторизации по протоколу OAuth 2.0",
+                "key": "x-oauth-flow",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Avito-ID пользователя",
+                "key": "x-authenticated-userid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"itemID\": \"<integer>\",\n      \"commission\": \"<integer>\",\n      \"dateFrom\": \"<string>\",\n      \"dateTo\": \"<string>\"\n    },\n    {\n      \"itemID\": \"<integer>\",\n      \"commission\": \"<integer>\",\n      \"dateFrom\": \"<string>\",\n      \"dateTo\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2d81bf49-95a2-491c-8bbe-78890cb07c56",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trx-promo",
+                    "1",
+                    "apply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Список зон доступа",
+                    "key": "x-oauth-scopes",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Выбранный флоу авторизации по протоколу OAuth 2.0",
+                    "key": "x-oauth-flow",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Avito-ID пользователя",
+                    "key": "x-authenticated-userid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"itemID\": \"<integer>\",\n      \"commission\": 1500,\n      \"dateFrom\": \"2024-12-01\",\n      \"dateTo\": \"2024-12-31\"\n    },\n    {\n      \"itemID\": \"<integer>\",\n      \"commission\": 1500,\n      \"dateFrom\": \"2024-12-01\",\n      \"dateTo\": \"2024-12-31\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": {\n    \"result\": [\n      {\n        \"itemID\": 2418,\n        \"success\": true,\n        \"error\": {\n          \"code\": 1001,\n          \"message\": \"string\"\n        },\n        \"validCommissionRange\": {\n          \"valueMin\": 100,\n          \"valueMax\": 1500,\n          \"step\": 100\n        }\n      },\n      {\n        \"itemID\": 3811,\n        \"success\": false,\n        \"error\": {\n          \"code\": 1001,\n          \"message\": \"string\"\n        },\n        \"validCommissionRange\": {\n          \"valueMin\": 100,\n          \"valueMax\": 1500,\n          \"step\": 100\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd106b08-b97c-41c4-a212-4f130ddb509d",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trx-promo",
+                    "1",
+                    "apply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Список зон доступа",
+                    "key": "x-oauth-scopes",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Выбранный флоу авторизации по протоколу OAuth 2.0",
+                    "key": "x-oauth-flow",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Avito-ID пользователя",
+                    "key": "x-authenticated-userid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"itemID\": \"<integer>\",\n      \"commission\": 1500,\n      \"dateFrom\": \"2024-12-01\",\n      \"dateTo\": \"2024-12-31\"\n    },\n    {\n      \"itemID\": \"<integer>\",\n      \"commission\": 1500,\n      \"dateFrom\": \"2024-12-01\",\n      \"dateTo\": \"2024-12-31\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bad-request\": {\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6824ec85-6846-4702-9caa-fa9ddc6a8200",
+              "name": "Unauthenticated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trx-promo",
+                    "1",
+                    "apply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Список зон доступа",
+                    "key": "x-oauth-scopes",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Выбранный флоу авторизации по протоколу OAuth 2.0",
+                    "key": "x-oauth-flow",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Avito-ID пользователя",
+                    "key": "x-authenticated-userid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"itemID\": \"<integer>\",\n      \"commission\": 1500,\n      \"dateFrom\": \"2024-12-01\",\n      \"dateTo\": \"2024-12-31\"\n    },\n    {\n      \"itemID\": \"<integer>\",\n      \"commission\": 1500,\n      \"dateFrom\": \"2024-12-01\",\n      \"dateTo\": \"2024-12-31\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"unauthenticated\": {\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d0c1de7-d695-4380-bd15-9a5eb1e60f6f",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trx-promo",
+                    "1",
+                    "apply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Список зон доступа",
+                    "key": "x-oauth-scopes",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Выбранный флоу авторизации по протоколу OAuth 2.0",
+                    "key": "x-oauth-flow",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Avito-ID пользователя",
+                    "key": "x-authenticated-userid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"itemID\": \"<integer>\",\n      \"commission\": 1500,\n      \"dateFrom\": \"2024-12-01\",\n      \"dateTo\": \"2024-12-31\"\n    },\n    {\n      \"itemID\": \"<integer>\",\n      \"commission\": 1500,\n      \"dateFrom\": \"2024-12-01\",\n      \"dateTo\": \"2024-12-31\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"forbidden\": {\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a35ecd0-d6c5-4643-a852-99b48c95084c",
+              "name": "InternalError",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trx-promo",
+                    "1",
+                    "apply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Список зон доступа",
+                    "key": "x-oauth-scopes",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Выбранный флоу авторизации по протоколу OAuth 2.0",
+                    "key": "x-oauth-flow",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Avito-ID пользователя",
+                    "key": "x-authenticated-userid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"itemID\": \"<integer>\",\n      \"commission\": 1500,\n      \"dateFrom\": \"2024-12-01\",\n      \"dateTo\": \"2024-12-31\"\n    },\n    {\n      \"itemID\": \"<integer>\",\n      \"commission\": 1500,\n      \"dateFrom\": \"2024-12-01\",\n      \"dateTo\": \"2024-12-31\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"internal-error\": {\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a6a2bcf4-3db7-4b67-8328-ad85f918efad",
+          "name": "Остановка продвижения",
+          "request": {
+            "name": "Остановка продвижения",
+            "description": {
+              "content": "Этот метод позволяет отменить действующее и запланированное продвижение для объявления.\n\nВ ответе вы получите детальную информацию по каждому объявлению. Если продвижение не отменится, в ответе вы получите ошибки:\n\n1001 — ошибка валидации параметров\n\n1002 — вам недоступно продвижение за комиссию\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "trx-promo",
+                "1",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Список зон доступа",
+                "key": "x-oauth-scopes",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Выбранный флоу авторизации по протоколу OAuth 2.0",
+                "key": "x-oauth-flow",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Avito-ID пользователя",
+                "key": "x-authenticated-userid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itemIDs\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "565c220e-b08d-4d94-9a85-ea7b414e09f7",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trx-promo",
+                    "1",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Список зон доступа",
+                    "key": "x-oauth-scopes",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Выбранный флоу авторизации по протоколу OAuth 2.0",
+                    "key": "x-oauth-flow",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Avito-ID пользователя",
+                    "key": "x-authenticated-userid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIDs\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": {\n    \"result\": [\n      {\n        \"itemID\": 3899,\n        \"success\": true,\n        \"error\": {\n          \"code\": 1002,\n          \"message\": \"string\"\n        }\n      },\n      {\n        \"itemID\": 3715,\n        \"success\": false,\n        \"error\": {\n          \"code\": 1001,\n          \"message\": \"string\"\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "507f04fe-89ce-4a1a-8943-3e9ad5daa607",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trx-promo",
+                    "1",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Список зон доступа",
+                    "key": "x-oauth-scopes",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Выбранный флоу авторизации по протоколу OAuth 2.0",
+                    "key": "x-oauth-flow",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Avito-ID пользователя",
+                    "key": "x-authenticated-userid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIDs\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bad-request\": {\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "495e2c0e-3808-40fb-89c5-22ff9b4c53d9",
+              "name": "Unauthenticated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trx-promo",
+                    "1",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Список зон доступа",
+                    "key": "x-oauth-scopes",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Выбранный флоу авторизации по протоколу OAuth 2.0",
+                    "key": "x-oauth-flow",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Avito-ID пользователя",
+                    "key": "x-authenticated-userid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIDs\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"unauthenticated\": {\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7e00d15-4fd3-4857-a96f-58da86659593",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trx-promo",
+                    "1",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Список зон доступа",
+                    "key": "x-oauth-scopes",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Выбранный флоу авторизации по протоколу OAuth 2.0",
+                    "key": "x-oauth-flow",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Avito-ID пользователя",
+                    "key": "x-authenticated-userid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIDs\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"forbidden\": {\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a1ff3435-fb92-4a01-bacd-cea9fcb8bafa",
+              "name": "InternalError",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trx-promo",
+                    "1",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Список зон доступа",
+                    "key": "x-oauth-scopes",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Выбранный флоу авторизации по протоколу OAuth 2.0",
+                    "key": "x-oauth-flow",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Avito-ID пользователя",
+                    "key": "x-authenticated-userid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIDs\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"internal-error\": {\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c43daf0a-98c6-45c2-a865-974b9990d02e",
+          "name": "Проверка доступности продвижения и размера комиссий",
+          "request": {
+            "name": "Проверка доступности продвижения и размера комиссий",
+            "description": {
+              "content": "Метод позволяет узнать, доступно ли продвижение за комиссию для объявлений, и посмотреть, какие комиссии будут.\n\nВ ответе вы получите детальную информацию по каждому объявлению. Коды ошибок:\n\n1001 — ошибка валидации параметров\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "trx-promo",
+                "1",
+                "commissions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Список зон доступа",
+                "key": "x-oauth-scopes",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Выбранный флоу авторизации по протоколу OAuth 2.0",
+                "key": "x-oauth-flow",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Avito-ID пользователя",
+                "key": "x-authenticated-userid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itemIDs\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1177c1e7-1df5-4b95-9b0d-a95b6ca77bd4",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trx-promo",
+                    "1",
+                    "commissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Список зон доступа",
+                    "key": "x-oauth-scopes",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Выбранный флоу авторизации по протоколу OAuth 2.0",
+                    "key": "x-oauth-flow",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Avito-ID пользователя",
+                    "key": "x-authenticated-userid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIDs\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": {\n    \"result\": [\n      {\n        \"itemID\": 8679,\n        \"promoAvailable\": false,\n        \"settings\": {\n          \"valueMin\": 100,\n          \"valueMax\": 1500,\n          \"step\": 100\n        },\n        \"error\": {\n          \"code\": 1001,\n          \"message\": \"string\"\n        }\n      },\n      {\n        \"itemID\": 703,\n        \"promoAvailable\": false,\n        \"settings\": {\n          \"valueMin\": 100,\n          \"valueMax\": 1500,\n          \"step\": 100\n        },\n        \"error\": {\n          \"code\": 1001,\n          \"message\": \"string\"\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "286c7c40-bd5e-4010-a4a9-32603f0d35b1",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trx-promo",
+                    "1",
+                    "commissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Список зон доступа",
+                    "key": "x-oauth-scopes",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Выбранный флоу авторизации по протоколу OAuth 2.0",
+                    "key": "x-oauth-flow",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Avito-ID пользователя",
+                    "key": "x-authenticated-userid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIDs\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bad-request\": {\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6a8874c-454c-44f8-9abe-812e7c847a72",
+              "name": "Unauthenticated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trx-promo",
+                    "1",
+                    "commissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Список зон доступа",
+                    "key": "x-oauth-scopes",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Выбранный флоу авторизации по протоколу OAuth 2.0",
+                    "key": "x-oauth-flow",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Avito-ID пользователя",
+                    "key": "x-authenticated-userid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIDs\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"unauthenticated\": {\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "374f50a0-4ef0-41a6-8635-e9e42c143f96",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trx-promo",
+                    "1",
+                    "commissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Список зон доступа",
+                    "key": "x-oauth-scopes",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Выбранный флоу авторизации по протоколу OAuth 2.0",
+                    "key": "x-oauth-flow",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Avito-ID пользователя",
+                    "key": "x-authenticated-userid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIDs\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"forbidden\": {\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e544aab9-d029-467a-aad9-34cd4f455c89",
+              "name": "InternalError",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trx-promo",
+                    "1",
+                    "commissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Список зон доступа",
+                    "key": "x-oauth-scopes",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Выбранный флоу авторизации по протоколу OAuth 2.0",
+                    "key": "x-oauth-flow",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Avito-ID пользователя",
+                    "key": "x-authenticated-userid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIDs\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"internal-error\": {\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.avito.ru/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "39f6affe-5e88-449c-baab-b1e24709eaaa",
+    "name": "Иерархия Аккаунтов Access Trx Promo API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API для взаимодействия с иерархией аккаунтов в Авито\n**Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**\n\n\nContact Support:\n Email: supportautoload@avito.ru",
+      "type": "text/plain"
+    }
+  }
+}

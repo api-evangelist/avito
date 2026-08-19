@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access Stock Management API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Stock Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Получение остатков",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/stock-management/1/info",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Максимальное количество элементов в одном запросе - 10\n\nМаксимальное количество запросов в минуту - 100\n\nВозвращает в ответ массив объектов со следующей структурой:\n- `itemId` - идентификатор объявления\n- `isUnlimited` - признак неограниченности остатков\n- `isMultiple` - флаг с подачи или редактирования \"Несколько штук в наличии\"\n- `quantity` - доступное количество товара (количество с подачи или редактирования минус бронь)\n- `isOutOfStock` - признак того, что у объявления закончилось доступное "
+        },
+        {
+          "info": {
+            "name": "Редактирование остатков",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.avito.ru/stock-management/1/stocks",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Максимальное количество элементов в одном запросе - 200\n\nМаксимальное количество запросов в минуту - 100\n\nВозвращает в ответ массив объектов со следующей структурой:\n- `errors` – массив, который содержит информацию о ошибках, возникших при обновлении остатков.\n- `item_id` – идентификатор объявления, для которого мы обновляем остатки.\n- `external_id` – идентификатор объявления во внешней системе, для которого мы обновляем остатки.\n- `success` – флаг, успешно ли прошло обновление остатка для объяв"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

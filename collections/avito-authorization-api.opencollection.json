@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access Authorization API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authorization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Получение access token\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/token",
+            "params": [
+              {
+                "name": "grant_type",
+                "value": "",
+                "type": "query",
+                "description": "Тип OAuth flow – строка client_credentials"
+              },
+              {
+                "name": "client_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "client_secret",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Получение временного ключа для авторизации, пример `curl -L -X POST 'https://pro.autoteka.ru/token/' -H 'Content-Type: application/x-www-form-urlencoded' --data-urlencode 'grant_type=client_credentials' --data-urlencode 'client_id=XXX' --data-urlencode 'client_secret=YYY'`\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

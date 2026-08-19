@@ -1,0 +1,65 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access ListItemsByEmployeeIdV1 API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ListItemsByEmployeeIdV1",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Получение списка объявлений по сотруднику",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/listItemsByEmployeeIdV1",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Oauth-Scopes",
+                "value": "ah:access"
+              },
+              {
+                "name": "X-Oauth-Flow",
+                "value": "authorization_code"
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Ручка для получения списка объявлений по сотруднику с фильтром по категории объявлений. Получение объявлений по компании недоступно."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,135 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access Trx Promo API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Trx Promo",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Запуск продвижения",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/trx-promo/1/apply",
+            "headers": [
+              {
+                "name": "x-oauth-scopes",
+                "value": ""
+              },
+              {
+                "name": "x-oauth-flow",
+                "value": ""
+              },
+              {
+                "name": "x-authenticated-userid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Запуск продвижения. Этот метод применяет настройки продвижения к вашим объявлениям.\n\nУкажите плату за продвижение: от 1 до 15%.  Ещё выберите даты продвижения: все свободные или период.\n\nПлата за продвижение прибавится к базовой комиссии — получится общая комиссия. А базовая комиссия будет [зависеть от мгновенного бронирования](https://www.avito.ru/realestate/kratkosrochnaya_arenda/test_commission/)\n\nНапример, если выбрали плату за продвижение 2%, то в поле commission  напишите «200».\n\nВ ответе "
+        },
+        {
+          "info": {
+            "name": "Остановка продвижения",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/trx-promo/1/cancel",
+            "headers": [
+              {
+                "name": "x-oauth-scopes",
+                "value": ""
+              },
+              {
+                "name": "x-oauth-flow",
+                "value": ""
+              },
+              {
+                "name": "x-authenticated-userid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Этот метод позволяет отменить действующее и запланированное продвижение для объявления.\n\nВ ответе вы получите детальную информацию по каждому объявлению. Если продвижение не отменится, в ответе вы получите ошибки:\n\n1001 — ошибка валидации параметров\n\n1002 — вам недоступно продвижение за комиссию\n"
+        },
+        {
+          "info": {
+            "name": "Проверка доступности продвижения и размера комиссий",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/trx-promo/1/commissions",
+            "headers": [
+              {
+                "name": "x-oauth-scopes",
+                "value": ""
+              },
+              {
+                "name": "x-oauth-flow",
+                "value": ""
+              },
+              {
+                "name": "x-authenticated-userid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод позволяет узнать, доступно ли продвижение за комиссию для объявлений, и посмотреть, какие комиссии будут.\n\nВ ответе вы получите детальную информацию по каждому объявлению. Коды ошибок:\n\n1001 — ошибка валидации параметров\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

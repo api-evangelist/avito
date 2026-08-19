@@ -1,0 +1,243 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access ParcelProcessing API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ParcelProcessing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Создание посылки",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/createParcel",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Метод реализуется на стороне службы доставки.\n\nОписание механики работы и дополнительные требования см. [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/sozdanie_posylki).\n"
+        },
+        {
+          "info": {
+            "name": "Отмена посылки",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery-sandbox/cancelParcel",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Метод должен быть имплементирован на стороне службы доставки.\n\nОписание механики работы и дополнительные требования см. [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/otmena_posylki).\n"
+        },
+        {
+          "info": {
+            "name": "Проверка кода подтверждения",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery-sandbox/order/checkConfirmationCode",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод для проверки службой доставки кода подтверждения, который пользователь показал на пункте выдачи заказа.<br />\n\n### Статус проверки кода\n| status      |       Значение                                |\n|-------------|-----------------------------------------------|\n|   success   | Код верный.                                   |\n|   fail      | Код неверный.                                 |\n|   expired   | Код подтверждения устарел.                    |\n|   attempts  | Превышено максимальное"
+        },
+        {
+          "info": {
+            "name": "Добавление / изменение параметров доставки посылки",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery-sandbox/order/properties",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод используется для отправки в Avito параметров, относящихся к доставке посылки. <br />\nВ случае повторной передачи параметров, данные будут перезаписаны. <br />\nВажно передавать актуальные данные. Например, если конечная стоимость доставки заказа изменилась, нужно отправить ее заново. <br />\n\n### Описание ошибок\n| http code |   error code         |       error message                               |\n|-----------|----------------------|---------------------------------------------------|\n|   "
+        },
+        {
+          "info": {
+            "name": "Фактический адрес приёма / возврата посылки",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery-sandbox/order/realAddress",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "### Фактический ПВЗ приема\nФактический ПВЗ приема посылки посылки нужен Avito для работы как с [агентскими](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/agentskie_vozvraty), так и с [клиентскими](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/klientskie_vozvraty) возвратами. \nЕсли получатель посылки откажется от её получения \"на месте\", то Avito понадобится показать ПВЗ возврата\nотправителю, а этим ПВЗ будет фактический ПВЗ приема. Если"
+        },
+        {
+          "info": {
+            "name": "Трекинг",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery-sandbox/order/tracking",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "\nМетод для передачи информации по трекингу посылки от службы доставки в Avito.\n\nМеханика работы и прочие важные моменты описаны в [разделе](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/treking).\n\nОбязательно ознакомьтесь и реализуйте [политику повторов запросов](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/politika_povtorov_v_trekinge).\n"
+        },
+        {
+          "info": {
+            "name": "Запрет приёма посылки от отправителя",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery-sandbox/prohibitOrderAcceptance",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Метод должен быть имплементирован на стороне службы доставки.\n\nОписание механики работы и дополнительные требования см. [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/zapret_priema_posylki).\n"
+        },
+        {
+          "info": {
+            "name": "Отправка результата исполнения заявки",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery/order/changeParcelResult",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Описание механики изменения посылок [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/izmenenie_svoystv_posylok).\n\nМетод для передачи результата исполнения заявки, созданной с помощью метода [/changeParcels](#operation/ChangeParcels).\n\n### Описание ошибок\n| http code |   error code         |       причина ошибки                                                                                                                                                 |\n|-----"
+        },
+        {
+          "info": {
+            "name": "Обновление свойств посылок",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/sandbox/changeParcels",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Описание механики изменения посылок [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/izmenenie_svoystv_posylok).\n\nМетод реализуется на стороне службы доставки. Предназначен для обновления различных свойств посылок по инициативе Avito.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,7 +1,3 @@
-# generated: '2026-07-18'
-# method: derived
-# status: candidate
-# source: openapi/*.json operations
 status: candidate
 server:
   name: avito
@@ -847,3 +843,9 @@ tools:
 - name: getUserBalance
   description: Получение баланса кошелька пользователя
   source_operation: openapi/avito-user-openapi.json#getUserBalance
+deployment:
+  mode: none
+  verified: derived
+  tools: 248
+  checked: '2026-08-12'
+  source: catalog MCP census

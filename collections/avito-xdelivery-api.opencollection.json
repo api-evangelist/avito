@@ -1,0 +1,240 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access XDelivery API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "XDelivery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Отмена анонса в СД",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/cancelAnnouncement",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Описание работы анонсов [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/anonsy).\n\nМетод реализуется на стороне службы доставки. Метод предназначен для отмены анонса.\n"
+        },
+        {
+          "info": {
+            "name": "Создание анонса в СД",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/createAnnouncement",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Описание работы анонсов [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/anonsy).\n\nМетод реализуется на стороне службы доставки. Метод создает анонс о планируемой отгрузке из службы доставки, указанной в поле \"sender\", в службу доставки, указанную в поле \"receiver\".\n"
+        },
+        {
+          "info": {
+            "name": "Создание анонса в Avito",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery-sandbox/announcements/create",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Описание работы анонсов [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/anonsy).\n\nСоздает анонс о планируемой отгрузке в Avito. После успешного создания анонс направляется в службу доставки указанную в поле \"receiver\".\n"
+        },
+        {
+          "info": {
+            "name": "Трекинг анонсов",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery-sandbox/announcements/track",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Описание работы анонсов [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/anonsy).\n\nМетод для приема треков по анонсу от служб доставок.\n"
+        },
+        {
+          "info": {
+            "name": "Получить список сортировочных центров",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/delivery-sandbox/sorting-center",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "params": [
+              {
+                "name": "deliveryProviders",
+                "value": "",
+                "type": "query",
+                "description": "Список кодов служб доставки, сортировочные центры которых необходимо вернуть"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Возвращает сортировочные центы для переданных служб доставки\n\n### Справочник служб доставки\n|    код    |    Название  |\n|-----------|--------------|\n|   pochta  | Почта России |\n|   exmail  | ExMail       |\n|     bb    | Boxberyy     |\n|     pp    | PickPoint    |\n|    dpd    | DPD          |\n\n### Описание ошибок\n| http code |   error code                  |       error message                                      |\n|-----------|-------------------------------|----------------------------------"
+        },
+        {
+          "info": {
+            "name": "Загрузить сортировочные центры",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery-sandbox/tariffs/sorting-center",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Создание задачи на загрузку своих сортировочных центров и первичная валидация данных.  \nПосле загрузки сортировочных центров им необходимо проставить тэги отдельным запросом  \n\nДанные необходимо загружать по мере обновления данных о сортировочных центрах (как правило это 1-2 раза в сутки)\n\n### Описание ошибок\n| http code |   error code                  |       error message                        |\n|-----------|-------------------------------|--------------------------------------------|\n|    20"
+        },
+        {
+          "info": {
+            "name": "Установка тэгов своим и/или чужим сортировочным центрам",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery-sandbox/tariffs/:tariff_id/tagged-sorting-centers",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "params": [
+              {
+                "name": "tariff_id",
+                "value": "",
+                "type": "path",
+                "description": "id своего тарифа, теги которого будут установлены для сортировочных центров"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Создание задачи на установку тэгов из своего тарифа своим и/или чужим сортировочным центрам.  \nВ рамках одного тарифа одному сортировочному центру может соответствовать только один тэг.  \nПерепривязка сортировочного центра к тэгу в рамках одного тарифа невозможна, в случае ошибочной привязки необходимо сообщить об этом своему менеджеру по логистике.   \n\n### Описание ошибок\n| http code |   error code                          |           error message                                      |\n|------"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

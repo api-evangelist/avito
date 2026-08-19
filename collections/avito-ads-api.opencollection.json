@@ -1,0 +1,666 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access Ads API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Ads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Получить аккаунт по ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/ads/v1/account/:accountID",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Возвращает реквизиты рекламного аккаунта по его ID: ИНН, КПП, ОГРН, юридический и фактический адреса, контактное лицо и менеджера.\nТокен имеет доступ только к тому аккаунту, в котором был выдан.\n"
+        },
+        {
+          "info": {
+            "name": "Создать аккаунт в песочнице",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/ads/v1/account/:accountID",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Создаёт тестовый аккаунт. Метод работает **только в песочнице** (`https://api.avito.ru/ads-sandbox/`); для боевых аккаунтов используйте веб-интерфейс кабинета.\nОграничения песочницы: время жизни аккаунта — до 00:00 текущего дня; в сутки можно создать не более 1 тестового аккаунта.\n"
+        },
+        {
+          "info": {
+            "name": "Добавить пользователя в аккаунт",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/ads/v1/account/:accountID/add-user",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Добавляет пользователя Авито в рекламный аккаунт с указанной ролью. Доступные роли: `admin` (полный доступ) и `viewer` (только просмотр).\nПользователь идентифицируется по `userId` (ID профиля на Авито).\n"
+        },
+        {
+          "info": {
+            "name": "Получить список рекламодателей по фильтрам",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/ads/v1/account/:accountID/advertisers",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Возвращает список рекламодателей аккаунта с пагинацией. Доступные фильтры: список `ids`, список `inns`, список ролей (`roles`).\nПараметры пагинации: `limit` — от 1 до 100 (по умолчанию 20), `page` — от 1.\n"
+        },
+        {
+          "info": {
+            "name": "Получить баланс аккаунта по ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/ads/v1/account/:accountID/balance",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Возвращает текущий баланс рекламного аккаунта: денежные средства (`balance`) и бонусы (`bonusBalance`).\nВсе суммы — в рублях, целые числа.\n"
+        },
+        {
+          "info": {
+            "name": "Перевод бонусов между аккаунтом родителем и дочерними на одном договоре",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/ads/v1/account/:accountID/bonus-transfer",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Переводит бонусы между родительским и дочерним аккаунтом-неплательщиком. Логика направления та же, что у `funds-transfer`: `accountID` в path — источник, `accountIdTo` в body — получатель; для перевода с дочернего на родителя нужен токен дочернего аккаунта.\nСумма `amount` — целое число, не меньше 1 бонуса.\n"
+        },
+        {
+          "info": {
+            "name": "Получить список кампаний по фильтрам",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/ads/v1/account/:accountID/campaigns",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Возвращает список рекламных кампаний аккаунта с пагинацией. Поддерживает фильтрацию по ID, моделям оплаты (`CPM`/`CPC`), типам кампании (`textImage`/`HTML`/`video`), статусам, менеджерам, рекламодателям, договорам, диапазону дат создания и диапазону периода размещения.\nПараметры пагинации: `limit` — от 1 до 100 (по умолчанию 20), `page` — от 1.\n"
+        },
+        {
+          "info": {
+            "name": "Получить статистику по креативам кампании",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/ads/v1/account/:accountID/campaigns/:campaignID/creatives/stats",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path",
+                "description": "ID аккаунта"
+              },
+              {
+                "name": "campaignID",
+                "value": "",
+                "type": "path",
+                "description": "ID кампании"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Возвращает статистику по конкретным креативам указанной кампании за заданный период. В `creativeIDs` нужно передать минимум один ID креатива.\n**Ограничение:** максимальный период между `dateFrom` и `dateTo` — 100 дней.\n"
+        },
+        {
+          "info": {
+            "name": "Получить статистику по группам кампании",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/ads/v1/account/:accountID/campaigns/:campaignID/groups/stats",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path",
+                "description": "ID аккаунта"
+              },
+              {
+                "name": "campaignID",
+                "value": "",
+                "type": "path",
+                "description": "ID кампании"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Возвращает статистику по конкретным группам объявлений внутри указанной кампании за заданный период. В `groupIDs` нужно передать минимум один ID группы.\n**Ограничение:** максимальный период между `dateFrom` и `dateTo` — 100 дней.\n"
+        },
+        {
+          "info": {
+            "name": "Получить статистику по кампании",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/ads/v1/account/:accountID/campaigns/:campaignID/stats",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path",
+                "description": "ID аккаунта"
+              },
+              {
+                "name": "campaignID",
+                "value": "",
+                "type": "path",
+                "description": "ID кампании"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Возвращает агрегированную статистику по кампании (показы, клики, CTR, расход, CPM/CPC, метрики видеопросмотров) за указанный период с дневной гранулярностью, а также сводку по группам и креативам кампании.\n**Ограничение:** максимальный период между `dateFrom` и `dateTo` — 100 дней.\n"
+        },
+        {
+          "info": {
+            "name": "Получить список дочерних аккаунтов",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/ads/v1/account/:accountID/children",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Возвращает список дочерних аккаунтов, привязанных к текущему (родительскому) аккаунту, вместе с их договорами. \nУ дочерних аккаунтов на одном договоре с родителем не передается информация о договоре.\nЕсли нужны также балансы дочерних аккаунтов, используйте `GET /ads/v1/account/{accountID}/children-with-balances`.\n"
+        },
+        {
+          "info": {
+            "name": "Получить список дочерних аккаунтов с балансами",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/ads/v1/account/:accountID/children-with-balances",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Возвращает список дочерних аккаунтов вместе с их балансами (денежные средства, бонусы).\nУдобно для проверки результата переводов через `funds-transfer` / `bonus-transfer`.\n"
+        },
+        {
+          "info": {
+            "name": "Получить список договоров по фильтрам",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/ads/v1/account/:accountID/contracts",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Возвращает список договоров аккаунта с пагинацией. Доступные фильтры: `ids` (ID договоров), `numbers` (номера договоров), `contractors` и `clients` (фильтры по сторонам договора).\nПараметры пагинации: `limit` — от 1 до 100 (по умолчанию 20), `page` — от 1.\n"
+        },
+        {
+          "info": {
+            "name": "Создать рекламодателя",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/ads/v1/account/:accountID/create-advertiser",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Создаёт рекламодателя — юридическое лицо (или ИП), от лица которого будут размещаться рекламные кампании в этом аккаунте.\nОдин аккаунт может иметь несколько рекламодателей. Если рекламодатель и аккаунт — одно и то же ЮЛ/ИП, договор между ними создавать не нужно; иначе после создания рекламодателя необходимо создать договор через `POST /ads/v1/account/{accountID}/create-contract`.\n"
+        },
+        {
+          "info": {
+            "name": "Создание изначального договора",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/ads/v1/account/:accountID/create-contract",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Создаёт изначальный договор между аккаунтом и рекламодателем. Договор требуется только если рекламодатель и аккаунт — не одно и то же ЮЛ/ИП; для совпадающих контрагентов договор не создаётся.\nДля дополнительного соглашения укажите `parentId` (родительский договор) и не передавайте `intermediary`; для внешнего договора (`type = external`) передайте `cid` и не передавайте `parentId`.\n"
+        },
+        {
+          "info": {
+            "name": "Создание дочернего аккаунта на договоре родителя",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/ads/v1/account/:accountID/create-nonpayer-child-account",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Создаёт дочерний аккаунта под текущим (родительским) аккаунтом на том же договоре. В ответе возвращаются `accountID`, `clientKey` и `clientSecret` — пара ключей для генерации отдельного токена дочернего аккаунта.\nВ песочнице токен для созданного дочернего аккаунта использовать **нельзя**; проверить факт создания можно через `GET /ads/v1/account/{accountID}/children`.\n"
+        },
+        {
+          "info": {
+            "name": "Получить список креативов по фильтрам",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/ads/v1/account/:accountID/creatives",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Возвращает список креативов аккаунта с пагинацией. Поддерживает фильтрацию по ID креативов, ID групп, ID кампаний, моделям оплаты, типам кампании, статусам, менеджерам, рекламодателям и периоду размещения.\nПараметры пагинации: `limit` — от 1 до 100 (по умолчанию 20), `page` — от 1.\n"
+        },
+        {
+          "info": {
+            "name": "Удалить пользователя из аккаунта",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.avito.ru/ads/v1/account/:accountID/delete-user/:userID",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "userID",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Удаляет пользователя из рекламного аккаунта. Доступ пользователя к аккаунту прекращается сразу после успешного выполнения запроса.\n`userID` в path — ID пользователя, которого нужно удалить.\n"
+        },
+        {
+          "info": {
+            "name": "Перевод денег между аккаунтом родителем и дочерними на одном договоре",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/ads/v1/account/:accountID/funds-transfer",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Переводит денежные средства между родительским и дочерним аккаунтом на одном договоре. `accountID` в path — аккаунт-источник (с него списываются деньги), `accountIdTo` в body — аккаунт-получатель.\nПеревод выполняется от имени аккаунта-источника, поэтому для перевода с дочернего на родительский нужен токен дочернего аккаунта. Сумма `amount` — целое число, не меньше 1 рубля.\n"
+        },
+        {
+          "info": {
+            "name": "Изменить бюджет группы",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/ads/v1/account/:accountID/group/:groupID/change-budget",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "groupID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Устанавливает новый бюджет для указанной группы объявлений. Значение `budget` указывается в рублях с НДС, целое число.\n**Ограничение:** `budget` — целое число не меньше 1. Метод работает только для групп с ручным управлением ставкой.\n"
+        },
+        {
+          "info": {
+            "name": "Изменить цену группы",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/ads/v1/account/:accountID/group/:groupID/change-price",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "groupID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Устанавливает новую цену (CPC или CPM в зависимости от модели оплаты кампании) для указанной группы объявлений. Значение `price` указывается в рублях с НДС, целое число.\n**Ограничение:** `price` — целое число не меньше 1. Метод работает только для групп с ручным управлением ставкой.\n"
+        },
+        {
+          "info": {
+            "name": "Получить список групп по фильтрам",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/ads/v1/account/:accountID/groups",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Возвращает список групп объявлений аккаунта с пагинацией. Поддерживает фильтрацию по ID групп, ID кампаний, статусам, скоростям показов (`paces`), менеджерам, рекламодателям, моделям оплаты и периоду размещения.\nПараметры пагинации: `limit` — от 1 до 100 (по умолчанию 20), `page` — от 1.\n"
+        },
+        {
+          "info": {
+            "name": "Изменить роль пользователя в аккаунте",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/ads/v1/account/:accountID/set-user-role",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Меняет роль уже добавленного в аккаунт пользователя. Доступные значения роли: `admin` (полный доступ) и `viewer` (только просмотр).\nЕсли пользователя нужно полностью убрать, используйте `DELETE /ads/v1/account/{accountID}/delete-user/{userID}`.\n"
+        },
+        {
+          "info": {
+            "name": "Получить список пользователей аккаунта",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/ads/v1/account/:accountID/users",
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Возвращает список пользователей, имеющих доступ к рекламному аккаунту, с их ролями и флагом `hasLoggedIn` (заходил ли пользователь в аккаунт хотя бы раз).\nМетод без пагинации — возвращает всех пользователей сразу.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

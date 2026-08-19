@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access GetEmployeesV1 API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "GetEmployeesV1",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Получение списка сотрудников иерархии",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/getEmployeesV1",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Oauth-Scopes",
+                "value": "ah:access"
+              },
+              {
+                "name": "X-Oauth-Flow",
+                "value": "authorization_code"
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Для взаимодействия с иерархией аккаунтов необходимо приобрести тариф в [личном кабинете](https://www.avito.ru/paid-services/listing-fees).\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,458 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access Item API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Item",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Получение информации о стоимости услуг продвижения и доступных значках",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/core/v1/accounts/:userId/vas/prices",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "Номер пользователя в Личном кабинете Авито"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Возвращает в ответ список объектов со следующей структурой:\n- `itemId` – идентификатор объявления\n- `vas` – список объектов, которые содержат информацию о стоимости дополнительных услуг и пакетов дополнительных услуг для каждого объявления. Структура объекта:\n  - `slug` – идентификатор услуги или пакета услуг:\n    - `highlight` — [услуга продвижения \"Выделить\"](https://support.avito.ru/articles/200026858)\n    - `xl` – [услуга продвижения \"XL-объявление\"](https://support.avito.ru/articles/685)\n  "
+        },
+        {
+          "info": {
+            "name": "Получение статистики по звонкам",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/core/v1/accounts/:user_id/calls/stats/",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "Номер пользователя в Личном кабинете Авито"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Получение агрегированной статистики звонков, полученных пользователем\n"
+        },
+        {
+          "info": {
+            "name": "Получение информации по объявлению",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/core/v1/accounts/:user_id/items/:item_id/",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "Номер пользователя в Личном кабинете Авито"
+              },
+              {
+                "name": "item_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор объявления на сайте"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Возвращает данные об объявлении - его статус, список примененных услуг Максимальное количество запросов в минуту - 500\n**Внимание:** для получения статистики объявления должен использоваться метод:\n[получение статистики по списку объявлений](#operation/itemStatsShallow)\n"
+        },
+        {
+          "info": {
+            "name": "Применение дополнительных услуг",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.avito.ru/core/v1/accounts/:user_id/items/:item_id/vas",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "Номер пользователя в Личном кабинете Авито"
+              },
+              {
+                "name": "item_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор объявления на сайте"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "**Внимание:** метод объявлен устаревшим и больше не поддерживается. Вместо него используйте метод `/core/v2/items/{itemId}/vas/`\n\nПрименение дополнительной услуги к объявлению, в ответе возвращает данные о примененной услуге и сумму списания.\n[Более подробная информация по дополнительным услугам](https://support.avito.ru/sections/200009758)\n\n**Внимание:** получение ошибки при выполнении этой операции не означает, что услуга точно не была куплена.\nВ этом случае рекомендуется подождать несколько м"
+        },
+        {
+          "info": {
+            "name": "Получение информации по объявлениям",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/core/v1/items",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Количество записей на странице (целое число больше 0 и меньше 100)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Номер страницы (целое число больше 0)"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Статус объявления на сайте (можно указать несколько значений через запятую)"
+              },
+              {
+                "name": "updatedAtFrom",
+                "value": "",
+                "type": "query",
+                "description": "Фильтр больше либо равно по дате обновления/редактирования объявления в формате YYYY-MM-DD"
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Идентификатор категории объявления</br> см. возможные варианты категорий в [ справочнике ](https://www.avito.st/s/openapi/catalog-categories.xml)\n"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Возвращает список объявлений авторизованного пользователя - статус, категорию и ссылку на сайте.\n**Внимание! В настоящий момент этот метод не работает с объявлениями [сотрудников](https://pro.avito.ru/employees).** Он позволяет получить объявления только для пользователя, который указан владельцем этого объявления. В случае сотрудника это будет главный аккаунт компании, для авторизованного сотрудника вернётся пустой список объявлений.\nМаксимальное количество запросов в минуту - 25.\n"
+        },
+        {
+          "info": {
+            "name": "Применение пакета дополнительных услуг",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.avito.ru/core/v2/accounts/:user_id/items/:item_id/vas_packages",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "Номер пользователя в Личном кабинете Авито"
+              },
+              {
+                "name": "item_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор объявления на сайте"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "**Внимание:** метод объявлен устаревшим и больше не поддерживается. Вместо него используйте метод `/core/v2/items/{itemId}/vas/`\n\nПрименение пакета дополнительных услуг к объявлению, в ответе возвращает сумму списания.\n\n**Внимание:** получение ошибки при выполнении этой операции не означает, что пакет точно не была куплен.\nВ этом случае рекомендуется подождать несколько минут и проверить, что пакет отсутствует в списке применённых, а только затем повторить попытку.\n"
+        },
+        {
+          "info": {
+            "name": "Применение услуг продвижения",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.avito.ru/core/v2/items/:itemId/vas/",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "item_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор объявления на сайте"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "С помощью этого метода вы можете применить к опубликованному объявлению одну или несколько услуг продвижения (например, «XL-объявление», «Выделение цветом» и «До 10 раз больше просмотров на 7 дней»). В рамках одного запроса услуга может быть применена только один раз. \n\nЕсли для вашего объявления доступны значки (такие как «Без ДТП», «Срочно», «1 владелец»), при подключении услуги «XL-объявление» вы можете передать их список (не более трёх значков). В этом случае добавьте соответствующую услугу "
+        },
+        {
+          "info": {
+            "name": "Получение статистики по списку объявлений",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/stats/v1/accounts/:user_id/items",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор пользователя (клиента)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Получение счетчиков по переданному списку объявлений пользователя.\n\n**Внимание:** в запросе может быть передано не более 200 идентификаторов объявлений.\n\n**Внимание:** глубина такого запроса ограничена 270 днями.\n\n### Счетчики\n* ~~views - общее число просмотров объявления;~~ __DEPRECATED (будет удалено в апреле 2021 г.).__ Используйте поле uniqViews.\n* uniqViews - число уникальных пользователей, просмотревших объявление;\n* ~~contacts - число контактов [1];~~ __DEPRECATED (будет удалено в апреле "
+        },
+        {
+          "info": {
+            "name": "Получение статистических показателей по профилю",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/stats/v2/accounts/:user_id/items",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор пользователя (клиента)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Получение статистических показателей по профилю.\n### Группировки показателей\nИспользуйте группировки, чтобы получать конкретную статистику.  Например, можете запросить только общие значения показателей, а если нужны подробности, — значения показателей по каждому объявлению или за определённый период. Доступные группировки:\n\n  - **totals** — по общему значению показателя за определённый период, без детализации;\n  - **item** — по объявлениям;\n  - **day** — по дням;\n  - **week** — по неделям;\n  - *"
+        },
+        {
+          "info": {
+            "name": "Получение статистики расходов профиля",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/stats/v2/accounts/:user_id/spendings",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор пользователя (клиента)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Получение статистики расходов профиля.\n\n**Внимание:** Глубина данных статистики такого запроса ограничена 270 днями.\n\n**Внимание:** Система позволяет делать не более одного запроса в минуту на данный метод.\n\n### Группировки расходов\nИспользуйте группировки, чтобы получать конкретную статистику. Доступные группировки:\n\n  - **day** — по дням;\n  - **week** — по неделям;\n  - **month** — по месяцам.\n\n\n### Доступные типы расходов\n\n  - **all** - Все расходы в копейках. Сколько всего денег вы потратили "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

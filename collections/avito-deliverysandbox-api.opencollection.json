@@ -1,0 +1,288 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access DeliverySandbox API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DeliverySandbox",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Отправка события об отмене тестового анонса",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery-sandbox/v1/cancelAnnouncement",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод доступен только в Песочнице.\n\nОписание работы анонсов [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/anonsy).\n\nМетод запускает процесс отмены тестового анонса.\nПри успешном выполнении в ответе должен быть статус success. По предоставленному вами url (параметр options.urlToCancelAnnouncement)\nдолжно прийти сообщение об отмене анонса.\n\n### Вариант использования\nМетод призван облегчить тестирование интеграции вашего API по обмену анонсами с Avito.\nВ метод "
+        },
+        {
+          "info": {
+            "name": "Отмена тестовой посылки",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery-sandbox/v1/cancelParcel",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод доступен только в Песочнице.\n\nМетод инициирует [запрет приёма посылки](#operation/prohibitOrderAcceptance) в службе доставки и, если он состоялся, то посылка отменяется.\nОтменить можно только те посылки, которые были созданы с помощью [метода создания тестовой посылки](#operation/v1createParcel).\n\nПо умолчанию запрос на запрет приема посылки будет отправлен в мок. Чтобы изменить это поведение и получить запрос у себя в системе,\nвоспользуйтесь параметром `options.cancelationUrl`.\n"
+        },
+        {
+          "info": {
+            "name": "Создание заявки на изменение данных тестовой посылки",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery-sandbox/v1/changeParcel",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод доступен только в Песочнице.\n\nОписание механики изменения посылок [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/izmenenie_svoystv_posylok).\n\nМетод создаёт заявку на изменение данных посылки. Например, на изменение ФИО и телефона получателя.\n\nПо умолчанию запрос на создание заявки не будет отправлен в вашу систему. Чтобы это произошло, необходимо\nзаполнить параметр options.changeParcelUrl.\n"
+        },
+        {
+          "info": {
+            "name": "Создание тестового анонса",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery-sandbox/v1/createAnnouncement",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод доступен только в Песочнице.\n\nОписание работы анонсов [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/anonsy).\n\nМетод запускает процесс создания тестового анонса.\nПри успешном выполнении в ответе должен быть статус success, а предоставленный анонс должен прийти по указанному \nвами URL (параметр options.urlToSendAnnouncement).\n\nПри формировании тестового анонса необходимо указать ID тестовых посылок (параметр packages.parcelIDs). \nID тестовых посылок можн"
+        },
+        {
+          "info": {
+            "name": "Получение последнего события тестового анонса",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery-sandbox/v1/getAnnouncementEvent",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод доступен только в Песочнице.\n\nОписание работы анонсов [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/anonsy).\n\nМетод позволяет проверить последнее зарегистрированное событие по анонсу.\n\n### Вариант использования\nМетод призван облегчить тестирование интеграции вашего api по обмену анонсами с Avito.\nМетод можно использовать в связке с [методом отмены анонса](#operation/v1cancelAnnouncement) для проверки того, что \nпоследнее событие тестового анонса измени"
+        },
+        {
+          "info": {
+            "name": "Получение информации об изменении тестовой посылки",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery-sandbox/v1/getChangeParcelInfo",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод доступен только в Песочнице.\n\nОписание механики изменения посылок [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/izmenenie_svoystv_posylok).\n\nМетод возвращает информацию о заявке на изменение данных тестовой посылки. Информацию можно получить только по тем заявкам\nкоторые были созданы с помощью [метода создания заявки на изменение данных](#operation/v1changeParcel).\n"
+        },
+        {
+          "info": {
+            "name": "Получение информации о тестовой посылке",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery-sandbox/v1/getParcelInfo",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод доступен только в Песочнице.\n\nМетод возвращает информацию о тестовой посылке. Информацию можно получить только по тем посылкам\nкоторые были созданы с помощью [метода создания тестовой посылки](#operation/v1createParcel).\n"
+        },
+        {
+          "info": {
+            "name": "Получение ID зарегистрированной тестовой посылки",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery-sandbox/v1/getRegisteredParcelID",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод доступен только в Песочнице.\n\nМетод возвращает идентификатор зарегистрированной тестовой посылки, созданной с помощью\n[метода создания тестовой посылки](#operation/v1createParcel).\n\nВариант использования метода см. в описании [метода создания тестовой посылки](#operation/v1createParcel)\n\n### Описание ошибок\n| http code |   error code       |       error message          |\n|-----------|--------------------|------------------------------|\n|    200    | NOT_FOUND          | parcel not found  "
+        },
+        {
+          "info": {
+            "name": "Создание тестовой посылки",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery-sandbox/v2/createParcel",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод доступен только в Песочнице.\n\nМетод запускает процесс создания тестовой посылки.\n\nОписание механики работы и дополнительные требования см. [здесь](#info/sozdanie_testovyh_posylok).\n\n### Описание ошибок\n| http code |   error code       |       error message          |\n|-----------|--------------------|------------------------------|\n|    200    | UNKNOWN_PROVIDER   | unknown provider             |\n|    200    | VALIDATION_ERROR   | invalid request              |\n|    200    | LIMIT_REACHED "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

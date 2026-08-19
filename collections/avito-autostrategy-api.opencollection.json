@@ -1,0 +1,165 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access Autostrategy API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Autostrategy",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Расчет бюджета кампании",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/autostrategy/v1/budget",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Расчет бюджета кампании"
+        },
+        {
+          "info": {
+            "name": "Создание новой кампании",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/autostrategy/v1/campaign/create",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Создание новой кампании"
+        },
+        {
+          "info": {
+            "name": "Редактирование кампании",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/autostrategy/v1/campaign/edit",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**Возможно редактирование лишь только кампаний, имеющих тип `AS`**\n"
+        },
+        {
+          "info": {
+            "name": "Получение полной информации о кампании",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/autostrategy/v1/campaign/info",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Получение полной информации о кампании"
+        },
+        {
+          "info": {
+            "name": "Остановка кампании",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/autostrategy/v1/campaign/stop",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Остановка кампании"
+        },
+        {
+          "info": {
+            "name": "Получение списка кампаний",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/autostrategy/v1/campaigns",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**Получение кампаний текущего пользователя с учетом фильтров**\n"
+        },
+        {
+          "info": {
+            "name": "Получение статистики по кампании",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/autostrategy/v1/stat",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Получение статистики по кампании"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

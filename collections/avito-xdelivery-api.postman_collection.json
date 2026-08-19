@@ -1,0 +1,2120 @@
+{
+  "item": [
+    {
+      "id": "a394e5f8-ab5f-4823-a376-1735a6eea213",
+      "name": "XDelivery",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ee3be060-2a96-4413-b819-ce10db459126",
+          "name": "Отмена анонса в СД",
+          "request": {
+            "name": "Отмена анонса в СД",
+            "description": {
+              "content": "Описание работы анонсов [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/anonsy).\n\nМетод реализуется на стороне службы доставки. Метод предназначен для отмены анонса.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cancelAnnouncement"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"announcementID\": \"<string>\",\n  \"reason\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5ab2f9ab-22e1-4503-97fc-d88fa1f912f9",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cancelAnnouncement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"announcementID\": \"55fefb84-fa30-47ee-bf29-9c860823ea79\",\n  \"reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"status\": \"success\"\n  },\n  \"error\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"message\": \"Текст ошибки\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4bdd7d5-0c45-4ceb-b17f-7cdd1448a660",
+              "name": "Ошибка аутентификации. Например, некорректный токен.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cancelAnnouncement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"announcementID\": \"55fefb84-fa30-47ee-bf29-9c860823ea79\",\n  \"reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a033553-7a65-45b5-97cd-eb1cb72bc2e2",
+              "name": "Ошибка авторизации. Например, нет прав для выполнения операции.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cancelAnnouncement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"announcementID\": \"55fefb84-fa30-47ee-bf29-9c860823ea79\",\n  \"reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b768910-5780-49b5-bd28-7828511ee28e",
+              "name": "internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cancelAnnouncement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"announcementID\": \"55fefb84-fa30-47ee-bf29-9c860823ea79\",\n  \"reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dee8fed9-f93e-4cf7-ae44-1686a78a213e",
+          "name": "Создание анонса в СД",
+          "request": {
+            "name": "Создание анонса в СД",
+            "description": {
+              "content": "Описание работы анонсов [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/anonsy).\n\nМетод реализуется на стороне службы доставки. Метод создает анонс о планируемой отгрузке из службы доставки, указанной в поле \"sender\", в службу доставки, указанную в поле \"receiver\".\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "createAnnouncement"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"announcementID\": \"<string>\",\n  \"barcode\": \"<string>\",\n  \"sender\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    },\n    \"email\": \"<string>\"\n  },\n  \"receiver\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    },\n    \"email\": \"<string>\"\n  },\n  \"announcementType\": \"<string>\",\n  \"date\": \"<string>\",\n  \"packages\": [\n    {\n      \"id\": \"<string>\",\n      \"parcels\": [\n        {\n          \"id\": \"<string>\",\n          \"barcode\": \"<string>\",\n          \"senderBarcode\": \"<string>\",\n          \"senderID\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"barcode\": \"<string>\",\n          \"senderBarcode\": \"<string>\",\n          \"senderID\": \"<string>\"\n        }\n      ],\n      \"sealID\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"parcels\": [\n        {\n          \"id\": \"<string>\",\n          \"barcode\": \"<string>\",\n          \"senderBarcode\": \"<string>\",\n          \"senderID\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"barcode\": \"<string>\",\n          \"senderBarcode\": \"<string>\",\n          \"senderID\": \"<string>\"\n        }\n      ],\n      \"sealID\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "25422453-7ff8-4a3f-bcf7-f37f75240b46",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "createAnnouncement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"announcementID\": \"55fefb84-fa30-47ee-bf29-9c860823ea79\",\n  \"barcode\": \"<string>\",\n  \"sender\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    },\n    \"email\": \"<string>\"\n  },\n  \"receiver\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    },\n    \"email\": \"<string>\"\n  },\n  \"announcementType\": \"<string>\",\n  \"date\": \"2023-09-20T10:00:00.52Z\",\n  \"packages\": [\n    {\n      \"id\": \"<string>\",\n      \"parcels\": [\n        {\n          \"id\": \"P000777\",\n          \"barcode\": \"000012345\",\n          \"senderBarcode\": \"123450000\",\n          \"senderID\": \"P000776\"\n        },\n        {\n          \"id\": \"P000777\",\n          \"barcode\": \"000012345\",\n          \"senderBarcode\": \"123450000\",\n          \"senderID\": \"P000776\"\n        }\n      ],\n      \"sealID\": \"1234-5678\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"parcels\": [\n        {\n          \"id\": \"P000777\",\n          \"barcode\": \"000012345\",\n          \"senderBarcode\": \"123450000\",\n          \"senderID\": \"P000776\"\n        },\n        {\n          \"id\": \"P000777\",\n          \"barcode\": \"000012345\",\n          \"senderBarcode\": \"123450000\",\n          \"senderID\": \"P000776\"\n        }\n      ],\n      \"sealID\": \"1234-5678\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"status\": \"success\"\n  },\n  \"error\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"message\": \"Текст ошибки\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "56758a18-8066-426b-ac38-03921065e59f",
+              "name": "Ошибка аутентификации. Например, некорректный токен.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "createAnnouncement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"announcementID\": \"55fefb84-fa30-47ee-bf29-9c860823ea79\",\n  \"barcode\": \"<string>\",\n  \"sender\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    },\n    \"email\": \"<string>\"\n  },\n  \"receiver\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    },\n    \"email\": \"<string>\"\n  },\n  \"announcementType\": \"<string>\",\n  \"date\": \"2023-09-20T10:00:00.52Z\",\n  \"packages\": [\n    {\n      \"id\": \"<string>\",\n      \"parcels\": [\n        {\n          \"id\": \"P000777\",\n          \"barcode\": \"000012345\",\n          \"senderBarcode\": \"123450000\",\n          \"senderID\": \"P000776\"\n        },\n        {\n          \"id\": \"P000777\",\n          \"barcode\": \"000012345\",\n          \"senderBarcode\": \"123450000\",\n          \"senderID\": \"P000776\"\n        }\n      ],\n      \"sealID\": \"1234-5678\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"parcels\": [\n        {\n          \"id\": \"P000777\",\n          \"barcode\": \"000012345\",\n          \"senderBarcode\": \"123450000\",\n          \"senderID\": \"P000776\"\n        },\n        {\n          \"id\": \"P000777\",\n          \"barcode\": \"000012345\",\n          \"senderBarcode\": \"123450000\",\n          \"senderID\": \"P000776\"\n        }\n      ],\n      \"sealID\": \"1234-5678\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c8b9d3df-596d-43c3-b141-24ccb8a8ffbd",
+              "name": "Ошибка авторизации. Например, нет прав для выполнения операции.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "createAnnouncement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"announcementID\": \"55fefb84-fa30-47ee-bf29-9c860823ea79\",\n  \"barcode\": \"<string>\",\n  \"sender\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    },\n    \"email\": \"<string>\"\n  },\n  \"receiver\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    },\n    \"email\": \"<string>\"\n  },\n  \"announcementType\": \"<string>\",\n  \"date\": \"2023-09-20T10:00:00.52Z\",\n  \"packages\": [\n    {\n      \"id\": \"<string>\",\n      \"parcels\": [\n        {\n          \"id\": \"P000777\",\n          \"barcode\": \"000012345\",\n          \"senderBarcode\": \"123450000\",\n          \"senderID\": \"P000776\"\n        },\n        {\n          \"id\": \"P000777\",\n          \"barcode\": \"000012345\",\n          \"senderBarcode\": \"123450000\",\n          \"senderID\": \"P000776\"\n        }\n      ],\n      \"sealID\": \"1234-5678\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"parcels\": [\n        {\n          \"id\": \"P000777\",\n          \"barcode\": \"000012345\",\n          \"senderBarcode\": \"123450000\",\n          \"senderID\": \"P000776\"\n        },\n        {\n          \"id\": \"P000777\",\n          \"barcode\": \"000012345\",\n          \"senderBarcode\": \"123450000\",\n          \"senderID\": \"P000776\"\n        }\n      ],\n      \"sealID\": \"1234-5678\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a161e93-68f8-4e97-a206-9db205e3639f",
+              "name": "internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "createAnnouncement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"announcementID\": \"55fefb84-fa30-47ee-bf29-9c860823ea79\",\n  \"barcode\": \"<string>\",\n  \"sender\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    },\n    \"email\": \"<string>\"\n  },\n  \"receiver\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    },\n    \"email\": \"<string>\"\n  },\n  \"announcementType\": \"<string>\",\n  \"date\": \"2023-09-20T10:00:00.52Z\",\n  \"packages\": [\n    {\n      \"id\": \"<string>\",\n      \"parcels\": [\n        {\n          \"id\": \"P000777\",\n          \"barcode\": \"000012345\",\n          \"senderBarcode\": \"123450000\",\n          \"senderID\": \"P000776\"\n        },\n        {\n          \"id\": \"P000777\",\n          \"barcode\": \"000012345\",\n          \"senderBarcode\": \"123450000\",\n          \"senderID\": \"P000776\"\n        }\n      ],\n      \"sealID\": \"1234-5678\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"parcels\": [\n        {\n          \"id\": \"P000777\",\n          \"barcode\": \"000012345\",\n          \"senderBarcode\": \"123450000\",\n          \"senderID\": \"P000776\"\n        },\n        {\n          \"id\": \"P000777\",\n          \"barcode\": \"000012345\",\n          \"senderBarcode\": \"123450000\",\n          \"senderID\": \"P000776\"\n        }\n      ],\n      \"sealID\": \"1234-5678\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a3def7b9-904b-4a27-a00b-c162fa522d55",
+          "name": "Создание анонса в Avito",
+          "request": {
+            "name": "Создание анонса в Avito",
+            "description": {
+              "content": "Описание работы анонсов [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/anonsy).\n\nСоздает анонс о планируемой отгрузке в Avito. После успешного создания анонс направляется в службу доставки указанную в поле \"receiver\".\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery-sandbox",
+                "announcements",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"announcementID\": \"<string>\",\n  \"barcode\": \"<string>\",\n  \"sender\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    },\n    \"email\": \"<string>\"\n  },\n  \"receiver\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    },\n    \"email\": \"<string>\"\n  },\n  \"announcementType\": \"<string>\",\n  \"date\": \"<string>\",\n  \"packages\": [\n    {\n      \"id\": \"<string>\",\n      \"parcelIDs\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"sealID\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"parcelIDs\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"sealID\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "56c0d0bf-09fd-4090-80cf-c9f31323beef",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "announcements",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"announcementID\": \"55fefb84-fa30-47ee-bf29-9c860823ea79\",\n  \"barcode\": \"<string>\",\n  \"sender\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    },\n    \"email\": \"<string>\"\n  },\n  \"receiver\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    },\n    \"email\": \"<string>\"\n  },\n  \"announcementType\": \"<string>\",\n  \"date\": \"2023-09-20T10:00:00.52Z\",\n  \"packages\": [\n    {\n      \"id\": \"0001234\",\n      \"parcelIDs\": [\n        \"P000123\",\n        \"P000345\"\n      ],\n      \"sealID\": \"1234-5678\"\n    },\n    {\n      \"id\": \"0001234\",\n      \"parcelIDs\": [\n        \"P000123\",\n        \"P000345\"\n      ],\n      \"sealID\": \"1234-5678\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"status\": \"success\"\n  },\n  \"error\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"message\": \"Текст ошибки\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "987bb514-bd92-4ad2-ab9f-096497137d78",
+              "name": "Ошибка аутентификации. Например, некорректный токен.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "announcements",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"announcementID\": \"55fefb84-fa30-47ee-bf29-9c860823ea79\",\n  \"barcode\": \"<string>\",\n  \"sender\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    },\n    \"email\": \"<string>\"\n  },\n  \"receiver\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    },\n    \"email\": \"<string>\"\n  },\n  \"announcementType\": \"<string>\",\n  \"date\": \"2023-09-20T10:00:00.52Z\",\n  \"packages\": [\n    {\n      \"id\": \"0001234\",\n      \"parcelIDs\": [\n        \"P000123\",\n        \"P000345\"\n      ],\n      \"sealID\": \"1234-5678\"\n    },\n    {\n      \"id\": \"0001234\",\n      \"parcelIDs\": [\n        \"P000123\",\n        \"P000345\"\n      ],\n      \"sealID\": \"1234-5678\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0d20f984-6582-46d6-bae4-1b53658bf62b",
+              "name": "Ошибка авторизации. Например, нет прав для выполнения операции.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "announcements",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"announcementID\": \"55fefb84-fa30-47ee-bf29-9c860823ea79\",\n  \"barcode\": \"<string>\",\n  \"sender\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    },\n    \"email\": \"<string>\"\n  },\n  \"receiver\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    },\n    \"email\": \"<string>\"\n  },\n  \"announcementType\": \"<string>\",\n  \"date\": \"2023-09-20T10:00:00.52Z\",\n  \"packages\": [\n    {\n      \"id\": \"0001234\",\n      \"parcelIDs\": [\n        \"P000123\",\n        \"P000345\"\n      ],\n      \"sealID\": \"1234-5678\"\n    },\n    {\n      \"id\": \"0001234\",\n      \"parcelIDs\": [\n        \"P000123\",\n        \"P000345\"\n      ],\n      \"sealID\": \"1234-5678\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bdb69332-2d59-4685-b1c5-753e17473ee7",
+              "name": "internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "announcements",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"announcementID\": \"55fefb84-fa30-47ee-bf29-9c860823ea79\",\n  \"barcode\": \"<string>\",\n  \"sender\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    },\n    \"email\": \"<string>\"\n  },\n  \"receiver\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    },\n    \"email\": \"<string>\"\n  },\n  \"announcementType\": \"<string>\",\n  \"date\": \"2023-09-20T10:00:00.52Z\",\n  \"packages\": [\n    {\n      \"id\": \"0001234\",\n      \"parcelIDs\": [\n        \"P000123\",\n        \"P000345\"\n      ],\n      \"sealID\": \"1234-5678\"\n    },\n    {\n      \"id\": \"0001234\",\n      \"parcelIDs\": [\n        \"P000123\",\n        \"P000345\"\n      ],\n      \"sealID\": \"1234-5678\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "56021742-5112-4819-a0cc-5a9fe71d4e5f",
+          "name": "Трекинг анонсов",
+          "request": {
+            "name": "Трекинг анонсов",
+            "description": {
+              "content": "Описание работы анонсов [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/anonsy).\n\nМетод для приема треков по анонсу от служб доставок.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery-sandbox",
+                "announcements",
+                "track"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"announcementID\": \"<string>\",\n  \"date\": \"<string>\",\n  \"event\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "45a6317b-c892-407b-b607-67f6e0e518fa",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "announcements",
+                    "track"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"announcementID\": \"55fefb84-fa30-47ee-bf29-9c860823ea79\",\n  \"date\": \"2023-09-20T10:00:00.52Z\",\n  \"event\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"status\": \"success\"\n  },\n  \"error\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"message\": \"Текст ошибки\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10aed198-158c-4661-8850-ee7dd27b1176",
+              "name": "Ошибка аутентификации. Например, некорректный токен.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "announcements",
+                    "track"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"announcementID\": \"55fefb84-fa30-47ee-bf29-9c860823ea79\",\n  \"date\": \"2023-09-20T10:00:00.52Z\",\n  \"event\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a67ad5f0-77d9-4162-82c0-4d69ee306244",
+              "name": "Ошибка авторизации. Например, нет прав для выполнения операции.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "announcements",
+                    "track"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"announcementID\": \"55fefb84-fa30-47ee-bf29-9c860823ea79\",\n  \"date\": \"2023-09-20T10:00:00.52Z\",\n  \"event\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5598e189-ac9b-48ce-b72e-49786c30eddf",
+              "name": "internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "announcements",
+                    "track"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"announcementID\": \"55fefb84-fa30-47ee-bf29-9c860823ea79\",\n  \"date\": \"2023-09-20T10:00:00.52Z\",\n  \"event\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "83ea4f63-f5a3-4bbc-9df0-a507ef8602c4",
+          "name": "Получить список сортировочных центров",
+          "request": {
+            "name": "Получить список сортировочных центров",
+            "description": {
+              "content": "Возвращает сортировочные центы для переданных служб доставки\n\n### Справочник служб доставки\n|    код    |    Название  |\n|-----------|--------------|\n|   pochta  | Почта России |\n|   exmail  | ExMail       |\n|     bb    | Boxberyy     |\n|     pp    | PickPoint    |\n|    dpd    | DPD          |\n\n### Описание ошибок\n| http code |   error code                  |       error message                                      |\n|-----------|-------------------------------|----------------------------------------------------------|\n|    200    | INVALID_QUERY_PARAMETERS      | Failed to convert entities: {error description}          |\n|    200    | INVALID_QUERY_PARAMETERS      | Failed to get entities from request: {error description} |\n|    500    | FAILED_TO_GET_SORTING_CENTERS | Failed to get sorting centers                            |\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery-sandbox",
+                "sorting-center"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "deliveryProviders",
+                  "value": "<string>",
+                  "description": "(Required) Список кодов служб доставки, сортировочные центры которых необходимо вернуть"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e1b92313-38a5-4980-a584-c1bfc3782010",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "sorting-center"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "deliveryProviders",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"deliveryProviderId\": {\n        \"deliveryProviderId\": \"1234-dffg\",\n        \"provider\": \"7989jgftyf-jkghtd\"\n      },\n      \"name\": \"1234-dffg\",\n      \"address\": {\n        \"region\": \"Республика Татарстан\",\n        \"locality\": \"Набережные Челны\",\n        \"fias\": \"0c5b2444-70a0-4932-980c-b4dc0d3f02b5\",\n        \"zipCode\": \"324654\",\n        \"lat\": 52.3295026,\n        \"lng\": 55.697951,\n        \"addressRow\": \"Челябинская обл, Магнитогорск, Герцена ул, д.6\",\n        \"building\": \"2\",\n        \"country\": \"Российская Федерация\",\n        \"floor\": 1,\n        \"house\": \"string\",\n        \"housing\": \"string\",\n        \"localityType\": \"город\",\n        \"porch\": \"string\",\n        \"room\": \"string\",\n        \"street\": \"ленина\",\n        \"subRegion\": \"Набережные Челны\",\n        \"subRegionType\": \"городской округ\"\n      },\n      \"phones\": [\n        \"78884694510\",\n        \"71422757807\"\n      ],\n      \"itinerary\": \"Выход из последнего вагона, сначала прямо потом налево\",\n      \"photos\": [\n        \"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png\",\n        \"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png\"\n      ],\n      \"schedule\": {\n        \"mon\": [\n          \"09:00:00/12:00:00\",\n          \"09:00:00/12:00:00\"\n        ],\n        \"tue\": [\n          \"09:00:00/12:00:00\",\n          \"09:00:00/12:00:00\"\n        ],\n        \"wed\": [\n          \"09:00:00/12:00:00\",\n          \"09:00:00/12:00:00\"\n        ],\n        \"thu\": [\n          \"09:00:00/12:00:00\",\n          \"09:00:00/12:00:00\"\n        ],\n        \"fri\": [\n          \"09:00:00/12:00:00\",\n          \"09:00:00/12:00:00\"\n        ],\n        \"sat\": [\n          \"09:00:00/12:00:00\",\n          \"09:00:00/12:00:00\"\n        ],\n        \"sun\": [\n          \"09:00:00/12:00:00\",\n          \"09:00:00/12:00:00\"\n        ]\n      },\n      \"restriction\": {\n        \"maxWeight\": 1000,\n        \"maxDimensions\": [\n          200,\n          50,\n          30\n        ],\n        \"maxDeclaredCost\": 1000,\n        \"dimensionalFactor\": 1000,\n        \"maxDimensionalWeight\": 1000\n      }\n    },\n    {\n      \"deliveryProviderId\": {\n        \"deliveryProviderId\": \"1234-dffg\",\n        \"provider\": \"7989jgftyf-jkghtd\"\n      },\n      \"name\": \"1234-dffg\",\n      \"address\": {\n        \"region\": \"Республика Татарстан\",\n        \"locality\": \"Набережные Челны\",\n        \"fias\": \"0c5b2444-70a0-4932-980c-b4dc0d3f02b5\",\n        \"zipCode\": \"324654\",\n        \"lat\": 52.3295026,\n        \"lng\": 55.697951,\n        \"addressRow\": \"Челябинская обл, Магнитогорск, Герцена ул, д.6\",\n        \"building\": \"2\",\n        \"country\": \"Российская Федерация\",\n        \"floor\": 1,\n        \"house\": \"string\",\n        \"housing\": \"string\",\n        \"localityType\": \"город\",\n        \"porch\": \"string\",\n        \"room\": \"string\",\n        \"street\": \"ленина\",\n        \"subRegion\": \"Набережные Челны\",\n        \"subRegionType\": \"городской округ\"\n      },\n      \"phones\": [\n        \"74752698520\",\n        \"77924099365\"\n      ],\n      \"itinerary\": \"Выход из последнего вагона, сначала прямо потом налево\",\n      \"photos\": [\n        \"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png\",\n        \"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png\"\n      ],\n      \"schedule\": {\n        \"mon\": [\n          \"09:00:00/12:00:00\",\n          \"09:00:00/12:00:00\"\n        ],\n        \"tue\": [\n          \"09:00:00/12:00:00\",\n          \"09:00:00/12:00:00\"\n        ],\n        \"wed\": [\n          \"09:00:00/12:00:00\",\n          \"09:00:00/12:00:00\"\n        ],\n        \"thu\": [\n          \"09:00:00/12:00:00\",\n          \"09:00:00/12:00:00\"\n        ],\n        \"fri\": [\n          \"09:00:00/12:00:00\",\n          \"09:00:00/12:00:00\"\n        ],\n        \"sat\": [\n          \"09:00:00/12:00:00\",\n          \"09:00:00/12:00:00\"\n        ],\n        \"sun\": [\n          \"09:00:00/12:00:00\",\n          \"09:00:00/12:00:00\"\n        ]\n      },\n      \"restriction\": {\n        \"maxWeight\": 1000,\n        \"maxDimensions\": [\n          200,\n          50,\n          30\n        ],\n        \"maxDeclaredCost\": 1000,\n        \"dimensionalFactor\": 1000,\n        \"maxDimensionalWeight\": 1000\n      }\n    }\n  ],\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f52491c5-8b95-40aa-b984-2d2b26f4c379",
+              "name": "Ошибка аутентификации. Например, некорректный токен.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "sorting-center"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "deliveryProviders",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f8066076-edcc-48eb-9be0-73b885a0be80",
+              "name": "Ошибка авторизации. Например, нет прав для выполнения операции.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "sorting-center"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "deliveryProviders",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f62f7952-8b8f-40b7-bea1-91d548e2657b",
+              "name": "internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "sorting-center"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "deliveryProviders",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "57b5bd51-82d1-42a0-9687-253bd62ac785",
+          "name": "Загрузить сортировочные центры",
+          "request": {
+            "name": "Загрузить сортировочные центры",
+            "description": {
+              "content": "Создание задачи на загрузку своих сортировочных центров и первичная валидация данных.  \nПосле загрузки сортировочных центров им необходимо проставить тэги отдельным запросом  \n\nДанные необходимо загружать по мере обновления данных о сортировочных центрах (как правило это 1-2 раза в сутки)\n\n### Описание ошибок\n| http code |   error code                  |       error message                        |\n|-----------|-------------------------------|--------------------------------------------|\n|    200    | INVALID_ENTITY                | Failed to get sorting centers from request |\n|    200    | INVALID_ENTITY                | Empty sorting centers list                 |\n|    200    | INVALID_ENTITY                | Failed to convert sorting centers          |\n|    500    | FAILED_TO_ADD_SORTING_CENTERS | Failed to add sorting centers              |\n\nИтоговый результат операции необходимо проверять через:  \n[метод получения результата выполнения задачи](#operation/GetTask)\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery-sandbox",
+                "tariffs",
+                "sorting-center"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"deliveryProviderId\": \"<string>\",\n    \"name\": \"<string>\",\n    \"address\": {\n      \"region\": \"<string>\",\n      \"locality\": \"<string>\",\n      \"fias\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"lat\": \"<number>\",\n      \"lng\": \"<number>\",\n      \"addressRow\": \"<string>\",\n      \"building\": \"<string>\",\n      \"country\": \"<string>\",\n      \"floor\": \"<integer>\",\n      \"house\": \"<string>\",\n      \"housing\": \"<string>\",\n      \"localityType\": \"<string>\",\n      \"porch\": \"<string>\",\n      \"room\": \"<string>\",\n      \"street\": \"<string>\",\n      \"subRegion\": \"<string>\",\n      \"subRegionType\": \"<string>\"\n    },\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"itinerary\": \"<string>\",\n    \"photos\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"schedule\": {\n      \"mon\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"tue\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"wed\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"thu\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fri\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"sat\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"sun\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"restriction\": {\n      \"maxWeight\": \"<integer>\",\n      \"maxDimensions\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"maxDeclaredCost\": \"<integer>\",\n      \"dimensionalFactor\": \"<integer>\",\n      \"maxDimensionalWeight\": \"<integer>\"\n    },\n    \"directionTag\": \"string\"\n  },\n  {\n    \"deliveryProviderId\": \"<string>\",\n    \"name\": \"<string>\",\n    \"address\": {\n      \"region\": \"<string>\",\n      \"locality\": \"<string>\",\n      \"fias\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"lat\": \"<number>\",\n      \"lng\": \"<number>\",\n      \"addressRow\": \"<string>\",\n      \"building\": \"<string>\",\n      \"country\": \"<string>\",\n      \"floor\": \"<integer>\",\n      \"house\": \"<string>\",\n      \"housing\": \"<string>\",\n      \"localityType\": \"<string>\",\n      \"porch\": \"<string>\",\n      \"room\": \"<string>\",\n      \"street\": \"<string>\",\n      \"subRegion\": \"<string>\",\n      \"subRegionType\": \"<string>\"\n    },\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"itinerary\": \"<string>\",\n    \"photos\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"schedule\": {\n      \"mon\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"tue\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"wed\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"thu\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fri\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"sat\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"sun\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"restriction\": {\n      \"maxWeight\": \"<integer>\",\n      \"maxDimensions\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"maxDeclaredCost\": \"<integer>\",\n      \"dimensionalFactor\": \"<integer>\",\n      \"maxDimensionalWeight\": \"<integer>\"\n    },\n    \"directionTag\": \"string\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3b8ac96b-6ddb-4e6c-b1fe-9a4264e106be",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "tariffs",
+                    "sorting-center"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"deliveryProviderId\": \"1234-dffg\",\n    \"name\": \"1234-dffg\",\n    \"address\": {\n      \"region\": \"Республика Татарстан\",\n      \"locality\": \"Набережные Челны\",\n      \"fias\": \"0c5b2444-70a0-4932-980c-b4dc0d3f02b5\",\n      \"zipCode\": \"324654\",\n      \"lat\": 52.3295026,\n      \"lng\": 55.697951,\n      \"addressRow\": \"Челябинская обл, Магнитогорск, Герцена ул, д.6\",\n      \"building\": \"2\",\n      \"country\": \"Российская Федерация\",\n      \"floor\": 1,\n      \"house\": \"<string>\",\n      \"housing\": \"<string>\",\n      \"localityType\": \"город\",\n      \"porch\": \"<string>\",\n      \"room\": \"<string>\",\n      \"street\": \"ленина\",\n      \"subRegion\": \"Набережные Челны\",\n      \"subRegionType\": \"городской округ\"\n    },\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"itinerary\": \"Выход из последнего вагона, сначала прямо потом налево\",\n    \"photos\": [\n      \"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png\",\n      \"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png\"\n    ],\n    \"schedule\": {\n      \"mon\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"tue\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"wed\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"thu\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"fri\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"sat\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"sun\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ]\n    },\n    \"restriction\": {\n      \"maxWeight\": 1000,\n      \"maxDimensions\": [\n        200,\n        50,\n        30\n      ],\n      \"maxDeclaredCost\": 1000,\n      \"dimensionalFactor\": 1000,\n      \"maxDimensionalWeight\": 1000\n    },\n    \"directionTag\": true\n  },\n  {\n    \"deliveryProviderId\": \"1234-dffg\",\n    \"name\": \"1234-dffg\",\n    \"address\": {\n      \"region\": \"Республика Татарстан\",\n      \"locality\": \"Набережные Челны\",\n      \"fias\": \"0c5b2444-70a0-4932-980c-b4dc0d3f02b5\",\n      \"zipCode\": \"324654\",\n      \"lat\": 52.3295026,\n      \"lng\": 55.697951,\n      \"addressRow\": \"Челябинская обл, Магнитогорск, Герцена ул, д.6\",\n      \"building\": \"2\",\n      \"country\": \"Российская Федерация\",\n      \"floor\": 1,\n      \"house\": \"<string>\",\n      \"housing\": \"<string>\",\n      \"localityType\": \"город\",\n      \"porch\": \"<string>\",\n      \"room\": \"<string>\",\n      \"street\": \"ленина\",\n      \"subRegion\": \"Набережные Челны\",\n      \"subRegionType\": \"городской округ\"\n    },\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"itinerary\": \"Выход из последнего вагона, сначала прямо потом налево\",\n    \"photos\": [\n      \"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png\",\n      \"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png\"\n    ],\n    \"schedule\": {\n      \"mon\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"tue\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"wed\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"thu\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"fri\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"sat\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"sun\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ]\n    },\n    \"restriction\": {\n      \"maxWeight\": 1000,\n      \"maxDimensions\": [\n        200,\n        50,\n        30\n      ],\n      \"maxDeclaredCost\": 1000,\n      \"dimensionalFactor\": 1000,\n      \"maxDimensionalWeight\": 1000\n    },\n    \"directionTag\": 1736\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"taskId\": 7309\n  },\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c912eae1-6169-4b01-9be5-2d83eda4992e",
+              "name": "Ошибка аутентификации. Например, некорректный токен.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "tariffs",
+                    "sorting-center"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"deliveryProviderId\": \"1234-dffg\",\n    \"name\": \"1234-dffg\",\n    \"address\": {\n      \"region\": \"Республика Татарстан\",\n      \"locality\": \"Набережные Челны\",\n      \"fias\": \"0c5b2444-70a0-4932-980c-b4dc0d3f02b5\",\n      \"zipCode\": \"324654\",\n      \"lat\": 52.3295026,\n      \"lng\": 55.697951,\n      \"addressRow\": \"Челябинская обл, Магнитогорск, Герцена ул, д.6\",\n      \"building\": \"2\",\n      \"country\": \"Российская Федерация\",\n      \"floor\": 1,\n      \"house\": \"<string>\",\n      \"housing\": \"<string>\",\n      \"localityType\": \"город\",\n      \"porch\": \"<string>\",\n      \"room\": \"<string>\",\n      \"street\": \"ленина\",\n      \"subRegion\": \"Набережные Челны\",\n      \"subRegionType\": \"городской округ\"\n    },\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"itinerary\": \"Выход из последнего вагона, сначала прямо потом налево\",\n    \"photos\": [\n      \"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png\",\n      \"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png\"\n    ],\n    \"schedule\": {\n      \"mon\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"tue\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"wed\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"thu\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"fri\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"sat\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"sun\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ]\n    },\n    \"restriction\": {\n      \"maxWeight\": 1000,\n      \"maxDimensions\": [\n        200,\n        50,\n        30\n      ],\n      \"maxDeclaredCost\": 1000,\n      \"dimensionalFactor\": 1000,\n      \"maxDimensionalWeight\": 1000\n    },\n    \"directionTag\": true\n  },\n  {\n    \"deliveryProviderId\": \"1234-dffg\",\n    \"name\": \"1234-dffg\",\n    \"address\": {\n      \"region\": \"Республика Татарстан\",\n      \"locality\": \"Набережные Челны\",\n      \"fias\": \"0c5b2444-70a0-4932-980c-b4dc0d3f02b5\",\n      \"zipCode\": \"324654\",\n      \"lat\": 52.3295026,\n      \"lng\": 55.697951,\n      \"addressRow\": \"Челябинская обл, Магнитогорск, Герцена ул, д.6\",\n      \"building\": \"2\",\n      \"country\": \"Российская Федерация\",\n      \"floor\": 1,\n      \"house\": \"<string>\",\n      \"housing\": \"<string>\",\n      \"localityType\": \"город\",\n      \"porch\": \"<string>\",\n      \"room\": \"<string>\",\n      \"street\": \"ленина\",\n      \"subRegion\": \"Набережные Челны\",\n      \"subRegionType\": \"городской округ\"\n    },\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"itinerary\": \"Выход из последнего вагона, сначала прямо потом налево\",\n    \"photos\": [\n      \"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png\",\n      \"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png\"\n    ],\n    \"schedule\": {\n      \"mon\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"tue\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"wed\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"thu\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"fri\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"sat\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"sun\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ]\n    },\n    \"restriction\": {\n      \"maxWeight\": 1000,\n      \"maxDimensions\": [\n        200,\n        50,\n        30\n      ],\n      \"maxDeclaredCost\": 1000,\n      \"dimensionalFactor\": 1000,\n      \"maxDimensionalWeight\": 1000\n    },\n    \"directionTag\": 1736\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64cc475b-0d27-439d-a85b-dbe69e16e5c8",
+              "name": "Ошибка авторизации. Например, нет прав для выполнения операции.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "tariffs",
+                    "sorting-center"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"deliveryProviderId\": \"1234-dffg\",\n    \"name\": \"1234-dffg\",\n    \"address\": {\n      \"region\": \"Республика Татарстан\",\n      \"locality\": \"Набережные Челны\",\n      \"fias\": \"0c5b2444-70a0-4932-980c-b4dc0d3f02b5\",\n      \"zipCode\": \"324654\",\n      \"lat\": 52.3295026,\n      \"lng\": 55.697951,\n      \"addressRow\": \"Челябинская обл, Магнитогорск, Герцена ул, д.6\",\n      \"building\": \"2\",\n      \"country\": \"Российская Федерация\",\n      \"floor\": 1,\n      \"house\": \"<string>\",\n      \"housing\": \"<string>\",\n      \"localityType\": \"город\",\n      \"porch\": \"<string>\",\n      \"room\": \"<string>\",\n      \"street\": \"ленина\",\n      \"subRegion\": \"Набережные Челны\",\n      \"subRegionType\": \"городской округ\"\n    },\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"itinerary\": \"Выход из последнего вагона, сначала прямо потом налево\",\n    \"photos\": [\n      \"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png\",\n      \"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png\"\n    ],\n    \"schedule\": {\n      \"mon\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"tue\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"wed\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"thu\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"fri\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"sat\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"sun\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ]\n    },\n    \"restriction\": {\n      \"maxWeight\": 1000,\n      \"maxDimensions\": [\n        200,\n        50,\n        30\n      ],\n      \"maxDeclaredCost\": 1000,\n      \"dimensionalFactor\": 1000,\n      \"maxDimensionalWeight\": 1000\n    },\n    \"directionTag\": true\n  },\n  {\n    \"deliveryProviderId\": \"1234-dffg\",\n    \"name\": \"1234-dffg\",\n    \"address\": {\n      \"region\": \"Республика Татарстан\",\n      \"locality\": \"Набережные Челны\",\n      \"fias\": \"0c5b2444-70a0-4932-980c-b4dc0d3f02b5\",\n      \"zipCode\": \"324654\",\n      \"lat\": 52.3295026,\n      \"lng\": 55.697951,\n      \"addressRow\": \"Челябинская обл, Магнитогорск, Герцена ул, д.6\",\n      \"building\": \"2\",\n      \"country\": \"Российская Федерация\",\n      \"floor\": 1,\n      \"house\": \"<string>\",\n      \"housing\": \"<string>\",\n      \"localityType\": \"город\",\n      \"porch\": \"<string>\",\n      \"room\": \"<string>\",\n      \"street\": \"ленина\",\n      \"subRegion\": \"Набережные Челны\",\n      \"subRegionType\": \"городской округ\"\n    },\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"itinerary\": \"Выход из последнего вагона, сначала прямо потом налево\",\n    \"photos\": [\n      \"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png\",\n      \"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png\"\n    ],\n    \"schedule\": {\n      \"mon\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"tue\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"wed\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"thu\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"fri\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"sat\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"sun\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ]\n    },\n    \"restriction\": {\n      \"maxWeight\": 1000,\n      \"maxDimensions\": [\n        200,\n        50,\n        30\n      ],\n      \"maxDeclaredCost\": 1000,\n      \"dimensionalFactor\": 1000,\n      \"maxDimensionalWeight\": 1000\n    },\n    \"directionTag\": 1736\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cab38ed3-8f4a-4207-a739-57549787402f",
+              "name": "internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "tariffs",
+                    "sorting-center"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"deliveryProviderId\": \"1234-dffg\",\n    \"name\": \"1234-dffg\",\n    \"address\": {\n      \"region\": \"Республика Татарстан\",\n      \"locality\": \"Набережные Челны\",\n      \"fias\": \"0c5b2444-70a0-4932-980c-b4dc0d3f02b5\",\n      \"zipCode\": \"324654\",\n      \"lat\": 52.3295026,\n      \"lng\": 55.697951,\n      \"addressRow\": \"Челябинская обл, Магнитогорск, Герцена ул, д.6\",\n      \"building\": \"2\",\n      \"country\": \"Российская Федерация\",\n      \"floor\": 1,\n      \"house\": \"<string>\",\n      \"housing\": \"<string>\",\n      \"localityType\": \"город\",\n      \"porch\": \"<string>\",\n      \"room\": \"<string>\",\n      \"street\": \"ленина\",\n      \"subRegion\": \"Набережные Челны\",\n      \"subRegionType\": \"городской округ\"\n    },\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"itinerary\": \"Выход из последнего вагона, сначала прямо потом налево\",\n    \"photos\": [\n      \"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png\",\n      \"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png\"\n    ],\n    \"schedule\": {\n      \"mon\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"tue\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"wed\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"thu\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"fri\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"sat\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"sun\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ]\n    },\n    \"restriction\": {\n      \"maxWeight\": 1000,\n      \"maxDimensions\": [\n        200,\n        50,\n        30\n      ],\n      \"maxDeclaredCost\": 1000,\n      \"dimensionalFactor\": 1000,\n      \"maxDimensionalWeight\": 1000\n    },\n    \"directionTag\": true\n  },\n  {\n    \"deliveryProviderId\": \"1234-dffg\",\n    \"name\": \"1234-dffg\",\n    \"address\": {\n      \"region\": \"Республика Татарстан\",\n      \"locality\": \"Набережные Челны\",\n      \"fias\": \"0c5b2444-70a0-4932-980c-b4dc0d3f02b5\",\n      \"zipCode\": \"324654\",\n      \"lat\": 52.3295026,\n      \"lng\": 55.697951,\n      \"addressRow\": \"Челябинская обл, Магнитогорск, Герцена ул, д.6\",\n      \"building\": \"2\",\n      \"country\": \"Российская Федерация\",\n      \"floor\": 1,\n      \"house\": \"<string>\",\n      \"housing\": \"<string>\",\n      \"localityType\": \"город\",\n      \"porch\": \"<string>\",\n      \"room\": \"<string>\",\n      \"street\": \"ленина\",\n      \"subRegion\": \"Набережные Челны\",\n      \"subRegionType\": \"городской округ\"\n    },\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"itinerary\": \"Выход из последнего вагона, сначала прямо потом налево\",\n    \"photos\": [\n      \"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png\",\n      \"https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png\"\n    ],\n    \"schedule\": {\n      \"mon\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"tue\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"wed\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"thu\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"fri\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"sat\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ],\n      \"sun\": [\n        \"09:00:00/12:00:00\",\n        \"09:00:00/12:00:00\"\n      ]\n    },\n    \"restriction\": {\n      \"maxWeight\": 1000,\n      \"maxDimensions\": [\n        200,\n        50,\n        30\n      ],\n      \"maxDeclaredCost\": 1000,\n      \"dimensionalFactor\": 1000,\n      \"maxDimensionalWeight\": 1000\n    },\n    \"directionTag\": 1736\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "83cd2d5e-57a9-4cf8-bec7-6a0a15a67412",
+          "name": "Установка тэгов своим и/или чужим сортировочным центрам",
+          "request": {
+            "name": "Установка тэгов своим и/или чужим сортировочным центрам",
+            "description": {
+              "content": "Создание задачи на установку тэгов из своего тарифа своим и/или чужим сортировочным центрам.  \nВ рамках одного тарифа одному сортировочному центру может соответствовать только один тэг.  \nПерепривязка сортировочного центра к тэгу в рамках одного тарифа невозможна, в случае ошибочной привязки необходимо сообщить об этом своему менеджеру по логистике.   \n\n### Описание ошибок\n| http code |   error code                          |           error message                                      |\n|-----------|---------------------------------------|--------------------------------------------------------------|\n|    200    | INVALID_ENTITY                        | Failed to get tags from request                              |\n|    200    | INVALID_ENTITY                        | Empty tags list                                              |\n|    200    | INVALID_ENTITY                        | Failed to get tariff from path                               |\n|    200    | INVALID_ENTITY                        | Zero tariff_if in path                                       |\n|    200    | INVALID_ENTITY                        | Failed to convert tags                                       |\n|    500    | FAILED_TO_ADD_TAGS_TO_SORTING_CENTERS | Failed to add tags to sorting centers                        |\n\n\nИтоговый результат операции необходимо проверять через:  \n[метод получения результата выполнения задачи](#operation/GetTask)\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery-sandbox",
+                "tariffs",
+                ":tariff_id",
+                "tagged-sorting-centers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "tariff_id",
+                  "description": "(Required) id своего тарифа, теги которого будут установлены для сортировочных центров"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"deliveryProviderId\": {\n      \"deliveryProviderId\": \"<string>\",\n      \"provider\": \"<string>\"\n    },\n    \"directionTag\": \"<string>\"\n  },\n  {\n    \"deliveryProviderId\": {\n      \"deliveryProviderId\": \"<string>\",\n      \"provider\": \"<string>\"\n    },\n    \"directionTag\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6f2aab98-21a7-43d4-8cfc-809802d71e47",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "tariffs",
+                    ":tariff_id",
+                    "tagged-sorting-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "tariff_id",
+                      "description": "(Required) id своего тарифа, теги которого будут установлены для сортировочных центров"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"deliveryProviderId\": {\n      \"deliveryProviderId\": \"1234-dffg\",\n      \"provider\": \"7989jgftyf-jkghtd\"\n    },\n    \"directionTag\": \"moscow-2020-12-12\"\n  },\n  {\n    \"deliveryProviderId\": {\n      \"deliveryProviderId\": \"1234-dffg\",\n      \"provider\": \"7989jgftyf-jkghtd\"\n    },\n    \"directionTag\": \"moscow-2020-12-12\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"taskId\": 7309\n  },\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a69836eb-5b80-4e57-a269-55e58163c87b",
+              "name": "Ошибка аутентификации. Например, некорректный токен.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "tariffs",
+                    ":tariff_id",
+                    "tagged-sorting-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "tariff_id",
+                      "description": "(Required) id своего тарифа, теги которого будут установлены для сортировочных центров"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"deliveryProviderId\": {\n      \"deliveryProviderId\": \"1234-dffg\",\n      \"provider\": \"7989jgftyf-jkghtd\"\n    },\n    \"directionTag\": \"moscow-2020-12-12\"\n  },\n  {\n    \"deliveryProviderId\": {\n      \"deliveryProviderId\": \"1234-dffg\",\n      \"provider\": \"7989jgftyf-jkghtd\"\n    },\n    \"directionTag\": \"moscow-2020-12-12\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "471497a0-38ee-4a24-bbcb-bd999e6cc892",
+              "name": "Ошибка авторизации. Например, нет прав для выполнения операции.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "tariffs",
+                    ":tariff_id",
+                    "tagged-sorting-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "tariff_id",
+                      "description": "(Required) id своего тарифа, теги которого будут установлены для сортировочных центров"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"deliveryProviderId\": {\n      \"deliveryProviderId\": \"1234-dffg\",\n      \"provider\": \"7989jgftyf-jkghtd\"\n    },\n    \"directionTag\": \"moscow-2020-12-12\"\n  },\n  {\n    \"deliveryProviderId\": {\n      \"deliveryProviderId\": \"1234-dffg\",\n      \"provider\": \"7989jgftyf-jkghtd\"\n    },\n    \"directionTag\": \"moscow-2020-12-12\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "00812a94-9275-465b-b0fb-7a6b5f95f91d",
+              "name": "internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "tariffs",
+                    ":tariff_id",
+                    "tagged-sorting-centers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "tariff_id",
+                      "description": "(Required) id своего тарифа, теги которого будут установлены для сортировочных центров"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"deliveryProviderId\": {\n      \"deliveryProviderId\": \"1234-dffg\",\n      \"provider\": \"7989jgftyf-jkghtd\"\n    },\n    \"directionTag\": \"moscow-2020-12-12\"\n  },\n  {\n    \"deliveryProviderId\": {\n      \"deliveryProviderId\": \"1234-dffg\",\n      \"provider\": \"7989jgftyf-jkghtd\"\n    },\n    \"directionTag\": \"moscow-2020-12-12\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.avito.ru/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e7eb40f8-8396-47f3-9937-fc93daa778eb",
+    "name": "Иерархия Аккаунтов Access XDelivery API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API для взаимодействия с иерархией аккаунтов в Авито\n**Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**\n\n\nContact Support:\n Email: supportautoload@avito.ru",
+      "type": "text/plain"
+    }
+  }
+}

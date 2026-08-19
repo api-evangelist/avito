@@ -1,0 +1,453 @@
+{
+  "item": [
+    {
+      "id": "82ac5ed4-0a8a-449b-a38c-332718a1da8b",
+      "name": "LinkItemsV1",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4da39e52-f457-4615-8a4f-5892aa314bfb",
+          "name": "Прикрепление сотрудника иерархии к объявлениям, перезакрепление объявлений между сотрудниками иерархии",
+          "request": {
+            "name": "Прикрепление сотрудника иерархии к объявлениям, перезакрепление объявлений между сотрудниками иерархии",
+            "description": {
+              "content": "Для взаимодействия с иерархией аккаунтов необходимо приобрести тариф в [личном кабинете](https://www.avito.ru/paid-services/listing-fees).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "linkItemsV1"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Список зон доступа, полученных приложением",
+                "key": "X-Oauth-Scopes",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)",
+                "key": "X-Oauth-Flow",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itemIds\": [\n    \"<integer>\"\n  ],\n  \"employeeId\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "79ba4c7d-bf6e-4c3b-8822-54880951b71e",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "linkItemsV1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Список зон доступа, полученных приложением",
+                    "key": "X-Oauth-Scopes",
+                    "value": "ah:access"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)",
+                    "key": "X-Oauth-Flow",
+                    "value": "authorization_code"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    1023900,\n    1090112,\n    3610765\n  ],\n  \"employeeId\": 10800\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c85e492f-f29f-4c71-97d4-4eb1085ae67a",
+              "name": "Ошибка валидации",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "linkItemsV1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Список зон доступа, полученных приложением",
+                    "key": "X-Oauth-Scopes",
+                    "value": "ah:access"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)",
+                    "key": "X-Oauth-Flow",
+                    "value": "authorization_code"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    1023900,\n    1090112,\n    3610765\n  ],\n  \"employeeId\": 10800\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Некорректные данные\",\n    \"slug\": \"validation\",\n    \"type\": \"bad_data\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b169286b-fd97-4484-b429-b2094ac6424b",
+              "name": "Требуется аутентификация",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "linkItemsV1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Список зон доступа, полученных приложением",
+                    "key": "X-Oauth-Scopes",
+                    "value": "ah:access"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)",
+                    "key": "X-Oauth-Flow",
+                    "value": "authorization_code"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    1023900,\n    1090112,\n    3610765\n  ],\n  \"employeeId\": 10800\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Пользователь не авторизован\",\n    \"slug\": \"user_unauthorized\",\n    \"type\": \"authorization_error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fef91eaf-4f88-4a0b-9ce3-8ced048a5b05",
+              "name": "Перелинковка айтема недоступна",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "linkItemsV1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Список зон доступа, полученных приложением",
+                    "key": "X-Oauth-Scopes",
+                    "value": "ah:access"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)",
+                    "key": "X-Oauth-Flow",
+                    "value": "authorization_code"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    1023900,\n    1090112,\n    3610765\n  ],\n  \"employeeId\": 10800\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Перелинковка айтемов не доступна\",\n    \"slug\": \"forbidden_link_items\",\n    \"type\": \"link_items\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "810ff2e2-57de-43e5-9c51-9406bfe2d182",
+              "name": "Внутренняя ошибка метода API",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "linkItemsV1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Список зон доступа, полученных приложением",
+                    "key": "X-Oauth-Scopes",
+                    "value": "ah:access"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)",
+                    "key": "X-Oauth-Flow",
+                    "value": "authorization_code"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    1023900,\n    1090112,\n    3610765\n  ],\n  \"employeeId\": 10800\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Error while processing request. Please, contact support\",\n    \"slug\": \"server\",\n    \"type\": \"server\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.avito.ru/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "bb33136a-9c29-4d57-aef9-607fe5d9f9f9",
+    "name": "Иерархия Аккаунтов Access LinkItemsV1 API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API для взаимодействия с иерархией аккаунтов в Авито\n**Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**\n\n\nContact Support:\n Email: supportautoload@avito.ru",
+      "type": "text/plain"
+    }
+  }
+}

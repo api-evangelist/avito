@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access Calltracking API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Calltracking",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Звонок по идентификатору",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/calltracking/v1/getCallById/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Возвращает информацию о звонке по его id(callId)"
+        },
+        {
+          "info": {
+            "name": "Звонки по времени",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/calltracking/v1/getCalls/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Возвращает список звонков с фильтром по времени звонка"
+        },
+        {
+          "info": {
+            "name": "Получение аудиозаписи звонка по идентификатору",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/calltracking/v1/getRecordByCallId/",
+            "params": [
+              {
+                "name": "callId",
+                "value": "",
+                "type": "query",
+                "description": "Идентификатор звонка"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Возвращает запись звонка по его id (callId).\n\nМы гарантируем, что записи звонка доступны для получения в течение 3х месяцев после завершения звонка.\n\nЗаписи звонка становятся доступны в данном API с некоторой задержкой после окончания звонка. Обычно эта задержка составляет до 30 минут.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

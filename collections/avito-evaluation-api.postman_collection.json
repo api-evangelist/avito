@@ -1,0 +1,1992 @@
+{
+  "item": [
+    {
+      "id": "9a60858c-4835-4a25-ae66-4ece3674ed07",
+      "name": "Evaluation",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "879fcb85-454e-4734-bb01-60c3ef5a9fd4",
+          "name": "Получение актуальных параметров Автокаталога\n",
+          "request": {
+            "name": "Получение актуальных параметров Автокаталога\n",
+            "description": {
+              "content": "Метод для получения возможных параметров для заполнения пользователем.\nПервый запрос можно сделать без параметров, получить данные и далее, передавая нужные id и valueId в повторном запросе, получить все параметры.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "autoteka",
+                "v1",
+                "catalogs",
+                "resolve"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fieldsValueIds\": [\n    {\n      \"id\": \"<long>\",\n      \"valueId\": \"<long>\"\n    },\n    {\n      \"id\": \"<long>\",\n      \"valueId\": \"<long>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b095b01c-0557-4cc0-9130-33faa0237b18",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "catalogs",
+                    "resolve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fieldsValueIds\": [\n    {\n      \"id\": 110000,\n      \"valueId\": 403153\n    },\n    {\n      \"id\": 110000,\n      \"valueId\": 403153\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"fields\": [\n      {\n        \"id\": 110000,\n        \"label\": \"Марка\",\n        \"dataType\": \"integer\",\n        \"values\": [\n          {\n            \"label\": \"Accent\",\n            \"valueId\": 403154\n          },\n          {\n            \"label\": \"Accent\",\n            \"valueId\": 403154\n          }\n        ]\n      },\n      {\n        \"id\": 110000,\n        \"label\": \"Марка\",\n        \"dataType\": \"integer\",\n        \"values\": [\n          {\n            \"label\": \"Accent\",\n            \"valueId\": 403154\n          },\n          {\n            \"label\": \"Accent\",\n            \"valueId\": 403154\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1d3c1d58-64c4-461f-a4b9-76d3e8a17150",
+              "name": "Ошибка валидации входных параметров",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "catalogs",
+                    "resolve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fieldsValueIds\": [\n    {\n      \"id\": 110000,\n      \"valueId\": 403153\n    },\n    {\n      \"id\": 110000,\n      \"valueId\": 403153\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Validation error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5603a71a-fbbf-4ccf-89a0-95dcaf3fcd9c",
+              "name": "Операцию невозможно выполнить",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "catalogs",
+                    "resolve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fieldsValueIds\": [\n    {\n      \"id\": 110000,\n      \"valueId\": 403153\n    },\n    {\n      \"id\": 110000,\n      \"valueId\": 403153\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 403,\n    \"message\": \"Forbidden\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b6bab86-1153-4f00-a749-fcbb3cab54e0",
+              "name": "Информация не найдена",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "catalogs",
+                    "resolve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fieldsValueIds\": [\n    {\n      \"id\": 110000,\n      \"valueId\": 403153\n    },\n    {\n      \"id\": 110000,\n      \"valueId\": 403153\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0cea607e-a292-4d30-ac91-40fac3629c73",
+              "name": "Информация об ошибке",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "catalogs",
+                    "resolve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fieldsValueIds\": [\n    {\n      \"id\": 110000,\n      \"valueId\": 403153\n    },\n    {\n      \"id\": 110000,\n      \"valueId\": 403153\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 500,\n    \"message\": \"Service is temporary unavailable\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "096aad0f-9e5e-4674-bf0e-5dd45935f2a3",
+          "name": "Запрос характеристик по регистрационному номеру\n",
+          "request": {
+            "name": "Запрос характеристик по регистрационному номеру\n",
+            "description": {
+              "content": "Метод для запроса на получение спецификации по регистрационному номеру, возвращает идентификатор спецификации, по которому можно получить спецификацию в [методе для получения спецификации](#operation/specificationGetById).\n\nЧтобы подключить эту возможность, обратитесь к менеджеру Автотеки. Обратите внимание, что для её подключения надо завести отдельную учётную запись Автотеки.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "autoteka",
+                "v1",
+                "specifications",
+                "by-plate-number"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plateNumber\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "97e2a94e-f4b7-4877-94ef-23c7c01ac421",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "specifications",
+                    "by-plate-number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"plateNumber\": \"X793YX77\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"specification\": {\n      \"specificationId\": 1\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e6bd6b7-4638-40f1-9fab-50878cf8bcd0",
+              "name": "Ошибка валидации входных параметров",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "specifications",
+                    "by-plate-number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"plateNumber\": \"X793YX77\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Validation error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92d64450-1fef-4739-b21b-a31b6712d27b",
+              "name": "Операцию невозможно выполнить",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "specifications",
+                    "by-plate-number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"plateNumber\": \"X793YX77\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 403,\n    \"message\": \"Forbidden\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81861b3e-7ca9-4b60-8a92-36dd8e1f6251",
+              "name": "Информация не найдена",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "specifications",
+                    "by-plate-number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"plateNumber\": \"X793YX77\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81528374-32bd-4e40-ae33-7ef7d5dfb8be",
+              "name": "Превышено допустимое количество запросов",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "specifications",
+                    "by-plate-number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"plateNumber\": \"X793YX77\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Количество запросов в минуту",
+                  "key": "X-RateLimit-Limit",
+                  "value": "5696"
+                },
+                {
+                  "disabled": false,
+                  "description": "Доступное количество запросов в текущем временном окне",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "5696"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 429\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0e3a5ae6-dab2-4314-a5a0-88982c8bf5a0",
+              "name": "Информация об ошибке",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "specifications",
+                    "by-plate-number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"plateNumber\": \"X793YX77\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 500,\n    \"message\": \"Service is temporary unavailable\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "24018695-8262-4505-a73d-71f5c88b982b",
+          "name": "Запрос характеристик по идентификатору авто (vin/frame)\n",
+          "request": {
+            "name": "Запрос характеристик по идентификатору авто (vin/frame)\n",
+            "description": {
+              "content": "Метод для запроса на получение спецификации по идентификатору авто (vin/frame), возвращает идентификатор спецификации, по которому можно получить спецификацию в [методе для получения спецификации](#operation/specificationGetById).\n\nЧтобы подключить эту возможность, обратитесь к менеджеру Автотеки. Обратите внимание, что для её подключения надо завести отдельную учётную запись Автотеки.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "autoteka",
+                "v1",
+                "specifications",
+                "by-vehicle-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vehicleId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c450b7fa-b7aa-4af7-8ff6-c25837159e58",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "specifications",
+                    "by-vehicle-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vehicleId\": \"XTA210990Y2766111\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"specification\": {\n      \"specificationId\": 1\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e4c82bd-0706-4943-89b5-fd5934a85718",
+              "name": "Ошибка валидации входных параметров",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "specifications",
+                    "by-vehicle-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vehicleId\": \"XTA210990Y2766111\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Validation error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aff63096-76db-486a-99bd-c8483acc6ace",
+              "name": "Операцию невозможно выполнить",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "specifications",
+                    "by-vehicle-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vehicleId\": \"XTA210990Y2766111\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 403,\n    \"message\": \"Forbidden\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c4e8de3-dcdf-478b-a36c-b121f7c1bb66",
+              "name": "Информация не найдена",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "specifications",
+                    "by-vehicle-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vehicleId\": \"XTA210990Y2766111\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "759cde8a-8f4c-489b-a42c-b322d603abb6",
+              "name": "Информация об ошибке",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "specifications",
+                    "by-vehicle-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vehicleId\": \"XTA210990Y2766111\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 500,\n    \"message\": \"Service is temporary unavailable\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "72db3086-7bf6-4d5f-acf9-b2087ae04e71",
+          "name": "Получение характеристик по ID запроса\n",
+          "request": {
+            "name": "Получение характеристик по ID запроса\n",
+            "description": {
+              "content": "Метод для получения спецификации по ее идентификатору.\n\nЧтобы подключить эту возможность, обратитесь к менеджеру Автотеки. Обратите внимание, что для её подключения надо завести отдельную учётную запись Автотеки.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "autoteka",
+                "v1",
+                "specifications",
+                "specification",
+                ":specificationID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "specificationID",
+                  "description": "(Required) Идентификатор спецификации"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "02d25e90-34ab-4d5e-9865-6ee0b3ab2f10",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "specifications",
+                    "specification",
+                    ":specificationID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "specificationID",
+                      "description": "(Required) Идентификатор спецификации"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"documents\": {\n      \"pts\": {\n        \"date\": \"2024-07-31\",\n        \"number\": \"1234567890\",\n        \"organization\": \"Название организации\"\n      },\n      \"sts\": {\n        \"date\": \"2024-07-31\",\n        \"number\": \"1234567890\"\n      }\n    },\n    \"newCarValuations\": [\n      {\n        \"brand\": \"ВАЗ (LADA)\",\n        \"model\": \"Largus Cross\",\n        \"year\": 2025,\n        \"modification\": \"1.6 MT (106 л.с.)\",\n        \"bodyType\": \"Универсал\",\n        \"complectation\": \"Enjoy'24\",\n        \"drive\": \"Передний\",\n        \"transmission\": \"Механика\",\n        \"engineType\": \"Бензин\",\n        \"avgPrice\": 2010000,\n        \"medianPrice\": 2020000,\n        \"minPrice\": 2000000,\n        \"maxPrice\": 2050000\n      },\n      {\n        \"brand\": \"ВАЗ (LADA)\",\n        \"model\": \"Largus Cross\",\n        \"year\": 2025,\n        \"modification\": \"1.6 MT (106 л.с.)\",\n        \"bodyType\": \"Универсал\",\n        \"complectation\": \"Enjoy'24\",\n        \"drive\": \"Передний\",\n        \"transmission\": \"Механика\",\n        \"engineType\": \"Бензин\",\n        \"avgPrice\": 2010000,\n        \"medianPrice\": 2020000,\n        \"minPrice\": 2000000,\n        \"maxPrice\": 2050000\n      }\n    ],\n    \"specification\": {\n      \"equipment\": {\n        \"bodyNumber\": {\n          \"title\": \"Номер кузова\",\n          \"value\": \"string\"\n        },\n        \"brand\": {\n          \"title\": \"Бренд\",\n          \"value\": \"BMW\"\n        },\n        \"color\": {\n          \"description\": \"Синий\",\n          \"title\": \"Цвет\",\n          \"value\": \"Синий\"\n        },\n        \"engineNumber\": {\n          \"title\": \"Номер двигателя\",\n          \"value\": \"string\"\n        },\n        \"engineType\": {\n          \"title\": \"Тип двигателя\",\n          \"value\": \"Газ\"\n        },\n        \"horsepower\": {\n          \"description\": \"265 л.с.\",\n          \"title\": \"Мощность\",\n          \"value\": 265\n        },\n        \"maxWeight\": {\n          \"title\": \"Разрешенная максимальная масса\",\n          \"value\": 1645,\n          \"description\": \"1645 кг\"\n        },\n        \"model\": {\n          \"title\": \"Модель\",\n          \"value\": \"Serie 1\"\n        },\n        \"netWeight\": {\n          \"title\": \"Масса без нагрузки\",\n          \"value\": 1245,\n          \"description\": \"1245 кг\"\n        },\n        \"vehicleCategory\": {\n          \"title\": \"Категория ТС\",\n          \"value\": \"D\"\n        },\n        \"bodyType\": {\n          \"title\": \"Категория ТС\",\n          \"value\": \"Мотоциклы\"\n        },\n        \"volume\": {\n          \"description\": \"2 996 см³\",\n          \"title\": \"Объем двигателя\",\n          \"value\": 2996\n        },\n        \"year\": {\n          \"title\": \"Год выпуска\",\n          \"value\": 2008\n        }\n      },\n      \"normalizedSpecification\": {\n        \"brand\": {\n          \"valueId\": 329210,\n          \"value\": \"Chery\"\n        },\n        \"model\": {\n          \"valueId\": 330887,\n          \"value\": \"Tiggo (T11)\"\n        },\n        \"bodyType\": {\n          \"valueId\": 331231,\n          \"value\": \"Внедорожник\"\n        },\n        \"doorsCount\": {\n          \"valueId\": 331245,\n          \"value\": 5\n        },\n        \"drive\": {\n          \"valueId\": 331251,\n          \"value\": \"Передний\"\n        },\n        \"wheel\": {\n          \"value\": \"Левый\"\n        },\n        \"engineType\": {\n          \"valueId\": 331247,\n          \"value\": \"Бензин\"\n        },\n        \"engine\": {\n          \"valueId\": 331775,\n          \"value\": 2.4\n        },\n        \"capacity\": {\n          \"value\": 129\n        },\n        \"transmission\": {\n          \"valueId\": 331254,\n          \"value\": \"Механика\"\n        },\n        \"generation\": {\n          \"valueId\": 332287,\n          \"value\": \"T11 (2005—2013)\"\n        },\n        \"modification\": {\n          \"valueId\": 408424,\n          \"value\": \"2.4 MT (129 л.с.)\"\n        },\n        \"complectation\": {\n          \"valueId\": 369961,\n          \"value\": \"Comfort\"\n        },\n        \"year\": {\n          \"valueId\": 331123,\n          \"value\": 2007\n        }\n      },\n      \"specificationId\": 157987,\n      \"plateNumber\": \"X777XX777\",\n      \"status\": \"success\",\n      \"vehicleId\": \"XUUNF487JA0007223\"\n    },\n    \"valuation\": {\n      \"avgPriceWithCondition\": 936000,\n      \"avgMarketPrice\": 950000,\n      \"avgMileage\": 50000,\n      \"avgYear\": 2012.9999,\n      \"imvUrl\": \"https://www.avito.ru/au-imv-info/2963331288\",\n      \"itemsCount\": 121,\n      \"marketNormalPriceRange\": {\n        \"min\": 3248900,\n        \"max\": 5248900\n      },\n      \"maxPrice\": 1000000,\n      \"minPrice\": 800000\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b350355-b763-44f0-afc8-cc1db53845f8",
+              "name": "Ошибка валидации входных параметров",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "specifications",
+                    "specification",
+                    ":specificationID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "specificationID",
+                      "description": "(Required) Идентификатор спецификации"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Validation error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "785d45a7-7ec8-43d4-8b4e-17bc5dba1139",
+              "name": "Операцию невозможно выполнить",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "specifications",
+                    "specification",
+                    ":specificationID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "specificationID",
+                      "description": "(Required) Идентификатор спецификации"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 403,\n    \"message\": \"Forbidden\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5fe615d7-d4a6-4b9b-af81-a1d8fcd81d6d",
+              "name": "Информация не найдена",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "specifications",
+                    "specification",
+                    ":specificationID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "specificationID",
+                      "description": "(Required) Идентификатор спецификации"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e927567-b414-40d7-910b-6ad3e94ebf5d",
+              "name": "Информация об ошибке",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "specifications",
+                    "specification",
+                    ":specificationID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "specificationID",
+                      "description": "(Required) Идентификатор спецификации"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 500,\n    \"message\": \"Service is temporary unavailable\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d6bc7ed-4b4a-4709-8b7b-bcf909441636",
+          "name": "Получение оценки по параметрам\n",
+          "request": {
+            "name": "Получение оценки по параметрам\n",
+            "description": {
+              "content": "Метод для получения оценки по параметрам, полученным из методов [получения спецификации по ее идентификатору](#operation/specificationID) и [получения параметров автокаталога Авито](#operation/catalogsResolve)\n\nЧтобы подключить эту возможность, обратитесь к менеджеру Автотеки. Обратите внимание, что для её подключения надо завести отдельную учётную запись Автотеки.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "autoteka",
+                "v1",
+                "valuation",
+                "by-specification"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"specification\": {\n    \"brand\": {\n      \"label\": \"<string>\",\n      \"valueId\": \"<long>\"\n    },\n    \"model\": {\n      \"label\": \"<string>\",\n      \"valueId\": \"<long>\"\n    },\n    \"year\": {\n      \"label\": \"<string>\",\n      \"valueId\": \"<long>\"\n    },\n    \"generation\": {\n      \"label\": \"<string>\",\n      \"valueId\": \"<long>\"\n    },\n    \"modification\": {\n      \"label\": \"<string>\",\n      \"valueId\": \"<long>\"\n    },\n    \"ownersCount\": {\n      \"label\": \"<string>\",\n      \"valueId\": \"<long>\"\n    },\n    \"bodyType\": {\n      \"label\": \"<string>\",\n      \"valueId\": \"<long>\"\n    },\n    \"color\": {\n      \"label\": \"<string>\",\n      \"valueId\": \"<long>\"\n    },\n    \"complectation\": {\n      \"label\": \"<string>\",\n      \"valueId\": \"<long>\"\n    },\n    \"doorsCount\": {\n      \"label\": \"<string>\",\n      \"valueId\": \"<long>\"\n    }\n  },\n  \"location\": {\n    \"lat\": \"<float64>\",\n    \"long\": \"<float64>\"\n  },\n  \"mileage\": \"<integer>\",\n  \"vehicleId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c77c3f75-344f-4558-9ba2-45e1ae22ce05",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "valuation",
+                    "by-specification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"specification\": {\n    \"brand\": {\n      \"label\": \"BMW\",\n      \"valueId\": 13815\n    },\n    \"model\": {\n      \"label\": \"X3\",\n      \"valueId\": 13815\n    },\n    \"year\": {\n      \"label\": \"<string>\",\n      \"valueId\": 13815\n    },\n    \"generation\": {\n      \"label\": \"1 поколение\",\n      \"valueId\": 13815\n    },\n    \"modification\": {\n      \"label\": \"Люкс\",\n      \"valueId\": 13815\n    },\n    \"ownersCount\": {\n      \"label\": \"4+\",\n      \"valueId\": 13815\n    },\n    \"bodyType\": {\n      \"label\": \"Кроссовер\",\n      \"valueId\": 13815\n    },\n    \"color\": {\n      \"label\": \"Серебряный\",\n      \"valueId\": 13815\n    },\n    \"complectation\": {\n      \"label\": \"Престиж\",\n      \"valueId\": 13815\n    },\n    \"doorsCount\": {\n      \"label\": \"<string>\",\n      \"valueId\": 13815\n    }\n  },\n  \"location\": {\n    \"lat\": 55.755863189697266,\n    \"long\": 37.617698669433594\n  },\n  \"mileage\": 15000,\n  \"vehicleId\": \"XTA21110987654321\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"valuation\": {\n      \"avgPriceWithCondition\": 936000,\n      \"avgMarketPrice\": 950000,\n      \"avgMileage\": 50000,\n      \"avgYear\": 2012.9999,\n      \"imvUrl\": \"https://www.avito.ru/au-imv-info/2963331288\",\n      \"itemsCount\": 121,\n      \"marketNormalPriceRange\": {\n        \"min\": 3248900,\n        \"max\": 5248900\n      },\n      \"maxPrice\": 1000000,\n      \"minPrice\": 800000\n    },\n    \"brand\": \"BMW\",\n    \"model\": \"X5\",\n    \"year\": 2005,\n    \"ownersCount\": \"4+\",\n    \"status\": \"success\",\n    \"vehicleId\": \"XUU09876543215671\",\n    \"mileage\": 30000,\n    \"newCarValuations\": [\n      {\n        \"brand\": \"ВАЗ (LADA)\",\n        \"model\": \"Largus Cross\",\n        \"year\": 2025,\n        \"modification\": \"1.6 MT (106 л.с.)\",\n        \"bodyType\": \"Универсал\",\n        \"complectation\": \"Enjoy'24\",\n        \"drive\": \"Передний\",\n        \"transmission\": \"Механика\",\n        \"engineType\": \"Бензин\",\n        \"avgPrice\": 2010000,\n        \"medianPrice\": 2020000,\n        \"minPrice\": 2000000,\n        \"maxPrice\": 2050000\n      },\n      {\n        \"brand\": \"ВАЗ (LADA)\",\n        \"model\": \"Largus Cross\",\n        \"year\": 2025,\n        \"modification\": \"1.6 MT (106 л.с.)\",\n        \"bodyType\": \"Универсал\",\n        \"complectation\": \"Enjoy'24\",\n        \"drive\": \"Передний\",\n        \"transmission\": \"Механика\",\n        \"engineType\": \"Бензин\",\n        \"avgPrice\": 2010000,\n        \"medianPrice\": 2020000,\n        \"minPrice\": 2000000,\n        \"maxPrice\": 2050000\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fde51bf3-22fa-4e77-9908-430fb036607d",
+              "name": "Ошибка валидации входных параметров",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "valuation",
+                    "by-specification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"specification\": {\n    \"brand\": {\n      \"label\": \"BMW\",\n      \"valueId\": 13815\n    },\n    \"model\": {\n      \"label\": \"X3\",\n      \"valueId\": 13815\n    },\n    \"year\": {\n      \"label\": \"<string>\",\n      \"valueId\": 13815\n    },\n    \"generation\": {\n      \"label\": \"1 поколение\",\n      \"valueId\": 13815\n    },\n    \"modification\": {\n      \"label\": \"Люкс\",\n      \"valueId\": 13815\n    },\n    \"ownersCount\": {\n      \"label\": \"4+\",\n      \"valueId\": 13815\n    },\n    \"bodyType\": {\n      \"label\": \"Кроссовер\",\n      \"valueId\": 13815\n    },\n    \"color\": {\n      \"label\": \"Серебряный\",\n      \"valueId\": 13815\n    },\n    \"complectation\": {\n      \"label\": \"Престиж\",\n      \"valueId\": 13815\n    },\n    \"doorsCount\": {\n      \"label\": \"<string>\",\n      \"valueId\": 13815\n    }\n  },\n  \"location\": {\n    \"lat\": 55.755863189697266,\n    \"long\": 37.617698669433594\n  },\n  \"mileage\": 15000,\n  \"vehicleId\": \"XTA21110987654321\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Validation error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "22c04826-70b6-4f01-b68f-b43f33931778",
+              "name": "Операцию невозможно выполнить",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "valuation",
+                    "by-specification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"specification\": {\n    \"brand\": {\n      \"label\": \"BMW\",\n      \"valueId\": 13815\n    },\n    \"model\": {\n      \"label\": \"X3\",\n      \"valueId\": 13815\n    },\n    \"year\": {\n      \"label\": \"<string>\",\n      \"valueId\": 13815\n    },\n    \"generation\": {\n      \"label\": \"1 поколение\",\n      \"valueId\": 13815\n    },\n    \"modification\": {\n      \"label\": \"Люкс\",\n      \"valueId\": 13815\n    },\n    \"ownersCount\": {\n      \"label\": \"4+\",\n      \"valueId\": 13815\n    },\n    \"bodyType\": {\n      \"label\": \"Кроссовер\",\n      \"valueId\": 13815\n    },\n    \"color\": {\n      \"label\": \"Серебряный\",\n      \"valueId\": 13815\n    },\n    \"complectation\": {\n      \"label\": \"Престиж\",\n      \"valueId\": 13815\n    },\n    \"doorsCount\": {\n      \"label\": \"<string>\",\n      \"valueId\": 13815\n    }\n  },\n  \"location\": {\n    \"lat\": 55.755863189697266,\n    \"long\": 37.617698669433594\n  },\n  \"mileage\": 15000,\n  \"vehicleId\": \"XTA21110987654321\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 403,\n    \"message\": \"Forbidden\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b982f21c-1bc3-4caa-a6c9-d09b6e71a098",
+              "name": "Информация не найдена",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "valuation",
+                    "by-specification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"specification\": {\n    \"brand\": {\n      \"label\": \"BMW\",\n      \"valueId\": 13815\n    },\n    \"model\": {\n      \"label\": \"X3\",\n      \"valueId\": 13815\n    },\n    \"year\": {\n      \"label\": \"<string>\",\n      \"valueId\": 13815\n    },\n    \"generation\": {\n      \"label\": \"1 поколение\",\n      \"valueId\": 13815\n    },\n    \"modification\": {\n      \"label\": \"Люкс\",\n      \"valueId\": 13815\n    },\n    \"ownersCount\": {\n      \"label\": \"4+\",\n      \"valueId\": 13815\n    },\n    \"bodyType\": {\n      \"label\": \"Кроссовер\",\n      \"valueId\": 13815\n    },\n    \"color\": {\n      \"label\": \"Серебряный\",\n      \"valueId\": 13815\n    },\n    \"complectation\": {\n      \"label\": \"Престиж\",\n      \"valueId\": 13815\n    },\n    \"doorsCount\": {\n      \"label\": \"<string>\",\n      \"valueId\": 13815\n    }\n  },\n  \"location\": {\n    \"lat\": 55.755863189697266,\n    \"long\": 37.617698669433594\n  },\n  \"mileage\": 15000,\n  \"vehicleId\": \"XTA21110987654321\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46d183cd-82ea-4731-9e89-0450ae7ec55d",
+              "name": "Превышено допустимое количество запросов",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "valuation",
+                    "by-specification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"specification\": {\n    \"brand\": {\n      \"label\": \"BMW\",\n      \"valueId\": 13815\n    },\n    \"model\": {\n      \"label\": \"X3\",\n      \"valueId\": 13815\n    },\n    \"year\": {\n      \"label\": \"<string>\",\n      \"valueId\": 13815\n    },\n    \"generation\": {\n      \"label\": \"1 поколение\",\n      \"valueId\": 13815\n    },\n    \"modification\": {\n      \"label\": \"Люкс\",\n      \"valueId\": 13815\n    },\n    \"ownersCount\": {\n      \"label\": \"4+\",\n      \"valueId\": 13815\n    },\n    \"bodyType\": {\n      \"label\": \"Кроссовер\",\n      \"valueId\": 13815\n    },\n    \"color\": {\n      \"label\": \"Серебряный\",\n      \"valueId\": 13815\n    },\n    \"complectation\": {\n      \"label\": \"Престиж\",\n      \"valueId\": 13815\n    },\n    \"doorsCount\": {\n      \"label\": \"<string>\",\n      \"valueId\": 13815\n    }\n  },\n  \"location\": {\n    \"lat\": 55.755863189697266,\n    \"long\": 37.617698669433594\n  },\n  \"mileage\": 15000,\n  \"vehicleId\": \"XTA21110987654321\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Количество запросов в минуту",
+                  "key": "X-RateLimit-Limit",
+                  "value": "5696"
+                },
+                {
+                  "disabled": false,
+                  "description": "Доступное количество запросов в текущем временном окне",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "5696"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 429\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3835de24-df0b-496c-839b-0f34604b30c0",
+              "name": "Информация об ошибке",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autoteka",
+                    "v1",
+                    "valuation",
+                    "by-specification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"specification\": {\n    \"brand\": {\n      \"label\": \"BMW\",\n      \"valueId\": 13815\n    },\n    \"model\": {\n      \"label\": \"X3\",\n      \"valueId\": 13815\n    },\n    \"year\": {\n      \"label\": \"<string>\",\n      \"valueId\": 13815\n    },\n    \"generation\": {\n      \"label\": \"1 поколение\",\n      \"valueId\": 13815\n    },\n    \"modification\": {\n      \"label\": \"Люкс\",\n      \"valueId\": 13815\n    },\n    \"ownersCount\": {\n      \"label\": \"4+\",\n      \"valueId\": 13815\n    },\n    \"bodyType\": {\n      \"label\": \"Кроссовер\",\n      \"valueId\": 13815\n    },\n    \"color\": {\n      \"label\": \"Серебряный\",\n      \"valueId\": 13815\n    },\n    \"complectation\": {\n      \"label\": \"Престиж\",\n      \"valueId\": 13815\n    },\n    \"doorsCount\": {\n      \"label\": \"<string>\",\n      \"valueId\": 13815\n    }\n  },\n  \"location\": {\n    \"lat\": 55.755863189697266,\n    \"long\": 37.617698669433594\n  },\n  \"mileage\": 15000,\n  \"vehicleId\": \"XTA21110987654321\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 500,\n    \"message\": \"Service is temporary unavailable\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.avito.ru/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c1e72164-9c16-45ca-b1c6-d37a47390abc",
+    "name": "Иерархия Аккаунтов Access Evaluation API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API для взаимодействия с иерархией аккаунтов в Авито\n**Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**\n\n\nContact Support:\n Email: supportautoload@avito.ru",
+      "type": "text/plain"
+    }
+  }
+}

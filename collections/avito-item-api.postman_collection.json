@@ -1,0 +1,3696 @@
+{
+  "item": [
+    {
+      "id": "b0e72fab-84e5-47c1-ad99-9a6239ab6250",
+      "name": "Item",
+      "description": {
+        "content": "Общие методы API для работы с объявлениями на Авито\nОписание API произведено в формате [**Swagger 3.0**](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md).\nВы можете использовать данный файл для ознакомления с методами API, а также для генерации базового\nкода для работы с API на удобном для вас языке программирования с помощью утилиты\n[**Swagger Codegen**](https://swagger.io/swagger-codegen/) или online сервиса [**Swagger Editor**](https://editor.swagger.io/).\n\n**Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**\nПо всем вопросам работы с API необходимо обращаться в Службу Поддержки профессиональных инструментов:\n\n<li>телефон: <b>+7 495 777-10-66</b></li>\n<li>email: <a href=\"mailto:supportautoload@avito.ru\">supportautoload@avito.ru</a></li>\n\n# Типы авторизации\nДля использования данного API запрос должен быть авторизован. В данный момент API Авито использует следующие механизмы авторизации.\n\n<!-- ReDoc-Inject: <security-definitions> -->\n\nПодробнее о каждом механизме и его назначении можно прочитать в соответствующем разделе.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1f4b70fb-ad10-434c-8113-a6c3698b20d4",
+          "name": "Получение информации о стоимости услуг продвижения и доступных значках",
+          "request": {
+            "name": "Получение информации о стоимости услуг продвижения и доступных значках",
+            "description": {
+              "content": "Возвращает в ответ список объектов со следующей структурой:\n- `itemId` – идентификатор объявления\n- `vas` – список объектов, которые содержат информацию о стоимости дополнительных услуг и пакетов дополнительных услуг для каждого объявления. Структура объекта:\n  - `slug` – идентификатор услуги или пакета услуг:\n    - `highlight` — [услуга продвижения \"Выделить\"](https://support.avito.ru/articles/200026858)\n    - `xl` – [услуга продвижения \"XL-объявление\"](https://support.avito.ru/articles/685)\n    - `stickerpack_x1` – [1 значок на XL-объявлении](https://support.avito.ru/articles/2450) \n    - `stickerpack_x2` – [2 значка на XL-объявлении](https://support.avito.ru/articles/2450)\n    - `stickerpack_x3` – [3 значка на XL-объявлении](https://support.avito.ru/articles/2450)\n\n    - `x2_1` – [пакет \"до 2 раз больше просмотров на 1 день\"](https://support.avito.ru/articles/1398)\n    - `x2_7` – [пакет \"до 2 раз больше просмотров на 7 дней\"](https://support.avito.ru/articles/1398)\n    - `x5_1` – [пакет \"до 5 раз больше просмотров на 1 день\"](https://support.avito.ru/articles/1398)\n    - `x5_7` – [пакет \"до 5 раз больше просмотров на 7 дней\"](https://support.avito.ru/articles/1398)\n    - `x10_1` – [пакет \"до 10 раз больше просмотров на 1 день\"](https://support.avito.ru/articles/1398)\n    - `x10_7` – [пакет \"до 10 раз больше просмотров на 7 дней\"](https://support.avito.ru/articles/1398)\n    - `x15_1` – [пакет \"до 15 раз больше просмотров на 1 день\"](https://support.avito.ru/articles/1398)\n    - `x15_7` – [пакет \"до 15 раз больше просмотров на 7 дней\"](https://support.avito.ru/articles/1398)\n    - `x20_1` – [пакет \"до 20 раз больше просмотров на 1 день\"](https://support.avito.ru/articles/1398)\n    - `x20_7` – [пакет \"до 20 раз больше просмотров на 7 дней\"](https://support.avito.ru/articles/1398)\n\n  - `price` – цена в рублях с учетом скидки\n\n  - `priceOld` – цена в рублях до применения скидки\n\n- `stickers` – список объектов которые содержат доступные для объявления  [значки](https://support.avito.ru/articles/2450)\n  - `id` – идентификатор значка\n  - `title` – название значка\n  - `description` – описание значка\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "core",
+                "v1",
+                "accounts",
+                ":userId",
+                "vas",
+                "prices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "user_id",
+                  "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itemIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "877c4ecc-e0e3-4071-a0c5-7fb47fe7f6df",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v1",
+                    "accounts",
+                    ":userId",
+                    "vas",
+                    "prices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    1234567,\n    7654321\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"itemId\": 1234567,\n    \"stickers\": [\n      {\n        \"description\": \"Description 1\",\n        \"id\": 1,\n        \"title\": \"Sticker 1\"\n      },\n      {\n        \"description\": \"Description 2\",\n        \"id\": 2,\n        \"title\": \"Sticker 2\"\n      }\n    ],\n    \"vas\": [\n      {\n        \"price\": 200,\n        \"priceOld\": 300,\n        \"slug\": \"x2_7\"\n      },\n      {\n        \"price\": 100,\n        \"priceOld\": 150,\n        \"slug\": \"xl\"\n      },\n      {\n        \"price\": 50,\n        \"priceOld\": 70,\n        \"slug\": \"stickerpack_x1\"\n      }\n    ]\n  },\n  {\n    \"itemId\": 7654321,\n    \"vas\": []\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ccd4359-7021-4d65-9e4f-64f9202a2b58",
+              "name": "Информация об ошибке",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v1",
+                    "accounts",
+                    ":userId",
+                    "vas",
+                    "prices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    1234567,\n    7654321\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Validation error\",\n    \"fields\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f73a0bab-b707-41f6-90f4-d84baaa1a12e",
+          "name": "Получение статистики по звонкам",
+          "request": {
+            "name": "Получение статистики по звонкам",
+            "description": {
+              "content": "Получение агрегированной статистики звонков, полученных пользователем\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "core",
+                "v1",
+                "accounts",
+                ":user_id",
+                "calls",
+                "stats",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "user_id",
+                  "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dateFrom\": \"<string>\",\n  \"dateTo\": \"<string>\",\n  \"itemIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2d4a93b9-17ec-4cae-980b-f5edd322abf1",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "calls",
+                    "stats",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Тип данных запроса",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateFrom\": \"2020-04-01\",\n  \"dateTo\": \"2020-04-08\",\n  \"itemIds\": [\n    1853257996\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"items\": [\n      {\n        \"days\": [\n          {\n            \"answered\": 0,\n            \"calls\": 0,\n            \"date\": \"2020-04-01\",\n            \"new\": 0,\n            \"newAnswered\": 0\n          }\n        ],\n        \"employeeId\": 0,\n        \"itemId\": 1853257996\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0b91dbb-cc17-4ad7-a449-465ad03467cd",
+              "name": "Неверный запрос",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "calls",
+                    "stats",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Тип данных запроса",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateFrom\": \"2020-04-01\",\n  \"dateTo\": \"2020-04-08\",\n  \"itemIds\": [\n    1853257996\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Bad Request\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7376fa41-5d10-4615-bcb9-dadf543cb74b",
+              "name": "Требуется аутентификация",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "calls",
+                    "stats",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Тип данных запроса",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateFrom\": \"2020-04-01\",\n  \"dateTo\": \"2020-04-08\",\n  \"itemIds\": [\n    1853257996\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 401,\n    \"message\": \"Unauthorized\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ec7741c-bbcc-4db5-8cfc-eff4ed0b43eb",
+              "name": "Неверный user_id в запросе",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "calls",
+                    "stats",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Тип данных запроса",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateFrom\": \"2020-04-01\",\n  \"dateTo\": \"2020-04-08\",\n  \"itemIds\": [\n    1853257996\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d14e66d5-f6fd-4656-831d-6529c33ca8ce",
+              "name": "Внутренняя ошибка метода API",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "calls",
+                    "stats",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Тип данных запроса",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateFrom\": \"2020-04-01\",\n  \"dateTo\": \"2020-04-08\",\n  \"itemIds\": [\n    1853257996\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 500,\n    \"message\": \"Error while processing request. Please, contact support\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d600256c-4449-421e-88b0-ea11bf780b70",
+              "name": "Метод API временно недоступен",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "calls",
+                    "stats",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Тип данных запроса",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateFrom\": \"2020-04-01\",\n  \"dateTo\": \"2020-04-08\",\n  \"itemIds\": [\n    1853257996\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"Service temporarily unavailable. Please, contact support\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2e377997-8fb1-4cb4-8cea-e9907e22586a",
+          "name": "Получение информации по объявлению",
+          "request": {
+            "name": "Получение информации по объявлению",
+            "description": {
+              "content": "Возвращает данные об объявлении - его статус, список примененных услуг Максимальное количество запросов в минуту - 500\n**Внимание:** для получения статистики объявления должен использоваться метод:\n[получение статистики по списку объявлений](#operation/itemStatsShallow)\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "core",
+                "v1",
+                "accounts",
+                ":user_id",
+                "items",
+                ":item_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "user_id",
+                  "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "item_id",
+                  "description": "(Required) Идентификатор объявления на сайте"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "70bffae3-b5f8-4731-a237-701ef0e65fff",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"autoload_item_id\": \"string\",\n  \"finish_time\": \"1977-08-27T23:30:05.546Z\",\n  \"start_time\": \"1967-11-12T23:32:55.119Z\",\n  \"status\": \"active\",\n  \"url\": \"string\",\n  \"vas\": [\n    {\n      \"finish_time\": \"2014-02-13T01:10:48.591Z\",\n      \"schedule\": [\n        \"1977-12-04T12:03:38.588Z\",\n        \"2016-10-07T08:28:12.529Z\"\n      ],\n      \"vas_id\": \"pushup\"\n    },\n    {\n      \"finish_time\": \"2006-04-14T06:08:28.020Z\",\n      \"schedule\": [\n        \"1989-01-23T16:03:19.308Z\",\n        \"1958-11-10T03:22:30.165Z\"\n      ],\n      \"vas_id\": \"vip\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f479949-a528-4081-ae19-8774f0f5c9cc",
+              "name": "Превышено допустимое количество запросов",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c4aeaecc-f283-41b5-bd6b-26c0aad7176f",
+              "name": "Информация об ошибке",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "04b0a78f-b53d-478f-8315-8eefae00b4eb",
+          "name": "Применение дополнительных услуг",
+          "request": {
+            "name": "Применение дополнительных услуг",
+            "description": {
+              "content": "**Внимание:** метод объявлен устаревшим и больше не поддерживается. Вместо него используйте метод `/core/v2/items/{itemId}/vas/`\n\nПрименение дополнительной услуги к объявлению, в ответе возвращает данные о примененной услуге и сумму списания.\n[Более подробная информация по дополнительным услугам](https://support.avito.ru/sections/200009758)\n\n**Внимание:** получение ошибки при выполнении этой операции не означает, что услуга точно не была куплена.\nВ этом случае рекомендуется подождать несколько минут и проверить, что услуга отсутствует в списке применённых, а только затем повторить попытку.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "core",
+                "v1",
+                "accounts",
+                ":user_id",
+                "items",
+                ":item_id",
+                "vas"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "user_id",
+                  "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "item_id",
+                  "description": "(Required) Идентификатор объявления на сайте"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vas_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1f4cad17-77aa-4bd6-9753-34d82a12dbe1",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    "vas"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vas_id\": \"highlight\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"amount\": 8068.809900121448,\n  \"vas\": {\n    \"finish_time\": \"1948-09-23T04:22:07.607Z\",\n    \"schedule\": [\n      \"2013-09-02T07:35:34.837Z\",\n      \"1992-06-10T11:26:04.936Z\"\n    ],\n    \"vas_id\": \"pushup\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b9b84ec-a85c-49b1-a7b9-77fbc872af4a",
+              "name": "Информация об ошибке",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    "vas"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vas_id\": \"highlight\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Validation error\",\n    \"fields\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d8e38e91-7493-4b00-b1c1-a8c14cfb1ee9",
+          "name": "Получение информации по объявлениям",
+          "request": {
+            "name": "Получение информации по объявлениям",
+            "description": {
+              "content": "Возвращает список объявлений авторизованного пользователя - статус, категорию и ссылку на сайте.\n**Внимание! В настоящий момент этот метод не работает с объявлениями [сотрудников](https://pro.avito.ru/employees).** Он позволяет получить объявления только для пользователя, который указан владельцем этого объявления. В случае сотрудника это будет главный аккаунт компании, для авторизованного сотрудника вернётся пустой список объявлений.\nМаксимальное количество запросов в минуту - 25.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "core",
+                "v1",
+                "items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "25",
+                  "description": "Количество записей на странице (целое число больше 0 и меньше 100)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Номер страницы (целое число больше 0)"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "active",
+                  "description": "Статус объявления на сайте (можно указать несколько значений через запятую)"
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedAtFrom",
+                  "value": "<string>",
+                  "description": "Фильтр больше либо равно по дате обновления/редактирования объявления в формате YYYY-MM-DD"
+                },
+                {
+                  "disabled": false,
+                  "key": "category",
+                  "value": "<integer>",
+                  "description": "Идентификатор категории объявления</br> см. возможные варианты категорий в [ справочнике ](https://www.avito.st/s/openapi/catalog-categories.xml)\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6a569847-ccbc-403c-ac5a-e763b2c734a6",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v1",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "status",
+                      "value": "active"
+                    },
+                    {
+                      "key": "updatedAtFrom",
+                      "value": "2023-12-18"
+                    },
+                    {
+                      "key": "category",
+                      "value": "111"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"page\": 1,\n    \"per_page\": 25\n  },\n  \"resources\": [\n    {\n      \"address\": \"Москва, Лесная улица 7\",\n      \"category\": {\n        \"id\": 111,\n        \"name\": \"Вакансии\"\n      },\n      \"id\": 24122231,\n      \"price\": 35000,\n      \"status\": \"removed\",\n      \"title\": \"Продавец-кассир\",\n      \"url\": \"https://www.avito.ru/rostov-na-donu/vakansii/prodavets_magazina_2142\"\n    },\n    {\n      \"address\": \"Москва, Лесная улица 7\",\n      \"category\": {\n        \"id\": 111,\n        \"name\": \"Вакансии\"\n      },\n      \"id\": 24122231,\n      \"price\": 35000,\n      \"status\": \"old\",\n      \"title\": \"Продавец-кассир\",\n      \"url\": \"https://www.avito.ru/rostov-na-donu/vakansii/prodavets_magazina_2142\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e63df73b-4aab-44bd-9017-016b924157ac",
+              "name": "Превышено допустимое количество запросов",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v1",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "status",
+                      "value": "active"
+                    },
+                    {
+                      "key": "updatedAtFrom",
+                      "value": "2023-12-18"
+                    },
+                    {
+                      "key": "category",
+                      "value": "111"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Количество запросов в минуту",
+                  "key": "X-RateLimit-Limit",
+                  "value": "1333"
+                },
+                {
+                  "disabled": false,
+                  "description": "Доступное количество запросов в текущем временном окне",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "1333"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "72d6d9c2-7c23-432c-bbf8-a7ff9e1b208e",
+              "name": "Информация об ошибке",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v1",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "status",
+                      "value": "active"
+                    },
+                    {
+                      "key": "updatedAtFrom",
+                      "value": "2023-12-18"
+                    },
+                    {
+                      "key": "category",
+                      "value": "111"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b970fe3f-8743-4917-a8bc-5c802821b852",
+          "name": "Применение пакета дополнительных услуг",
+          "request": {
+            "name": "Применение пакета дополнительных услуг",
+            "description": {
+              "content": "**Внимание:** метод объявлен устаревшим и больше не поддерживается. Вместо него используйте метод `/core/v2/items/{itemId}/vas/`\n\nПрименение пакета дополнительных услуг к объявлению, в ответе возвращает сумму списания.\n\n**Внимание:** получение ошибки при выполнении этой операции не означает, что пакет точно не была куплен.\nВ этом случае рекомендуется подождать несколько минут и проверить, что пакет отсутствует в списке применённых, а только затем повторить попытку.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "core",
+                "v2",
+                "accounts",
+                ":user_id",
+                "items",
+                ":item_id",
+                "vas_packages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "user_id",
+                  "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "item_id",
+                  "description": "(Required) Идентификатор объявления на сайте"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"package_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a97b0dc1-fdf3-4569-b1d9-09f737a37236",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v2",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    "vas_packages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"package_id\": \"x10_7\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"amount\": 6243.716428670464\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bafbf90d-c253-4a30-bea9-8125254985ef",
+              "name": "Информация об ошибке",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v2",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    "vas_packages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"package_id\": \"x10_7\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Validation error\",\n    \"fields\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3b02586f-6552-4712-b3f3-4e995d7aba4b",
+          "name": "Применение услуг продвижения",
+          "request": {
+            "name": "Применение услуг продвижения",
+            "description": {
+              "content": "С помощью этого метода вы можете применить к опубликованному объявлению одну или несколько услуг продвижения (например, «XL-объявление», «Выделение цветом» и «До 10 раз больше просмотров на 7 дней»). В рамках одного запроса услуга может быть применена только один раз. \n\nЕсли для вашего объявления доступны значки (такие как «Без ДТП», «Срочно», «1 владелец»), при подключении услуги «XL-объявление» вы можете передать их список (не более трёх значков). В этом случае добавьте соответствующую услугу на 1, 2 или 3 значка.\n\n[Подробнее об услугах продвижения](https://support.avito.ru/partitions/131)\n\nЧтобы получить список доступных услуг и значков,  используйте метод `/core/v1/accounts/{userId}/vas/prices`.\n\nЕсли заказ сформирован успешно, в ответ вы получите уникальные идентификаторы операций покупки для каждой из применяемых услуг. Позже эти идентификаторы можно будет использовать, чтобы узнать статус выполнения заказа.\n\nВ случае некорректного запроса метод вернет код ответа 400 и структуру, содержащую поле `code`. Возможные коды ошибок:\n  - **1001** – один или несколько заголовков неправильно передаются;\n  - **1002** – ошибка в URL;\n  - **1003** – неверный идентификатор объявления из запроса;\n  - **1004** – JSON из тела запроса не соответствует схеме или список идентификаторов услуг пустой;\n  - **1005** – объявление, к которому вы хотите применить услуги, неактивно;\n  - **1006** – неправильное количество выбранных значков для объявления.\nУбедитесь, что в списке идентификаторов услуг есть услуга для покупки значков и она совпадает с количеством выбранных значков.\n      - stickerpack_x1 – 1 значок\n      - stickerpack_x2 – 2 значка\n      - stickerpack_x3 – 3 значка\n  - **1007** – некоторые из выбранных услуг не могут быть применены;\n  - **1008** – в объявлении появились обязательные поля, которые нужно заполнить.\nОтредактируйте объявление и попробуйте применить услугу снова.\n  - **1009** – в кошельке не хватает средств для покупки услуг;\n  - **1010** – вы пытались купить больше одной услуги увеличения просмотров;\n  - **1011** – вы пытались купить значки, недоступные для выбранного объявления.\n\nВ случае внутренней ошибки на стороне Авито вернётся код ответа 500 и структура, содержащая поле `code`. Возможные коды ошибок:\n  - **1000** – ошибка на стороне Авито, попробуйте позже или [напишите в поддержку](https://support.avito.ru/request/659?eventData[contextId]=117);\n\n**Важно:** если ответ пришёл без кода ошибки или его значения нет в списке выше — возможно, услуга всё-таки была куплена. Подождите несколько минут: услуга продвижения появится в списке применённых, а если нет — попробуйте оформить её снова.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "core",
+                "v2",
+                "items",
+                ":itemId",
+                "vas",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "item_id",
+                  "description": "(Required) Идентификатор объявления на сайте"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"slugs\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"stickers\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8262f52b-fab6-470f-bede-bca3e24dee49",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v2",
+                    "items",
+                    ":itemId",
+                    "vas",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"slugs\": [\n    \"x10_1\",\n    \"xl\",\n    \"stickerpack_x2\"\n  ],\n  \"stickers\": [\n    1,\n    2\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"stickerpack_x2\": {\n    \"operationId\": 123456791\n  },\n  \"x10_1\": {\n    \"operationId\": 123456789\n  },\n  \"xl\": {\n    \"operationId\": 123456790\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "31bcf1f3-7cfa-4c5e-baef-33afdffeee2f",
+              "name": "Ответ с ошибкой",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v2",
+                    "items",
+                    ":itemId",
+                    "vas",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"slugs\": [\n    \"x10_1\",\n    \"xl\",\n    \"stickerpack_x2\"\n  ],\n  \"stickers\": [\n    1,\n    2\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1000\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5de54246-7bf5-4496-823a-28a697a8bade",
+          "name": "Получение статистики по списку объявлений",
+          "request": {
+            "name": "Получение статистики по списку объявлений",
+            "description": {
+              "content": "Получение счетчиков по переданному списку объявлений пользователя.\n\n**Внимание:** в запросе может быть передано не более 200 идентификаторов объявлений.\n\n**Внимание:** глубина такого запроса ограничена 270 днями.\n\n### Счетчики\n* ~~views - общее число просмотров объявления;~~ __DEPRECATED (будет удалено в апреле 2021 г.).__ Используйте поле uniqViews.\n* uniqViews - число уникальных пользователей, просмотревших объявление;\n* ~~contacts - число контактов [1];~~ __DEPRECATED (будет удалено в апреле 2021 г.).__ Используйте поле uniqContacts.\n* uniqContacts - число уникальных пользователей, совершивших контакты [1];\n* ~~favorites - число добавлений объявления в \"избранное\";~~ __DEPRECATED (будет удалено в апреле 2021 г.).__ Используйте поле uniqFavorites.\n* uniqFavorites - число уникальных пользователей, добавивших объявление в \"избранное\".\n\n### Группировка счетчиков\nСчетчики могут быть сгруппированы [2] по:\n* дням;\n* неделям - в поле `date` соответствующей структуры будет первый день недели;\n* месяцам - в поле `date` соответствующей структуры будет первый день месяца.\n\n#### Период группировки\nПериод группировки передается в теле запроса в поле `periodGrouping`. Доступные значения этого поля:\n* \"day\" (по умолчанию) - без группировки;\n* \"week\" - суммирование счетчиков за неделю;\n* \"month\" - суммирование счетчиков за месяц.\n\n### Примечания\n* [1]: Под контактом понимаются: запросы телефона продавца, начатый чат с продавцом по конкретному объявлению, отклик на резюме и пр.\n* [2]: Группировка уникальных пользователей происходит только в рамках одного дня.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "v1",
+                "accounts",
+                ":user_id",
+                "items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "user_id",
+                  "description": "(Required) Идентификатор пользователя (клиента)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itemIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"dateFrom\": \"<string>\",\n  \"dateTo\": \"<string>\",\n  \"fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"periodGrouping\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0f26ab25-e009-4a60-bdab-89c8c7ecc8fa",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Тип данных запроса",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    123456789,\n    987654321\n  ],\n  \"dateFrom\": \"2020-01-01\",\n  \"dateTo\": \"2020-01-01\",\n  \"fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"periodGrouping\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"items\": [\n      {\n        \"itemId\": \"<item_id_1>\",\n        \"stats\": [\n          {\n            \"date\": \"2020-06-11\",\n            \"uniqContacts\": 1,\n            \"uniqFavorites\": 0,\n            \"uniqViews\": 10\n          },\n          {\n            \"date\": \"2020-06-12\",\n            \"uniqContacts\": 0,\n            \"uniqFavorites\": 2,\n            \"uniqViews\": 7\n          }\n        ]\n      },\n      {\n        \"itemId\": \"<item_id_2>\",\n        \"stats\": [\n          {\n            \"date\": \"2020-06-11\",\n            \"uniqContacts\": 4,\n            \"uniqFavorites\": 3,\n            \"uniqViews\": 21\n          },\n          {\n            \"date\": \"2020-06-12\",\n            \"uniqContacts\": 1,\n            \"uniqFavorites\": 1,\n            \"uniqViews\": 18\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1de59a4-c09a-47ca-a84d-f6b08ec9dad9",
+              "name": "Неверный запрос",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Тип данных запроса",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    123456789,\n    987654321\n  ],\n  \"dateFrom\": \"2020-01-01\",\n  \"dateTo\": \"2020-01-01\",\n  \"fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"periodGrouping\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Bad Request\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3e8a27be-0e6c-4ed5-9a0e-fc4eda91b82b",
+              "name": "Требуется аутентификация",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Тип данных запроса",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    123456789,\n    987654321\n  ],\n  \"dateFrom\": \"2020-01-01\",\n  \"dateTo\": \"2020-01-01\",\n  \"fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"periodGrouping\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 401,\n    \"message\": \"Unauthorized\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c1fccfdc-8bbb-482b-a49b-cce114142bdd",
+              "name": "Неверный user_id в запросе",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Тип данных запроса",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    123456789,\n    987654321\n  ],\n  \"dateFrom\": \"2020-01-01\",\n  \"dateTo\": \"2020-01-01\",\n  \"fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"periodGrouping\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "091c665c-2bef-4b91-ae25-e2b0ac18baea",
+              "name": "Внутренняя ошибка метода API",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Тип данных запроса",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    123456789,\n    987654321\n  ],\n  \"dateFrom\": \"2020-01-01\",\n  \"dateTo\": \"2020-01-01\",\n  \"fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"periodGrouping\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 500,\n    \"message\": \"Error while processing request. Please, contact support\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd494d5c-e861-4747-bae4-12047b9c1268",
+              "name": "Метод API временно недоступен",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Тип данных запроса",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"itemIds\": [\n    123456789,\n    987654321\n  ],\n  \"dateFrom\": \"2020-01-01\",\n  \"dateTo\": \"2020-01-01\",\n  \"fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"periodGrouping\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"Service temporarily unavailable. Please, contact support\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b2ce8cbc-6098-4c60-b90e-836ce16e279b",
+          "name": "Получение статистических показателей по профилю",
+          "request": {
+            "name": "Получение статистических показателей по профилю",
+            "description": {
+              "content": "Получение статистических показателей по профилю.\n### Группировки показателей\nИспользуйте группировки, чтобы получать конкретную статистику.  Например, можете запросить только общие значения показателей, а если нужны подробности, — значения показателей по каждому объявлению или за определённый период. Доступные группировки:\n\n  - **totals** — по общему значению показателя за определённый период, без детализации;\n  - **item** — по объявлениям;\n  - **day** — по дням;\n  - **week** — по неделям;\n  - **month** — по месяцам.\n\n\n### Доступные показатели по объявлениям\n#### Основные\n\n  - **views** - Просмотры. Сколько раз объявление показывалось в результатах поиска и рекомендациях. Несколько показов за сутки одному пользователю считаются как один.\n  - **contacts** - Контакты. Количество пользователей, которые посмотрели ваш номер, написали в чат или откликнулись на скидку после рассылки. Несколько контактов за сутки от одного пользователя считаются как один.\n    - **contactsShowPhone** - Посмотрели телефон. Количество пользователей, которые посмотрели ваш телефон или нажали «Позвонить». Несколько таких действий за сутки от одного пользователя считаются как один.\n    - **contactsMessenger** - Написали в чат. Количество пользователей, которые написали вам. Несколько чатов за сутки от одного пользователя считаются как один.\n    - **contactsShowPhoneAndMessenger** - Посмотрели телефон и написали в чат. Количество пользователей, которые и посмотрели ваш телефон, и написали в чат. Несколько таких действий за сутки от одного пользователя считаются как один.\n    - **contactsSbcDiscount** - Откликнулись на скидку в чате. Количество пользователей, которые приняли ваше спецпредложение после рассылки.\n  - **viewsToContactsConversion** - Конверсия из просмотров в контакты. Процент пользователей, которые после перехода в объявление посмотрели ваш телефон или написали в чат.\n  - **favorites** - Добавили в избранное. Сколько раз объявление добавили в избранное.\n  - **averageViewCost** - Средняя цена просмотра. Расходы на размещение и продвижение объявлений делятся на число просмотров.\n  - **averageContactCost** - Средняя цена контакта. Расходы на размещение и продвижение объявлений делятся на число контактов.\n  - **impressions** - Показы. Сколько раз объявление показывалось в результатах поиска и рекомендациях. Несколько показов за сутки одному пользователю считаются как один.\n  - **impressionsToViewsConversion** - Конверсия из показов в просмотры. Процент пользователей, которые перешли в объявление после того, как оно показалось в результатах поиска и рекомендациях.\n\n\n#### Целевые действия\n\n  - **clickPackages**\t- Целевые просмотры. Просмотры, которые оплачены из тарифа и считаются целевыми [по правилам Авито](https://www.avito.ru/legal/rules/paid_services/cost-per-action/#clicks).\n  - **jobContacts** - Отклики на вакансии. Отклики, которые оплачены из тарифа и считаются целевыми [по правилам Авито](https://www.avito.ru/legal/rules/paid_services/cost-per-action/#clicks).\n\n\n#### Заказы с Авито Доставкой\n\n  - **viewsToOrderedItemsConversion** - Конверсия из просмотров в заказанные товары. Процент пользователей, которые после перехода в объявление заказали товар.\n  - **orderedItems** - Заказано товаров. Количество товаров, которые заказали с Авито Доставкой.\n  - **orderedItemsPrice** - Стоимость заказанных товаров в копейках. Общая стоимость заказов. Это сумма, которую вы получите на руки, если клиенты примут заказы.\n  - **deliveredItems** - Доставлено товаров. Количество товаров, которые заказали с Авито Доставкой и уже приняли.\n  - **deliveredItemsPrice** - Стоимость доставленных товаров в копейках. Общая стоимость заказов, которые покупатели приняли. Это сумма, которую вы получаете на руки.\n\n\n#### Посуточная аренда\n\n  - **bookingPlacedCount** - Получено заявок. Общее количество заявок на бронирование\n  - **bookingPlacedPrice** - Стоимость полученных заявок в копейках. Общая стоимость бронирований. Это сумма, которую вы получите на руки, если гости заселятся.\n  - **bookingApprovedCount** - Подтверждено заявок. Количество заявок на бронирование, которые вы подтвердили.\n  - **bookingApprovedPrice** - Стоимость подтвержденных заявок в копейках. Общая стоимость бронирований, которые вы подтвердили. Это сумма, которую вы получите на руки, если гости заселятся.\n  - **bookingAcceptedCount** - Заявки с заселением. Количество бронирований, по которым заселились гости. Заселение засчитывается в 15:00 по Москве на следующий день после заезда.\n  - **bookingAcceptedPrice** - Стоимость заявок с заселением в копейках. Общая стоимость бронирований, по которым заселились гости. Это сумма, которую вы получаете на руки.\n\n\n#### Расходы\n\n  - **allSpending** - Все расходы в копейках. Сколько всего денег и бонусов вы потратили на объявления.\n    - **spending** - Расходы на объявления в копейках. Сколько денег вы потратили на размещение, продвижение, целевые действия и комиссию.\n      - **presenceSpending** - Расходы на размещение и целевые действия в копейках. Сколько денег вы потратили на размещения и целевые действия — просмотры, чаты, звонки и отклики.\n      - **promoSpending** - Расходы на продвижение в копейках. Сколько денег вы потратили на продвижение и на услуги, которые влияют на внешний вид объявления.\n      - **restSpending** - Остальные расходы в копейках. Сколько денег вы потратили на чат-ботов и услуги, которые система не смогла распознать.\n      - **commission** - Комиссия в копейках. Какую комиссию вы заплатили за заказы с Авито Доставкой, которые приняли покупатели, а также за бронирования жилья.\n    - **spendingBonus** - Списано бонусов на объявления. Сколько бонусов вы потратили на размещение, продвижение, целевые действия и комиссию.\n\n\n#### Количество объявлений за период\n\n  - **activeItems** - Активные объявления. Объявления, которые прошли проверку и появились в поиске.        \n    - **newActiveItems** - Новые и опубликованные заново объявления. Сколько объявлений опубликовано впервые или повторно.\n    - **oldActiveItems** - Активны с прошлого периода. Сколько объявлений остаются опубликованными с предыдущего периода.\n\n\n### Примечания\n\n  * Из ручки возвращается не более чем по 1000 сущностей. Вы можете использовать поля запроса limit и offset для регулировки выбранного диапазона.\n  * Глубина данных статистики такого запроса ограничена 270 днями.\n  * В случае недоступности метрики для пользователя она не приходит в ответе. \n  * Система позволяет делать не более одного запроса в минуту на данный метод.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "v2",
+                "accounts",
+                ":user_id",
+                "items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "user_id",
+                  "description": "(Required) Идентификатор пользователя (клиента)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dateFrom\": \"<date>\",\n  \"dateTo\": \"<date>\",\n  \"metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"grouping\": \"<string>\",\n  \"limit\": \"<integer>\",\n  \"offset\": \"<integer>\",\n  \"filter\": {\n    \"categoryIDs\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"employeeIDs\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  },\n  \"sort\": {\n    \"key\": \"<string>\",\n    \"order\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4f2bfb84-55a0-4468-84d3-ec6ad50afd68",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "v2",
+                    "accounts",
+                    ":user_id",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Тип данных запроса",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateFrom\": \"2020-09-01\",\n  \"dateTo\": \"2021-10-15\",\n  \"metrics\": [\n    \"views\",\n    \"contacts\",\n    \"presenceSpending\"\n  ],\n  \"grouping\": \"<string>\",\n  \"limit\": 1000,\n  \"offset\": 0,\n  \"filter\": {\n    \"categoryIDs\": [\n      11,\n      12\n    ],\n    \"employeeIDs\": [\n      41042142,\n      41042143\n    ]\n  },\n  \"sort\": {\n    \"key\": \"<string>\",\n    \"order\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"dataTotalCount\": 1,\n    \"groupings\": [\n      {\n        \"id\": 4667,\n        \"metrics\": [\n          {\n            \"slug\": \"views\",\n            \"value\": 1502.2079509773168\n          },\n          {\n            \"slug\": \"views\",\n            \"value\": 7632.340518494452\n          }\n        ],\n        \"type\": \"<string>\"\n      },\n      {\n        \"id\": 7882,\n        \"metrics\": [\n          {\n            \"slug\": \"views\",\n            \"value\": 6152.618455709588\n          },\n          {\n            \"slug\": \"views\",\n            \"value\": 1903.1610681237555\n          }\n        ],\n        \"type\": \"<string>\"\n      }\n    ],\n    \"timestamp\": \"2021-11-25 15:19:21\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3fc404c8-aeb8-4552-8192-cf34e1d01105",
+              "name": "Неверный запрос",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "v2",
+                    "accounts",
+                    ":user_id",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Тип данных запроса",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateFrom\": \"2020-09-01\",\n  \"dateTo\": \"2021-10-15\",\n  \"metrics\": [\n    \"views\",\n    \"contacts\",\n    \"presenceSpending\"\n  ],\n  \"grouping\": \"<string>\",\n  \"limit\": 1000,\n  \"offset\": 0,\n  \"filter\": {\n    \"categoryIDs\": [\n      11,\n      12\n    ],\n    \"employeeIDs\": [\n      41042142,\n      41042143\n    ]\n  },\n  \"sort\": {\n    \"key\": \"<string>\",\n    \"order\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"message about error occurred\",\n    \"code\": 123\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e11ed5e-e875-4080-9b1a-1c6375712508",
+              "name": "Требуется аутентификация",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "v2",
+                    "accounts",
+                    ":user_id",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Тип данных запроса",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateFrom\": \"2020-09-01\",\n  \"dateTo\": \"2021-10-15\",\n  \"metrics\": [\n    \"views\",\n    \"contacts\",\n    \"presenceSpending\"\n  ],\n  \"grouping\": \"<string>\",\n  \"limit\": 1000,\n  \"offset\": 0,\n  \"filter\": {\n    \"categoryIDs\": [\n      11,\n      12\n    ],\n    \"employeeIDs\": [\n      41042142,\n      41042143\n    ]\n  },\n  \"sort\": {\n    \"key\": \"<string>\",\n    \"order\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"message about error occurred\",\n    \"code\": 123\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2198fa0d-0060-4896-a381-51eafdc70e58",
+              "name": "Доступ запрещен",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "v2",
+                    "accounts",
+                    ":user_id",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Тип данных запроса",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateFrom\": \"2020-09-01\",\n  \"dateTo\": \"2021-10-15\",\n  \"metrics\": [\n    \"views\",\n    \"contacts\",\n    \"presenceSpending\"\n  ],\n  \"grouping\": \"<string>\",\n  \"limit\": 1000,\n  \"offset\": 0,\n  \"filter\": {\n    \"categoryIDs\": [\n      11,\n      12\n    ],\n    \"employeeIDs\": [\n      41042142,\n      41042143\n    ]\n  },\n  \"sort\": {\n    \"key\": \"<string>\",\n    \"order\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"message about error occurred\",\n    \"code\": 123\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77ddf18a-257a-4d58-bcde-c0ae2284342a",
+              "name": "Слишком много запросов",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "v2",
+                    "accounts",
+                    ":user_id",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Тип данных запроса",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateFrom\": \"2020-09-01\",\n  \"dateTo\": \"2021-10-15\",\n  \"metrics\": [\n    \"views\",\n    \"contacts\",\n    \"presenceSpending\"\n  ],\n  \"grouping\": \"<string>\",\n  \"limit\": 1000,\n  \"offset\": 0,\n  \"filter\": {\n    \"categoryIDs\": [\n      11,\n      12\n    ],\n    \"employeeIDs\": [\n      41042142,\n      41042143\n    ]\n  },\n  \"sort\": {\n    \"key\": \"<string>\",\n    \"order\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"message about error occurred\",\n    \"code\": 123\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "818e3cd0-4ae7-45b4-be1b-4ec61035dadc",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "v2",
+                    "accounts",
+                    ":user_id",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Тип данных запроса",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateFrom\": \"2020-09-01\",\n  \"dateTo\": \"2021-10-15\",\n  \"metrics\": [\n    \"views\",\n    \"contacts\",\n    \"presenceSpending\"\n  ],\n  \"grouping\": \"<string>\",\n  \"limit\": 1000,\n  \"offset\": 0,\n  \"filter\": {\n    \"categoryIDs\": [\n      11,\n      12\n    ],\n    \"employeeIDs\": [\n      41042142,\n      41042143\n    ]\n  },\n  \"sort\": {\n    \"key\": \"<string>\",\n    \"order\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"message about error occurred\",\n    \"code\": 123\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "05f77d00-a95d-4e29-99de-b6f3505f75db",
+          "name": "Получение статистики расходов профиля",
+          "request": {
+            "name": "Получение статистики расходов профиля",
+            "description": {
+              "content": "Получение статистики расходов профиля.\n\n**Внимание:** Глубина данных статистики такого запроса ограничена 270 днями.\n\n**Внимание:** Система позволяет делать не более одного запроса в минуту на данный метод.\n\n### Группировки расходов\nИспользуйте группировки, чтобы получать конкретную статистику. Доступные группировки:\n\n  - **day** — по дням;\n  - **week** — по неделям;\n  - **month** — по месяцам.\n\n\n### Доступные типы расходов\n\n  - **all** - Все расходы в копейках. Сколько всего денег вы потратили на объявления и прочие услуги.\n    - **promotion** - Расходы на продвижение в копейках. Сколько денег вы потратили на продвижение объявлений и услуги, которые влияют на внешний вид объявления.\n    - **presence** - Расходы на размещение и целевые действия в копейках. Сколько денег вы потратили на размещение объявлений и целевые действия с ними — просмотры, чаты, звонки и отклики.\n    - **commission** - Комиссия в копейках. Какую комиссию вы заплатили за заказы с Авито Доставкой, которые приняли покупатели, а также за бронирование жилья.\n    - **rest** - Остальные расходы в копейках. Сколько денег вы потратили на чат-ботов и услуги, которые система не смогла распознать.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "v2",
+                "accounts",
+                ":user_id",
+                "spendings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "user_id",
+                  "description": "(Required) Идентификатор пользователя (клиента)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dateFrom\": \"<date>\",\n  \"dateTo\": \"<date>\",\n  \"spendingTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"grouping\": \"<string>\",\n  \"filter\": {\n    \"categoryIDs\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"itemIDs\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"locationIDs\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "29442494-bb4f-406a-8c0d-e8e39e6d811e",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "v2",
+                    "accounts",
+                    ":user_id",
+                    "spendings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Тип данных запроса",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateFrom\": \"2020-09-01\",\n  \"dateTo\": \"2021-10-15\",\n  \"spendingTypes\": [\n    \"promotion\",\n    \"presence\"\n  ],\n  \"grouping\": \"<string>\",\n  \"filter\": {\n    \"categoryIDs\": [\n      11,\n      12\n    ],\n    \"itemIDs\": [\n      534353,\n      534354\n    ],\n    \"locationIDs\": [\n      554353,\n      554353\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"groupings\": [\n      {\n        \"date\": \"2025-05-02\",\n        \"type\": \"<string>\",\n        \"spendings\": [\n          {\n            \"slug\": \"presence\",\n            \"value\": 123.95,\n            \"services\": [\n              {\n                \"slug\": \"vas_highlight\",\n                \"value\": 123.95\n              },\n              {\n                \"slug\": \"vas_highlight\",\n                \"value\": 123.95\n              }\n            ]\n          },\n          {\n            \"slug\": \"presence\",\n            \"value\": 123.95,\n            \"services\": [\n              {\n                \"slug\": \"vas_highlight\",\n                \"value\": 123.95\n              },\n              {\n                \"slug\": \"vas_highlight\",\n                \"value\": 123.95\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"date\": \"2025-05-02\",\n        \"type\": \"<string>\",\n        \"spendings\": [\n          {\n            \"slug\": \"presence\",\n            \"value\": 123.95,\n            \"services\": [\n              {\n                \"slug\": \"vas_highlight\",\n                \"value\": 123.95\n              },\n              {\n                \"slug\": \"vas_highlight\",\n                \"value\": 123.95\n              }\n            ]\n          },\n          {\n            \"slug\": \"presence\",\n            \"value\": 123.95,\n            \"services\": [\n              {\n                \"slug\": \"vas_highlight\",\n                \"value\": 123.95\n              },\n              {\n                \"slug\": \"vas_highlight\",\n                \"value\": 123.95\n              }\n            ]\n          }\n        ]\n      }\n    ],\n    \"timestamp\": 1746133200\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b07ce886-ef27-4fc0-9398-c31ecdfc69f5",
+              "name": "Неверный запрос",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "v2",
+                    "accounts",
+                    ":user_id",
+                    "spendings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Тип данных запроса",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateFrom\": \"2020-09-01\",\n  \"dateTo\": \"2021-10-15\",\n  \"spendingTypes\": [\n    \"promotion\",\n    \"presence\"\n  ],\n  \"grouping\": \"<string>\",\n  \"filter\": {\n    \"categoryIDs\": [\n      11,\n      12\n    ],\n    \"itemIDs\": [\n      534353,\n      534354\n    ],\n    \"locationIDs\": [\n      554353,\n      554353\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"message about error occurred\",\n    \"code\": 123\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4b721d6-7c45-4f10-96be-a633ff6ec344",
+              "name": "Требуется аутентификация",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "v2",
+                    "accounts",
+                    ":user_id",
+                    "spendings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Тип данных запроса",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateFrom\": \"2020-09-01\",\n  \"dateTo\": \"2021-10-15\",\n  \"spendingTypes\": [\n    \"promotion\",\n    \"presence\"\n  ],\n  \"grouping\": \"<string>\",\n  \"filter\": {\n    \"categoryIDs\": [\n      11,\n      12\n    ],\n    \"itemIDs\": [\n      534353,\n      534354\n    ],\n    \"locationIDs\": [\n      554353,\n      554353\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"message about error occurred\",\n    \"code\": 123\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e17663bd-3e93-4664-86b0-1ae65ca9c961",
+              "name": "Доступ запрещен",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "v2",
+                    "accounts",
+                    ":user_id",
+                    "spendings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Тип данных запроса",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateFrom\": \"2020-09-01\",\n  \"dateTo\": \"2021-10-15\",\n  \"spendingTypes\": [\n    \"promotion\",\n    \"presence\"\n  ],\n  \"grouping\": \"<string>\",\n  \"filter\": {\n    \"categoryIDs\": [\n      11,\n      12\n    ],\n    \"itemIDs\": [\n      534353,\n      534354\n    ],\n    \"locationIDs\": [\n      554353,\n      554353\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"message about error occurred\",\n    \"code\": 123\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1fb7a1a8-fa1e-422f-9a8e-fa0cf6da071e",
+              "name": "Слишком много запросов",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "v2",
+                    "accounts",
+                    ":user_id",
+                    "spendings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Тип данных запроса",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateFrom\": \"2020-09-01\",\n  \"dateTo\": \"2021-10-15\",\n  \"spendingTypes\": [\n    \"promotion\",\n    \"presence\"\n  ],\n  \"grouping\": \"<string>\",\n  \"filter\": {\n    \"categoryIDs\": [\n      11,\n      12\n    ],\n    \"itemIDs\": [\n      534353,\n      534354\n    ],\n    \"locationIDs\": [\n      554353,\n      554353\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"message about error occurred\",\n    \"code\": 123\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4c7e4ac-3f5f-4375-a3d2-445ad81ebfb5",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "v2",
+                    "accounts",
+                    ":user_id",
+                    "spendings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Тип данных запроса",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateFrom\": \"2020-09-01\",\n  \"dateTo\": \"2021-10-15\",\n  \"spendingTypes\": [\n    \"promotion\",\n    \"presence\"\n  ],\n  \"grouping\": \"<string>\",\n  \"filter\": {\n    \"categoryIDs\": [\n      11,\n      12\n    ],\n    \"itemIDs\": [\n      534353,\n      534354\n    ],\n    \"locationIDs\": [\n      554353,\n      554353\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"message about error occurred\",\n    \"code\": 123\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.avito.ru/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "866aca79-19e4-4fa6-914f-6d9ff31c6f5a",
+    "name": "Иерархия Аккаунтов Access Item API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API для взаимодействия с иерархией аккаунтов в Авито\n**Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**\n\n\nContact Support:\n Email: supportautoload@avito.ru",
+      "type": "text/plain"
+    }
+  }
+}

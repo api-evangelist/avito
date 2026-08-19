@@ -1,0 +1,282 @@
+{
+  "item": [
+    {
+      "id": "b85e5012-b6ea-4c2e-bcae-28372ac3dde1",
+      "name": "GetAhInfoV1",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a55ecdf5-6844-4fbe-b651-a97366a01eef",
+          "name": "Получение полной информации о статусе пользователя в ИА",
+          "request": {
+            "name": "Получение полной информации о статусе пользователя в ИА",
+            "description": {
+              "content": "Ручка для получения информации по ИА для пользователя. Если запрос делается от имени сотрудника, то будет возвращён список компаний, которым он принадлежит.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "getAhInfoV1"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "список зон доступа, полученных приложением",
+                "key": "X-Oauth-Scopes",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)",
+                "key": "X-Oauth-Flow",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1e46454b-a893-4a97-b6ad-23b982e858a6",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "getAhInfoV1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "список зон доступа, полученных приложением",
+                    "key": "X-Oauth-Scopes",
+                    "value": "ah:access"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)",
+                    "key": "X-Oauth-Flow",
+                    "value": "authorization_code"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"employees\": [\n    {\n      \"isChief\": true,\n      \"avitoCompanyId\": 7574,\n      \"employeeId\": 1877\n    },\n    {\n      \"isChief\": true,\n      \"avitoCompanyId\": 3643,\n      \"employeeId\": 9936\n    }\n  ],\n  \"company\": {\n    \"isCompany\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "051bffaf-20c7-47d4-b70b-edef194c4b36",
+              "name": "Требуется аутентификация",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "getAhInfoV1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "список зон доступа, полученных приложением",
+                    "key": "X-Oauth-Scopes",
+                    "value": "ah:access"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)",
+                    "key": "X-Oauth-Flow",
+                    "value": "authorization_code"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Пользователь не авторизован\",\n    \"slug\": \"user_unauthorized\",\n    \"type\": \"authorization_error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5753e7c2-ff19-4522-8e6c-f62ba1cd80fc",
+              "name": "Внутренняя ошибка метода API",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "getAhInfoV1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "список зон доступа, полученных приложением",
+                    "key": "X-Oauth-Scopes",
+                    "value": "ah:access"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)",
+                    "key": "X-Oauth-Flow",
+                    "value": "authorization_code"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Пользователь не авторизован\",\n    \"slug\": \"user_unauthorized\",\n    \"type\": \"authorization_error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.avito.ru/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0f27146d-3a34-44b2-a7f8-c39f1b46b4a1",
+    "name": "Иерархия Аккаунтов Access GetAhInfoV1 API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API для взаимодействия с иерархией аккаунтов в Авито\n**Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**\n\n\nContact Support:\n Email: supportautoload@avito.ru",
+      "type": "text/plain"
+    }
+  }
+}

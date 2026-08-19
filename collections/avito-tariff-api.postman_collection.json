@@ -1,0 +1,285 @@
+{
+  "item": [
+    {
+      "id": "994c9e31-6743-4dc9-b171-eb95f5e78560",
+      "name": "Tariff",
+      "description": {
+        "content": "API для работы с Тарифами\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9dcc2968-9d92-4b7a-922b-545fccbf255e",
+          "name": "Информация по тарифу",
+          "request": {
+            "name": "Информация по тарифу",
+            "description": {
+              "content": "Получение информации по тарифу.\n\n**Внимание:** информация доступна только для тарифов в категории \"Транспорт\". **Тариф должен быть не \"СРА\"**\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tariff",
+                "info",
+                "1"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d850e43c-af88-4d12-b322-acaa4bf7ed1d",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tariff",
+                    "info",
+                    "1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"current\": {\n    \"bonus\": 34432,\n    \"closeTime\": 1616589821,\n    \"isActive\": true,\n    \"level\": \"Тариф «Максимальный +»\",\n    \"packages\": [\n      {\n        \"categories\": [\n          {\n            \"name\": \"Автомобили\",\n            \"subCategories\": [\n              \"С пробегом\"\n            ]\n          }\n        ],\n        \"locations\": [\n          \"Санкт-Петербург и Ленинградская область\"\n        ],\n        \"priceConditions\": [\n          {\n            \"categoryName\": \"От 500 000 до 1 000 000\",\n            \"originalPrice\": 88001,\n            \"price\": 80200,\n            \"sort\": 1,\n            \"total\": 140\n          }\n        ],\n        \"remain\": 105,\n        \"total\": 140\n      }\n    ],\n    \"price\": {\n      \"originalPrice\": 128441,\n      \"price\": 114777\n    },\n    \"startTime\": 1613997821\n  },\n  \"scheduled\": {\n    \"bonus\": 36696,\n    \"closeTime\": null,\n    \"isActive\": false,\n    \"level\": \"Тариф «Максимальный +»\",\n    \"packages\": [\n      {\n        \"categories\": [\n          {\n            \"name\": \"Автомобили\",\n            \"subCategories\": [\n              \"С пробегом\"\n            ]\n          }\n        ],\n        \"locations\": [\n          \"Санкт-Петербург и Ленинградская область\"\n        ],\n        \"priceConditions\": [\n          {\n            \"categoryName\": \"От 500 000 до 1 000 000\",\n            \"originalPrice\": 81000,\n            \"price\": 75200,\n            \"sort\": 1,\n            \"total\": 151\n          }\n        ],\n        \"remain\": 151,\n        \"total\": 151\n      }\n    ],\n    \"price\": {\n      \"originalPrice\": 137980,\n      \"price\": 122321\n    },\n    \"startTime\": 1616589821\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59cfdd7a-0fa4-4221-9905-a45069d88c2a",
+              "name": "Требуется аутентификация",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tariff",
+                    "info",
+                    "1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 401,\n    \"message\": \"Unauthorized\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bcd2f7d7-4508-4345-80ae-39096d3858ed",
+              "name": "Тариф не найден",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tariff",
+                    "info",
+                    "1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a8b27d0-828b-4384-85b9-e2d8cc57e066",
+              "name": "Внутренняя ошибка метода API",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tariff",
+                    "info",
+                    "1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 500,\n    \"message\": \"Error while processing request. Please, contact support\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.avito.ru/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "faf5f75f-7c4a-4aec-9cb2-1c5ee5a46b9c",
+    "name": "Иерархия Аккаунтов Access Tariff API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API для взаимодействия с иерархией аккаунтов в Авито\n**Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**\n\n\nContact Support:\n Email: supportautoload@avito.ru",
+      "type": "text/plain"
+    }
+  }
+}

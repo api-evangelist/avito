@@ -1,0 +1,2053 @@
+{
+  "item": [
+    {
+      "id": "147e8d3d-821b-4d7a-aff1-fc3bc35b806f",
+      "name": "Messenger",
+      "description": {
+        "content": "API для интеграции между мессенджером Авито и сторонней системой в обе стороны.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4f9076ce-f97b-4d72-bf50-145d660ee04f",
+          "name": "Отправка сообщения",
+          "request": {
+            "name": "Отправка сообщения",
+            "description": {
+              "content": "На данный момент можно отправить только текстовое сообщение\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "messenger",
+                "v1",
+                "accounts",
+                ":user_id",
+                "chats",
+                ":chat_id",
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "user_id",
+                  "description": "(Required) Идентификатор пользователя (клиента)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chat_id",
+                  "description": "(Required) Идентификатор чата (клиента)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": {\n    \"text\": \"<string>\"\n  },\n  \"type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "13f5a69c-b68e-43a3-a41c-25a59bc5f7a0",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messenger",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "chats",
+                    ":chat_id",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chat_id",
+                      "description": "(Required) Идентификатор чата (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"message\": {\n    \"text\": \"<string>\"\n  },\n  \"type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": {\n    \"text\": \"привет\"\n  },\n  \"created\": 1563202313,\n  \"direction\": \"out\",\n  \"id\": \"bdcc5bac2d00345f1cc66fa657813958\",\n  \"type\": \"text\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c748a9c-82c0-4985-83aa-e1aebe896d0c",
+          "name": "Отправка сообщения с изображением",
+          "request": {
+            "name": "Отправка сообщения с изображением",
+            "description": {
+              "content": "Метод используется для отправки сообщения с изображением.\n\nДля отправки сообщения с изображением необходимо передать в запросе id изображения, полученного после загрузки.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "messenger",
+                "v1",
+                "accounts",
+                ":user_id",
+                "chats",
+                ":chat_id",
+                "messages",
+                "image"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "user_id",
+                  "description": "(Required) Идентификатор пользователя (клиента)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chat_id",
+                  "description": "(Required) Идентификатор чата (клиента)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"image_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d2cf7fa6-954a-46f2-bb0f-1bb5bcc6397a",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messenger",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "chats",
+                    ":chat_id",
+                    "messages",
+                    "image"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chat_id",
+                      "description": "(Required) Идентификатор чата (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"image_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"author_id\": 9623532,\n  \"content\": {\n    \"image\": {\n      \"sizes\": {\n        \"1280x960\": \"https://example.hosts.ru/image_1280_960.png\",\n        \"140x105\": \"https://example.hosts.ru/image_140_105.png\",\n        \"32x32\": \"https://example.hosts.ru/image_32_32.png\"\n      }\n    }\n  },\n  \"created\": 1563202313,\n  \"direction\": \"out\",\n  \"id\": \"bdcc5bac2d00345f1cc66fa657813958\",\n  \"type\": \"image\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7e32df31-3fd6-4d5c-889b-95a3868a450b",
+          "name": "Удаление сообщения",
+          "request": {
+            "name": "Удаление сообщения",
+            "description": {
+              "content": "Сообщение не пропадает из истории, а меняет свой тип на deleted.\nУдалять сообщения можно не позднее часа с момента их отправки.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "messenger",
+                "v1",
+                "accounts",
+                ":user_id",
+                "chats",
+                ":chat_id",
+                "messages",
+                ":message_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "user_id",
+                  "description": "(Required) Идентификатор пользователя (клиента)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chat_id",
+                  "description": "(Required) Идентификатор чата (клиента)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "message_id",
+                  "description": "(Required) Идентификатор сообщения"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "468ffebf-7b2a-4fed-a0b3-e257a5e96daa",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messenger",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "chats",
+                    ":chat_id",
+                    "messages",
+                    ":message_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chat_id",
+                      "description": "(Required) Идентификатор чата (клиента)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "message_id",
+                      "description": "(Required) Идентификатор сообщения"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d3826593-0a43-4c71-ab30-cdcac808cc9b",
+          "name": "Прочитать чат",
+          "request": {
+            "name": "Прочитать чат",
+            "description": {
+              "content": "После успешного получения списка сообщений необходимо вызвать этот метод для того, чтобы чат стал прочитанным.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "messenger",
+                "v1",
+                "accounts",
+                ":user_id",
+                "chats",
+                ":chat_id",
+                "read"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "user_id",
+                  "description": "(Required) Идентификатор пользователя (клиента)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chat_id",
+                  "description": "(Required) Идентификатор чата (клиента)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f15fd9f4-ac24-4df8-bb52-8017ca2fd914",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messenger",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "chats",
+                    ":chat_id",
+                    "read"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chat_id",
+                      "description": "(Required) Идентификатор чата (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c183ff55-75d8-4cac-9c0d-b2f510d7df53",
+          "name": "Получение голосовых сообщений",
+          "request": {
+            "name": "Получение голосовых сообщений",
+            "description": {
+              "content": "Метод используется для получения ссылки на файл с голосовым сообщением по идентификатору voice_id, получаемому из тела сообщения с типом voice.\n\nОсобенности работы с голосовыми сообщениями:\n- Голосовые сообщения Авито используют кодек **[opus](https://ru.wikipedia.org/wiki/Opus_(%D0%BA%D0%BE%D0%B4%D0%B5%D0%BA))** внутри **.mp4** контейнера; \n- Ссылка на голосовое сообщение доступна в течение **одного часа** с момента запроса. Попытка получить файл по ссылке спустя это время приведёт к ошибке. Для восстановления доступа необходимо получить новую ссылку на файл;\n- Как и с обычными сообщениями, получение ссылки на файл доступно только для пользователей, находящихся в беседе, где голосовое сообщение было отправлено;\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "messenger",
+                "v1",
+                "accounts",
+                ":user_id",
+                "getVoiceFiles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "voice_ids",
+                  "value": "<string>",
+                  "description": "(Required) Получение файлов голосовых сообщений с указанными voice_id"
+                },
+                {
+                  "disabled": false,
+                  "key": "voice_ids",
+                  "value": "<string>",
+                  "description": "(Required) Получение файлов голосовых сообщений с указанными voice_id"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "user_id",
+                  "description": "(Required) Идентификатор пользователя (клиента)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c3cc79c7-71e6-4182-b299-5971bcaf0704",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messenger",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "getVoiceFiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "voice_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "voice_ids",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"voices_urls\": {\n    \"key_0\": \"https://avito.ru/voice_url\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "00996e3c-5e36-46a2-ba37-9dafcc96283e",
+          "name": "Загрузка изображений",
+          "request": {
+            "name": "Загрузка изображений",
+            "description": {
+              "content": "Метод используется для загрузки изображений в формате JPEG, HEIC, GIF, BMP или PNG.\n\nОсобенности работы с загрузкой изображений:\n- Метод поддерживает только одиночные изображения; для загрузки нескольких картинок необходимо сделать несколько запросов;\n- Максимальный размер файла — 24 МБ;\n- Максимальное разрешение — 75 мегапиксилей;\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "messenger",
+                "v1",
+                "accounts",
+                ":user_id",
+                "uploadImages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "user_id",
+                  "description": "(Required) Идентификатор пользователя (клиента)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "uploadfile[]",
+                  "type": "file",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e5de61c8-a6bf-4403-aa07-67c0ae0aceda",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messenger",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "uploadImages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "uploadfile[]",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"12345.12345abcdefghijklm\": {\n    \"1280x960\": \"https://example.hosts.ru/image_1280_960.png\",\n    \"140x105\": \"https://example.hosts.ru/image_140_105.png\",\n    \"32x32\": \"https://example.hosts.ru/image_32_32.png\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7eb0e285-f5bd-4808-a0b1-37e353515163",
+          "name": "Получение подписок (webhooks)",
+          "request": {
+            "name": "Получение подписок (webhooks)",
+            "description": {
+              "content": "Получение списка подписок\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "messenger",
+                "v1",
+                "subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d6d24133-c905-4d1c-a2d4-c4e1bbd353dd",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messenger",
+                    "v1",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"subscriptions\": [\n    {\n      \"url\": \"http://abc\",\n      \"version\": \"3\"\n    },\n    {\n      \"url\": \"http://abc\",\n      \"version\": \"3\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ae3ce95e-d91b-4cec-bae8-d14a63d8e64e",
+          "name": "Отключение уведомлений (webhooks)",
+          "request": {
+            "name": "Отключение уведомлений (webhooks)",
+            "description": {
+              "content": "Отключение уведомлений\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "messenger",
+                "v1",
+                "webhook",
+                "unsubscribe"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9d8198f4-e958-4931-9d7d-469f5ce31927",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messenger",
+                    "v1",
+                    "webhook",
+                    "unsubscribe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1a6cbd6-bab9-42d1-829c-1c06aa49ef08",
+          "name": "Добавление пользователя в blacklist",
+          "request": {
+            "name": "Добавление пользователя в blacklist",
+            "description": {
+              "content": "Добавление пользователя в blacklist\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "messenger",
+                "v2",
+                "accounts",
+                ":user_id",
+                "blacklist"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "user_id",
+                  "description": "(Required) Идентификатор пользователя (клиента)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"users\": [\n    {\n      \"context\": {\n        \"item_id\": \"<long>\",\n        \"reason_id\": \"<integer>\"\n      },\n      \"user_id\": \"<long>\"\n    },\n    {\n      \"context\": {\n        \"item_id\": \"<long>\",\n        \"reason_id\": \"<integer>\"\n      },\n      \"user_id\": \"<long>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d1c1b335-dc89-46a8-8540-f41be034bbbd",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messenger",
+                    "v2",
+                    "accounts",
+                    ":user_id",
+                    "blacklist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"users\": [\n    {\n      \"context\": {\n        \"item_id\": \"<long>\",\n        \"reason_id\": \"<integer>\"\n      },\n      \"user_id\": 94235311\n    },\n    {\n      \"context\": {\n        \"item_id\": \"<long>\",\n        \"reason_id\": \"<integer>\"\n      },\n      \"user_id\": 94235311\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c987efb9-e468-4d8a-afcb-752ad042796c",
+          "name": "Получение информации по чатам",
+          "request": {
+            "name": "Получение информации по чатам",
+            "description": {
+              "content": "Возвращает список чатов\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "messenger",
+                "v2",
+                "accounts",
+                ":user_id",
+                "chats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "item_ids",
+                  "value": "<long>",
+                  "description": "Получение чатов только по объявлениям с указанными item_id"
+                },
+                {
+                  "disabled": false,
+                  "key": "item_ids",
+                  "value": "<long>",
+                  "description": "Получение чатов только по объявлениям с указанными item_id"
+                },
+                {
+                  "disabled": false,
+                  "key": "unread_only",
+                  "value": "false",
+                  "description": "При значении true метод возвращает только непрочитанные чаты"
+                },
+                {
+                  "disabled": false,
+                  "key": "chat_types",
+                  "value": "u2i",
+                  "description": "Фильтрация возвращаемых чатов. \n* u2i — чаты по объявлениям;\n* u2u — чаты между пользователями;\n* a2u — чаты между пользователями и Авито;\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Количество сообщений / чатов для запроса"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Сдвиг сообщений / чатов для запроса"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "user_id",
+                  "description": "(Required) Идентификатор пользователя (клиента)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1c211ecf-2324-4c5f-9e80-0344c0c98836",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messenger",
+                    "v2",
+                    "accounts",
+                    ":user_id",
+                    "chats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "item_ids",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "item_ids",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "unread_only",
+                      "value": "true"
+                    },
+                    {
+                      "key": "chat_types",
+                      "value": "u2i"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"chats\": [\n    {\n      \"context\": {\n        \"type\": \"item\",\n        \"value\": {\n          \"id\": 1768287444,\n          \"images\": {\n            \"count\": 4,\n            \"main\": {\n              \"140x105\": \"https://01-img-staging-proxy.k.avito.ru/140x105/5815183159.jpg\"\n            }\n          },\n          \"price_string\": \"300 000 ₽\",\n          \"status_id\": 10,\n          \"title\": \"Mazda 3 2008\",\n          \"url\": \"https://avito.ru/moskva/avtomobili/mazda_3_2008_1768287444\",\n          \"user_id\": 141906442\n        }\n      },\n      \"created\": 1571412836,\n      \"id\": \"string\",\n      \"last_message\": {\n        \"author_id\": 94235311,\n        \"content\": {\n          \"call\": {\n            \"status\": \"missed\",\n            \"target_user_id\": 94235311\n          },\n          \"flow_id\": \"seller_audience_discount\",\n          \"image\": {\n            \"sizes\": {\n              \"1280x960\": \"https://img.k.avito.ru/chat/1280x960/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n              \"140x105\": \"https://img.k.avito.ru/chat/140x105/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n              \"32x32\": \"https://img.k.avito.ru/chat/32x32/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n              \"640x480\": \"https://img.k.avito.ru/chat/640x480/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\"\n            }\n          },\n          \"item\": {\n            \"image_url\": \"https://avito.ru/image_url.webp\",\n            \"item_url\": \"https://avito.ru/item_url\",\n            \"price_string\": \"1 232 323 ₽\",\n            \"title\": \"Объявление\"\n          },\n          \"link\": {\n            \"preview\": {\n              \"description\": \"Лучшие публикации за последние 24 часа\",\n              \"domain\": \"habr.com\",\n              \"images\": {\n                \"1280x960\": \"https://img.k.avito.ru/chat/1280x960/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n                \"140x105\": \"https://img.k.avito.ru/chat/140x105/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n                \"32x32\": \"https://img.k.avito.ru/chat/32x32/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n                \"640x480\": \"https://img.k.avito.ru/chat/640x480/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\"\n              },\n              \"title\": \"Лучшие публикации за сутки / Хабр\",\n              \"url\": \"https://habr.com/ru/\"\n            },\n            \"text\": \"habr.com\",\n            \"url\": \"habr.com\"\n          },\n          \"location\": {\n            \"kind\": \"street\",\n            \"lat\": 55.599799,\n            \"lon\": 37.603954,\n            \"text\": \"Москва, Варшавское шоссе\",\n            \"title\": \"Москва, Варшавское шоссе\"\n          },\n          \"text\": \"привет!\",\n          \"voice\": {\n            \"voice_id\": \"string\"\n          }\n        },\n        \"created\": 1571654040,\n        \"direction\": \"out\",\n        \"id\": \"string\",\n        \"type\": \"link\"\n      },\n      \"updated\": 1571654040,\n      \"users\": [\n        {\n          \"id\": 94235311,\n          \"name\": \"Guldan\",\n          \"public_user_profile\": {\n            \"avatar\": {\n              \"default\": \"https://www.avito.st/stub_avatars/_/14_256x256.png\",\n              \"images\": {\n                \"128x128\": \"https://www.avito.st/stub_avatars/_/14_128x128.png\",\n                \"192x192\": \"https://www.avito.st/stub_avatars/_/14_192x192.png\",\n                \"24x24\": \"https://www.avito.st/stub_avatars/_/14_24x24.png\",\n                \"256x256\": \"https://www.avito.st/stub_avatars/_/14_256x256.png\",\n                \"36x36\": \"https://www.avito.st/stub_avatars/_/14_36x36.png\",\n                \"48x48\": \"https://www.avito.st/stub_avatars/_/14_48x48.png\",\n                \"64x64\": \"https://www.avito.st/stub_avatars/_/14_64x64.png\",\n                \"72x72\": \"https://www.avito.st/stub_avatars/_/14_72x72.png\",\n                \"96x96\": \"https://www.avito.st/stub_avatars/_/14_96x96.png\"\n              }\n            },\n            \"item_id\": 1768287444,\n            \"url\": \"https://avito.ru/user/db65c00c946dc404e11f14755465453b/profile\",\n            \"user_id\": 94235311\n          }\n        },\n        {\n          \"id\": 94235311,\n          \"name\": \"Guldan\",\n          \"public_user_profile\": {\n            \"avatar\": {\n              \"default\": \"https://www.avito.st/stub_avatars/_/14_256x256.png\",\n              \"images\": {\n                \"128x128\": \"https://www.avito.st/stub_avatars/_/14_128x128.png\",\n                \"192x192\": \"https://www.avito.st/stub_avatars/_/14_192x192.png\",\n                \"24x24\": \"https://www.avito.st/stub_avatars/_/14_24x24.png\",\n                \"256x256\": \"https://www.avito.st/stub_avatars/_/14_256x256.png\",\n                \"36x36\": \"https://www.avito.st/stub_avatars/_/14_36x36.png\",\n                \"48x48\": \"https://www.avito.st/stub_avatars/_/14_48x48.png\",\n                \"64x64\": \"https://www.avito.st/stub_avatars/_/14_64x64.png\",\n                \"72x72\": \"https://www.avito.st/stub_avatars/_/14_72x72.png\",\n                \"96x96\": \"https://www.avito.st/stub_avatars/_/14_96x96.png\"\n              }\n            },\n            \"item_id\": 1768287444,\n            \"url\": \"https://avito.ru/user/db65c00c946dc404e11f14755465453b/profile\",\n            \"user_id\": 94235311\n          }\n        }\n      ]\n    },\n    {\n      \"context\": {\n        \"type\": \"item\",\n        \"value\": {\n          \"id\": 1768287444,\n          \"images\": {\n            \"count\": 4,\n            \"main\": {\n              \"140x105\": \"https://01-img-staging-proxy.k.avito.ru/140x105/5815183159.jpg\"\n            }\n          },\n          \"price_string\": \"300 000 ₽\",\n          \"status_id\": 10,\n          \"title\": \"Mazda 3 2008\",\n          \"url\": \"https://avito.ru/moskva/avtomobili/mazda_3_2008_1768287444\",\n          \"user_id\": 141906442\n        }\n      },\n      \"created\": 1571412836,\n      \"id\": \"string\",\n      \"last_message\": {\n        \"author_id\": 94235311,\n        \"content\": {\n          \"call\": {\n            \"status\": \"missed\",\n            \"target_user_id\": 94235311\n          },\n          \"flow_id\": \"seller_audience_discount\",\n          \"image\": {\n            \"sizes\": {\n              \"1280x960\": \"https://img.k.avito.ru/chat/1280x960/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n              \"140x105\": \"https://img.k.avito.ru/chat/140x105/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n              \"32x32\": \"https://img.k.avito.ru/chat/32x32/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n              \"640x480\": \"https://img.k.avito.ru/chat/640x480/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\"\n            }\n          },\n          \"item\": {\n            \"image_url\": \"https://avito.ru/image_url.webp\",\n            \"item_url\": \"https://avito.ru/item_url\",\n            \"price_string\": \"1 232 323 ₽\",\n            \"title\": \"Объявление\"\n          },\n          \"link\": {\n            \"preview\": {\n              \"description\": \"Лучшие публикации за последние 24 часа\",\n              \"domain\": \"habr.com\",\n              \"images\": {\n                \"1280x960\": \"https://img.k.avito.ru/chat/1280x960/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n                \"140x105\": \"https://img.k.avito.ru/chat/140x105/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n                \"32x32\": \"https://img.k.avito.ru/chat/32x32/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n                \"640x480\": \"https://img.k.avito.ru/chat/640x480/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\"\n              },\n              \"title\": \"Лучшие публикации за сутки / Хабр\",\n              \"url\": \"https://habr.com/ru/\"\n            },\n            \"text\": \"habr.com\",\n            \"url\": \"habr.com\"\n          },\n          \"location\": {\n            \"kind\": \"street\",\n            \"lat\": 55.599799,\n            \"lon\": 37.603954,\n            \"text\": \"Москва, Варшавское шоссе\",\n            \"title\": \"Москва, Варшавское шоссе\"\n          },\n          \"text\": \"привет!\",\n          \"voice\": {\n            \"voice_id\": \"string\"\n          }\n        },\n        \"created\": 1571654040,\n        \"direction\": \"out\",\n        \"id\": \"string\",\n        \"type\": \"link\"\n      },\n      \"updated\": 1571654040,\n      \"users\": [\n        {\n          \"id\": 94235311,\n          \"name\": \"Guldan\",\n          \"public_user_profile\": {\n            \"avatar\": {\n              \"default\": \"https://www.avito.st/stub_avatars/_/14_256x256.png\",\n              \"images\": {\n                \"128x128\": \"https://www.avito.st/stub_avatars/_/14_128x128.png\",\n                \"192x192\": \"https://www.avito.st/stub_avatars/_/14_192x192.png\",\n                \"24x24\": \"https://www.avito.st/stub_avatars/_/14_24x24.png\",\n                \"256x256\": \"https://www.avito.st/stub_avatars/_/14_256x256.png\",\n                \"36x36\": \"https://www.avito.st/stub_avatars/_/14_36x36.png\",\n                \"48x48\": \"https://www.avito.st/stub_avatars/_/14_48x48.png\",\n                \"64x64\": \"https://www.avito.st/stub_avatars/_/14_64x64.png\",\n                \"72x72\": \"https://www.avito.st/stub_avatars/_/14_72x72.png\",\n                \"96x96\": \"https://www.avito.st/stub_avatars/_/14_96x96.png\"\n              }\n            },\n            \"item_id\": 1768287444,\n            \"url\": \"https://avito.ru/user/db65c00c946dc404e11f14755465453b/profile\",\n            \"user_id\": 94235311\n          }\n        },\n        {\n          \"id\": 94235311,\n          \"name\": \"Guldan\",\n          \"public_user_profile\": {\n            \"avatar\": {\n              \"default\": \"https://www.avito.st/stub_avatars/_/14_256x256.png\",\n              \"images\": {\n                \"128x128\": \"https://www.avito.st/stub_avatars/_/14_128x128.png\",\n                \"192x192\": \"https://www.avito.st/stub_avatars/_/14_192x192.png\",\n                \"24x24\": \"https://www.avito.st/stub_avatars/_/14_24x24.png\",\n                \"256x256\": \"https://www.avito.st/stub_avatars/_/14_256x256.png\",\n                \"36x36\": \"https://www.avito.st/stub_avatars/_/14_36x36.png\",\n                \"48x48\": \"https://www.avito.st/stub_avatars/_/14_48x48.png\",\n                \"64x64\": \"https://www.avito.st/stub_avatars/_/14_64x64.png\",\n                \"72x72\": \"https://www.avito.st/stub_avatars/_/14_72x72.png\",\n                \"96x96\": \"https://www.avito.st/stub_avatars/_/14_96x96.png\"\n              }\n            },\n            \"item_id\": 1768287444,\n            \"url\": \"https://avito.ru/user/db65c00c946dc404e11f14755465453b/profile\",\n            \"user_id\": 94235311\n          }\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0b486ac5-ad2a-413f-83f5-af5eb563f491",
+          "name": "Получение информации по чату",
+          "request": {
+            "name": "Получение информации по чату",
+            "description": {
+              "content": "Возвращает данные чата и последнее сообщение в нем\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "messenger",
+                "v2",
+                "accounts",
+                ":user_id",
+                "chats",
+                ":chat_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "user_id",
+                  "description": "(Required) Идентификатор пользователя (клиента)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chat_id",
+                  "description": "(Required) Идентификатор чата (клиента)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "73df09f1-f247-408f-baba-d0e73cf44ebc",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messenger",
+                    "v2",
+                    "accounts",
+                    ":user_id",
+                    "chats",
+                    ":chat_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chat_id",
+                      "description": "(Required) Идентификатор чата (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"context\": {\n    \"type\": \"item\",\n    \"value\": {\n      \"id\": 1768287444,\n      \"images\": {\n        \"count\": 4,\n        \"main\": {\n          \"140x105\": \"https://01-img-staging-proxy.k.avito.ru/140x105/5815183159.jpg\"\n        }\n      },\n      \"price_string\": \"300 000 ₽\",\n      \"status_id\": 10,\n      \"title\": \"Mazda 3 2008\",\n      \"url\": \"https://avito.ru/moskva/avtomobili/mazda_3_2008_1768287444\",\n      \"user_id\": 141906442\n    }\n  },\n  \"created\": 1571412836,\n  \"id\": \"string\",\n  \"last_message\": {\n    \"author_id\": 94235311,\n    \"content\": {\n      \"call\": {\n        \"status\": \"missed\",\n        \"target_user_id\": 94235311\n      },\n      \"flow_id\": \"seller_audience_discount\",\n      \"image\": {\n        \"sizes\": {\n          \"1280x960\": \"https://img.k.avito.ru/chat/1280x960/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n          \"140x105\": \"https://img.k.avito.ru/chat/140x105/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n          \"32x32\": \"https://img.k.avito.ru/chat/32x32/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n          \"640x480\": \"https://img.k.avito.ru/chat/640x480/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\"\n        }\n      },\n      \"item\": {\n        \"image_url\": \"https://avito.ru/image_url.webp\",\n        \"item_url\": \"https://avito.ru/item_url\",\n        \"price_string\": \"1 232 323 ₽\",\n        \"title\": \"Объявление\"\n      },\n      \"link\": {\n        \"preview\": {\n          \"description\": \"Лучшие публикации за последние 24 часа\",\n          \"domain\": \"habr.com\",\n          \"images\": {\n            \"1280x960\": \"https://img.k.avito.ru/chat/1280x960/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n            \"140x105\": \"https://img.k.avito.ru/chat/140x105/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n            \"32x32\": \"https://img.k.avito.ru/chat/32x32/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n            \"640x480\": \"https://img.k.avito.ru/chat/640x480/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\"\n          },\n          \"title\": \"Лучшие публикации за сутки / Хабр\",\n          \"url\": \"https://habr.com/ru/\"\n        },\n        \"text\": \"habr.com\",\n        \"url\": \"habr.com\"\n      },\n      \"location\": {\n        \"kind\": \"street\",\n        \"lat\": 55.599799,\n        \"lon\": 37.603954,\n        \"text\": \"Москва, Варшавское шоссе\",\n        \"title\": \"Москва, Варшавское шоссе\"\n      },\n      \"text\": \"привет!\",\n      \"voice\": {\n        \"voice_id\": \"string\"\n      }\n    },\n    \"created\": 1571654040,\n    \"direction\": \"out\",\n    \"id\": \"string\",\n    \"type\": \"link\"\n  },\n  \"updated\": 1571654040,\n  \"users\": [\n    {\n      \"id\": 94235311,\n      \"name\": \"Guldan\",\n      \"public_user_profile\": {\n        \"avatar\": {\n          \"default\": \"https://www.avito.st/stub_avatars/_/14_256x256.png\",\n          \"images\": {\n            \"128x128\": \"https://www.avito.st/stub_avatars/_/14_128x128.png\",\n            \"192x192\": \"https://www.avito.st/stub_avatars/_/14_192x192.png\",\n            \"24x24\": \"https://www.avito.st/stub_avatars/_/14_24x24.png\",\n            \"256x256\": \"https://www.avito.st/stub_avatars/_/14_256x256.png\",\n            \"36x36\": \"https://www.avito.st/stub_avatars/_/14_36x36.png\",\n            \"48x48\": \"https://www.avito.st/stub_avatars/_/14_48x48.png\",\n            \"64x64\": \"https://www.avito.st/stub_avatars/_/14_64x64.png\",\n            \"72x72\": \"https://www.avito.st/stub_avatars/_/14_72x72.png\",\n            \"96x96\": \"https://www.avito.st/stub_avatars/_/14_96x96.png\"\n          }\n        },\n        \"item_id\": 1768287444,\n        \"url\": \"https://avito.ru/user/db65c00c946dc404e11f14755465453b/profile\",\n        \"user_id\": 94235311\n      }\n    },\n    {\n      \"id\": 94235311,\n      \"name\": \"Guldan\",\n      \"public_user_profile\": {\n        \"avatar\": {\n          \"default\": \"https://www.avito.st/stub_avatars/_/14_256x256.png\",\n          \"images\": {\n            \"128x128\": \"https://www.avito.st/stub_avatars/_/14_128x128.png\",\n            \"192x192\": \"https://www.avito.st/stub_avatars/_/14_192x192.png\",\n            \"24x24\": \"https://www.avito.st/stub_avatars/_/14_24x24.png\",\n            \"256x256\": \"https://www.avito.st/stub_avatars/_/14_256x256.png\",\n            \"36x36\": \"https://www.avito.st/stub_avatars/_/14_36x36.png\",\n            \"48x48\": \"https://www.avito.st/stub_avatars/_/14_48x48.png\",\n            \"64x64\": \"https://www.avito.st/stub_avatars/_/14_64x64.png\",\n            \"72x72\": \"https://www.avito.st/stub_avatars/_/14_72x72.png\",\n            \"96x96\": \"https://www.avito.st/stub_avatars/_/14_96x96.png\"\n          }\n        },\n        \"item_id\": 1768287444,\n        \"url\": \"https://avito.ru/user/db65c00c946dc404e11f14755465453b/profile\",\n        \"user_id\": 94235311\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "07d75ef7-20e2-47e6-9409-ff89338e0719",
+          "name": "Получение списка сообщений V3",
+          "request": {
+            "name": "Получение списка сообщений V3",
+            "description": {
+              "content": "Получение списка сообщений.  **Не помечает чат прочитанным.**\nПосле успешного получения списка сообщений необходимо вызвать [метод](https://api.avito.ru/docs/api.html#operation/chatRead), который сделает сообщения прочитанными.\nДля получения новых сообщений в реальном времени используйте [webhooks](https://api.avito.ru/docs/api.html#operation/postWebhookV3)\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "messenger",
+                "v3",
+                "accounts",
+                ":user_id",
+                "chats",
+                ":chat_id",
+                "messages",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Количество сообщений / чатов для запроса"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Сдвиг сообщений / чатов для запроса"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "user_id",
+                  "description": "(Required) Идентификатор пользователя (клиента)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chat_id",
+                  "description": "(Required) Идентификатор чата (клиента)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "90dc9a01-576f-43da-8ee6-735b15a03004",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messenger",
+                    "v3",
+                    "accounts",
+                    ":user_id",
+                    "chats",
+                    ":chat_id",
+                    "messages",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Идентификатор пользователя (клиента)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chat_id",
+                      "description": "(Required) Идентификатор чата (клиента)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"author_id\": 94235311,\n    \"content\": {\n      \"call\": {\n        \"status\": \"missed\",\n        \"target_user_id\": 94235311\n      },\n      \"flow_id\": \"seller_audience_discount\",\n      \"image\": {\n        \"sizes\": {\n          \"1280x960\": \"https://img.k.avito.ru/chat/1280x960/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n          \"140x105\": \"https://img.k.avito.ru/chat/140x105/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n          \"32x32\": \"https://img.k.avito.ru/chat/32x32/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n          \"640x480\": \"https://img.k.avito.ru/chat/640x480/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\"\n        }\n      },\n      \"item\": {\n        \"image_url\": \"https://avito.ru/image_url.webp\",\n        \"item_url\": \"https://avito.ru/item_url\",\n        \"price_string\": \"1 232 323 ₽\",\n        \"title\": \"Объявление\"\n      },\n      \"link\": {\n        \"preview\": {\n          \"description\": \"Лучшие публикации за последние 24 часа\",\n          \"domain\": \"habr.com\",\n          \"images\": {\n            \"1280x960\": \"https://img.k.avito.ru/chat/1280x960/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n            \"140x105\": \"https://img.k.avito.ru/chat/140x105/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n            \"32x32\": \"https://img.k.avito.ru/chat/32x32/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n            \"640x480\": \"https://img.k.avito.ru/chat/640x480/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\"\n          },\n          \"title\": \"Лучшие публикации за сутки / Хабр\",\n          \"url\": \"https://habr.com/ru/\"\n        },\n        \"text\": \"habr.com\",\n        \"url\": \"habr.com\"\n      },\n      \"location\": {\n        \"kind\": \"street\",\n        \"lat\": 55.599799,\n        \"lon\": 37.603954,\n        \"text\": \"Москва, Варшавское шоссе\",\n        \"title\": \"Москва, Варшавское шоссе\"\n      },\n      \"text\": \"привет!\",\n      \"voice\": {\n        \"voice_id\": \"string\"\n      }\n    },\n    \"created\": 1571654040,\n    \"direction\": \"out\",\n    \"id\": \"string\",\n    \"is_read\": true,\n    \"quote\": {\n      \"author_id\": 94235311,\n      \"content\": {\n        \"call\": {\n          \"status\": \"missed\",\n          \"target_user_id\": 94235311\n        },\n        \"flow_id\": \"seller_audience_discount\",\n        \"image\": {\n          \"sizes\": {\n            \"1280x960\": \"https://img.k.avito.ru/chat/1280x960/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n            \"140x105\": \"https://img.k.avito.ru/chat/140x105/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n            \"32x32\": \"https://img.k.avito.ru/chat/32x32/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n            \"640x480\": \"https://img.k.avito.ru/chat/640x480/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\"\n          }\n        },\n        \"item\": {\n          \"image_url\": \"https://avito.ru/image_url.webp\",\n          \"item_url\": \"https://avito.ru/item_url\",\n          \"price_string\": \"1 232 323 ₽\",\n          \"title\": \"Объявление\"\n        },\n        \"link\": {\n          \"preview\": {\n            \"description\": \"Лучшие публикации за последние 24 часа\",\n            \"domain\": \"habr.com\",\n            \"images\": {\n              \"1280x960\": \"https://img.k.avito.ru/chat/1280x960/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n              \"140x105\": \"https://img.k.avito.ru/chat/140x105/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n              \"32x32\": \"https://img.k.avito.ru/chat/32x32/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n              \"640x480\": \"https://img.k.avito.ru/chat/640x480/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\"\n            },\n            \"title\": \"Лучшие публикации за сутки / Хабр\",\n            \"url\": \"https://habr.com/ru/\"\n          },\n          \"text\": \"habr.com\",\n          \"url\": \"habr.com\"\n        },\n        \"location\": {\n          \"kind\": \"street\",\n          \"lat\": 55.599799,\n          \"lon\": 37.603954,\n          \"text\": \"Москва, Варшавское шоссе\",\n          \"title\": \"Москва, Варшавское шоссе\"\n        },\n        \"text\": \"привет!\",\n        \"voice\": {\n          \"voice_id\": \"string\"\n        }\n      },\n      \"created\": 1571654040,\n      \"id\": \"string\",\n      \"type\": \"link\"\n    },\n    \"read\": 123,\n    \"type\": \"image\"\n  },\n  {\n    \"author_id\": 94235311,\n    \"content\": {\n      \"call\": {\n        \"status\": \"missed\",\n        \"target_user_id\": 94235311\n      },\n      \"flow_id\": \"seller_audience_discount\",\n      \"image\": {\n        \"sizes\": {\n          \"1280x960\": \"https://img.k.avito.ru/chat/1280x960/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n          \"140x105\": \"https://img.k.avito.ru/chat/140x105/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n          \"32x32\": \"https://img.k.avito.ru/chat/32x32/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n          \"640x480\": \"https://img.k.avito.ru/chat/640x480/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\"\n        }\n      },\n      \"item\": {\n        \"image_url\": \"https://avito.ru/image_url.webp\",\n        \"item_url\": \"https://avito.ru/item_url\",\n        \"price_string\": \"1 232 323 ₽\",\n        \"title\": \"Объявление\"\n      },\n      \"link\": {\n        \"preview\": {\n          \"description\": \"Лучшие публикации за последние 24 часа\",\n          \"domain\": \"habr.com\",\n          \"images\": {\n            \"1280x960\": \"https://img.k.avito.ru/chat/1280x960/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n            \"140x105\": \"https://img.k.avito.ru/chat/140x105/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n            \"32x32\": \"https://img.k.avito.ru/chat/32x32/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n            \"640x480\": \"https://img.k.avito.ru/chat/640x480/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\"\n          },\n          \"title\": \"Лучшие публикации за сутки / Хабр\",\n          \"url\": \"https://habr.com/ru/\"\n        },\n        \"text\": \"habr.com\",\n        \"url\": \"habr.com\"\n      },\n      \"location\": {\n        \"kind\": \"street\",\n        \"lat\": 55.599799,\n        \"lon\": 37.603954,\n        \"text\": \"Москва, Варшавское шоссе\",\n        \"title\": \"Москва, Варшавское шоссе\"\n      },\n      \"text\": \"привет!\",\n      \"voice\": {\n        \"voice_id\": \"string\"\n      }\n    },\n    \"created\": 1571654040,\n    \"direction\": \"out\",\n    \"id\": \"string\",\n    \"is_read\": true,\n    \"quote\": {\n      \"author_id\": 94235311,\n      \"content\": {\n        \"call\": {\n          \"status\": \"missed\",\n          \"target_user_id\": 94235311\n        },\n        \"flow_id\": \"seller_audience_discount\",\n        \"image\": {\n          \"sizes\": {\n            \"1280x960\": \"https://img.k.avito.ru/chat/1280x960/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n            \"140x105\": \"https://img.k.avito.ru/chat/140x105/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n            \"32x32\": \"https://img.k.avito.ru/chat/32x32/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n            \"640x480\": \"https://img.k.avito.ru/chat/640x480/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\"\n          }\n        },\n        \"item\": {\n          \"image_url\": \"https://avito.ru/image_url.webp\",\n          \"item_url\": \"https://avito.ru/item_url\",\n          \"price_string\": \"1 232 323 ₽\",\n          \"title\": \"Объявление\"\n        },\n        \"link\": {\n          \"preview\": {\n            \"description\": \"Лучшие публикации за последние 24 часа\",\n            \"domain\": \"habr.com\",\n            \"images\": {\n              \"1280x960\": \"https://img.k.avito.ru/chat/1280x960/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n              \"140x105\": \"https://img.k.avito.ru/chat/140x105/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n              \"32x32\": \"https://img.k.avito.ru/chat/32x32/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n              \"640x480\": \"https://img.k.avito.ru/chat/640x480/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\"\n            },\n            \"title\": \"Лучшие публикации за сутки / Хабр\",\n            \"url\": \"https://habr.com/ru/\"\n          },\n          \"text\": \"habr.com\",\n          \"url\": \"habr.com\"\n        },\n        \"location\": {\n          \"kind\": \"street\",\n          \"lat\": 55.599799,\n          \"lon\": 37.603954,\n          \"text\": \"Москва, Варшавское шоссе\",\n          \"title\": \"Москва, Варшавское шоссе\"\n        },\n        \"text\": \"привет!\",\n        \"voice\": {\n          \"voice_id\": \"string\"\n        }\n      },\n      \"created\": 1571654040,\n      \"id\": \"string\",\n      \"type\": \"image\"\n    },\n    \"read\": 123,\n    \"type\": \"location\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "64029005-c54a-4a81-906a-05dc0c6f0643",
+          "name": "Включение уведомлений V3 (webhooks)",
+          "request": {
+            "name": "Включение уведомлений V3 (webhooks)",
+            "description": {
+              "content": "Включение webhook-уведомлений. \n\nСхему JSON приходящего в webhook сообщения можно увидеть в примерах ответов.\n\nПосле регистрации url'а для получения веб-хуков, убедитесь, что он доступен, работает и возвращает статус 200 ОК соблюдая timeout 2s,\nнапример, выполнив запрос:\n\ncurl --connect-timeout 2 <url-вашего-вебхука> -i -d '{}'\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "messenger",
+                "v3",
+                "webhook"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "17745c06-7df3-403a-97ed-5ec8f751033c",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messenger",
+                    "v3",
+                    "webhook"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43bad38f-1449-42fe-98ac-09d85b022bed",
+              "name": "JSON сообщения, который будет приходить в webhook",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messenger",
+                    "v3",
+                    "webhook"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"abc\",\n  \"payload\": {\n    \"type\": \"message\",\n    \"value\": {\n      \"author_id\": 123,\n      \"chat_id\": \"abc\",\n      \"chat_type\": \"u2i\",\n      \"content\": {\n        \"call\": {\n          \"status\": \"missed\",\n          \"target_user_id\": 94235311\n        },\n        \"flow_id\": \"seller_audience_discount\",\n        \"image\": {\n          \"sizes\": {\n            \"1280x960\": \"https://img.k.avito.ru/chat/1280x960/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n            \"140x105\": \"https://img.k.avito.ru/chat/140x105/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n            \"32x32\": \"https://img.k.avito.ru/chat/32x32/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n            \"640x480\": \"https://img.k.avito.ru/chat/640x480/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\"\n          }\n        },\n        \"item\": {\n          \"image_url\": \"https://avito.ru/image_url.webp\",\n          \"item_url\": \"https://avito.ru/item_url\",\n          \"price_string\": \"1 232 323 ₽\",\n          \"title\": \"Объявление\"\n        },\n        \"link\": {\n          \"preview\": {\n            \"description\": \"Лучшие публикации за последние 24 часа\",\n            \"domain\": \"habr.com\",\n            \"images\": {\n              \"1280x960\": \"https://img.k.avito.ru/chat/1280x960/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n              \"140x105\": \"https://img.k.avito.ru/chat/140x105/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n              \"32x32\": \"https://img.k.avito.ru/chat/32x32/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\",\n              \"640x480\": \"https://img.k.avito.ru/chat/640x480/5083651369.3e798a9bf88345ae8fe85ff891266b24.jpg\"\n            },\n            \"title\": \"Лучшие публикации за сутки / Хабр\",\n            \"url\": \"https://habr.com/ru/\"\n          },\n          \"text\": \"habr.com\",\n          \"url\": \"habr.com\"\n        },\n        \"location\": {\n          \"kind\": \"street\",\n          \"lat\": 55.599799,\n          \"lon\": 37.603954,\n          \"text\": \"Москва, Варшавское шоссе\",\n          \"title\": \"Москва, Варшавское шоссе\"\n        },\n        \"text\": \"привет!\",\n        \"voice\": {\n          \"voice_id\": \"string\"\n        }\n      },\n      \"created\": 123,\n      \"id\": \"abc\",\n      \"item_id\": 123,\n      \"published_at\": \"1973-03-04T13:33:09Z\",\n      \"read\": 123,\n      \"type\": \"text\",\n      \"user_id\": 123\n    }\n  },\n  \"timestamp\": 123,\n  \"version\": \"v1.1\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.avito.ru/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d81e587a-e631-4f9f-83e3-291bde64c13d",
+    "name": "Иерархия Аккаунтов Access Messenger API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API для взаимодействия с иерархией аккаунтов в Авито\n**Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**\n\n\nContact Support:\n Email: supportautoload@avito.ru",
+      "type": "text/plain"
+    }
+  }
+}

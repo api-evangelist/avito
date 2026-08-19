@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access LinkItemsV1 API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "LinkItemsV1",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Прикрепление сотрудника иерархии к объявлениям, перезакрепление объявлений между сотрудниками иерархии",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/linkItemsV1",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Oauth-Scopes",
+                "value": "ah:access"
+              },
+              {
+                "name": "X-Oauth-Flow",
+                "value": "authorization_code"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Для взаимодействия с иерархией аккаунтов необходимо приобрести тариф в [личном кабинете](https://www.avito.ru/paid-services/listing-fees).\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access transactions API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Перевод средств на счёт клиента",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/agency/balance",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Данный метод выполняет перевод средств агентства на счёт клиента (актуально для рекламной модели).\nПри пополнении счёта клиента должны совпадать ИНН и КПП для:\n\n- аккаунта, от имени которого выполняется запрос;\n- аккаунта, на чей счёт нужно перевести средства;\n- платежа, из которого берётся указанная сумма.\n\n### Параметры тела запроса\n\n- `userId` — идентификатор клиента, на счёт которого переводятся средства.\n- `amount` — сумма перевода в рублях.\n\n### Успешный ответ\n\nМетод возвращает назад инфор"
+        },
+        {
+          "info": {
+            "name": "Получение списка незавершённых транзакций",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/agency/transactions",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Данный метод позволяет получить список незавершённых транзакций.\n\n### Успешный ответ\n\nМетод возвращает назад массив незавершённых транзакций `result`.\n\n#### Транзакция\n\nВ данных транзакции возвращается её идентификатор `transactionId` и статус `status`.\nПо идентификатору транзакции с помощью метода\n  [Получение информации о транзакции](#operation/agencyTransaction) можно получить сообщение об ошибке,\n  если её статус имеет значение `error`.\n\n#### Статус транзакции\n\n- `success` — перевод средств "
+        },
+        {
+          "info": {
+            "name": "Получение информации о транзакции",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/agency/transactions/:transaction_id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "transaction_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор транзакции"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Данный метод позволяет получить информацию о транзакции.\n\n### Параметры тела запроса\n\n- `transactionId` — идентификатор транзакции\n  (см. метод [Перевод средств на счёт клиента](#operation/agencyBalance)).\n\n### Успешный ответ\n\nМетод возвращает назад идентификатор транзакции `result.transactionId` и её статус `result.status`.\nЕсли статус имеет значение `error`, то также возвращается сообщение об ошибке `result.message`.\n\n#### Статус транзакции\n\n- `success` — перевод средств успешно завершён.\n- `p"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

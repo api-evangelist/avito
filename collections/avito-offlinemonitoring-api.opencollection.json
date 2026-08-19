@@ -1,0 +1,150 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access OfflineMonitoring API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "OfflineMonitoring",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Добавить идентификаторы (vin/frame) на мониторинг\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/autoteka/v1/monitoring/bucket/add",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод для добавления идентификаторов (vin/frame) на мониторинг.\nЧтобы подключить эту возможность, обратитесь к менеджеру Автотеки.\n"
+        },
+        {
+          "info": {
+            "name": "Полная очистка списка мониторинга\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/autoteka/v1/monitoring/bucket/delete",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод для очистки списка мониторинга\n"
+        },
+        {
+          "info": {
+            "name": "Удаление идентификаторов из мониторинга (vin/frame)\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/autoteka/v1/monitoring/bucket/remove",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод удаления идентификаторов из мониторинга (vin/frame)\n"
+        },
+        {
+          "info": {
+            "name": "Получение событий мониторинга\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/autoteka/v1/monitoring/get-reg-actions/",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "params": [
+              {
+                "name": "cursor",
+                "value": "111111",
+                "type": "query",
+                "description": "Позиция курсора"
+              },
+              {
+                "name": "operationDateFrom",
+                "value": "2020-01-01",
+                "type": "query",
+                "description": "Отбирать рег. действия не раньше указанной даты (включительно)"
+              },
+              {
+                "name": "limit",
+                "value": "10",
+                "type": "query",
+                "description": "Количество строк в результате"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод получение событий мониторинга\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

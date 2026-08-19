@@ -1,0 +1,318 @@
+{
+  "item": [
+    {
+      "id": "96e478c7-15cf-42da-a713-56734cb4a9d8",
+      "name": "ApplicationAccess",
+      "description": {
+        "content": "Для работы с API приложений от лица пользователя есть возможность получить токен через Authorization Code механизм протокола OAuth2. Для этого в первую очередь нужно зарегистрировать приложение на https://developers.avito.ru/applications. После успешной регистрации ваше приложение получит возможность работать с API Авито от лица пользователя (если последний выдаст на это разрешение).\n\nПодробнее об Authorization Code флоу протокола OAuth2 можно почитать [в статье](https://www.digitalocean.com/community/tutorials/oauth-2-ru). Процесс работы с этим флоу в API Авито отличается только незначительными деталями – ниже по шагам описан процесс интеграции.\n\n### Шаг 1: Регистрация приложения\n\nРегистрируем приложение через https://developers.avito.ru/application. Для регистрации нужно указать:\n\n* Имя приложения, которое будет выводиться пользователям в форме подтверждения прав\n* Redirect URI - адрес, на который сайт Авито средиректит пользователя после подтверждения прав\n* Скоупы, которые необходимы вашему приложению (подробнее о доступных скоупах ниже)\n* Описание приложения - для каких целей вы планируете использовать доступ к данным\n\nВ данный момент мы регистрируем только доверенные приложения от наших партнеров.\n\nСкоупы определяют права, на которые ваше приложение сможет рассчитывать после подверждения авторизации пользователем. Доступные скоупы:\n* messenger:read: Чтение сообщений в мессенджере Авито\n* messenger:write: Модифицирование сообщений в мессенджере Авито\n* user_balance:read: Получение баланса пользователя\n* job:write: Изменение объявлений вертикали Работа\n* job:cv: Получение информации резюме\n* job:vacancy: Работа с вакансиями\n* job:applications: Получение информации об откликах на вакансии\n* user_operations:read: Получение истории операций пользователя\n* user:read: Получение информации о пользователе\n* autoload:reports: Получение отчетов Автозагрузки\n* items:info: Получение информации об объявлениях\n* items:apply_vas: Применение дополнительных услуг\n* short_term_rent:read: Получение информации об объявлениях краткосрочной аренды\n* short_term_rent:write: Изменение объявлений краткосрочной аренды\n* stats:read: Получение статистики объявлений\n\n### Шаг 2: Ссылка с кодом авторизации\n\nСначала пользователю предоставляется ссылка следующего вида:\n\n```\nhttps://avito.ru/oauth?response_type=code&pro_users_flow=true&client_id=<CLIENT_ID>&scope=messenger:read,messenger:write\n```\n\n### Шаг 3: Пользователь авторизует приложение\n\nПользователь переходит по ссылке на Авито, аутентифицируется при необходимости, затем подтверждает выдачу необходимых прав вашему приложению.\n\n### Шаг 4: Приложение получает код авторизации\n\nЕсли пользователь выбирает \"Авторизовать приложение\", Авито перенаправляет пользовательский агент (браузер) по URI перенаправления (Redirect URI), который был задан на этапе регистрации приложения и добавляет в него параметр `code`. Например, если при регистрации в качестве Redirect URI был указан адрес `https://example.com/callback/avito`, то мы перенаправим пользователя на:\n\n```\nhttps://example.com/callback/avito?code=<AUTHORIZATION_CODE>\n```\n\n### Шаг 5: Приложение запрашивает токен доступа\n\nПриложение запрашивает токен доступа у API Авито путём отправки авторизационного кода и аутентификационной информации (включая секрет приложения). Ниже представлен пример POST-запроса для получения access token:\n\n```\n     curl -L -X POST 'https://api.avito.ru/token/' \\\n         -H 'Content-Type: application/x-www-form-urlencoded' \\\n         --data-urlencode 'grant_type=authorization_code' \\\n         --data-urlencode 'client_id=<CLIENT_ID>' \\\n         --data-urlencode 'client_secret=<CLIENT_SECRET>' \\\n         --data-urlencode 'code=<AUTHORIZATION_CODE>'\n```\n\n### Шаг 6: Приложение получает токен доступа\n\nЕсли авторизация прошла успешно, API возвращает токен доступа (а также токен для обновления токена доступа - refresh token). Весь ответ сервера может выглядеть следующим образом:\n\n```\n{\n    \"access_token\": \"<ACCESS_TOKEN>\",\n    \"expires_in\": 86400,\n    \"refresh_token\": \"<REFRESH_TOKEN>\",\n    \"scope\": \"messenger:read,messenger:write\",\n    \"token_type\": \"Bearer\"\n}\n```\n\nПриложение сохраняет access_token и refresh_token.\n\n### Шаг 7: Приложение делает запросы к API c токеном доступа\n\nДалее приложение может выполнять запросы к API с заголовком `Authorization: Bearer <ACCESS_TOKEN>`\n\n### Шаг 8: Приложение обновляет access_token\n\nВремя действия access token ограничено - 24 часа с момента его получения. После этого вам необходимо получить новый токен.\n\nПосле истечения срока действия токена доступа все запросы к API с его использованием будут возвращать код ошибки 403. Сохраненный refresh token может быть использован для получения нового токена доступа от авторизационного сервера.\n\nНиже представлен пример POST-запроса, использующего refresh token для обновления токена доступа:\n\n``` curl -L -X POST 'https://api.avito.ru/token/' \\\n    -H 'Content-Type: application/x-www-form-urlencoded' \\\n    --data-urlencode 'grant_type=refresh_token' \\\n    --data-urlencode 'client_id=<CLIENT_ID>' \\\n    --data-urlencode 'client_secret=<CLIENT_SECRET>' \\\n    --data-urlencode 'refresh_token=<REFRESH_TOKEN>'\n```\n\nВ ответ приложение получит точно такой же JSON, как и при обмене code на access token. При этом будет получен не только новый access_token, но и новый refresh_token. Обновите оба значения в своей базе данных.\n\n### Дополнительный параметр state\n\nДля того чтобы защитить данные пользователей мы крайне рекомендуем использовать параметр state. Этот параметр позволяет защититься от CSRF-атак и восстановить состояние вашего приложения на момент начала авторизации. Подробнее, зачем нужен параметр state, можно прочитать [тут](https://auth0.com/docs/protocols/oauth2/oauth-state).\n\nДля того, чтобы использовать state – просто включите его в начальный URL:\n\n```\nhttps://avito.ru/oauth?response_type=code&pro_users_flow=true&client_id=<CLIENT_ID>&scope=messenger:read,messenger:write&state=<STATE>\n```\n\nВ итоге state будет содержаться в финальном Redirect URI, на который Авито перенаправляет пользователя после подтверждения прав доступа. Например, если при регистрации в качестве Redirect URI был указан адрес `https://example.com/callback/avito`, то мы перенаправим пользователя на:\n\n```\nhttps://example.com/callback/avito?code=<AUTHORIZATION_CODE>&state=<STATE>\n```\n\nНе передавайте чувствительные данные в открытом виде в этом параметре. Генерируйте уникальное временное значение state в вашем приложении.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "04b0d755-44b7-455a-b334-581d089bcfd6",
+          "name": "Получение access token",
+          "request": {
+            "name": "Получение access token",
+            "description": {
+              "content": "Получения временного ключа для авторизации запроса от лица пользователя",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "token‎"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "client_id",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "client_secret",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "code",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "90256d06-d9b4-4357-978a-47c54aa2312d",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token‎"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "grant_type",
+                      "value": "authorization_code"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "client_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "client_secret",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "code",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"kChqt9ewQNAcwgbHp4yFd5\",\n  \"expires_in\": 86400,\n  \"refresh_token\": \"QNAcwgbHQNAcwgbHkChqt9ewQNAcwgbHp4yFd5\",\n  \"scope\": \"messenger:read,messenger:write\",\n  \"token_type\": \"Bearer\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a2e1b807-c749-41f2-b929-95f982fec16f",
+          "name": "Обновление access token",
+          "request": {
+            "name": "Обновление access token",
+            "description": {
+              "content": "Обновление временного ключа для авторизации запроса от лица пользователя",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "token‎‎"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "grant_type",
+                  "value": "refresh_token",
+                  "description": "(Required) Тип OAuth flow. Строка refresh_token"
+                },
+                {
+                  "disabled": false,
+                  "key": "client_id",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "client_secret",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "refresh_token",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "452af2c2-09ef-4082-be5a-20f1b4416757",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token‎‎"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Тип OAuth flow. Строка refresh_token",
+                        "type": "text/plain"
+                      },
+                      "key": "grant_type",
+                      "value": "refresh_token"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "client_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "client_secret",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "refresh_token",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"5dFy4pHbgwcANQwe9tqhCk\",\n  \"expires_in\": 86400,\n  \"refresh_token\": \"5dFy4pHbgwcANQwe9tqhCkHbgwcANQHbgwcANQ\",\n  \"scope\": \"messenger:read,messenger:write\",\n  \"token_type\": \"Bearer\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.avito.ru/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "fcbd4374-7415-471b-a9c1-6d110b841443",
+    "name": "Иерархия Аккаунтов Access ApplicationAccess API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API для взаимодействия с иерархией аккаунтов в Авито\n**Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**\n\n\nContact Support:\n Email: supportautoload@avito.ru",
+      "type": "text/plain"
+    }
+  }
+}

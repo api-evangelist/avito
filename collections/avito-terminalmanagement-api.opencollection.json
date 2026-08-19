@@ -1,0 +1,110 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access TerminalManagement API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "TerminalManagement",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Установка графика работы на определённый день",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery-sandbox/areas/custom-schedule",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Метод можно использовать для установки расписания отличного от регулярного, например для того, чтобы установить\nпраздничные дни нерабочими или установить для них расписание отличное от регулярного.\n"
+        },
+        {
+          "info": {
+            "name": "Загрузить терминалы",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/delivery-sandbox/tariffs/:tariff_id/terminals",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "params": [
+              {
+                "name": "tariff_id",
+                "value": "",
+                "type": "path",
+                "description": "id тарифа, к которому должны быть прикреплены добавляемые терминалы"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Загрузить новые терминалы\n\nДанные необходимо загружать по мере обновления данных о ПВЗ (как правило это 1-2 раза в сутки)\n\n### Система апрува терминалов\n\nПри загрузке терминалов система автоматически сравнивает новые данные с текущими в базе.\nЕсли процент критичных изменений превышает заданный порог — задача переходит в статус `pending_approval`\nи требует ручного одобрения.\n\n**Критичные изменения** (хотя бы одно из):\n- Добавление нового терминала\n- Удаление терминала\n- Изменение сервисов (приём/"
+        },
+        {
+          "info": {
+            "name": "Получение информации по задаче",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/delivery-sandbox/tasks/:task_id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Получить информацию о задаче\n\nПримерное время выполнения задачи от 5 до 20 минут\n\n### Возможные статусы задачи\n Задача может быть в одном из следующих статусов:\n  * `processing` - задача ждёт очередь на выполнение или уже выполняется\n  * `success` - задача успешно выполнена\n  * `failed` - задача завершилась с ошибкой или не смогла завершиться по техническим причинам\n  * `pending_approval` - загрузка терминалов приостановлена, процент критичных изменений превысил допустимый порог и требуется ручн"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

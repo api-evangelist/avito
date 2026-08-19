@@ -1,0 +1,2066 @@
+{
+  "item": [
+    {
+      "id": "2a806d70-c805-4636-8f47-c3dae0dbc024",
+      "name": "Autostrategy",
+      "description": {
+        "content": "API для работы с автостратегией в категории\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1fc61c37-6d5e-4dad-aec9-28f2e675d5ad",
+          "name": "Расчет бюджета кампании",
+          "request": {
+            "name": "Расчет бюджета кампании",
+            "description": {},
+            "url": {
+              "path": [
+                "autostrategy",
+                "v1",
+                "budget"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"campaignType\": \"<string>\",\n  \"finishTime\": \"<dateTime>\",\n  \"items\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"startTime\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bf71f1c6-a6ab-4ceb-bd23-9f43fee68dbc",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "budget"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignType\": \"AS\",\n  \"finishTime\": \"2020-08-24T14:15:22Z\",\n  \"items\": [\n    123123214,\n    455454235,\n    87746346\n  ],\n  \"startTime\": \"2019-08-24T14:15:22Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"budget\": {\n    \"maximal\": {\n      \"bonus\": 1000,\n      \"callsFrom\": 6,\n      \"callsTo\": 10,\n      \"real\": 100000,\n      \"total\": 101000,\n      \"viewsFrom\": 50,\n      \"viewsTo\": 80\n    },\n    \"minimal\": {\n      \"bonus\": 10,\n      \"callsFrom\": 1,\n      \"callsTo\": 3,\n      \"real\": 1000,\n      \"total\": 1010,\n      \"viewsFrom\": 10,\n      \"viewsTo\": 20\n    },\n    \"priceRanges\": [\n      {\n        \"priceFrom\": 10000,\n        \"priceTo\": 20000,\n        \"callsFrom\": 4,\n        \"callsTo\": 7,\n        \"viewsFrom\": 50,\n        \"viewsTo\": 80,\n        \"percent\": 95\n      },\n      {\n        \"priceFrom\": 10000,\n        \"priceTo\": 20000,\n        \"callsFrom\": 4,\n        \"callsTo\": 7,\n        \"viewsFrom\": 50,\n        \"viewsTo\": 80,\n        \"percent\": 95\n      }\n    ],\n    \"recommended\": {\n      \"bonus\": 100,\n      \"callsFrom\": 4,\n      \"callsTo\": 7,\n      \"real\": 10000,\n      \"total\": 10100,\n      \"viewsFrom\": 30,\n      \"viewsTo\": 50\n    }\n  },\n  \"calcId\": 123\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0cc19bf2-05f7-4678-81ce-2c441c8a04c0",
+              "name": "Неверный запрос",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "budget"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignType\": \"AS\",\n  \"finishTime\": \"2020-08-24T14:15:22Z\",\n  \"items\": [\n    123123214,\n    455454235,\n    87746346\n  ],\n  \"startTime\": \"2019-08-24T14:15:22Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"bad request\",\n    \"fieldErrors\": {\n      \"campaignType\": \"string\",\n      \"finishTime\": \"string\",\n      \"items\": \"string\",\n      \"startTime\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "edc60b38-9cf5-42d6-b18b-425cbc871167",
+              "name": "Требуется аутентификация",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "budget"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignType\": \"AS\",\n  \"finishTime\": \"2020-08-24T14:15:22Z\",\n  \"items\": [\n    123123214,\n    455454235,\n    87746346\n  ],\n  \"startTime\": \"2019-08-24T14:15:22Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"unauthorized\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3fe51e4f-fc2f-41a9-a146-a6a48b367e90",
+              "name": "Ошибка бизнес-логики",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "budget"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignType\": \"AS\",\n  \"finishTime\": \"2020-08-24T14:15:22Z\",\n  \"items\": [\n    123123214,\n    455454235,\n    87746346\n  ],\n  \"startTime\": \"2019-08-24T14:15:22Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6,\n    \"message\": \"get budget failed\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c4072a5-958f-48e0-9858-18cc1851111f",
+              "name": "Внутренняя ошибка метода API",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "budget"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignType\": \"AS\",\n  \"finishTime\": \"2020-08-24T14:15:22Z\",\n  \"items\": [\n    123123214,\n    455454235,\n    87746346\n  ],\n  \"startTime\": \"2019-08-24T14:15:22Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"internal server error\",\n    \"code\": 8473\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "97e44e3a-2ed1-4417-9da6-566da9f19c8c",
+          "name": "Создание новой кампании",
+          "request": {
+            "name": "Создание новой кампании",
+            "description": {},
+            "url": {
+              "path": [
+                "autostrategy",
+                "v1",
+                "campaign",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"campaignType\": \"<string>\",\n  \"title\": \"<string>\",\n  \"budget\": \"<integer>\",\n  \"budgetBonus\": \"<integer>\",\n  \"budgetReal\": \"<integer>\",\n  \"calcId\": \"<integer>\",\n  \"description\": \"<string>\",\n  \"finishTime\": \"<dateTime>\",\n  \"items\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"startTime\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1dfac1cb-c178-4fda-baac-9bd0d833cc4e",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "campaign",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignType\": \"AS\",\n  \"title\": \"Внедорожники Москвы\",\n  \"budget\": 10000,\n  \"budgetBonus\": 100,\n  \"budgetReal\": 10000,\n  \"calcId\": 123,\n  \"description\": \"Toyota, Lexus, BMW 2020 года выпуска\",\n  \"finishTime\": \"2019-10-24T14:15:22Z\",\n  \"items\": [\n    123123214,\n    455454235,\n    87746346\n  ],\n  \"startTime\": \"2019-08-24T14:15:22Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"campaign\": {\n    \"balance\": 1000,\n    \"budget\": 10000,\n    \"campaignId\": 3456432,\n    \"campaignType\": \"AS\",\n    \"createTime\": \"2018-08-24T14:15:22Z\",\n    \"description\": \"Toyota, Lexus, BMW, Audi 2019 и 2020 года выпуска\",\n    \"finishTime\": \"2020-08-24T14:15:22Z\",\n    \"itemsCount\": 10,\n    \"startTime\": \"2019-08-24T14:15:22Z\",\n    \"statusId\": 1,\n    \"title\": \"Внедорожники Москвы и Санкт-Петербурга\",\n    \"updateTime\": \"2020-01-01T14:15:22Z\",\n    \"userId\": 345632234325,\n    \"version\": 3\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "db2cb731-7bf6-4ba7-966a-1c22931b14fd",
+              "name": "Неверный запрос",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "campaign",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignType\": \"AS\",\n  \"title\": \"Внедорожники Москвы\",\n  \"budget\": 10000,\n  \"budgetBonus\": 100,\n  \"budgetReal\": 10000,\n  \"calcId\": 123,\n  \"description\": \"Toyota, Lexus, BMW 2020 года выпуска\",\n  \"finishTime\": \"2019-10-24T14:15:22Z\",\n  \"items\": [\n    123123214,\n    455454235,\n    87746346\n  ],\n  \"startTime\": \"2019-08-24T14:15:22Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"bad request\",\n    \"fieldErrors\": {\n      \"budget\": \"string\",\n      \"budgetBonus\": \"string\",\n      \"budgetReal\": \"string\",\n      \"campaignType\": \"string\",\n      \"description\": \"string\",\n      \"finishTime\": \"string\",\n      \"items\": \"string\",\n      \"startTime\": \"string\",\n      \"title\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "499db202-2c4d-400d-a517-d89e34970b9b",
+              "name": "Требуется аутентификация",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "campaign",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignType\": \"AS\",\n  \"title\": \"Внедорожники Москвы\",\n  \"budget\": 10000,\n  \"budgetBonus\": 100,\n  \"budgetReal\": 10000,\n  \"calcId\": 123,\n  \"description\": \"Toyota, Lexus, BMW 2020 года выпуска\",\n  \"finishTime\": \"2019-10-24T14:15:22Z\",\n  \"items\": [\n    123123214,\n    455454235,\n    87746346\n  ],\n  \"startTime\": \"2019-08-24T14:15:22Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"unauthorized\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df74696b-0567-4abf-8468-daa727adf457",
+              "name": "Ошибка бизнес-логики",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "campaign",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignType\": \"AS\",\n  \"title\": \"Внедорожники Москвы\",\n  \"budget\": 10000,\n  \"budgetBonus\": 100,\n  \"budgetReal\": 10000,\n  \"calcId\": 123,\n  \"description\": \"Toyota, Lexus, BMW 2020 года выпуска\",\n  \"finishTime\": \"2019-10-24T14:15:22Z\",\n  \"items\": [\n    123123214,\n    455454235,\n    87746346\n  ],\n  \"startTime\": \"2019-08-24T14:15:22Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6,\n    \"message\": \"create campaign failed\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45f3b440-9cc8-4498-a222-e553ee6c5059",
+              "name": "Внутренняя ошибка метода API",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "campaign",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignType\": \"AS\",\n  \"title\": \"Внедорожники Москвы\",\n  \"budget\": 10000,\n  \"budgetBonus\": 100,\n  \"budgetReal\": 10000,\n  \"calcId\": 123,\n  \"description\": \"Toyota, Lexus, BMW 2020 года выпуска\",\n  \"finishTime\": \"2019-10-24T14:15:22Z\",\n  \"items\": [\n    123123214,\n    455454235,\n    87746346\n  ],\n  \"startTime\": \"2019-08-24T14:15:22Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"internal server error\",\n    \"code\": 8473\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c2f4a4f0-e83e-4061-b3c0-3fbfc9c325ff",
+          "name": "Редактирование кампании",
+          "request": {
+            "name": "Редактирование кампании",
+            "description": {
+              "content": "**Возможно редактирование лишь только кампаний, имеющих тип `AS`**\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "autostrategy",
+                "v1",
+                "campaign",
+                "edit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"campaignId\": \"<integer>\",\n  \"version\": \"<integer>\",\n  \"budget\": \"<integer>\",\n  \"calcId\": \"<integer>\",\n  \"description\": \"<string>\",\n  \"finishTime\": \"<dateTime>\",\n  \"items\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"startTime\": \"<dateTime>\",\n  \"title\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c342359c-7bca-4cd2-9219-0d62924898a7",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "campaign",
+                    "edit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": 3456432,\n  \"version\": 3,\n  \"budget\": 1000,\n  \"calcId\": 123,\n  \"description\": \"Toyota, Lexus, BMW, Audi 2019 и 2020 года выпуска\",\n  \"finishTime\": \"2020-08-24T14:15:22Z\",\n  \"items\": [\n    123123214,\n    455454235,\n    87746346\n  ],\n  \"startTime\": \"2019-08-24T14:15:22Z\",\n  \"title\": \"Внедорожники Москвы и Санкт-Петербурга\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"campaign\": {\n    \"balance\": 1000,\n    \"budget\": 10000,\n    \"campaignId\": 3456432,\n    \"campaignType\": \"AS\",\n    \"createTime\": \"2018-08-24T14:15:22Z\",\n    \"description\": \"Toyota, Lexus, BMW, Audi 2019 и 2020 года выпуска\",\n    \"finishTime\": \"2020-08-24T14:15:22Z\",\n    \"itemsCount\": 10,\n    \"startTime\": \"2019-08-24T14:15:22Z\",\n    \"statusId\": 1,\n    \"title\": \"Внедорожники Москвы и Санкт-Петербурга\",\n    \"updateTime\": \"2020-01-01T14:15:22Z\",\n    \"userId\": 345632234325,\n    \"version\": 3\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4a4833d-97d2-4982-be61-4c6c83d7d477",
+              "name": "Неверный запрос",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "campaign",
+                    "edit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": 3456432,\n  \"version\": 3,\n  \"budget\": 1000,\n  \"calcId\": 123,\n  \"description\": \"Toyota, Lexus, BMW, Audi 2019 и 2020 года выпуска\",\n  \"finishTime\": \"2020-08-24T14:15:22Z\",\n  \"items\": [\n    123123214,\n    455454235,\n    87746346\n  ],\n  \"startTime\": \"2019-08-24T14:15:22Z\",\n  \"title\": \"Внедорожники Москвы и Санкт-Петербурга\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"bad request\",\n    \"fieldErrors\": {\n      \"budget\": \"string\",\n      \"campaignId\": \"string\",\n      \"description\": \"string\",\n      \"finishTime\": \"string\",\n      \"items\": \"string\",\n      \"startTime\": \"string\",\n      \"title\": \"string\",\n      \"version\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c1be354a-88aa-45d8-b758-5191bbe0f068",
+              "name": "Требуется аутентификация",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "campaign",
+                    "edit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": 3456432,\n  \"version\": 3,\n  \"budget\": 1000,\n  \"calcId\": 123,\n  \"description\": \"Toyota, Lexus, BMW, Audi 2019 и 2020 года выпуска\",\n  \"finishTime\": \"2020-08-24T14:15:22Z\",\n  \"items\": [\n    123123214,\n    455454235,\n    87746346\n  ],\n  \"startTime\": \"2019-08-24T14:15:22Z\",\n  \"title\": \"Внедорожники Москвы и Санкт-Петербурга\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"unauthorized\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99708a05-2211-4fa4-add4-f71e8f9ebb13",
+              "name": "Ошибка бизнес-логики",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "campaign",
+                    "edit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": 3456432,\n  \"version\": 3,\n  \"budget\": 1000,\n  \"calcId\": 123,\n  \"description\": \"Toyota, Lexus, BMW, Audi 2019 и 2020 года выпуска\",\n  \"finishTime\": \"2020-08-24T14:15:22Z\",\n  \"items\": [\n    123123214,\n    455454235,\n    87746346\n  ],\n  \"startTime\": \"2019-08-24T14:15:22Z\",\n  \"title\": \"Внедорожники Москвы и Санкт-Петербурга\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 2,\n    \"message\": \"edit campaign failed\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be38f537-b779-46de-948b-ace57513f5b3",
+              "name": "Внутренняя ошибка метода API",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "campaign",
+                    "edit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": 3456432,\n  \"version\": 3,\n  \"budget\": 1000,\n  \"calcId\": 123,\n  \"description\": \"Toyota, Lexus, BMW, Audi 2019 и 2020 года выпуска\",\n  \"finishTime\": \"2020-08-24T14:15:22Z\",\n  \"items\": [\n    123123214,\n    455454235,\n    87746346\n  ],\n  \"startTime\": \"2019-08-24T14:15:22Z\",\n  \"title\": \"Внедорожники Москвы и Санкт-Петербурга\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"internal server error\",\n    \"code\": 8473\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9b8f4a8a-b509-414d-9afe-de5668a301e1",
+          "name": "Получение полной информации о кампании",
+          "request": {
+            "name": "Получение полной информации о кампании",
+            "description": {},
+            "url": {
+              "path": [
+                "autostrategy",
+                "v1",
+                "campaign",
+                "info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"campaignId\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4c88959e-a963-473e-aeb2-96783350f37f",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "campaign",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": 3456432\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"campaign\": {\n    \"balance\": 1000,\n    \"budget\": 10000,\n    \"campaignId\": 3456432,\n    \"campaignType\": \"AS\",\n    \"createTime\": \"2018-08-24T14:15:22Z\",\n    \"description\": \"Toyota, Lexus, BMW, Audi 2019 и 2020 года выпуска\",\n    \"finishTime\": \"2020-08-24T14:15:22Z\",\n    \"itemsCount\": 10,\n    \"startTime\": \"2019-08-24T14:15:22Z\",\n    \"statusId\": 1,\n    \"title\": \"Внедорожники Москвы и Санкт-Петербурга\",\n    \"updateTime\": \"2020-01-01T14:15:22Z\",\n    \"userId\": 345632234325,\n    \"version\": 3\n  },\n  \"forecast\": {\n    \"calls\": {\n      \"from\": 10,\n      \"to\": 20,\n      \"lackReason\": \"no_calltracking\"\n    },\n    \"views\": {\n      \"from\": 100,\n      \"to\": 200,\n      \"lackReason\": \"not_enough_data\"\n    }\n  },\n  \"items\": [\n    {\n      \"isActive\": true,\n      \"itemId\": 12345678\n    },\n    {\n      \"isActive\": true,\n      \"itemId\": 12345678\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "603bec0d-b23a-461b-a49f-2581f91ad4eb",
+              "name": "Неверный запрос",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "campaign",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": 3456432\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"bad request\",\n    \"fieldErrors\": {\n      \"campaignId\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "192815a9-6996-4f9f-88a7-7615abf6ee54",
+              "name": "Требуется аутентификация",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "campaign",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": 3456432\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"unauthorized\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "69c607a9-d1cc-44ca-98b3-5cdac8021804",
+              "name": "Ошибка бизнес-логики",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "campaign",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": 3456432\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 2,\n    \"message\": \"campaign not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d635cef7-454e-4b00-9aa5-1fd2cf02f323",
+              "name": "Внутренняя ошибка метода API",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "campaign",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": 3456432\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"internal server error\",\n    \"code\": 8473\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c1714cee-ed77-46ab-82c8-3b85bbe14972",
+          "name": "Остановка кампании",
+          "request": {
+            "name": "Остановка кампании",
+            "description": {},
+            "url": {
+              "path": [
+                "autostrategy",
+                "v1",
+                "campaign",
+                "stop"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"campaignId\": \"<integer>\",\n  \"version\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0e9553f9-ad8b-4e7f-bd4e-95ec367f1c0d",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "campaign",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": 3456432,\n  \"version\": 3\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"campaign\": {\n    \"balance\": 1000,\n    \"budget\": 10000,\n    \"campaignId\": 3456432,\n    \"campaignType\": \"AS\",\n    \"createTime\": \"2018-08-24T14:15:22Z\",\n    \"description\": \"Toyota, Lexus, BMW, Audi 2019 и 2020 года выпуска\",\n    \"finishTime\": \"2020-08-24T14:15:22Z\",\n    \"itemsCount\": 10,\n    \"startTime\": \"2019-08-24T14:15:22Z\",\n    \"statusId\": 1,\n    \"title\": \"Внедорожники Москвы и Санкт-Петербурга\",\n    \"updateTime\": \"2020-01-01T14:15:22Z\",\n    \"userId\": 345632234325,\n    \"version\": 3\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fad699e3-e194-40bf-98a8-7a5b8986b309",
+              "name": "Неверный запрос",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "campaign",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": 3456432,\n  \"version\": 3\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"bad request\",\n    \"fieldErrors\": {\n      \"campaignId\": \"string\",\n      \"version\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0453dffa-6b5e-4edc-9648-0acbbf965dc3",
+              "name": "Требуется аутентификация",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "campaign",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": 3456432,\n  \"version\": 3\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"unauthorized\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72ce8ede-cb68-40b4-a53b-016514e28f3d",
+              "name": "Внутренняя ошибка метода API",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "campaign",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": 3456432,\n  \"version\": 3\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"internal server error\",\n    \"code\": 8473\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4777fed8-c719-4906-9660-192ddbc7280d",
+          "name": "Получение списка кампаний",
+          "request": {
+            "name": "Получение списка кампаний",
+            "description": {
+              "content": "**Получение кампаний текущего пользователя с учетом фильтров**\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "autostrategy",
+                "v1",
+                "campaigns"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"limit\": \"<integer>\",\n  \"filter\": {\n    \"byUpdateTime\": {\n      \"from\": \"<dateTime>\",\n      \"to\": \"<dateTime>\"\n    }\n  },\n  \"offset\": \"<integer>\",\n  \"orderBy\": [\n    {\n      \"column\": \"<string>\",\n      \"direction\": \"<string>\"\n    },\n    {\n      \"column\": \"<string>\",\n      \"direction\": \"<string>\"\n    }\n  ],\n  \"statusId\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "81dd50c4-374c-484a-b603-943308cd770e",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "campaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"limit\": 100,\n  \"filter\": {\n    \"byUpdateTime\": {\n      \"from\": \"2021-04-14T00:00:00Z\",\n      \"to\": \"2021-05-14T00:00:00Z\"\n    }\n  },\n  \"offset\": 10,\n  \"orderBy\": [\n    {\n      \"column\": \"startTime\",\n      \"direction\": \"asc\"\n    },\n    {\n      \"column\": \"startTime\",\n      \"direction\": \"asc\"\n    }\n  ],\n  \"statusId\": [\n    1,\n    2,\n    3\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"campaigns\": [\n    {\n      \"balance\": 1000,\n      \"budget\": 10000,\n      \"campaignId\": 3456432,\n      \"campaignType\": \"AS\",\n      \"createTime\": \"2018-08-24T14:15:22Z\",\n      \"description\": \"Toyota, Lexus, BMW, Audi 2019 и 2020 года выпуска\",\n      \"finishTime\": \"2020-08-24T14:15:22Z\",\n      \"itemsCount\": 10,\n      \"startTime\": \"2019-08-24T14:15:22Z\",\n      \"statusId\": 1,\n      \"title\": \"Внедорожники Москвы и Санкт-Петербурга\",\n      \"updateTime\": \"2020-01-01T14:15:22Z\",\n      \"userId\": 345632234325,\n      \"version\": 3\n    },\n    {\n      \"balance\": 1000,\n      \"budget\": 10000,\n      \"campaignId\": 3456432,\n      \"campaignType\": \"AS\",\n      \"createTime\": \"2018-08-24T14:15:22Z\",\n      \"description\": \"Toyota, Lexus, BMW, Audi 2019 и 2020 года выпуска\",\n      \"finishTime\": \"2020-08-24T14:15:22Z\",\n      \"itemsCount\": 10,\n      \"startTime\": \"2019-08-24T14:15:22Z\",\n      \"statusId\": 1,\n      \"title\": \"Внедорожники Москвы и Санкт-Петербурга\",\n      \"updateTime\": \"2020-01-01T14:15:22Z\",\n      \"userId\": 345632234325,\n      \"version\": 3\n    }\n  ],\n  \"totalCount\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6f1fcb7-6423-4c3d-b902-061d37e3023f",
+              "name": "Неверный запрос",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "campaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"limit\": 100,\n  \"filter\": {\n    \"byUpdateTime\": {\n      \"from\": \"2021-04-14T00:00:00Z\",\n      \"to\": \"2021-05-14T00:00:00Z\"\n    }\n  },\n  \"offset\": 10,\n  \"orderBy\": [\n    {\n      \"column\": \"startTime\",\n      \"direction\": \"asc\"\n    },\n    {\n      \"column\": \"startTime\",\n      \"direction\": \"asc\"\n    }\n  ],\n  \"statusId\": [\n    1,\n    2,\n    3\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"bad request\",\n    \"fieldErrors\": {\n      \"limit\": \"string\",\n      \"offset\": \"string\",\n      \"orderBy\": {\n        \"column\": \"string\",\n        \"direction\": \"string\"\n      },\n      \"statusId\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c5f89a5-59fb-4511-a150-8ffc3f57686f",
+              "name": "Требуется аутентификация",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "campaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"limit\": 100,\n  \"filter\": {\n    \"byUpdateTime\": {\n      \"from\": \"2021-04-14T00:00:00Z\",\n      \"to\": \"2021-05-14T00:00:00Z\"\n    }\n  },\n  \"offset\": 10,\n  \"orderBy\": [\n    {\n      \"column\": \"startTime\",\n      \"direction\": \"asc\"\n    },\n    {\n      \"column\": \"startTime\",\n      \"direction\": \"asc\"\n    }\n  ],\n  \"statusId\": [\n    1,\n    2,\n    3\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"unauthorized\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "87a4f045-030b-479d-b528-07ea6fd42441",
+              "name": "Внутренняя ошибка метода API",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "campaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"limit\": 100,\n  \"filter\": {\n    \"byUpdateTime\": {\n      \"from\": \"2021-04-14T00:00:00Z\",\n      \"to\": \"2021-05-14T00:00:00Z\"\n    }\n  },\n  \"offset\": 10,\n  \"orderBy\": [\n    {\n      \"column\": \"startTime\",\n      \"direction\": \"asc\"\n    },\n    {\n      \"column\": \"startTime\",\n      \"direction\": \"asc\"\n    }\n  ],\n  \"statusId\": [\n    1,\n    2,\n    3\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"internal server error\",\n    \"code\": 8473\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e60a66a7-0100-41a2-a450-f3f3181e1024",
+          "name": "Получение статистики по кампании",
+          "request": {
+            "name": "Получение статистики по кампании",
+            "description": {},
+            "url": {
+              "path": [
+                "autostrategy",
+                "v1",
+                "stat"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"campaignId\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b038c1ee-f17f-4d9c-8745-1117b6ac0d9e",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "stat"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": 3456432\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"stat\": [\n    {\n      \"date\": \"2021-01-25\",\n      \"calls\": 10,\n      \"views\": 100,\n      \"callsForecast\": {\n        \"from\": 8,\n        \"to\": 12\n      },\n      \"viewsForecast\": {\n        \"from\": 80,\n        \"to\": 120\n      }\n    },\n    {\n      \"date\": \"2021-01-25\",\n      \"calls\": 10,\n      \"views\": 100,\n      \"callsForecast\": {\n        \"from\": 8,\n        \"to\": 12\n      },\n      \"viewsForecast\": {\n        \"from\": 80,\n        \"to\": 120\n      }\n    }\n  ],\n  \"totals\": {\n    \"calls\": 50,\n    \"views\": 500\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b7e71538-3a4b-4679-b212-073c3457270d",
+              "name": "Неверный запрос",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "stat"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": 3456432\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"bad request\",\n    \"code\": 400,\n    \"fieldErrors\": {\n      \"campaignId\": \"campaignId should be greater than 0\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29c6900d-400b-47be-bb4d-7d55b97dc179",
+              "name": "Требуется аутентификация",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "stat"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": 3456432\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"unauthorized\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8edd1cef-7401-4ec5-bc8a-b82fa2b1f810",
+              "name": "Ошибка бизнес-логики",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "stat"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": 3456432\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 2,\n    \"message\": \"campaign not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "288d83ad-685a-406a-992f-c20e5f68e74e",
+              "name": "Внутренняя ошибка метода API",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autostrategy",
+                    "v1",
+                    "stat"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"campaignId\": 3456432\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"internal server error\",\n    \"code\": 8473\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.avito.ru/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0fd5fa6d-47e0-4669-a7b3-27e7b6a970f2",
+    "name": "Иерархия Аккаунтов Access Autostrategy API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API для взаимодействия с иерархией аккаунтов в Авито\n**Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**\n\n\nContact Support:\n Email: supportautoload@avito.ru",
+      "type": "text/plain"
+    }
+  }
+}

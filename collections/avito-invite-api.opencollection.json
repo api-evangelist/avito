@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access invite API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "invite",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Отправка приглашения нового клиента",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/api/1/agency/users/invite/send",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Данный метод отправляет приглашение новому клиенту.\n\n### Параметры тела запроса\n\n- `userId` — идентификатор приглашаемого пользователя.\n- `type` — тип необходимой связи клиента с агентством: `adv` — по рекламной, `trx` — по транзакционной модели.\n\n### Успешный ответ\n\nМетод возвращает назад идентификатор приглашения `result.inviteId`,\n  с помощью которого можно будет получить его статус\n  (см. метод [Получение статуса приглашения нового клиента](#operation/agencyUsersInviteStatus)),\n  а также ста"
+        },
+        {
+          "info": {
+            "name": "Получение статуса приглашения нового клиента",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/api/1/agency/users/invite/status",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Данный метод позволяет получить статус отправленного приглашения нового клиента.\n\n### Параметры тела запроса\n\n- `inviteId` — идентификатор отправленного приглашения\n  (см. метод [Отправка приглашения нового клиента](#operation/agencyUsersInviteSend)).\n\n### Успешный ответ\n\nМетод возвращает назад статус приглашения `result.status`:\n\n- `pending` — приглашение ожидает подтверждения клиентом.\n- `success` — приглашение успешно подтверждено.\n- `decline` — приглашение отклонено клиентом.\n"
+        },
+        {
+          "info": {
+            "name": "Получение статуса верификации нового клиента",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/api/1/agency/users/verificationStatus",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Данный метод позволяет получить статус верификации подтвердившего приглашение клиента.\n\n### Параметры тела запроса\n\n- `inviteId` — идентификатор приглашения клиента\n  (см. метод [Отправка приглашения нового клиента](#operation/agencyUsersInviteSend)).\n\n### Успешный ответ\n\nМетод возвращает назад статус приглашения `result.status`:\n\n- `verified` — клиент верифицирован.\n- `not-verified` — клиент ещё не верифицирован.\n\nВ том числе метод возвращает идентификатор подтвердившего приглашение клиента `re"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

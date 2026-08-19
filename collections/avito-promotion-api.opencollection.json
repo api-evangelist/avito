@@ -1,0 +1,162 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access Promotion API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Promotion",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Словарь типов услуг продвижения",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/promotion/v1/items/services/dict",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Получение словаря типов услуг продвижения\n\n**Rate limit:** 100 RPM\n"
+        },
+        {
+          "info": {
+            "name": "Список услуг продвижения",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/promotion/v1/items/services/get",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Получение списка активных услуг продвижения по объявлениям\n \n**Rate limit:** 100 RPM\n"
+        },
+        {
+          "info": {
+            "name": "Список заявок",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/promotion/v1/items/services/orders/get",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Получение списка заявок на подключение услуг.\n\n**Rate limit:** 100 RPM\n"
+        },
+        {
+          "info": {
+            "name": "Статус заявки",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/promotion/v1/items/services/orders/status",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Получение статуса заявки на подключение услуг продвижения\n\n**Rate limit:** 100 RPM\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

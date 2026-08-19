@@ -1,0 +1,1981 @@
+{
+  "item": [
+    {
+      "id": "79651144-00ac-4ede-b301-0fdfe1eaa08f",
+      "name": "Chat",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "abcbbf2f-d126-4761-b2ba-656208f3c4e5",
+          "name": "Чат",
+          "request": {
+            "name": "Чат",
+            "description": {
+              "content": "Получение модели чата по идентификатору Максимальное количество запросов в минуту - 3.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cpa",
+                "v1",
+                "chatByActionId",
+                ":actionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "actionId",
+                  "description": "(Required) Идентификатор целевого действия"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Имя сервиса, отправляющего запрос",
+                "key": "X-Source",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2c04d875-474f-4d96-9635-3a58b7cb683b",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v1",
+                    "chatByActionId",
+                    ":actionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "actionId",
+                      "description": "(Required) Идентификатор целевого действия"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"chat\": {\n    \"chat\": {\n      \"actionId\": 1806968517,\n      \"channelId\": \"u2i-4HzWMRUoAAVnH5i2CC8meg\",\n      \"messageId\": \"030dcaa076676cf3f76b4eb7771bec15\",\n      \"message\": \"Привет набери меня 89689999999\",\n      \"date\": \"2023-04-05T12:36:33+03:00\",\n      \"pricePenny\": 346300,\n      \"status\": \"Целевой\",\n      \"group\": \"Автомобили · Новые\",\n      \"contactType\": \"Телефон\",\n      \"targetChatType\": \"Контакты\"\n    },\n    \"item\": {\n      \"itemId\": 2899744878,\n      \"title\": \"Avatr 11, 2023\",\n      \"pricePenny\": 34430000,\n      \"url\": \"https://00.img.avito.st/image/1/1.MWVPp7a-11YxhBk2PIYceYXsFn4rxDD-NQQafjv8GB4wrBZ8.pnMhzb5SRXbfS8mdsWWNNrliVOs1IMusB-7AgMnoSuI\"\n    },\n    \"buyer\": {\n      \"buyerId\": 251670956,\n      \"name\": \"Дмитрий\",\n      \"url\": \"https://static.avito.ru/stub_avatars/%D0%90/***_256x256.png\"\n    },\n    \"isArbitrageAvailable\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "847ff1ce-421a-4838-8f59-0d6973279854",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v1",
+                    "chatByActionId",
+                    ":actionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "actionId",
+                      "description": "(Required) Идентификатор целевого действия"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5009,\n  \"message\": \"ЦД недоступно для обжалования\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ccfc0d0-480a-4b74-b830-03bbb7c5925d",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v1",
+                    "chatByActionId",
+                    ":actionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "actionId",
+                      "description": "(Required) Идентификатор целевого действия"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"message\": \"invalid access token\",\n    \"status\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61bf0776-183e-463c-9a97-3d41bef04df3",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v1",
+                    "chatByActionId",
+                    ":actionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "actionId",
+                      "description": "(Required) Идентификатор целевого действия"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5009,\n  \"message\": \"ЦД недоступно для обжалования\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "efc9eab0-7e88-41cc-8a0b-d7002a26d83c",
+              "name": "Превышено допустимое количество запросов",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v1",
+                    "chatByActionId",
+                    ":actionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "actionId",
+                      "description": "(Required) Идентификатор целевого действия"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Количество запросов в минуту",
+                  "key": "X-RateLimit-Limit",
+                  "value": "2852"
+                },
+                {
+                  "disabled": false,
+                  "description": "Доступное количество запросов в текущем временном окне",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "2852"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 429\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c58bda27-aa79-4b9c-a873-dd535e70d5c4",
+              "name": "Internal Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v1",
+                    "chatByActionId",
+                    ":actionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "actionId",
+                      "description": "(Required) Идентификатор целевого действия"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"error\": {\n      \"code\": 1003,\n      \"message\": \"не удалось получить результаты поиска чатов\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a521015d-55fb-4bc9-a76b-5ca174a5549f",
+          "name": "Чаты по времени (deprecated)",
+          "request": {
+            "name": "Чаты по времени (deprecated)",
+            "description": {
+              "content": "Получение списка чатов по времени создания (deprecated). Максимальное количество запросов в минуту - 60.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cpa",
+                "v1",
+                "chatsByTime"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Имя сервиса, отправляющего запрос",
+                "key": "X-Source",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dateTimeFrom\": \"<string>\",\n  \"offset\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e80e3a85-4438-4080-bf19-686cdd404671",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v1",
+                    "chatsByTime"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateTimeFrom\": \"2023-03-21T15:04:05Z\",\n  \"limit\": 100,\n  \"offset\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"chats\": [\n    {\n      \"chat\": {\n        \"actionId\": 1806968517,\n        \"channelId\": \"u2i-4HzWMRUoAAVnH5i2CC8meg\",\n        \"messageId\": \"030dcaa076676cf3f76b4eb7771bec15\",\n        \"message\": \"Привет набери меня 89689999999\",\n        \"date\": \"2023-04-05T12:36:33+03:00\",\n        \"pricePenny\": 346300,\n        \"status\": \"Целевой\",\n        \"group\": \"Автомобили · Новые\",\n        \"contactType\": \"Телефон\",\n        \"targetChatType\": \"Контакты\"\n      },\n      \"item\": {\n        \"itemId\": 2899744878,\n        \"title\": \"Avatr 11, 2023\",\n        \"pricePenny\": 34430000,\n        \"url\": \"https://00.img.avito.st/image/1/1.MWVPp7a-11YxhBk2PIYceYXsFn4rxDD-NQQafjv8GB4wrBZ8.pnMhzb5SRXbfS8mdsWWNNrliVOs1IMusB-7AgMnoSuI\"\n      },\n      \"buyer\": {\n        \"buyerId\": 251670956,\n        \"name\": \"Дмитрий\",\n        \"url\": \"https://static.avito.ru/stub_avatars/%D0%90/***_256x256.png\"\n      },\n      \"isArbitrageAvailable\": true\n    },\n    {\n      \"chat\": {\n        \"actionId\": 1806968517,\n        \"channelId\": \"u2i-4HzWMRUoAAVnH5i2CC8meg\",\n        \"messageId\": \"030dcaa076676cf3f76b4eb7771bec15\",\n        \"message\": \"Привет набери меня 89689999999\",\n        \"date\": \"2023-04-05T12:36:33+03:00\",\n        \"pricePenny\": 346300,\n        \"status\": \"Целевой\",\n        \"group\": \"Автомобили · Новые\",\n        \"contactType\": \"Телефон\",\n        \"targetChatType\": \"Контакты\"\n      },\n      \"item\": {\n        \"itemId\": 2899744878,\n        \"title\": \"Avatr 11, 2023\",\n        \"pricePenny\": 34430000,\n        \"url\": \"https://00.img.avito.st/image/1/1.MWVPp7a-11YxhBk2PIYceYXsFn4rxDD-NQQafjv8GB4wrBZ8.pnMhzb5SRXbfS8mdsWWNNrliVOs1IMusB-7AgMnoSuI\"\n      },\n      \"buyer\": {\n        \"buyerId\": 251670956,\n        \"name\": \"Дмитрий\",\n        \"url\": \"https://static.avito.ru/stub_avatars/%D0%90/***_256x256.png\"\n      },\n      \"isArbitrageAvailable\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a03eb00d-3aa8-4cd4-97c9-96969a344cef",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v1",
+                    "chatsByTime"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateTimeFrom\": \"2023-03-21T15:04:05Z\",\n  \"limit\": 100,\n  \"offset\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"error\": {\n      \"code\": 1001,\n      \"message\": \"Ошибка валидации запроса\",\n      \"payload\": {\n        \"error\": \"invalid character  looking for beginning of object key string\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "168eae90-a1d5-48a4-9576-aabe92174b43",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v1",
+                    "chatsByTime"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateTimeFrom\": \"2023-03-21T15:04:05Z\",\n  \"limit\": 100,\n  \"offset\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5009,\n  \"message\": \"ЦД недоступно для обжалования\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6367fcca-f8af-46d2-b49d-c36c4a91e61f",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v1",
+                    "chatsByTime"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateTimeFrom\": \"2023-03-21T15:04:05Z\",\n  \"limit\": 100,\n  \"offset\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"message\": \"invalid access token\",\n    \"status\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63cae800-99bb-4d40-a19b-92e4f394e1bc",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v1",
+                    "chatsByTime"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateTimeFrom\": \"2023-03-21T15:04:05Z\",\n  \"limit\": 100,\n  \"offset\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5009,\n  \"message\": \"ЦД недоступно для обжалования\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f598325-2ee7-431d-96c3-d8ad145d7da5",
+              "name": "Превышено допустимое количество запросов",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v1",
+                    "chatsByTime"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateTimeFrom\": \"2023-03-21T15:04:05Z\",\n  \"limit\": 100,\n  \"offset\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Количество запросов в минуту",
+                  "key": "X-RateLimit-Limit",
+                  "value": "2852"
+                },
+                {
+                  "disabled": false,
+                  "description": "Доступное количество запросов в текущем временном окне",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "2852"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 429\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6b28ca8-718f-4a3b-81b7-a57037faa9c1",
+              "name": "Internal Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v1",
+                    "chatsByTime"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateTimeFrom\": \"2023-03-21T15:04:05Z\",\n  \"limit\": 100,\n  \"offset\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"error\": {\n      \"code\": 1003,\n      \"message\": \"не удалось получить результаты поиска чатов\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "154cbb24-d4dc-4d66-9cd1-9075a78bb660",
+          "name": "Создание жалобы для звонков/чатов",
+          "request": {
+            "name": "Создание жалобы для звонков/чатов",
+            "description": {
+              "content": "Создание жалобы на целевое действие по actionId. Максимальное количество запросов в минуту - 3.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cpa",
+                "v1",
+                "createComplaintByActionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Имя сервиса, отправляющего запрос",
+                "key": "X-Source",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"actionId\": \"<integer>\",\n  \"message\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d49bf791-ab52-4060-ab72-f19abb6e9dd8",
+              "name": "Успешный ответ или сообщение об ошибке",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v1",
+                    "createComplaintByActionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"actionId\": 123456789,\n  \"message\": \"это не был обмен контактами в чате\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 3199,\n    \"message\": \"ЦД недоступно для обжалования\"\n  },\n  \"success\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ce7612c-eaf2-4a38-86ad-df163752b933",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v1",
+                    "createComplaintByActionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"actionId\": 123456789,\n  \"message\": \"это не был обмен контактами в чате\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"error\": {\n      \"code\": 1001,\n      \"message\": \"Ошибка валидации запроса\",\n      \"payload\": {\n        \"error\": \"invalid character  looking for beginning of object key string\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2cb2154b-b310-4813-9557-3eb9b4c602c1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v1",
+                    "createComplaintByActionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"actionId\": 123456789,\n  \"message\": \"это не был обмен контактами в чате\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5009,\n  \"message\": \"ЦД недоступно для обжалования\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ecbea8c-841a-4d92-9899-f4065f48ef14",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v1",
+                    "createComplaintByActionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"actionId\": 123456789,\n  \"message\": \"это не был обмен контактами в чате\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"message\": \"invalid access token\",\n    \"status\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a89b7279-0ab8-4587-8765-148df172f6a9",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v1",
+                    "createComplaintByActionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"actionId\": 123456789,\n  \"message\": \"это не был обмен контактами в чате\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5009,\n  \"message\": \"ЦД недоступно для обжалования\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c67b76a9-1a44-440b-b745-4ec3424cc515",
+              "name": "Превышено допустимое количество запросов",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v1",
+                    "createComplaintByActionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"actionId\": 123456789,\n  \"message\": \"это не был обмен контактами в чате\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Количество запросов в минуту",
+                  "key": "X-RateLimit-Limit",
+                  "value": "2852"
+                },
+                {
+                  "disabled": false,
+                  "description": "Доступное количество запросов в текущем временном окне",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "2852"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 429\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7597463-8233-4a29-8f1b-f40e99b29d22",
+              "name": "Internal Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v1",
+                    "createComplaintByActionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"actionId\": 123456789,\n  \"message\": \"это не был обмен контактами в чате\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"error\": {\n      \"code\": 1003,\n      \"message\": \"не удалось получить результаты поиска чатов\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4dd74aed-52a0-4acb-8505-d34750b36e54",
+          "name": "Чаты по времени",
+          "request": {
+            "name": "Чаты по времени",
+            "description": {
+              "content": "Получение списка чатов по времени создания. Максимальное количество запросов в минуту - 40.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cpa",
+                "v2",
+                "chatsByTime"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Имя сервиса, отправляющего запрос",
+                "key": "X-Source",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dateTimeFrom\": \"<string>\",\n  \"offset\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cbce661b-f200-4173-892d-277a09d555c6",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v2",
+                    "chatsByTime"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateTimeFrom\": \"2023-03-21T15:04:05Z\",\n  \"limit\": 100,\n  \"offset\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"chats\": [\n    {\n      \"chat\": {\n        \"actionId\": 1806968517,\n        \"channelId\": \"u2i-4HzWMRUoAAVnH5i2CC8meg\",\n        \"messageId\": \"030dcaa076676cf3f76b4eb7771bec15\",\n        \"message\": \"Привет набери меня 89689999999\",\n        \"date\": \"2023-04-05T12:36:33+03:00\",\n        \"pricePenny\": 346300,\n        \"status\": \"Целевой\",\n        \"group\": \"Автомобили · Новые\",\n        \"contactType\": \"Телефон\",\n        \"targetChatType\": \"Контакты\"\n      },\n      \"item\": {\n        \"itemId\": 2899744878,\n        \"title\": \"Avatr 11, 2023\",\n        \"pricePenny\": 34430000,\n        \"url\": \"https://00.img.avito.st/image/1/1.MWVPp7a-11YxhBk2PIYceYXsFn4rxDD-NQQafjv8GB4wrBZ8.pnMhzb5SRXbfS8mdsWWNNrliVOs1IMusB-7AgMnoSuI\"\n      },\n      \"buyer\": {\n        \"buyerId\": 251670956,\n        \"name\": \"Дмитрий\",\n        \"url\": \"https://static.avito.ru/stub_avatars/%D0%90/***_256x256.png\"\n      },\n      \"isArbitrageAvailable\": true\n    },\n    {\n      \"chat\": {\n        \"actionId\": 1806968517,\n        \"channelId\": \"u2i-4HzWMRUoAAVnH5i2CC8meg\",\n        \"messageId\": \"030dcaa076676cf3f76b4eb7771bec15\",\n        \"message\": \"Привет набери меня 89689999999\",\n        \"date\": \"2023-04-05T12:36:33+03:00\",\n        \"pricePenny\": 346300,\n        \"status\": \"Целевой\",\n        \"group\": \"Автомобили · Новые\",\n        \"contactType\": \"Телефон\",\n        \"targetChatType\": \"Контакты\"\n      },\n      \"item\": {\n        \"itemId\": 2899744878,\n        \"title\": \"Avatr 11, 2023\",\n        \"pricePenny\": 34430000,\n        \"url\": \"https://00.img.avito.st/image/1/1.MWVPp7a-11YxhBk2PIYceYXsFn4rxDD-NQQafjv8GB4wrBZ8.pnMhzb5SRXbfS8mdsWWNNrliVOs1IMusB-7AgMnoSuI\"\n      },\n      \"buyer\": {\n        \"buyerId\": 251670956,\n        \"name\": \"Дмитрий\",\n        \"url\": \"https://static.avito.ru/stub_avatars/%D0%90/***_256x256.png\"\n      },\n      \"isArbitrageAvailable\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "331635a3-55ff-4ad2-a134-615282003c9b",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v2",
+                    "chatsByTime"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateTimeFrom\": \"2023-03-21T15:04:05Z\",\n  \"limit\": 100,\n  \"offset\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"error\": {\n      \"code\": 1001,\n      \"message\": \"Ошибка валидации запроса\",\n      \"payload\": {\n        \"error\": \"invalid character  looking for beginning of object key string\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d96460a2-fc34-4c60-a3e2-017212e12d8f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v2",
+                    "chatsByTime"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateTimeFrom\": \"2023-03-21T15:04:05Z\",\n  \"limit\": 100,\n  \"offset\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5009,\n  \"message\": \"ЦД недоступно для обжалования\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1758d0d7-f84b-4592-b54f-d60f7256f290",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v2",
+                    "chatsByTime"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateTimeFrom\": \"2023-03-21T15:04:05Z\",\n  \"limit\": 100,\n  \"offset\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"message\": \"invalid access token\",\n    \"status\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e07c3cc-2056-43b6-9110-15bcbf221f69",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v2",
+                    "chatsByTime"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateTimeFrom\": \"2023-03-21T15:04:05Z\",\n  \"limit\": 100,\n  \"offset\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5009,\n  \"message\": \"ЦД недоступно для обжалования\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1fdd5e57-7bd7-4aa1-9c2a-fa823a5a17d8",
+              "name": "Превышено допустимое количество запросов",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v2",
+                    "chatsByTime"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateTimeFrom\": \"2023-03-21T15:04:05Z\",\n  \"limit\": 100,\n  \"offset\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Количество запросов в минуту",
+                  "key": "X-RateLimit-Limit",
+                  "value": "2852"
+                },
+                {
+                  "disabled": false,
+                  "description": "Доступное количество запросов в текущем временном окне",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "2852"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 429\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4649c69-053e-43dc-a2bc-a6eeded7e026",
+              "name": "Internal Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpa",
+                    "v2",
+                    "chatsByTime"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Имя сервиса, отправляющего запрос",
+                    "key": "X-Source",
+                    "value": "someName"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dateTimeFrom\": \"2023-03-21T15:04:05Z\",\n  \"limit\": 100,\n  \"offset\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"error\": {\n      \"code\": 1003,\n      \"message\": \"не удалось получить результаты поиска чатов\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.avito.ru/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "11cddc27-2b72-4cf0-9010-a700457a454b",
+    "name": "Иерархия Аккаунтов Access Chat API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API для взаимодействия с иерархией аккаунтов в Авито\n**Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**\n\n\nContact Support:\n Email: supportautoload@avito.ru",
+      "type": "text/plain"
+    }
+  }
+}

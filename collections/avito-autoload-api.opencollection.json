@@ -1,0 +1,598 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access Autoload API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Autoload",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Получение профиля пользователя автозагрузки (deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/autoload/v1/profile",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Возвращает настройки профиля пользователя автозагрузки.\nС 23.12.2024 вместо поля upload_url используйте поле feeds_data. В нём содержится название файла и ссылка на него. [Новая версия](https://developers.avito.ru/api-catalog/autoload/documentation#operation/getProfileV2)"
+        },
+        {
+          "info": {
+            "name": "Создание/редактирование настроек профиля пользователя автозагрузки (deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/autoload/v1/profile",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Предназначен для создания и управления профилем автозагрузки. Если профиля еще не существует - через этот метод можно его создать. \n\nС 23.12.2024 вместо поля upload_url используйте поле feeds_data. В нём содержится название файла и ссылка на него. [Новая версия](https://developers.avito.ru/api-catalog/autoload/documentation#operation/createOrUpdateProfileV2)\n"
+        },
+        {
+          "info": {
+            "name": "Загрузка файла по ссылке",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/autoload/v1/upload"
+          },
+          "docs": "Метод запускает процесс выгрузки объявлений из файла по ссылке, которая указана\n[в настройках автозагрузки](https://www.avito.ru/autoload/settings) в профиле Авито.\nВ течение часа таким способом можно запустить только одну выгрузку.\n\n**Важно**: на загрузки с помощью этого метода не распространяются лимиты на количество публикаций, которые указаны в настройках автозагрузки в профиле Авито.\nВсе объявления из файла, которые могут быть опубликованы или активированы, будут опубликованы или активирова"
+        },
+        {
+          "info": {
+            "name": "Получения полей категории",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/autoload/v1/user-docs/node/:node_slug/fields",
+            "headers": [
+              {
+                "name": "If-Modified-Since",
+                "value": "Mon, 01 Jan 0001 00:00:00 UTC"
+              }
+            ],
+            "params": [
+              {
+                "name": "node_slug",
+                "value": "remont",
+                "type": "path",
+                "description": "slug узла дерева категории"
+              }
+            ]
+          },
+          "docs": "Метод позволяет получить поля конкретной категории и их параметры, зависимости полей, возможные значения и их типы, предупреждения (например, когда поле станет обязательным) и ссылки на каталоги значений.\n\n📝 [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link), если в методе вам не хватает каких-либо данных.\n"
+        },
+        {
+          "info": {
+            "name": "Получение дерева категорий",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/autoload/v1/user-docs/tree",
+            "headers": [
+              {
+                "name": "If-Modified-Since",
+                "value": "Mon, 01 Jan 0001 00:00:00 UTC"
+              }
+            ]
+          },
+          "docs": "Метод позволяет получить дерево категорий Авито в виде массива.  \n📝 [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link), если в методе вам не хватает каких-либо данных.\n"
+        },
+        {
+          "info": {
+            "name": "ID объявлений из файла",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/autoload/v2/items/ad_ids",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Список ID объявлений.\nФормат значения: строка с идентификаторами объявлений на Авито, перечисленными через «,» или «|».\n"
+              }
+            ]
+          },
+          "docs": "Метод позволяет получить идентификаторы (ID) объявлений из файла автозагрузки по ID объявлений на Авито.\n\n📝 [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link),\nесли в методе вам не хватает каких-либо данных.\n"
+        },
+        {
+          "info": {
+            "name": "ID объявлений на Авито",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/autoload/v2/items/avito_ids",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Список ID объявлений.\nФормат значения: строка с [идентификаторами объявлений из файла](https://autoload.avito.ru/format/realty/#Id),\nперечисленными через «,» или «|»\n"
+              }
+            ]
+          },
+          "docs": "Метод позволяет получить идентификаторы (ID) объявлений на Авито по идентификаторам объявлений из файла автозагрузки.\n\n📝 [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link),\nесли в методе вам не хватает каких-либо данных.\n"
+        },
+        {
+          "info": {
+            "name": "Получение профиля пользователя автозагрузки",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/autoload/v2/profile",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Возвращает настройки профиля пользователя автозагрузки. С 23.12.2024 вместо поля upload_url используйте поле feeds_data. В нём содержится название файла и ссылка на него."
+        },
+        {
+          "info": {
+            "name": "Создание/редактирование настроек профиля пользователя автозагрузки",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/autoload/v2/profile",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Предназначен для создания и управления профилем автозагрузки. Если профиля еще не существует - через этот метод можно его создать. С 23.12.2024 вместо поля feed_url используйте поле feeds_data. В нём содержится название файла и ссылка на него.\n"
+        },
+        {
+          "info": {
+            "name": "Список отчётов автозагрузки (deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/autoload/v2/reports",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Количество отчётов на странице: целое число больше 0 и меньше или равно 200.\n"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Номер страницы: целое число больше или равно 0.\n"
+              },
+              {
+                "name": "date_from",
+                "value": "2022-05-27T14:48:50.52Z",
+                "type": "query",
+                "description": "Фильтр по дате создания отчёта «от» (от такой-то даты).\nФормат значения: RFC3339\n"
+              },
+              {
+                "name": "date_to",
+                "value": "2022-05-27T14:48:50.52Z",
+                "type": "query",
+                "description": "Фильтр по дате создания отчёта «до» (до такой-то даты).\nФормат значения: RFC3339\n"
+              }
+            ]
+          },
+          "docs": "По запросу вы получите список отчётов автозагрузки.\nОни будут отсортированы в порядке убывания: самый свежий отчёт — в начале списка.\n\n📝 [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link),\nесли в методе вам не хватает каких-либо данных.\n\nМетод будет отключен 08.03.2027. С 08.09.2026 метод начнёт возвращать меньше данных. Подробнее читайте в [плане миграции](https://developers.avito.ru/api-catalog/autoload/documentation"
+        },
+        {
+          "info": {
+            "name": "Объявления по ID в автозагрузке (deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/autoload/v2/reports/items",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Идентификаторы объявлений из файла ([параметр Id](https://autoload.avito.ru/format/realty/#Id)).\nФормат значения: строка, содержащая от 1 до 100 идентификаторов, перечисленных через «,» или «|».\n"
+              }
+            ]
+          },
+          "docs": "По запросу API отдаст данные по конкретным объявлениям.\n\n📝 [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link),\nесли в методе вам не хватает каких-либо данных.\n\nМетод будет отключен 08.03.2027. С 08.09.2026 метод начнёт возвращать меньше данных. Подробнее читайте в [плане миграции](https://developers.avito.ru/api-catalog/autoload/documentation#migration-v4).\n"
+        },
+        {
+          "info": {
+            "name": "Статистика по последней выгрузке (deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/autoload/v2/reports/last_completed_report",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Метод возвращает сводную статистику с результатами последней завершённой выгрузки.\nНапример, сколько объявлений было в файле и сколько из них было опубликовано с ошибками или без.\n\n📝 [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link),\nесли в методе вам не хватает каких-либо данных.\n\nС 23.12.2024 вместо поля feed_url используйте поле feeds_urls. В нём содержится название файла и ссылка на него.\n\nМетод будет отключен 08."
+        },
+        {
+          "info": {
+            "name": "Статистика по конкретной выгрузке (deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/autoload/v2/reports/:report_id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "report_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор отчёта (ID)"
+              }
+            ]
+          },
+          "docs": "Метод возвращает сводную статистику с результатами конкретной выгрузки — по ID отчёта.\nНапример, сколько объявлений было в файле и сколько из них было опубликовано с ошибками или без.\n\n📝 [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link),\nесли в методе вам не хватает каких-либо данных.\n\nС 23.12.2024 вместо поля feed_url используйте поле feeds_urls. В нём содержится название файла и ссылка на него.\n\nМетод будет отключен"
+        },
+        {
+          "info": {
+            "name": "Все объявления из конкретной выгрузки (deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/autoload/v2/reports/:report_id/items",
+            "params": [
+              {
+                "name": "report_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор отчёта (ID)"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Количество объявлений на странице: целое число больше 0 и меньше или равно 200\n"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Номер страницы: целое число больше или равно 0\n"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Фильтр по ID объявления.\nФормат значения: строка с [идентификаторами объявлений из файла](https://autoload.avito.ru/format/realty/#Id)\nили идентификаторами объявлений на Авито, перечисленными через «,» или «|».\n"
+              },
+              {
+                "name": "sections",
+                "value": "",
+                "type": "query",
+                "description": "Фильтр объявлений по разделам. Формат значения: строка с идентификаторами разделов, перечисленными через «,» или «|».\nПолучить список разделов для конкретного отчёта можно с помощью метода\n[Статистика по конкретной выгрузке](https://developers.avito.ru/api-catalog/autoload/documentation#operation/getReportByIdV3).\n"
+              }
+            ]
+          },
+          "docs": "С помощью этого метода можно получить результаты обработки каждого объявления в конкретной выгрузке.\n\n📝 [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link),\nесли в методе вам не хватает каких-либо данных.\n\nС 23.12.2024 добавляется поле feed_name. В нём содержится название файла.\n\nМетод будет отключен 08.03.2027. С 08.09.2026 метод начнёт возвращать меньше данных. Подробнее читайте в [плане миграции](https://developers.a"
+        },
+        {
+          "info": {
+            "name": "Списания за объявления в конкретной выгрузке (deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/autoload/v2/reports/:report_id/items/fees",
+            "params": [
+              {
+                "name": "report_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор отчёта (ID)"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Количество объявлений на странице: целое число больше 0 и меньше или равно 200\n"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Номер страницы: целое число больше или равно 0\n"
+              },
+              {
+                "name": "ad_ids",
+                "value": "",
+                "type": "query",
+                "description": "Фильтр по ID объявления.\nФормат значения: строка с [идентификаторами объявлений из файла](https://autoload.avito.ru/format/realty/#Id),\nперечисленными через «,» или «|».\n"
+              },
+              {
+                "name": "avito_ids",
+                "value": "",
+                "type": "query",
+                "description": "Фильтр по AvitoID объявления.\nФормат значения: строка с идентификаторами объявлений на Авито, перечисленными через «,» или «|».\n"
+              }
+            ]
+          },
+          "docs": "С помощью этого метода можно получить информацию о списаниях за размещение каждого объявления в конкретной выгрузке.\n\n📝 [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link),\nесли в методе вам не хватает каких-либо данных.\n\nМетод будет отключен 08.03.2027. С 08.09.2026 метод начнёт возвращать меньше данных. Подробнее читайте в [плане миграции](https://developers.avito.ru/api-catalog/autoload/documentation#migration-v4).\n"
+        },
+        {
+          "info": {
+            "name": "Статистика по последней выгрузке (deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/autoload/v3/reports/last_completed_report",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Метод возвращает сводную статистику с результатами последней завершённой выгрузки.\nНапример, сколько объявлений было в файле и сколько из них было опубликовано с ошибками или без.\n\n📝 [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link),\nесли в методе вам не хватает каких-либо данных.\n\nС 23.12.2024 вместо поля feed_url используйте поле feeds_urls. В нём содержится название файла и ссылка на него.\n\nМетод будет отключен 08."
+        },
+        {
+          "info": {
+            "name": "Статистика по конкретной выгрузке (deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/autoload/v3/reports/:report_id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "report_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор отчёта (ID)"
+              }
+            ]
+          },
+          "docs": "Метод возвращает сводную статистику с результатами конкретной выгрузки — по ID отчёта.\nНапример, сколько объявлений было в файле и сколько из них было опубликовано с ошибками или без.\n\n📝 [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link),\nесли в методе вам не хватает каких-либо данных.\n\nС 23.12.2024 вместо поля feed_url используйте поле feeds_urls. В нём содержится название файла и ссылка на него.\n\nМетод будет отключен"
+        },
+        {
+          "info": {
+            "name": "История загрузок",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/autoload/v4/uploads",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query",
+                "description": "Количество загрузок на странице\n"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Номер страницы\n"
+              },
+              {
+                "name": "dateFrom",
+                "value": "2026-05-20T10:00:00Z",
+                "type": "query",
+                "description": "Фильтр по дате загрузки «от» (от такой-то даты).\nФормат значения: RFC3339\n"
+              },
+              {
+                "name": "dateTo",
+                "value": "2026-05-27T10:00:00Z",
+                "type": "query",
+                "description": "Фильтр по дате загрузки «до» (до такой-то даты).\nФормат значения: RFC3339\n"
+              }
+            ]
+          },
+          "docs": "Возвращает список загрузок. Самая свежая загрузка — в начале списка.\n"
+        },
+        {
+          "info": {
+            "name": "Текущая загрузка",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/autoload/v4/uploads/current",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Возвращает текущую загрузку пользователя, т.е. последнюю загрузку, которая обработала хотя бы одно объявление фида. Подходит, когда нужны самые актуальные данные. Но эти данные могут меняться в процессе загрузки - для получения стабильных данных лучше использовать метод [последней завершённой загрузки](#operation/getLastSuccessfulUpload).\nЕсли подходящей загрузки нет — возвращается ответ `404`.\n"
+        },
+        {
+          "info": {
+            "name": "Объявления текущей загрузки",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/autoload/v4/uploads/current/items",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Поиск по одному или нескольким [идентификаторам объявлений из файла](https://www.avito.ru/autoload/documentation/templates/66940?fileFormat=xml#field-Id),\nперечисленным через «,» или «|».\nБез параметра — возвращаются все объявления с пагинацией.\n"
+              },
+              {
+                "name": "sections",
+                "value": "",
+                "type": "query",
+                "description": "Фильтр по разделам отчёта. Формат значения: строка со slug разделов,\nперечисленными через запятую.\n"
+              },
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query",
+                "description": "Количество объявлений на странице\n"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Номер страницы\n"
+              }
+            ]
+          },
+          "docs": "Возвращает объявления [текущей загрузки](#operation/getCurrentUpload).\n\nЕсли подходящей загрузки нет — возвращается ответ `404`.\n"
+        },
+        {
+          "info": {
+            "name": "Последняя успешно завершённая загрузка",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/autoload/v4/uploads/last_successful",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Возвращает последнюю успешно завершённую загрузку, т.е. загрузку, которая обработала все объявления фида. Для самой последней загрузки возможны задержки при определении того, что загрузка завершена — в таком случае смотрите актуальные данные в методе [текущей загрузки](#operation/getCurrentUpload).\n\nЕсли подходящей загрузки нет — возвращается ответ `404`.\n"
+        },
+        {
+          "info": {
+            "name": "Объявления последней успешно завершённой загрузки",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/autoload/v4/uploads/last_successful/items",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Поиск по одному или нескольким [идентификаторам объявлений из файла](https://www.avito.ru/autoload/documentation/templates/66940?fileFormat=xml#field-Id),\nперечисленным через «,» или «|».\nБез параметра — возвращаются все объявления с пагинацией.\n"
+              },
+              {
+                "name": "sections",
+                "value": "",
+                "type": "query",
+                "description": "Фильтр по разделам отчёта. Формат значения: строка со slug разделов,\nперечисленными через запятую.\n"
+              },
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query",
+                "description": "Количество объявлений на странице\n"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Номер страницы\n"
+              }
+            ]
+          },
+          "docs": "Возвращает объявления [последней успешно завершённой загрузки](#operation/getLastSuccessfulUpload).\n\nЕсли подходящей загрузки нет — возвращается ответ `404`.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

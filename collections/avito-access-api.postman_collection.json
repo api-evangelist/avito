@@ -1,0 +1,160 @@
+{
+  "item": [
+    {
+      "id": "d5c9f954-01dc-4ad7-bb1b-02ed35a34a73",
+      "name": "Access",
+      "description": {
+        "content": "Для работы с API от своего лица необходимо получить токен авторизации — отдельный для каждой учетной записи на Авито.\n\n\n  1. Получаем **client_id** и **client_secret** в [личном кабинете](https://www.avito.ru/professionals/api)\n  2. Выписываем себе токен:\n     ```\n     curl -L -X POST 'https://api.avito.ru/token/' \\\n         -H 'Content-Type: application/x-www-form-urlencoded' \\\n         --data-urlencode 'grant_type=client_credentials' \\\n         --data-urlencode 'client_id=<CLIENT_ID>' \\\n         --data-urlencode 'client_secret=<CLIENT_SECRET>'\n     ```\n  3. Далее выполняем запросы к API с заголовком `Authorization: Bearer <ACCESS_TOKEN>`\n\n  Время действия токена ограничено - 24 часа с момента его получения.\n  После этого вам необходимо получить новый токен.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0e1d834f-5737-4c4e-a14a-60ab8427436c",
+          "name": "Получение access token",
+          "request": {
+            "name": "Получение access token",
+            "description": {
+              "content": "Получения временного ключа для авторизации",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "grant_type",
+                  "value": "client_credentials",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "client_id",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "client_secret",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a814c60b-cd55-46d0-8db0-eca5e1408927",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "grant_type",
+                      "value": "client_credentials"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "client_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "client_secret",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"kChqt9ewQNAcwgbHp4yFd5\",\n  \"expires_in\": 86400,\n  \"token_type\": \"Bearer\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.avito.ru/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "945feec5-1c5e-4d5b-a2c6-1bf92c8cbbcd",
+    "name": "Иерархия Аккаунтов Access API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API для взаимодействия с иерархией аккаунтов в Авито\n**Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**\n\n\nContact Support:\n Email: supportautoload@avito.ru",
+      "type": "text/plain"
+    }
+  }
+}

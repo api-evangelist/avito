@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access ApplicationAccess API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ApplicationAccess",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Получение access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/token‎",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Получения временного ключа для авторизации запроса от лица пользователя"
+        },
+        {
+          "info": {
+            "name": "Обновление access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/token‎‎",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Обновление временного ключа для авторизации запроса от лица пользователя"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

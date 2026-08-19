@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access profile API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "profile",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Получение списка клиентов",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/api/1/agency/clients",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Данный метод позволяет получить список клиентов агентства с дополнительной информацией о них.\n\n### Параметры тела запроса\n\n- `limit` — инструмент пагинации, ограничивает количество клиентов в ответе (максимум 100).\n- `offset` — инструмент пагинации, выполняет смещение, с которого начинается выборка клиентов (по умолчанию 0).\n- `extra` — настройка дополнительной информации, если нужно включить её в ответ.\n\n#### Дополнительная информация о клиентах\n\nМожно включить в список клиентов дополнительную "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

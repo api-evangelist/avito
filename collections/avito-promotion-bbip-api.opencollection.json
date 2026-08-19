@@ -1,0 +1,135 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access Promotion_BBIP API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Promotion_BBIP",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "BBIP. Прогноз продвижения",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/promotion/v1/items/services/bbip/forecasts/get",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Получение прогноза продвижения по объявлениям\n\n**Rate limit:** 100 RPM\n"
+        },
+        {
+          "info": {
+            "name": "BBIP. Подключение услуги продвижения",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.avito.ru/promotion/v1/items/services/bbip/orders/create",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Создать заявку на подключение услуг продвижения.\n\nСоздание заявки для набора объявлений возможно только в случае если ни по одному из объявлений не возникло ошибок.\n\nПри успешном создании заявки система возвращает `orderId` (идентификатор заявки),\nна основе которого можно проверять как статус заявки, так и статус подключения услуг по объявлениям.\n\n**Rate limit:** 10 RPM\n"
+        },
+        {
+          "info": {
+            "name": "BBIP. Варианты бюджета продвижения",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/promotion/v1/items/services/bbip/suggests/get",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              },
+              {
+                "name": "X-Is-Employee",
+                "value": ""
+              },
+              {
+                "name": "X-Employee-Of",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Получение доступных вариантов бюджета для продвижения\n\n**Rate limit:** 100 RPM\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

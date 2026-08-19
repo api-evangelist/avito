@@ -1,0 +1,420 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access Order Management API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Order Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Передача честного знака",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/order-management/1/markings",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод для передачи честного знака для товаров в заказе.\nМаксимальное количество элементов в одном запросе - 50.\nМаксимальное количество запросов в минуту - 100.\n"
+        },
+        {
+          "info": {
+            "name": "Выбор отделения отделения Почты России для получения возврата",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/order-management/1/order/acceptReturnOrder",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Данный метод применяется для подтверждения возврата товара и выбора отделения Почты России, куда будет доставлен возврат.\nМаксимальное количество запросов в минуту - 100.\n"
+        },
+        {
+          "info": {
+            "name": "Изменение статуса заказа",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/order-management/1/order/applyTransition",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Данный метод применяется для изменения статуса заказа, в частности для подтверждения или отмены заказа.\nМаксимальное количество запросов в минуту - 100.\n"
+        },
+        {
+          "info": {
+            "name": "Метод для проверки кода подтверждения заказа.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/order-management/1/order/checkConfirmationCode",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Данный метод используется для подтверждения личности для получения заказа в ПВЗ. Пользователь называет код  из приложения сотруднику СД. Далее через API служба доставки проверяет его валидность.\nМаксимальное количество запросов в минуту - 2000.\n"
+        },
+        {
+          "info": {
+            "name": "Метод для подготовки заказа с самовывозом",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/order-management/1/order/cncSetDetails",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Данный метод применяется продавцом для подготовки заказа и передачи адреса, сроков бронирования и сообщения покупателю.\nМаксимальное количество запросов в минуту - 60\n"
+        },
+        {
+          "info": {
+            "name": "Метод получения доступных временных промежутков приезда курьера",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/order-management/1/order/getCourierDeliveryRange",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "query",
+                "description": "ID заказа"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "Адрес продавца"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Данный метод применяется для получения всех промежутков времени, когда курьер может приехать забрать товар, чтобы отвезти его покупателю.\nМаксимальное количество запросов в минуту - 100.\n"
+        },
+        {
+          "info": {
+            "name": "Метод выбора определённого доступного временного промежутка для приезда курьера",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/order-management/1/order/setCourierDeliveryRange",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Данный метод применяется после метода получения всех промежутков времени, когда курьер может приехать и забрать товар.  Вызвав этот метод, продавец выбирает определённый временной промежуток приезда курьера.\nТакже этот метод можно вызвать, чтобы изменить время приезда курьера, если он ещё не забрал посылку. Максимальное количество запросов в минуту - 200.\n"
+        },
+        {
+          "info": {
+            "name": "Передача трек-номера",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/order-management/1/order/setTrackingNumber",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод для передачи трек-номера для доставки партнёрами продавца (DBS)\nМаксимальное количество запросов в минуту - 100.\n"
+        },
+        {
+          "info": {
+            "name": "Получение информации о заказах",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/order-management/1/orders",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "Идентификаторы заказов\n"
+              },
+              {
+                "name": "statuses",
+                "value": "",
+                "type": "query",
+                "description": "Статус, по которому нужно получить заказы.\n\n- on_confirmation - ожидает подтверждения\n\n- ready_to_ship - ждет отправки\n\n- in_transit - в пути\n\n- canceled - отменный заказ\n\n- delivered - доставлен покупателю\n\n- on_return - на возврате\n\n- in_dispute - по заказу открыт спор\n\n- closed - заказ закрыт\n"
+              },
+              {
+                "name": "dateFrom",
+                "value": "1686735089",
+                "type": "query",
+                "description": "Метка времени, с момента которого созданы покупки"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Номер страницы для пагинации"
+              },
+              {
+                "name": "limit",
+                "value": "10",
+                "type": "query",
+                "description": "Максимальное количество заказов на странице"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Получение информации о заказах по статусу.\nМаксимальное количество запросов в минуту - 500.\n"
+        },
+        {
+          "info": {
+            "name": "Создать задачу на генерацию этикеток (до 100).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/order-management/1/orders/labels",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Создаёт задачу на генерацию PDF-этикеток для заказов (до 100 штук).  Возвращает идентификатор задачи для последующей проверки статуса и скачивания результата. \nМаксимальное количество запросов в минуту - 1000. Эта ручка доступна только для ПВЗ заказов.\n"
+        },
+        {
+          "info": {
+            "name": "Создать задачу на генерацию этикеток (до 1000).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/order-management/1/orders/labels/extended",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Создаёт задачу на генерацию PDF-этикеток для заказов (до 1000 штук).  Возвращает идентификатор задачи для последующей проверки статуса и скачивания результата.\nМаксимальное количество запросов в минуту - 1. Эта ручка доступна только для ПВЗ заказов.\n"
+        },
+        {
+          "info": {
+            "name": "Скачать сгенерированный PDF-файл (этикетку).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/order-management/1/orders/labels/:taskID/download",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "taskID",
+                "value": "",
+                "type": "path",
+                "description": "ID задачи на генерацию"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Скачивание сгенерированного PDF-файла с этикетками по идентификатору задачи.  Файл доступен после успешного завершения генерации.\nМаксимальное количество запросов в минуту - 1000.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

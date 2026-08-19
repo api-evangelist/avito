@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access Auction API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Auction",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Получение информации о действующих и доступных ставках",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/auction/1/bids",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "fromItemID",
+                "value": "",
+                "type": "query",
+                "description": "Идентификатор последнего объявления в предыдущей пачке (по умолчанию 0)"
+              },
+              {
+                "name": "batchSize",
+                "value": "",
+                "type": "query",
+                "description": "Кол-во объявлений в пачке (максимум 200)"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод позволяет получать доступные ставки (ставка указана в копейках), а также показывает действующую ставку и время ее действия (если время действия не указано значит ставка действует бессрочно)по юзеру.\nМаксимальное количество запросов в минуту - 200.\n"
+        },
+        {
+          "info": {
+            "name": "Сохранение новых ставок",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/auction/1/bids",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод позволяет сохранить для объявлений ставку (ставка указана в копейках) и время ее действия. Доступные ставки можно получить с помощью метода getUserBids \nМаксимальное число идентификаторов объявления в запросе = 200.\nМаксимальное количество запросов в минуту - 200.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

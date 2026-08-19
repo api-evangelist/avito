@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access Core API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Core",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Обновление цены объявления\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/core/v1/items/:item_id/update_price",
+            "params": [
+              {
+                "name": "item_id",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор объявления на сайте"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://avito.ru/oauth",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Обновляет цену товара по id. \nМаксимальное количество запросов в минуту - 150.\n**Внимание! Доступно для категорий Товары, Запчасти, Авто, Недвижимость (кроме краткосрочной)**\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

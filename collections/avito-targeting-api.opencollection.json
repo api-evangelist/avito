@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access targeting API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "targeting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Создание задачи на проверку ИНН клиентов",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/api/1/agency/clients/target/create",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Данный метод запускает задачу на проверку ИНН клиентов.\n\n### Параметры запроса\n\n- `innList` — не пустой список до 100 ИНН.\n\n### Успешный ответ\n\nМетод возвращает назад идентификатор задачи `result.taskId`,\n  с помощью которого можно будет получить её статус и результаты проверки\n  (см. метод [Получение результата проверки ИНН клиентов](#operation/agencyClientsTargetResult)).\n"
+        },
+        {
+          "info": {
+            "name": "Получение результата проверки ИНН клиентов",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/api/1/agency/clients/target/result",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Данный метод позволяет получить по идентификатору статус задачи проверки ИНН клиентов,\n  а также результаты этой проверки, если задача завершилась успешно.\n\n### Параметры тела запроса\n\n- `taskId` — идентификатор задачи\n  (см. метод [Создание задачи на проверку ИНН клиентов](#operation/agencyClientsTargetCreate)).\n\n### Успешный ответ\n\nМетод возвращает назад статус задачи `result.status` и итог проверки `result.items`,\n  если задача успешно завершена.\n\n#### Статус задачи\n\n- `pending` — задача ещё "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

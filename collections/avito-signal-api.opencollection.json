@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access Signal API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Signal",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Получение событий сервиса Сигнал\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/autoteka/v1/get-leads/",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer ACCESS_TOKEN"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Метод получения событий сервиса Сигнал\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

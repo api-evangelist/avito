@@ -1,0 +1,1652 @@
+{
+  "item": [
+    {
+      "id": "e276fe52-17e7-478d-979f-ca86da7cb731",
+      "name": "DeliverySandbox",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "73fac1e3-5d1f-4132-8898-4814a2fb64ca",
+          "name": "Отправка события об отмене тестового анонса",
+          "request": {
+            "name": "Отправка события об отмене тестового анонса",
+            "description": {
+              "content": "Метод доступен только в Песочнице.\n\nОписание работы анонсов [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/anonsy).\n\nМетод запускает процесс отмены тестового анонса.\nПри успешном выполнении в ответе должен быть статус success. По предоставленному вами url (параметр options.urlToCancelAnnouncement)\nдолжно прийти сообщение об отмене анонса.\n\n### Вариант использования\nМетод призван облегчить тестирование интеграции вашего API по обмену анонсами с Avito.\nВ метод необходимо передать ID тестового анонса, созданного ранее посредством [метода создания тестового анонса](#operation/v1createAnnouncement).\n\n### Описание ошибок\n| http code |   error code                |\n|-----------|-----------------------------|\n|    200    | VALIDATION_ERROR            |\n|    200    | ANNOUNCEMENT_NOT_FOUND      |\n|    500    | INTERNAL_ERROR              |\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery-sandbox",
+                "v1",
+                "cancelAnnouncement"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"options\": {\n    \"urlToCancelAnnouncement\": \"<string>\"\n  },\n  \"announcementID\": \"<uuid>\",\n  \"date\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "678680ba-7981-4d4d-abea-a84b719a240b",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "v1",
+                    "cancelAnnouncement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"options\": {\n    \"urlToCancelAnnouncement\": \"<string>\"\n  },\n  \"announcementID\": \"<uuid>\",\n  \"date\": \"2023-09-20T10:00:00.52Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"status\": \"success\"\n  },\n  \"error\": {\n    \"code\": \"INTERNAL_ERROR\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e07269e-59a2-4ec2-a64f-1e6cf51e7335",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "v1",
+                    "cancelAnnouncement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"options\": {\n    \"urlToCancelAnnouncement\": \"<string>\"\n  },\n  \"announcementID\": \"<uuid>\",\n  \"date\": \"2023-09-20T10:00:00.52Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"status\": \"success\"\n  },\n  \"error\": {\n    \"code\": \"INTERNAL_ERROR\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8198c080-6e12-42f3-911a-297a9fcfd09c",
+          "name": "Отмена тестовой посылки",
+          "request": {
+            "name": "Отмена тестовой посылки",
+            "description": {
+              "content": "Метод доступен только в Песочнице.\n\nМетод инициирует [запрет приёма посылки](#operation/prohibitOrderAcceptance) в службе доставки и, если он состоялся, то посылка отменяется.\nОтменить можно только те посылки, которые были созданы с помощью [метода создания тестовой посылки](#operation/v1createParcel).\n\nПо умолчанию запрос на запрет приема посылки будет отправлен в мок. Чтобы изменить это поведение и получить запрос у себя в системе,\nвоспользуйтесь параметром `options.cancelationUrl`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery-sandbox",
+                "v1",
+                "cancelParcel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"parcelID\": \"<string>\",\n  \"options\": {\n    \"cancelationUrl\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0d1c2304-ee83-4ef0-a4b7-acfa73ce23a8",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "v1",
+                    "cancelParcel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parcelID\": \"<string>\",\n  \"options\": {\n    \"cancelationUrl\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"status\": \"string\"\n  },\n  \"error\": {\n    \"code\": \"INTERNAL_ERROR\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7983ba34-97b6-437e-98ea-e6eadb34adf4",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "v1",
+                    "cancelParcel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parcelID\": \"<string>\",\n  \"options\": {\n    \"cancelationUrl\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"INTERNAL_ERROR\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "698763e0-ef1a-424f-b50c-f7a9f6a8e4cf",
+          "name": "Создание заявки на изменение данных тестовой посылки",
+          "request": {
+            "name": "Создание заявки на изменение данных тестовой посылки",
+            "description": {
+              "content": "Метод доступен только в Песочнице.\n\nОписание механики изменения посылок [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/izmenenie_svoystv_posylok).\n\nМетод создаёт заявку на изменение данных посылки. Например, на изменение ФИО и телефона получателя.\n\nПо умолчанию запрос на создание заявки не будет отправлен в вашу систему. Чтобы это произошло, необходимо\nзаполнить параметр options.changeParcelUrl.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery-sandbox",
+                "v1",
+                "changeParcel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"parcelID\": \"<string>\",\n  \"application\": {\n    \"kind\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"options\": {\n    \"changeParcelUrl\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1e6d4ac3-1b49-4e79-bc65-08c6b7ce343b",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "v1",
+                    "changeParcel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"parcelID\": \"<string>\",\n  \"application\": {\n    \"kind\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"options\": {\n    \"changeParcelUrl\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"applicationID\": \"string\"\n  },\n  \"error\": {\n    \"code\": \"UNSUITABLE_PARCEL\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d3cc8c2-f262-44cd-805f-7cc656921a16",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "v1",
+                    "changeParcel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"parcelID\": \"<string>\",\n  \"application\": {\n    \"kind\": \"<string>\",\n    \"name\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"options\": {\n    \"changeParcelUrl\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"UNSUITABLE_PARCEL\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c797122a-fa35-4d27-af4e-6a5c49595d20",
+          "name": "Создание тестового анонса",
+          "request": {
+            "name": "Создание тестового анонса",
+            "description": {
+              "content": "Метод доступен только в Песочнице.\n\nОписание работы анонсов [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/anonsy).\n\nМетод запускает процесс создания тестового анонса.\nПри успешном выполнении в ответе должен быть статус success, а предоставленный анонс должен прийти по указанному \nвами URL (параметр options.urlToSendAnnouncement).\n\nПри формировании тестового анонса необходимо указать ID тестовых посылок (параметр packages.parcelIDs). \nID тестовых посылок можно узнать при помощи двух методов [создания тестовой посылки](#operation/v1createParcel)\nи [получения ее ID](#operation/v1getRegisteredParcelID). Обращаем внимание, что для тестирования приема входящих\nанонсов необходимо создать кросс-доставочную посылку (в параметре options.xDelivery.leg выставить флаг X_DELIVERY_LAST_LEG).\n\n### Вариант использования\nМетод призван облегчить тестирование интеграции вашего API по обмену анонсами с Avito.\nВ метод необходимо передать ID посылки, а для этого её нужно создать. Таким образом, шаги будут выглядеть примерно так:\n<ol>\n  <li>Вызываем метод создания тестовой посылки. Получаем orderID.</li>\n  <li>С полученным orderID вызываем метод получения ID тестовой посылки.</li>\n  <li>С полученным ID посылки делаем запрос на создание анонса.</li>\n</ol>\n\n### Описание ошибок\n| http code |   error code       |\n|-----------|--------------------|\n|    200    | VALIDATION_ERROR   |\n|    200    | OBJECT_EXISTS      |\n|    500    | INTERNAL_ERROR     |\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery-sandbox",
+                "v1",
+                "createAnnouncement"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"options\": {\n    \"urlToSendAnnouncement\": \"<string>\"\n  },\n  \"announcementID\": \"<string>\",\n  \"barcode\": \"<string>\",\n  \"sender\": {\n    \"type\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"email\": \"<string>\",\n    \"name\": \"<string>\",\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      },\n      \"terminal\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    }\n  },\n  \"receiver\": {\n    \"type\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"email\": \"<string>\",\n    \"name\": \"<string>\",\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      },\n      \"terminal\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    }\n  },\n  \"announcementType\": \"<string>\",\n  \"date\": \"<dateTime>\",\n  \"packages\": [\n    {\n      \"id\": \"<string>\",\n      \"parcelIDs\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"sealID\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"parcelIDs\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"sealID\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "10a9b192-ef7d-4bfd-97a9-807d5ac25485",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "v1",
+                    "createAnnouncement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"options\": {\n    \"urlToSendAnnouncement\": \"<string>\"\n  },\n  \"announcementID\": \"<string>\",\n  \"barcode\": \"<string>\",\n  \"sender\": {\n    \"type\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"email\": \"<string>\",\n    \"name\": \"<string>\",\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      },\n      \"terminal\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    }\n  },\n  \"receiver\": {\n    \"type\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"email\": \"<string>\",\n    \"name\": \"<string>\",\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      },\n      \"terminal\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    }\n  },\n  \"announcementType\": \"<string>\",\n  \"date\": \"<dateTime>\",\n  \"packages\": [\n    {\n      \"id\": \"<string>\",\n      \"parcelIDs\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"sealID\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"parcelIDs\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"sealID\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"status\": \"success\"\n  },\n  \"error\": {\n    \"code\": \"OBJECT_EXISTS\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61b11bb3-5804-4d57-856b-30feeb0a55c8",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "v1",
+                    "createAnnouncement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"options\": {\n    \"urlToSendAnnouncement\": \"<string>\"\n  },\n  \"announcementID\": \"<string>\",\n  \"barcode\": \"<string>\",\n  \"sender\": {\n    \"type\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"email\": \"<string>\",\n    \"name\": \"<string>\",\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      },\n      \"terminal\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    }\n  },\n  \"receiver\": {\n    \"type\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"email\": \"<string>\",\n    \"name\": \"<string>\",\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      },\n      \"terminal\": {\n        \"provider\": \"<string>\",\n        \"accuracy\": \"<string>\",\n        \"id\": \"<string>\"\n      }\n    }\n  },\n  \"announcementType\": \"<string>\",\n  \"date\": \"<dateTime>\",\n  \"packages\": [\n    {\n      \"id\": \"<string>\",\n      \"parcelIDs\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"sealID\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"parcelIDs\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"sealID\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"status\": \"success\"\n  },\n  \"error\": {\n    \"code\": \"OBJECT_EXISTS\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b6e55d78-3684-4fe1-9690-f09bb301ccea",
+          "name": "Получение последнего события тестового анонса",
+          "request": {
+            "name": "Получение последнего события тестового анонса",
+            "description": {
+              "content": "Метод доступен только в Песочнице.\n\nОписание работы анонсов [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/anonsy).\n\nМетод позволяет проверить последнее зарегистрированное событие по анонсу.\n\n### Вариант использования\nМетод призван облегчить тестирование интеграции вашего api по обмену анонсами с Avito.\nМетод можно использовать в связке с [методом отмены анонса](#operation/v1cancelAnnouncement) для проверки того, что \nпоследнее событие тестового анонса изменилось.\n\n### Описание ошибок\n| http code |   error code                |\n|-----------|-----------------------------|\n|    200    | VALIDATION_ERROR            |\n|    200    | ANNOUNCEMENT_NOT_FOUND      |\n|    500    | INTERNAL_ERROR              |\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery-sandbox",
+                "v1",
+                "getAnnouncementEvent"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"announcementID\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "78a4999b-b89b-4d81-a422-f415143db39c",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "v1",
+                    "getAnnouncementEvent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"announcementID\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"announcementEvent\": \"string\"\n  },\n  \"error\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23733876-f991-4c86-b8f5-bedc1a2f3b48",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "v1",
+                    "getAnnouncementEvent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"announcementID\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"announcementEvent\": \"string\"\n  },\n  \"error\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c1ba164-6312-4388-8fbd-82d24a22e46f",
+          "name": "Получение информации об изменении тестовой посылки",
+          "request": {
+            "name": "Получение информации об изменении тестовой посылки",
+            "description": {
+              "content": "Метод доступен только в Песочнице.\n\nОписание механики изменения посылок [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/izmenenie_svoystv_posylok).\n\nМетод возвращает информацию о заявке на изменение данных тестовой посылки. Информацию можно получить только по тем заявкам\nкоторые были созданы с помощью [метода создания заявки на изменение данных](#operation/v1changeParcel).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery-sandbox",
+                "v1",
+                "getChangeParcelInfo"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"applicationID\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f113c2a0-3195-4f4f-a423-5e16f049778a",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "v1",
+                    "getChangeParcelInfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"applicationID\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"receiver\": {\n      \"name\": \"string\",\n      \"phones\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"status\": \"string\"\n  },\n  \"error\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3004dc77-1545-4b45-81ab-69d2a6b7b31d",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "v1",
+                    "getChangeParcelInfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"applicationID\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"APPLICATION_NOT_FOUND\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5d01c4b2-17dc-4078-9264-9c7aaafe83d2",
+          "name": "Получение информации о тестовой посылке",
+          "request": {
+            "name": "Получение информации о тестовой посылке",
+            "description": {
+              "content": "Метод доступен только в Песочнице.\n\nМетод возвращает информацию о тестовой посылке. Информацию можно получить только по тем посылкам\nкоторые были созданы с помощью [метода создания тестовой посылки](#operation/v1createParcel).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery-sandbox",
+                "v1",
+                "getParcelInfo"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"parcelID\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "00a4799c-f72c-4314-a986-0b0cb853200e",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "v1",
+                    "getParcelInfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parcelID\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"dimensions\": {\n      \"realHeight\": 2279,\n      \"realLength\": 7219,\n      \"realWeight\": 7973,\n      \"realWidth\": 2059\n    },\n    \"history\": [\n      {\n        \"date\": \"2024-07-13T11:44:51.866Z\",\n        \"event\": \"string\",\n        \"location\": \"string\",\n        \"status\": \"string\"\n      },\n      {\n        \"date\": \"1991-06-18T02:15:32.423Z\",\n        \"event\": \"string\",\n        \"location\": \"string\",\n        \"status\": \"string\"\n      }\n    ],\n    \"receiver\": {\n      \"terminals\": {\n        \"approximate\": \"string\",\n        \"real\": \"string\"\n      }\n    },\n    \"sender\": {\n      \"terminals\": {\n        \"approximate\": \"string\",\n        \"real\": \"string\"\n      }\n    },\n    \"status\": \"string\"\n  },\n  \"error\": {\n    \"code\": \"INTERNAL_ERROR\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0f6a686-7e8b-4349-bd78-98c71c6e9f0b",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "v1",
+                    "getParcelInfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parcelID\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"VALIDATION_ERROR\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d2ec1d91-a8d2-4ce8-9e67-c3cc28a26693",
+          "name": "Получение ID зарегистрированной тестовой посылки",
+          "request": {
+            "name": "Получение ID зарегистрированной тестовой посылки",
+            "description": {
+              "content": "Метод доступен только в Песочнице.\n\nМетод возвращает идентификатор зарегистрированной тестовой посылки, созданной с помощью\n[метода создания тестовой посылки](#operation/v1createParcel).\n\nВариант использования метода см. в описании [метода создания тестовой посылки](#operation/v1createParcel)\n\n### Описание ошибок\n| http code |   error code       |       error message          |\n|-----------|--------------------|------------------------------|\n|    200    | NOT_FOUND          | parcel not found             |\n|    200    | NOT_REGISTERED     | parcel not registered yet    |\n|    200    | VALIDATION_ERROR   | wrong orderID format         |\n|    500    | INTERNAL_ERROR     | get parcel id failed         |\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery-sandbox",
+                "v1",
+                "getRegisteredParcelID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderID\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "26bc9453-42bb-4623-b674-51d593f2aba4",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "v1",
+                    "getRegisteredParcelID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderID\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"parcelID\": \"string\"\n  },\n  \"error\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "920a0697-1b03-4d17-ad29-099d2614e031",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "v1",
+                    "getRegisteredParcelID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderID\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"NOT_FOUND\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1901a54c-2d7e-4c54-93f6-eab5367f8d48",
+          "name": "Создание тестовой посылки",
+          "request": {
+            "name": "Создание тестовой посылки",
+            "description": {
+              "content": "Метод доступен только в Песочнице.\n\nМетод запускает процесс создания тестовой посылки.\n\nОписание механики работы и дополнительные требования см. [здесь](#info/sozdanie_testovyh_posylok).\n\n### Описание ошибок\n| http code |   error code       |       error message          |\n|-----------|--------------------|------------------------------|\n|    200    | UNKNOWN_PROVIDER   | unknown provider             |\n|    200    | VALIDATION_ERROR   | invalid request              |\n|    200    | LIMIT_REACHED      | create parcels limit reached |\n|    500    | INTERNAL_ERROR     | create parcel error          |\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery-sandbox",
+                "v2",
+                "createParcel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"breadcrumbs\": [\n        {\n          \"name\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\"\n        }\n      ],\n      \"cost\": \"<integer>\",\n      \"description\": \"<string>\",\n      \"dimensions\": {\n        \"values\": [\n          \"<integer>\",\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      },\n      \"tags\": \"<array>\",\n      \"title\": \"<string>\",\n      \"weight\": {\n        \"value\": \"<integer>\"\n      }\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"breadcrumbs\": [\n        {\n          \"name\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\"\n        }\n      ],\n      \"cost\": \"<integer>\",\n      \"description\": \"<string>\",\n      \"dimensions\": {\n        \"values\": [\n          \"<integer>\",\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      },\n      \"tags\": \"<array>\",\n      \"title\": \"<string>\",\n      \"weight\": {\n        \"value\": \"<integer>\"\n      }\n    }\n  ],\n  \"options\": {\n    \"registrationUrl\": \"<string>\"\n  },\n  \"receiver\": {\n    \"delivery\": {\n      \"courier\": {\n        \"address\": {\n          \"addressRow\": \"<string>\",\n          \"details\": {\n            \"house\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"porch\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"floor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"flat\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"coordinates\": {\n            \"latitude\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"longitude\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"dateTimeInterval\": {\n          \"start\": \"<dateTime>\",\n          \"end\": \"<dateTime>\"\n        },\n        \"options\": {\n          \"comment\": \"<string>\",\n          \"elevatorAvailable\": \"<boolean>\"\n        }\n      },\n      \"terminal\": {\n        \"id\": \"<string>\"\n      }\n    }\n  },\n  \"sender\": {\n    \"delivery\": {\n      \"terminal\": {\n        \"id\": \"<string>\"\n      }\n    },\n    \"inn\": \"<string>\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a80eb4f8-8f34-4eef-9e39-5b7902c93b9f",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "v2",
+                    "createParcel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"breadcrumbs\": [\n        {\n          \"name\": \"Спорт и отдых\"\n        },\n        {\n          \"name\": \"Спорт и отдых\"\n        }\n      ],\n      \"cost\": \"<integer>\",\n      \"description\": \"<string>\",\n      \"dimensions\": {\n        \"values\": [\n          \"<integer>\",\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      },\n      \"tags\": \"<array>\",\n      \"title\": \"<string>\",\n      \"weight\": {\n        \"value\": \"<integer>\"\n      }\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"breadcrumbs\": [\n        {\n          \"name\": \"Спорт и отдых\"\n        },\n        {\n          \"name\": \"Спорт и отдых\"\n        }\n      ],\n      \"cost\": \"<integer>\",\n      \"description\": \"<string>\",\n      \"dimensions\": {\n        \"values\": [\n          \"<integer>\",\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      },\n      \"tags\": \"<array>\",\n      \"title\": \"<string>\",\n      \"weight\": {\n        \"value\": \"<integer>\"\n      }\n    }\n  ],\n  \"options\": {\n    \"registrationUrl\": \"<string>\"\n  },\n  \"receiver\": {\n    \"delivery\": {\n      \"courier\": {\n        \"address\": {\n          \"addressRow\": \"Москва, ул. Лесная, 20с2\",\n          \"details\": {\n            \"house\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"porch\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"floor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"flat\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"coordinates\": {\n            \"latitude\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"longitude\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"dateTimeInterval\": {\n          \"start\": \"2025-02-01T10:26:15+03:00\",\n          \"end\": \"2025-02-01T10:26:15+03:00\"\n        },\n        \"options\": {\n          \"comment\": \"Комментарий для курьера\",\n          \"elevatorAvailable\": true\n        }\n      },\n      \"terminal\": {\n        \"id\": \"T1000\"\n      }\n    }\n  },\n  \"sender\": {\n    \"delivery\": {\n      \"terminal\": {\n        \"id\": \"T1000\"\n      }\n    },\n    \"inn\": \"<string>\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"orderID\": \"string\"\n  },\n  \"error\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"message\": \"Текст ошибки\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "41d0d40b-153d-4be4-9aaa-b73f3bbd9147",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "v2",
+                    "createParcel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"breadcrumbs\": [\n        {\n          \"name\": \"Спорт и отдых\"\n        },\n        {\n          \"name\": \"Спорт и отдых\"\n        }\n      ],\n      \"cost\": \"<integer>\",\n      \"description\": \"<string>\",\n      \"dimensions\": {\n        \"values\": [\n          \"<integer>\",\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      },\n      \"tags\": \"<array>\",\n      \"title\": \"<string>\",\n      \"weight\": {\n        \"value\": \"<integer>\"\n      }\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"breadcrumbs\": [\n        {\n          \"name\": \"Спорт и отдых\"\n        },\n        {\n          \"name\": \"Спорт и отдых\"\n        }\n      ],\n      \"cost\": \"<integer>\",\n      \"description\": \"<string>\",\n      \"dimensions\": {\n        \"values\": [\n          \"<integer>\",\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      },\n      \"tags\": \"<array>\",\n      \"title\": \"<string>\",\n      \"weight\": {\n        \"value\": \"<integer>\"\n      }\n    }\n  ],\n  \"options\": {\n    \"registrationUrl\": \"<string>\"\n  },\n  \"receiver\": {\n    \"delivery\": {\n      \"courier\": {\n        \"address\": {\n          \"addressRow\": \"Москва, ул. Лесная, 20с2\",\n          \"details\": {\n            \"house\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"porch\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"floor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"flat\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"coordinates\": {\n            \"latitude\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"longitude\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"dateTimeInterval\": {\n          \"start\": \"2025-02-01T10:26:15+03:00\",\n          \"end\": \"2025-02-01T10:26:15+03:00\"\n        },\n        \"options\": {\n          \"comment\": \"Комментарий для курьера\",\n          \"elevatorAvailable\": true\n        }\n      },\n      \"terminal\": {\n        \"id\": \"T1000\"\n      }\n    }\n  },\n  \"sender\": {\n    \"delivery\": {\n      \"terminal\": {\n        \"id\": \"T1000\"\n      }\n    },\n    \"inn\": \"<string>\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"INTERNAL_ERROR\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.avito.ru/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "15e1a39f-41c3-49c8-9e0b-60f52a814cef",
+    "name": "Иерархия Аккаунтов Access DeliverySandbox API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API для взаимодействия с иерархией аккаунтов в Авито\n**Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**\n\n\nContact Support:\n Email: supportautoload@avito.ru",
+      "type": "text/plain"
+    }
+  }
+}

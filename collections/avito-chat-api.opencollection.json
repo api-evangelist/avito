@@ -1,0 +1,140 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Иерархия Аккаунтов Access Chat API",
+    "version": "1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Chat",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Чат",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.avito.ru/cpa/v1/chatByActionId/:actionId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Source",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path",
+                "description": "Идентификатор целевого действия"
+              }
+            ]
+          },
+          "docs": "Получение модели чата по идентификатору Максимальное количество запросов в минуту - 3."
+        },
+        {
+          "info": {
+            "name": "Чаты по времени (deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/cpa/v1/chatsByTime",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Source",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Получение списка чатов по времени создания (deprecated). Максимальное количество запросов в минуту - 60."
+        },
+        {
+          "info": {
+            "name": "Создание жалобы для звонков/чатов",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/cpa/v1/createComplaintByActionId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Source",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Создание жалобы на целевое действие по actionId. Максимальное количество запросов в минуту - 3."
+        },
+        {
+          "info": {
+            "name": "Чаты по времени",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.avito.ru/cpa/v2/chatsByTime",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Source",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.avito.ru/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Получение списка чатов по времени создания. Максимальное количество запросов в минуту - 40."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,2267 @@
+{
+  "item": [
+    {
+      "id": "17b35891-635d-45f3-8c79-e4c66dcc0e19",
+      "name": "ParcelProcessing",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f2d8ad63-30b5-4bf4-80f6-77b388f577d4",
+          "name": "Создание посылки",
+          "request": {
+            "name": "Создание посылки",
+            "description": {
+              "content": "Метод реализуется на стороне службы доставки.\n\nОписание механики работы и дополнительные требования см. [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/sozdanie_posylki).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "createParcel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderID\": \"<string>\",\n  \"parcelID\": \"<string>\",\n  \"items\": [\n    {\n      \"id\": \"<integer>\",\n      \"title\": \"<string>\",\n      \"cost\": \"<integer>\",\n      \"quantity\": \"<integer>\",\n      \"breadcrumbs\": [\n        {\n          \"name\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\"\n        }\n      ],\n      \"description\": \"<string>\",\n      \"dimensions\": {\n        \"accuracy\": \"<string>\",\n        \"values\": [\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      },\n      \"imagesUrls\": {\n        \"listing\": \"<string>\",\n        \"list\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"tags\": \"<array>\",\n      \"weight\": {\n        \"accuracy\": \"<string>\",\n        \"value\": \"<integer>\"\n      }\n    },\n    {\n      \"id\": \"<integer>\",\n      \"title\": \"<string>\",\n      \"cost\": \"<integer>\",\n      \"quantity\": \"<integer>\",\n      \"breadcrumbs\": [\n        {\n          \"name\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\"\n        }\n      ],\n      \"description\": \"<string>\",\n      \"dimensions\": {\n        \"accuracy\": \"<string>\",\n        \"values\": [\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      },\n      \"imagesUrls\": {\n        \"listing\": \"<string>\",\n        \"list\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"tags\": \"<array>\",\n      \"weight\": {\n        \"accuracy\": \"<string>\",\n        \"value\": \"<integer>\"\n      }\n    }\n  ],\n  \"sender\": {\n    \"type\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"email\": \"<email>\",\n    \"name\": \"<string>\",\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"completenessAndIntegrity\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"courier\": {\n        \"provider\": \"<string>\",\n        \"address\": {\n          \"addressRow\": \"<string>\",\n          \"coordinates\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"dateTimeInterval\": {\n          \"start\": \"<dateTime>\",\n          \"end\": \"<dateTime>\"\n        },\n        \"options\": {\n          \"deliveryType\": \"<string>\",\n          \"deliveryConfirmationType\": \"<string>\",\n          \"elevatorAvailable\": \"<boolean>\",\n          \"comment\": \"<string>\"\n        },\n        \"pickupContact\": {\n          \"name\": \"<string>\",\n          \"phone\": \"<string>\"\n        }\n      },\n      \"secondPartyLogist\": {\n        \"provider\": \"<string>\"\n      },\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"id\": \"<string>\",\n        \"accuracy\": \"<string>\"\n      },\n      \"terminal\": {\n        \"provider\": \"<string>\",\n        \"id\": \"<string>\",\n        \"accuracy\": \"<string>\"\n      }\n    },\n    \"inn\": \"<string>\"\n  },\n  \"receiver\": {\n    \"type\": \"<string>\",\n    \"phones\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"email\": \"<email>\",\n    \"name\": \"<string>\",\n    \"delivery\": {\n      \"type\": \"<string>\",\n      \"completenessAndIntegrity\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"courier\": {\n        \"provider\": \"<string>\",\n        \"address\": {\n          \"addressRow\": \"<string>\",\n          \"coordinates\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"dateTimeInterval\": {\n          \"start\": \"<dateTime>\",\n          \"end\": \"<dateTime>\"\n        },\n        \"options\": {\n          \"deliveryType\": \"<string>\",\n          \"deliveryConfirmationType\": \"<string>\",\n          \"elevatorAvailable\": \"<boolean>\",\n          \"comment\": \"<string>\"\n        },\n        \"pickupContact\": {\n          \"name\": \"<string>\",\n          \"phone\": \"<string>\"\n        }\n      },\n      \"secondPartyLogist\": {\n        \"provider\": \"<string>\"\n      },\n      \"sortingCenter\": {\n        \"provider\": \"<string>\",\n        \"id\": \"<string>\",\n        \"accuracy\": \"<string>\"\n      },\n      \"terminal\": {\n        \"provider\": \"<string>\",\n        \"id\": \"<string>\",\n        \"accuracy\": \"<string>\"\n      }\n    },\n    \"inn\": \"<string>\"\n  },\n  \"payment\": {\n    \"items\": {\n      \"status\": \"<string>\",\n      \"cost\": \"<integer>\"\n    },\n    \"delivery\": {\n      \"status\": \"<string>\",\n      \"costWithoutVat\": \"<integer>\"\n    }\n  },\n  \"barcodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"directOrderID\": \"<string>\",\n  \"options\": {\n    \"return\": {\n      \"receiver\": {\n        \"type\": \"<string>\",\n        \"phones\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"email\": \"<email>\",\n        \"name\": \"<string>\",\n        \"delivery\": {\n          \"type\": \"<string>\",\n          \"completenessAndIntegrity\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"courier\": {\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"address\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dateTimeInterval\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"options\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"pickupContact\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"secondPartyLogist\": {\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"sortingCenter\": {\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"accuracy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"terminal\": {\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"accuracy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"inn\": \"<string>\"\n      },\n      \"refused\": {\n        \"action\": \"<string>\",\n        \"after\": {\n          \"unit\": \"<string>\",\n          \"value\": \"<integer>\"\n        }\n      },\n      \"returned\": {\n        \"action\": \"<string>\",\n        \"after\": {\n          \"unit\": \"<string>\",\n          \"value\": \"<integer>\"\n        }\n      },\n      \"unclaimed\": {\n        \"action\": \"<string>\",\n        \"after\": {\n          \"unit\": \"<string>\",\n          \"value\": \"<integer>\"\n        }\n      }\n    },\n    \"tags\": \"<array>\"\n  },\n  \"package\": {\n    \"dimensions\": {\n      \"accuracy\": \"<string>\",\n      \"values\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    },\n    \"weight\": {\n      \"accuracy\": \"<string>\",\n      \"value\": \"<integer>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "66ea0cf4-7fb8-4e41-8596-20716d375d26",
+              "name": "Посылка создана / случилась ошибка.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "createParcel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderID\": \"38108624273277776\",\n  \"parcelID\": \"P00012345\",\n  \"items\": [\n    {\n      \"id\": 2574253956,\n      \"title\": \"Подшипники для самокатов и роликов Abec 7\",\n      \"cost\": 1000,\n      \"quantity\": 1,\n      \"breadcrumbs\": [\n        {\n          \"name\": \"Спорт и отдых\"\n        },\n        {\n          \"name\": \"Спорт и отдых\"\n        }\n      ],\n      \"description\": \"<string>\",\n      \"dimensions\": {\n        \"accuracy\": \"APPROXIMATE\",\n        \"values\": [\n          20,\n          20,\n          20\n        ]\n      },\n      \"imagesUrls\": {\n        \"listing\": \"//24.img.avito.st/image/1/1.pUbrSba6Ca_d4MuqrTPvNzbqD6tfagFtWuoNp1_iCw.kszrqWjK0pNKI4ayaT821U-Ln2lzT8lSuqNt7pqedno\",\n        \"list\": [\n          \"//24.img.avito.st/image/1/1.pUbrSba6Ca_d4MuqrTPvNzbqD6tfagFtWuoNp1_iCw.kszrqWjK0pNKI4ayaT821U-Ln2lzT8lSuqNt7pqedno\",\n          \"//19.img.avito.st/image/1/1.rlbjCLa6Ar_VocC6s3LkJz6rBLtXKwp9UqsGt1ejAA.C4io31wn3Rjlc7SJGgeIVyxzC9LnoQUkGwmyaQ67-qs\",\n          \"//90.img.avito.st/image/1/1.Z0Dh2ba6y6nXcAmso6AtMTx6za1V-sNrUHrPoVVyyQ.T1yZ87ZDiUSrUQNTYJkDbXub3lHC9_XBFtc8D1jOt7c\",\n          \"//76.img.avito.st/image/1/1.QTUceba67dwq0C_ZEngLRMHa69ioWuUerdrp1KjS7w.JABYB8SsN5W6u5Y6WR49R8kKzr5IsGxF5HTjQPnygYQ\",\n          \"//85.img.avito.st/image/1/1.eITjzra61G3VZxZon88y9T5t0mlX7dyvUm3QZVdl1g.aQyF5iZccldCZ5p9qtb-DZZobnPzdCSanQJmdHXQvdc\"\n        ]\n      },\n      \"tags\": \"<array>\",\n      \"weight\": {\n        \"accuracy\": \"APPROXIMATE\",\n        \"value\": \"<integer>\"\n      }\n    },\n    {\n      \"id\": 2574253956,\n      \"title\": \"Подшипники для самокатов и роликов Abec 7\",\n      \"cost\": 1000,\n      \"quantity\": 1,\n      \"breadcrumbs\": [\n        {\n          \"name\": \"Спорт и отдых\"\n        },\n        {\n          \"name\": \"Спорт и отдых\"\n        }\n      ],\n      \"description\": \"<string>\",\n      \"dimensions\": {\n        \"accuracy\": \"APPROXIMATE\",\n        \"values\": [\n          20,\n          20,\n          20\n        ]\n      },\n      \"imagesUrls\": {\n        \"listing\": \"//24.img.avito.st/image/1/1.pUbrSba6Ca_d4MuqrTPvNzbqD6tfagFtWuoNp1_iCw.kszrqWjK0pNKI4ayaT821U-Ln2lzT8lSuqNt7pqedno\",\n        \"list\": [\n          \"//24.img.avito.st/image/1/1.pUbrSba6Ca_d4MuqrTPvNzbqD6tfagFtWuoNp1_iCw.kszrqWjK0pNKI4ayaT821U-Ln2lzT8lSuqNt7pqedno\",\n          \"//19.img.avito.st/image/1/1.rlbjCLa6Ar_VocC6s3LkJz6rBLtXKwp9UqsGt1ejAA.C4io31wn3Rjlc7SJGgeIVyxzC9LnoQUkGwmyaQ67-qs\",\n          \"//90.img.avito.st/image/1/1.Z0Dh2ba6y6nXcAmso6AtMTx6za1V-sNrUHrPoVVyyQ.T1yZ87ZDiUSrUQNTYJkDbXub3lHC9_XBFtc8D1jOt7c\",\n          \"//76.img.avito.st/image/1/1.QTUceba67dwq0C_ZEngLRMHa69ioWuUerdrp1KjS7w.JABYB8SsN5W6u5Y6WR49R8kKzr5IsGxF5HTjQPnygYQ\",\n          \"//85.img.avito.st/image/1/1.eITjzra61G3VZxZon88y9T5t0mlX7dyvUm3QZVdl1g.aQyF5iZccldCZ5p9qtb-DZZobnPzdCSanQJmdHXQvdc\"\n        ]\n      },\n      \"tags\": \"<array>\",\n      \"weight\": {\n        \"accuracy\": \"APPROXIMATE\",\n        \"value\": \"<integer>\"\n      }\n    }\n  ],\n  \"sender\": {\n    \"type\": \"PRIVATE\",\n    \"phones\": [\n      \"88005553535\",\n      \"79999999999\",\n      \"+79859991234\"\n    ],\n    \"email\": \"any_email@mail.com\",\n    \"name\": \"Иванов Иван Иванович\",\n    \"delivery\": {\n      \"type\": \"TERMINAL\",\n      \"completenessAndIntegrity\": [\n        \"DIRECT_FLOW\",\n        \"RETURN_FLOW\"\n      ],\n      \"courier\": {\n        \"provider\": \"pecom-t2d\",\n        \"address\": {\n          \"addressRow\": \"Москва, ул. Лесная, 20с2\",\n          \"coordinates\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"dateTimeInterval\": {\n          \"start\": \"2025-02-01T10:26:15+03:00\",\n          \"end\": \"2025-02-01T10:26:15+03:00\"\n        },\n        \"options\": {\n          \"deliveryType\": \"DELIVERY_TO_DOOR\",\n          \"deliveryConfirmationType\": \"PHONE\",\n          \"elevatorAvailable\": true,\n          \"comment\": \"Комментарий для курьера\"\n        },\n        \"pickupContact\": {\n          \"name\": \"Иванов Иван Иванович\",\n          \"phone\": \"+79999999999\"\n        }\n      },\n      \"secondPartyLogist\": {\n        \"provider\": \"<string>\"\n      },\n      \"sortingCenter\": {\n        \"provider\": \"exmail\",\n        \"id\": \"123\",\n        \"accuracy\": \"APPROXIMATE\"\n      },\n      \"terminal\": {\n        \"provider\": \"exmail\",\n        \"id\": \"123\",\n        \"accuracy\": \"APPROXIMATE\"\n      }\n    },\n    \"inn\": \"7727563778\"\n  },\n  \"receiver\": {\n    \"type\": \"PRIVATE\",\n    \"phones\": [\n      \"88005553535\",\n      \"79999999999\",\n      \"+79859991234\"\n    ],\n    \"email\": \"any_email@mail.com\",\n    \"name\": \"Иванов Иван Иванович\",\n    \"delivery\": {\n      \"type\": \"TERMINAL\",\n      \"completenessAndIntegrity\": [\n        \"DIRECT_FLOW\",\n        \"RETURN_FLOW\"\n      ],\n      \"courier\": {\n        \"provider\": \"pecom-t2d\",\n        \"address\": {\n          \"addressRow\": \"Москва, ул. Лесная, 20с2\",\n          \"coordinates\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"dateTimeInterval\": {\n          \"start\": \"2025-02-01T10:26:15+03:00\",\n          \"end\": \"2025-02-01T10:26:15+03:00\"\n        },\n        \"options\": {\n          \"deliveryType\": \"DELIVERY_TO_DOOR\",\n          \"deliveryConfirmationType\": \"PHONE\",\n          \"elevatorAvailable\": true,\n          \"comment\": \"Комментарий для курьера\"\n        },\n        \"pickupContact\": {\n          \"name\": \"Иванов Иван Иванович\",\n          \"phone\": \"+79999999999\"\n        }\n      },\n      \"secondPartyLogist\": {\n        \"provider\": \"<string>\"\n      },\n      \"sortingCenter\": {\n        \"provider\": \"exmail\",\n        \"id\": \"123\",\n        \"accuracy\": \"APPROXIMATE\"\n      },\n      \"terminal\": {\n        \"provider\": \"exmail\",\n        \"id\": \"123\",\n        \"accuracy\": \"APPROXIMATE\"\n      }\n    },\n    \"inn\": \"7727563778\"\n  },\n  \"payment\": {\n    \"items\": {\n      \"status\": \"PAID\",\n      \"cost\": 10000\n    },\n    \"delivery\": {\n      \"status\": \"PAID\",\n      \"costWithoutVat\": 10000\n    }\n  },\n  \"barcodes\": [\n    \"1000001389165\",\n    \"80511176616217\"\n  ],\n  \"directOrderID\": \"38108624273277775\",\n  \"options\": {\n    \"return\": {\n      \"receiver\": {\n        \"type\": \"PRIVATE\",\n        \"phones\": [\n          \"88005553535\",\n          \"79999999999\",\n          \"+79859991234\"\n        ],\n        \"email\": \"any_email@mail.com\",\n        \"name\": \"Иванов Иван Иванович\",\n        \"delivery\": {\n          \"type\": \"TERMINAL\",\n          \"completenessAndIntegrity\": [\n            \"DIRECT_FLOW\",\n            \"RETURN_FLOW\"\n          ],\n          \"courier\": {\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"address\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dateTimeInterval\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"options\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"pickupContact\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"secondPartyLogist\": {\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"sortingCenter\": {\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"accuracy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"terminal\": {\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"accuracy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"inn\": \"7727563778\"\n      },\n      \"refused\": {\n        \"action\": \"DESTROY\",\n        \"after\": {\n          \"unit\": \"DAY\",\n          \"value\": 14\n        }\n      },\n      \"returned\": {\n        \"action\": \"DESTROY\",\n        \"after\": {\n          \"unit\": \"DAY\",\n          \"value\": 14\n        }\n      },\n      \"unclaimed\": {\n        \"action\": \"DESTROY\",\n        \"after\": {\n          \"unit\": \"DAY\",\n          \"value\": 14\n        }\n      }\n    },\n    \"tags\": \"<array>\"\n  },\n  \"package\": {\n    \"dimensions\": {\n      \"accuracy\": \"APPROXIMATE\",\n      \"values\": [\n        20,\n        20,\n        20\n      ]\n    },\n    \"weight\": {\n      \"accuracy\": \"APPROXIMATE\",\n      \"value\": \"<integer>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"dispatchNumber\": \"string\",\n    \"trackingNumber\": \"string\",\n    \"barcodes\": [\n      \"1000001389165\",\n      \"1000001389166\"\n    ]\n  },\n  \"error\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"message\": \"Текст ошибки\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4a24678-0e31-480a-bc1c-9f61ca632121",
+              "name": "Ошибка аутентификации. Например, некорректный токен.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "createParcel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderID\": \"38108624273277776\",\n  \"parcelID\": \"P00012345\",\n  \"items\": [\n    {\n      \"id\": 2574253956,\n      \"title\": \"Подшипники для самокатов и роликов Abec 7\",\n      \"cost\": 1000,\n      \"quantity\": 1,\n      \"breadcrumbs\": [\n        {\n          \"name\": \"Спорт и отдых\"\n        },\n        {\n          \"name\": \"Спорт и отдых\"\n        }\n      ],\n      \"description\": \"<string>\",\n      \"dimensions\": {\n        \"accuracy\": \"APPROXIMATE\",\n        \"values\": [\n          20,\n          20,\n          20\n        ]\n      },\n      \"imagesUrls\": {\n        \"listing\": \"//24.img.avito.st/image/1/1.pUbrSba6Ca_d4MuqrTPvNzbqD6tfagFtWuoNp1_iCw.kszrqWjK0pNKI4ayaT821U-Ln2lzT8lSuqNt7pqedno\",\n        \"list\": [\n          \"//24.img.avito.st/image/1/1.pUbrSba6Ca_d4MuqrTPvNzbqD6tfagFtWuoNp1_iCw.kszrqWjK0pNKI4ayaT821U-Ln2lzT8lSuqNt7pqedno\",\n          \"//19.img.avito.st/image/1/1.rlbjCLa6Ar_VocC6s3LkJz6rBLtXKwp9UqsGt1ejAA.C4io31wn3Rjlc7SJGgeIVyxzC9LnoQUkGwmyaQ67-qs\",\n          \"//90.img.avito.st/image/1/1.Z0Dh2ba6y6nXcAmso6AtMTx6za1V-sNrUHrPoVVyyQ.T1yZ87ZDiUSrUQNTYJkDbXub3lHC9_XBFtc8D1jOt7c\",\n          \"//76.img.avito.st/image/1/1.QTUceba67dwq0C_ZEngLRMHa69ioWuUerdrp1KjS7w.JABYB8SsN5W6u5Y6WR49R8kKzr5IsGxF5HTjQPnygYQ\",\n          \"//85.img.avito.st/image/1/1.eITjzra61G3VZxZon88y9T5t0mlX7dyvUm3QZVdl1g.aQyF5iZccldCZ5p9qtb-DZZobnPzdCSanQJmdHXQvdc\"\n        ]\n      },\n      \"tags\": \"<array>\",\n      \"weight\": {\n        \"accuracy\": \"APPROXIMATE\",\n        \"value\": \"<integer>\"\n      }\n    },\n    {\n      \"id\": 2574253956,\n      \"title\": \"Подшипники для самокатов и роликов Abec 7\",\n      \"cost\": 1000,\n      \"quantity\": 1,\n      \"breadcrumbs\": [\n        {\n          \"name\": \"Спорт и отдых\"\n        },\n        {\n          \"name\": \"Спорт и отдых\"\n        }\n      ],\n      \"description\": \"<string>\",\n      \"dimensions\": {\n        \"accuracy\": \"APPROXIMATE\",\n        \"values\": [\n          20,\n          20,\n          20\n        ]\n      },\n      \"imagesUrls\": {\n        \"listing\": \"//24.img.avito.st/image/1/1.pUbrSba6Ca_d4MuqrTPvNzbqD6tfagFtWuoNp1_iCw.kszrqWjK0pNKI4ayaT821U-Ln2lzT8lSuqNt7pqedno\",\n        \"list\": [\n          \"//24.img.avito.st/image/1/1.pUbrSba6Ca_d4MuqrTPvNzbqD6tfagFtWuoNp1_iCw.kszrqWjK0pNKI4ayaT821U-Ln2lzT8lSuqNt7pqedno\",\n          \"//19.img.avito.st/image/1/1.rlbjCLa6Ar_VocC6s3LkJz6rBLtXKwp9UqsGt1ejAA.C4io31wn3Rjlc7SJGgeIVyxzC9LnoQUkGwmyaQ67-qs\",\n          \"//90.img.avito.st/image/1/1.Z0Dh2ba6y6nXcAmso6AtMTx6za1V-sNrUHrPoVVyyQ.T1yZ87ZDiUSrUQNTYJkDbXub3lHC9_XBFtc8D1jOt7c\",\n          \"//76.img.avito.st/image/1/1.QTUceba67dwq0C_ZEngLRMHa69ioWuUerdrp1KjS7w.JABYB8SsN5W6u5Y6WR49R8kKzr5IsGxF5HTjQPnygYQ\",\n          \"//85.img.avito.st/image/1/1.eITjzra61G3VZxZon88y9T5t0mlX7dyvUm3QZVdl1g.aQyF5iZccldCZ5p9qtb-DZZobnPzdCSanQJmdHXQvdc\"\n        ]\n      },\n      \"tags\": \"<array>\",\n      \"weight\": {\n        \"accuracy\": \"APPROXIMATE\",\n        \"value\": \"<integer>\"\n      }\n    }\n  ],\n  \"sender\": {\n    \"type\": \"PRIVATE\",\n    \"phones\": [\n      \"88005553535\",\n      \"79999999999\",\n      \"+79859991234\"\n    ],\n    \"email\": \"any_email@mail.com\",\n    \"name\": \"Иванов Иван Иванович\",\n    \"delivery\": {\n      \"type\": \"TERMINAL\",\n      \"completenessAndIntegrity\": [\n        \"DIRECT_FLOW\",\n        \"RETURN_FLOW\"\n      ],\n      \"courier\": {\n        \"provider\": \"pecom-t2d\",\n        \"address\": {\n          \"addressRow\": \"Москва, ул. Лесная, 20с2\",\n          \"coordinates\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"dateTimeInterval\": {\n          \"start\": \"2025-02-01T10:26:15+03:00\",\n          \"end\": \"2025-02-01T10:26:15+03:00\"\n        },\n        \"options\": {\n          \"deliveryType\": \"DELIVERY_TO_DOOR\",\n          \"deliveryConfirmationType\": \"PHONE\",\n          \"elevatorAvailable\": true,\n          \"comment\": \"Комментарий для курьера\"\n        },\n        \"pickupContact\": {\n          \"name\": \"Иванов Иван Иванович\",\n          \"phone\": \"+79999999999\"\n        }\n      },\n      \"secondPartyLogist\": {\n        \"provider\": \"<string>\"\n      },\n      \"sortingCenter\": {\n        \"provider\": \"exmail\",\n        \"id\": \"123\",\n        \"accuracy\": \"APPROXIMATE\"\n      },\n      \"terminal\": {\n        \"provider\": \"exmail\",\n        \"id\": \"123\",\n        \"accuracy\": \"APPROXIMATE\"\n      }\n    },\n    \"inn\": \"7727563778\"\n  },\n  \"receiver\": {\n    \"type\": \"PRIVATE\",\n    \"phones\": [\n      \"88005553535\",\n      \"79999999999\",\n      \"+79859991234\"\n    ],\n    \"email\": \"any_email@mail.com\",\n    \"name\": \"Иванов Иван Иванович\",\n    \"delivery\": {\n      \"type\": \"TERMINAL\",\n      \"completenessAndIntegrity\": [\n        \"DIRECT_FLOW\",\n        \"RETURN_FLOW\"\n      ],\n      \"courier\": {\n        \"provider\": \"pecom-t2d\",\n        \"address\": {\n          \"addressRow\": \"Москва, ул. Лесная, 20с2\",\n          \"coordinates\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"dateTimeInterval\": {\n          \"start\": \"2025-02-01T10:26:15+03:00\",\n          \"end\": \"2025-02-01T10:26:15+03:00\"\n        },\n        \"options\": {\n          \"deliveryType\": \"DELIVERY_TO_DOOR\",\n          \"deliveryConfirmationType\": \"PHONE\",\n          \"elevatorAvailable\": true,\n          \"comment\": \"Комментарий для курьера\"\n        },\n        \"pickupContact\": {\n          \"name\": \"Иванов Иван Иванович\",\n          \"phone\": \"+79999999999\"\n        }\n      },\n      \"secondPartyLogist\": {\n        \"provider\": \"<string>\"\n      },\n      \"sortingCenter\": {\n        \"provider\": \"exmail\",\n        \"id\": \"123\",\n        \"accuracy\": \"APPROXIMATE\"\n      },\n      \"terminal\": {\n        \"provider\": \"exmail\",\n        \"id\": \"123\",\n        \"accuracy\": \"APPROXIMATE\"\n      }\n    },\n    \"inn\": \"7727563778\"\n  },\n  \"payment\": {\n    \"items\": {\n      \"status\": \"PAID\",\n      \"cost\": 10000\n    },\n    \"delivery\": {\n      \"status\": \"PAID\",\n      \"costWithoutVat\": 10000\n    }\n  },\n  \"barcodes\": [\n    \"1000001389165\",\n    \"80511176616217\"\n  ],\n  \"directOrderID\": \"38108624273277775\",\n  \"options\": {\n    \"return\": {\n      \"receiver\": {\n        \"type\": \"PRIVATE\",\n        \"phones\": [\n          \"88005553535\",\n          \"79999999999\",\n          \"+79859991234\"\n        ],\n        \"email\": \"any_email@mail.com\",\n        \"name\": \"Иванов Иван Иванович\",\n        \"delivery\": {\n          \"type\": \"TERMINAL\",\n          \"completenessAndIntegrity\": [\n            \"DIRECT_FLOW\",\n            \"RETURN_FLOW\"\n          ],\n          \"courier\": {\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"address\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dateTimeInterval\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"options\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"pickupContact\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"secondPartyLogist\": {\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"sortingCenter\": {\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"accuracy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"terminal\": {\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"accuracy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"inn\": \"7727563778\"\n      },\n      \"refused\": {\n        \"action\": \"DESTROY\",\n        \"after\": {\n          \"unit\": \"DAY\",\n          \"value\": 14\n        }\n      },\n      \"returned\": {\n        \"action\": \"DESTROY\",\n        \"after\": {\n          \"unit\": \"DAY\",\n          \"value\": 14\n        }\n      },\n      \"unclaimed\": {\n        \"action\": \"DESTROY\",\n        \"after\": {\n          \"unit\": \"DAY\",\n          \"value\": 14\n        }\n      }\n    },\n    \"tags\": \"<array>\"\n  },\n  \"package\": {\n    \"dimensions\": {\n      \"accuracy\": \"APPROXIMATE\",\n      \"values\": [\n        20,\n        20,\n        20\n      ]\n    },\n    \"weight\": {\n      \"accuracy\": \"APPROXIMATE\",\n      \"value\": \"<integer>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3d291df-866a-4cfb-8bea-647980c5aa53",
+              "name": "Ошибка авторизации. Например, нет прав для выполнения операции.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "createParcel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderID\": \"38108624273277776\",\n  \"parcelID\": \"P00012345\",\n  \"items\": [\n    {\n      \"id\": 2574253956,\n      \"title\": \"Подшипники для самокатов и роликов Abec 7\",\n      \"cost\": 1000,\n      \"quantity\": 1,\n      \"breadcrumbs\": [\n        {\n          \"name\": \"Спорт и отдых\"\n        },\n        {\n          \"name\": \"Спорт и отдых\"\n        }\n      ],\n      \"description\": \"<string>\",\n      \"dimensions\": {\n        \"accuracy\": \"APPROXIMATE\",\n        \"values\": [\n          20,\n          20,\n          20\n        ]\n      },\n      \"imagesUrls\": {\n        \"listing\": \"//24.img.avito.st/image/1/1.pUbrSba6Ca_d4MuqrTPvNzbqD6tfagFtWuoNp1_iCw.kszrqWjK0pNKI4ayaT821U-Ln2lzT8lSuqNt7pqedno\",\n        \"list\": [\n          \"//24.img.avito.st/image/1/1.pUbrSba6Ca_d4MuqrTPvNzbqD6tfagFtWuoNp1_iCw.kszrqWjK0pNKI4ayaT821U-Ln2lzT8lSuqNt7pqedno\",\n          \"//19.img.avito.st/image/1/1.rlbjCLa6Ar_VocC6s3LkJz6rBLtXKwp9UqsGt1ejAA.C4io31wn3Rjlc7SJGgeIVyxzC9LnoQUkGwmyaQ67-qs\",\n          \"//90.img.avito.st/image/1/1.Z0Dh2ba6y6nXcAmso6AtMTx6za1V-sNrUHrPoVVyyQ.T1yZ87ZDiUSrUQNTYJkDbXub3lHC9_XBFtc8D1jOt7c\",\n          \"//76.img.avito.st/image/1/1.QTUceba67dwq0C_ZEngLRMHa69ioWuUerdrp1KjS7w.JABYB8SsN5W6u5Y6WR49R8kKzr5IsGxF5HTjQPnygYQ\",\n          \"//85.img.avito.st/image/1/1.eITjzra61G3VZxZon88y9T5t0mlX7dyvUm3QZVdl1g.aQyF5iZccldCZ5p9qtb-DZZobnPzdCSanQJmdHXQvdc\"\n        ]\n      },\n      \"tags\": \"<array>\",\n      \"weight\": {\n        \"accuracy\": \"APPROXIMATE\",\n        \"value\": \"<integer>\"\n      }\n    },\n    {\n      \"id\": 2574253956,\n      \"title\": \"Подшипники для самокатов и роликов Abec 7\",\n      \"cost\": 1000,\n      \"quantity\": 1,\n      \"breadcrumbs\": [\n        {\n          \"name\": \"Спорт и отдых\"\n        },\n        {\n          \"name\": \"Спорт и отдых\"\n        }\n      ],\n      \"description\": \"<string>\",\n      \"dimensions\": {\n        \"accuracy\": \"APPROXIMATE\",\n        \"values\": [\n          20,\n          20,\n          20\n        ]\n      },\n      \"imagesUrls\": {\n        \"listing\": \"//24.img.avito.st/image/1/1.pUbrSba6Ca_d4MuqrTPvNzbqD6tfagFtWuoNp1_iCw.kszrqWjK0pNKI4ayaT821U-Ln2lzT8lSuqNt7pqedno\",\n        \"list\": [\n          \"//24.img.avito.st/image/1/1.pUbrSba6Ca_d4MuqrTPvNzbqD6tfagFtWuoNp1_iCw.kszrqWjK0pNKI4ayaT821U-Ln2lzT8lSuqNt7pqedno\",\n          \"//19.img.avito.st/image/1/1.rlbjCLa6Ar_VocC6s3LkJz6rBLtXKwp9UqsGt1ejAA.C4io31wn3Rjlc7SJGgeIVyxzC9LnoQUkGwmyaQ67-qs\",\n          \"//90.img.avito.st/image/1/1.Z0Dh2ba6y6nXcAmso6AtMTx6za1V-sNrUHrPoVVyyQ.T1yZ87ZDiUSrUQNTYJkDbXub3lHC9_XBFtc8D1jOt7c\",\n          \"//76.img.avito.st/image/1/1.QTUceba67dwq0C_ZEngLRMHa69ioWuUerdrp1KjS7w.JABYB8SsN5W6u5Y6WR49R8kKzr5IsGxF5HTjQPnygYQ\",\n          \"//85.img.avito.st/image/1/1.eITjzra61G3VZxZon88y9T5t0mlX7dyvUm3QZVdl1g.aQyF5iZccldCZ5p9qtb-DZZobnPzdCSanQJmdHXQvdc\"\n        ]\n      },\n      \"tags\": \"<array>\",\n      \"weight\": {\n        \"accuracy\": \"APPROXIMATE\",\n        \"value\": \"<integer>\"\n      }\n    }\n  ],\n  \"sender\": {\n    \"type\": \"PRIVATE\",\n    \"phones\": [\n      \"88005553535\",\n      \"79999999999\",\n      \"+79859991234\"\n    ],\n    \"email\": \"any_email@mail.com\",\n    \"name\": \"Иванов Иван Иванович\",\n    \"delivery\": {\n      \"type\": \"TERMINAL\",\n      \"completenessAndIntegrity\": [\n        \"DIRECT_FLOW\",\n        \"RETURN_FLOW\"\n      ],\n      \"courier\": {\n        \"provider\": \"pecom-t2d\",\n        \"address\": {\n          \"addressRow\": \"Москва, ул. Лесная, 20с2\",\n          \"coordinates\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"dateTimeInterval\": {\n          \"start\": \"2025-02-01T10:26:15+03:00\",\n          \"end\": \"2025-02-01T10:26:15+03:00\"\n        },\n        \"options\": {\n          \"deliveryType\": \"DELIVERY_TO_DOOR\",\n          \"deliveryConfirmationType\": \"PHONE\",\n          \"elevatorAvailable\": true,\n          \"comment\": \"Комментарий для курьера\"\n        },\n        \"pickupContact\": {\n          \"name\": \"Иванов Иван Иванович\",\n          \"phone\": \"+79999999999\"\n        }\n      },\n      \"secondPartyLogist\": {\n        \"provider\": \"<string>\"\n      },\n      \"sortingCenter\": {\n        \"provider\": \"exmail\",\n        \"id\": \"123\",\n        \"accuracy\": \"APPROXIMATE\"\n      },\n      \"terminal\": {\n        \"provider\": \"exmail\",\n        \"id\": \"123\",\n        \"accuracy\": \"APPROXIMATE\"\n      }\n    },\n    \"inn\": \"7727563778\"\n  },\n  \"receiver\": {\n    \"type\": \"PRIVATE\",\n    \"phones\": [\n      \"88005553535\",\n      \"79999999999\",\n      \"+79859991234\"\n    ],\n    \"email\": \"any_email@mail.com\",\n    \"name\": \"Иванов Иван Иванович\",\n    \"delivery\": {\n      \"type\": \"TERMINAL\",\n      \"completenessAndIntegrity\": [\n        \"DIRECT_FLOW\",\n        \"RETURN_FLOW\"\n      ],\n      \"courier\": {\n        \"provider\": \"pecom-t2d\",\n        \"address\": {\n          \"addressRow\": \"Москва, ул. Лесная, 20с2\",\n          \"coordinates\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"dateTimeInterval\": {\n          \"start\": \"2025-02-01T10:26:15+03:00\",\n          \"end\": \"2025-02-01T10:26:15+03:00\"\n        },\n        \"options\": {\n          \"deliveryType\": \"DELIVERY_TO_DOOR\",\n          \"deliveryConfirmationType\": \"PHONE\",\n          \"elevatorAvailable\": true,\n          \"comment\": \"Комментарий для курьера\"\n        },\n        \"pickupContact\": {\n          \"name\": \"Иванов Иван Иванович\",\n          \"phone\": \"+79999999999\"\n        }\n      },\n      \"secondPartyLogist\": {\n        \"provider\": \"<string>\"\n      },\n      \"sortingCenter\": {\n        \"provider\": \"exmail\",\n        \"id\": \"123\",\n        \"accuracy\": \"APPROXIMATE\"\n      },\n      \"terminal\": {\n        \"provider\": \"exmail\",\n        \"id\": \"123\",\n        \"accuracy\": \"APPROXIMATE\"\n      }\n    },\n    \"inn\": \"7727563778\"\n  },\n  \"payment\": {\n    \"items\": {\n      \"status\": \"PAID\",\n      \"cost\": 10000\n    },\n    \"delivery\": {\n      \"status\": \"PAID\",\n      \"costWithoutVat\": 10000\n    }\n  },\n  \"barcodes\": [\n    \"1000001389165\",\n    \"80511176616217\"\n  ],\n  \"directOrderID\": \"38108624273277775\",\n  \"options\": {\n    \"return\": {\n      \"receiver\": {\n        \"type\": \"PRIVATE\",\n        \"phones\": [\n          \"88005553535\",\n          \"79999999999\",\n          \"+79859991234\"\n        ],\n        \"email\": \"any_email@mail.com\",\n        \"name\": \"Иванов Иван Иванович\",\n        \"delivery\": {\n          \"type\": \"TERMINAL\",\n          \"completenessAndIntegrity\": [\n            \"DIRECT_FLOW\",\n            \"RETURN_FLOW\"\n          ],\n          \"courier\": {\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"address\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dateTimeInterval\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"options\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"pickupContact\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"secondPartyLogist\": {\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"sortingCenter\": {\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"accuracy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"terminal\": {\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"accuracy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"inn\": \"7727563778\"\n      },\n      \"refused\": {\n        \"action\": \"DESTROY\",\n        \"after\": {\n          \"unit\": \"DAY\",\n          \"value\": 14\n        }\n      },\n      \"returned\": {\n        \"action\": \"DESTROY\",\n        \"after\": {\n          \"unit\": \"DAY\",\n          \"value\": 14\n        }\n      },\n      \"unclaimed\": {\n        \"action\": \"DESTROY\",\n        \"after\": {\n          \"unit\": \"DAY\",\n          \"value\": 14\n        }\n      }\n    },\n    \"tags\": \"<array>\"\n  },\n  \"package\": {\n    \"dimensions\": {\n      \"accuracy\": \"APPROXIMATE\",\n      \"values\": [\n        20,\n        20,\n        20\n      ]\n    },\n    \"weight\": {\n      \"accuracy\": \"APPROXIMATE\",\n      \"value\": \"<integer>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af778472-f20f-45a8-a11e-c1530794f4aa",
+              "name": "internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "createParcel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderID\": \"38108624273277776\",\n  \"parcelID\": \"P00012345\",\n  \"items\": [\n    {\n      \"id\": 2574253956,\n      \"title\": \"Подшипники для самокатов и роликов Abec 7\",\n      \"cost\": 1000,\n      \"quantity\": 1,\n      \"breadcrumbs\": [\n        {\n          \"name\": \"Спорт и отдых\"\n        },\n        {\n          \"name\": \"Спорт и отдых\"\n        }\n      ],\n      \"description\": \"<string>\",\n      \"dimensions\": {\n        \"accuracy\": \"APPROXIMATE\",\n        \"values\": [\n          20,\n          20,\n          20\n        ]\n      },\n      \"imagesUrls\": {\n        \"listing\": \"//24.img.avito.st/image/1/1.pUbrSba6Ca_d4MuqrTPvNzbqD6tfagFtWuoNp1_iCw.kszrqWjK0pNKI4ayaT821U-Ln2lzT8lSuqNt7pqedno\",\n        \"list\": [\n          \"//24.img.avito.st/image/1/1.pUbrSba6Ca_d4MuqrTPvNzbqD6tfagFtWuoNp1_iCw.kszrqWjK0pNKI4ayaT821U-Ln2lzT8lSuqNt7pqedno\",\n          \"//19.img.avito.st/image/1/1.rlbjCLa6Ar_VocC6s3LkJz6rBLtXKwp9UqsGt1ejAA.C4io31wn3Rjlc7SJGgeIVyxzC9LnoQUkGwmyaQ67-qs\",\n          \"//90.img.avito.st/image/1/1.Z0Dh2ba6y6nXcAmso6AtMTx6za1V-sNrUHrPoVVyyQ.T1yZ87ZDiUSrUQNTYJkDbXub3lHC9_XBFtc8D1jOt7c\",\n          \"//76.img.avito.st/image/1/1.QTUceba67dwq0C_ZEngLRMHa69ioWuUerdrp1KjS7w.JABYB8SsN5W6u5Y6WR49R8kKzr5IsGxF5HTjQPnygYQ\",\n          \"//85.img.avito.st/image/1/1.eITjzra61G3VZxZon88y9T5t0mlX7dyvUm3QZVdl1g.aQyF5iZccldCZ5p9qtb-DZZobnPzdCSanQJmdHXQvdc\"\n        ]\n      },\n      \"tags\": \"<array>\",\n      \"weight\": {\n        \"accuracy\": \"APPROXIMATE\",\n        \"value\": \"<integer>\"\n      }\n    },\n    {\n      \"id\": 2574253956,\n      \"title\": \"Подшипники для самокатов и роликов Abec 7\",\n      \"cost\": 1000,\n      \"quantity\": 1,\n      \"breadcrumbs\": [\n        {\n          \"name\": \"Спорт и отдых\"\n        },\n        {\n          \"name\": \"Спорт и отдых\"\n        }\n      ],\n      \"description\": \"<string>\",\n      \"dimensions\": {\n        \"accuracy\": \"APPROXIMATE\",\n        \"values\": [\n          20,\n          20,\n          20\n        ]\n      },\n      \"imagesUrls\": {\n        \"listing\": \"//24.img.avito.st/image/1/1.pUbrSba6Ca_d4MuqrTPvNzbqD6tfagFtWuoNp1_iCw.kszrqWjK0pNKI4ayaT821U-Ln2lzT8lSuqNt7pqedno\",\n        \"list\": [\n          \"//24.img.avito.st/image/1/1.pUbrSba6Ca_d4MuqrTPvNzbqD6tfagFtWuoNp1_iCw.kszrqWjK0pNKI4ayaT821U-Ln2lzT8lSuqNt7pqedno\",\n          \"//19.img.avito.st/image/1/1.rlbjCLa6Ar_VocC6s3LkJz6rBLtXKwp9UqsGt1ejAA.C4io31wn3Rjlc7SJGgeIVyxzC9LnoQUkGwmyaQ67-qs\",\n          \"//90.img.avito.st/image/1/1.Z0Dh2ba6y6nXcAmso6AtMTx6za1V-sNrUHrPoVVyyQ.T1yZ87ZDiUSrUQNTYJkDbXub3lHC9_XBFtc8D1jOt7c\",\n          \"//76.img.avito.st/image/1/1.QTUceba67dwq0C_ZEngLRMHa69ioWuUerdrp1KjS7w.JABYB8SsN5W6u5Y6WR49R8kKzr5IsGxF5HTjQPnygYQ\",\n          \"//85.img.avito.st/image/1/1.eITjzra61G3VZxZon88y9T5t0mlX7dyvUm3QZVdl1g.aQyF5iZccldCZ5p9qtb-DZZobnPzdCSanQJmdHXQvdc\"\n        ]\n      },\n      \"tags\": \"<array>\",\n      \"weight\": {\n        \"accuracy\": \"APPROXIMATE\",\n        \"value\": \"<integer>\"\n      }\n    }\n  ],\n  \"sender\": {\n    \"type\": \"PRIVATE\",\n    \"phones\": [\n      \"88005553535\",\n      \"79999999999\",\n      \"+79859991234\"\n    ],\n    \"email\": \"any_email@mail.com\",\n    \"name\": \"Иванов Иван Иванович\",\n    \"delivery\": {\n      \"type\": \"TERMINAL\",\n      \"completenessAndIntegrity\": [\n        \"DIRECT_FLOW\",\n        \"RETURN_FLOW\"\n      ],\n      \"courier\": {\n        \"provider\": \"pecom-t2d\",\n        \"address\": {\n          \"addressRow\": \"Москва, ул. Лесная, 20с2\",\n          \"coordinates\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"dateTimeInterval\": {\n          \"start\": \"2025-02-01T10:26:15+03:00\",\n          \"end\": \"2025-02-01T10:26:15+03:00\"\n        },\n        \"options\": {\n          \"deliveryType\": \"DELIVERY_TO_DOOR\",\n          \"deliveryConfirmationType\": \"PHONE\",\n          \"elevatorAvailable\": true,\n          \"comment\": \"Комментарий для курьера\"\n        },\n        \"pickupContact\": {\n          \"name\": \"Иванов Иван Иванович\",\n          \"phone\": \"+79999999999\"\n        }\n      },\n      \"secondPartyLogist\": {\n        \"provider\": \"<string>\"\n      },\n      \"sortingCenter\": {\n        \"provider\": \"exmail\",\n        \"id\": \"123\",\n        \"accuracy\": \"APPROXIMATE\"\n      },\n      \"terminal\": {\n        \"provider\": \"exmail\",\n        \"id\": \"123\",\n        \"accuracy\": \"APPROXIMATE\"\n      }\n    },\n    \"inn\": \"7727563778\"\n  },\n  \"receiver\": {\n    \"type\": \"PRIVATE\",\n    \"phones\": [\n      \"88005553535\",\n      \"79999999999\",\n      \"+79859991234\"\n    ],\n    \"email\": \"any_email@mail.com\",\n    \"name\": \"Иванов Иван Иванович\",\n    \"delivery\": {\n      \"type\": \"TERMINAL\",\n      \"completenessAndIntegrity\": [\n        \"DIRECT_FLOW\",\n        \"RETURN_FLOW\"\n      ],\n      \"courier\": {\n        \"provider\": \"pecom-t2d\",\n        \"address\": {\n          \"addressRow\": \"Москва, ул. Лесная, 20с2\",\n          \"coordinates\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"details\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"dateTimeInterval\": {\n          \"start\": \"2025-02-01T10:26:15+03:00\",\n          \"end\": \"2025-02-01T10:26:15+03:00\"\n        },\n        \"options\": {\n          \"deliveryType\": \"DELIVERY_TO_DOOR\",\n          \"deliveryConfirmationType\": \"PHONE\",\n          \"elevatorAvailable\": true,\n          \"comment\": \"Комментарий для курьера\"\n        },\n        \"pickupContact\": {\n          \"name\": \"Иванов Иван Иванович\",\n          \"phone\": \"+79999999999\"\n        }\n      },\n      \"secondPartyLogist\": {\n        \"provider\": \"<string>\"\n      },\n      \"sortingCenter\": {\n        \"provider\": \"exmail\",\n        \"id\": \"123\",\n        \"accuracy\": \"APPROXIMATE\"\n      },\n      \"terminal\": {\n        \"provider\": \"exmail\",\n        \"id\": \"123\",\n        \"accuracy\": \"APPROXIMATE\"\n      }\n    },\n    \"inn\": \"7727563778\"\n  },\n  \"payment\": {\n    \"items\": {\n      \"status\": \"PAID\",\n      \"cost\": 10000\n    },\n    \"delivery\": {\n      \"status\": \"PAID\",\n      \"costWithoutVat\": 10000\n    }\n  },\n  \"barcodes\": [\n    \"1000001389165\",\n    \"80511176616217\"\n  ],\n  \"directOrderID\": \"38108624273277775\",\n  \"options\": {\n    \"return\": {\n      \"receiver\": {\n        \"type\": \"PRIVATE\",\n        \"phones\": [\n          \"88005553535\",\n          \"79999999999\",\n          \"+79859991234\"\n        ],\n        \"email\": \"any_email@mail.com\",\n        \"name\": \"Иванов Иван Иванович\",\n        \"delivery\": {\n          \"type\": \"TERMINAL\",\n          \"completenessAndIntegrity\": [\n            \"DIRECT_FLOW\",\n            \"RETURN_FLOW\"\n          ],\n          \"courier\": {\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"address\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dateTimeInterval\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"options\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"pickupContact\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"secondPartyLogist\": {\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"sortingCenter\": {\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"accuracy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"terminal\": {\n            \"provider\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"accuracy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"inn\": \"7727563778\"\n      },\n      \"refused\": {\n        \"action\": \"DESTROY\",\n        \"after\": {\n          \"unit\": \"DAY\",\n          \"value\": 14\n        }\n      },\n      \"returned\": {\n        \"action\": \"DESTROY\",\n        \"after\": {\n          \"unit\": \"DAY\",\n          \"value\": 14\n        }\n      },\n      \"unclaimed\": {\n        \"action\": \"DESTROY\",\n        \"after\": {\n          \"unit\": \"DAY\",\n          \"value\": 14\n        }\n      }\n    },\n    \"tags\": \"<array>\"\n  },\n  \"package\": {\n    \"dimensions\": {\n      \"accuracy\": \"APPROXIMATE\",\n      \"values\": [\n        20,\n        20,\n        20\n      ]\n    },\n    \"weight\": {\n      \"accuracy\": \"APPROXIMATE\",\n      \"value\": \"<integer>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33050163-e790-461b-949d-1b44cb5382ae",
+          "name": "Отмена посылки",
+          "request": {
+            "name": "Отмена посылки",
+            "description": {
+              "content": "Метод должен быть имплементирован на стороне службы доставки.\n\nОписание механики работы и дополнительные требования см. [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/otmena_posylki).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery-sandbox",
+                "cancelParcel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"parcelID\": \"<string>\",\n  \"actor\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "97d922ab-c6fd-442a-b9c5-a42774af57d2",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "cancelParcel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parcelID\": \"P00012345\",\n  \"actor\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"status\": \"OK\"\n  },\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d04dde83-a378-4a2b-a040-e42b1c9de49e",
+              "name": "Ошибка аутентификации. Например, некорректный токен.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "cancelParcel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parcelID\": \"P00012345\",\n  \"actor\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "293b622f-a2cf-4f9d-b932-9abe354a227a",
+              "name": "internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "cancelParcel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parcelID\": \"P00012345\",\n  \"actor\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "995e1692-940d-4612-a2ee-30db8b59bb50",
+          "name": "Проверка кода подтверждения",
+          "request": {
+            "name": "Проверка кода подтверждения",
+            "description": {
+              "content": "Метод для проверки службой доставки кода подтверждения, который пользователь показал на пункте выдачи заказа.<br />\n\n### Статус проверки кода\n| status      |       Значение                                |\n|-------------|-----------------------------------------------|\n|   success   | Код верный.                                   |\n|   fail      | Код неверный.                                 |\n|   expired   | Код подтверждения устарел.                    |\n|   attempts  | Превышено максимальное количество попыток.    |\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery-sandbox",
+                "order",
+                "checkConfirmationCode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"parcelID\": \"<string>\",\n  \"confirmCode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "55cd4655-196f-4ecd-b231-03e26fda61f5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "order",
+                    "checkConfirmationCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parcelID\": \"<string>\",\n  \"confirmCode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"status\": \"fail\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f8bc8d05-6493-4ad9-b62d-7031cecbe54b",
+              "name": "Ошибка аутентификации. Например, некорректный токен.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "order",
+                    "checkConfirmationCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parcelID\": \"<string>\",\n  \"confirmCode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "580e9fd8-288b-4eca-85da-79f879fc5a89",
+              "name": "Ошибка авторизации. Например, нет прав для выполнения операции.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "order",
+                    "checkConfirmationCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parcelID\": \"<string>\",\n  \"confirmCode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6196ccd5-01d0-49d5-9552-a2755ed44332",
+              "name": "internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "order",
+                    "checkConfirmationCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parcelID\": \"<string>\",\n  \"confirmCode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6aceff7e-3c2c-4d4d-afdd-6b79ef8b83d8",
+          "name": "Добавление / изменение параметров доставки посылки",
+          "request": {
+            "name": "Добавление / изменение параметров доставки посылки",
+            "description": {
+              "content": "Метод используется для отправки в Avito параметров, относящихся к доставке посылки. <br />\nВ случае повторной передачи параметров, данные будут перезаписаны. <br />\nВажно передавать актуальные данные. Например, если конечная стоимость доставки заказа изменилась, нужно отправить ее заново. <br />\n\n### Описание ошибок\n| http code |   error code         |       error message                               |\n|-----------|----------------------|---------------------------------------------------|\n|    200    |   ORDER_ID_INVALID   | Could not found order by id and provider name     |\n|    200    |   ORDER_ID_INVALID   | Incorrect order id                                |\n|    200    |   PROPERTIES_INVALID | Failed to get properties from request             |\n|    200    |   PROPERTIES_INVALID | Empty body                                        |\n|    200    |   PROPERTIES_INVALID | Dimensions array must have 3 element              |\n|    200    |   PROPERTIES_INVALID | Dimension must be greater than 0                  |\n|    200    |   PROPERTIES_INVALID | Weight must be greater than 0                     |\n|    200    |   PROPERTIES_INVALID | Delivery cost must be positive integer number     |\n|    200    |   PROPERTIES_INVALID | Forbidden terminal change in current order status |\n|    200    |   PROPERTIES_INVALID | Both terminals cannot be changed                  |\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery-sandbox",
+                "order",
+                "properties"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": \"<string>\",\n  \"properties\": {\n    \"delivery\": {\n      \"cost\": \"<integer>\",\n      \"directControlDate\": \"<string>\",\n      \"receiverTerminalCode\": \"<string>\",\n      \"returnControlDate\": \"<string>\",\n      \"senderReceiveTerminalCode\": \"<string>\",\n      \"toughWrap\": \"<boolean>\"\n    },\n    \"dimensions\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"weight\": {}\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8a40a9b3-571b-4fbd-9e4e-1157482fa6d3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "order",
+                    "properties"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"P00012345\",\n  \"properties\": {\n    \"delivery\": {\n      \"cost\": 15000,\n      \"directControlDate\": \"1985-04-12T23:20:50.52Z\",\n      \"receiverTerminalCode\": \"<string>\",\n      \"returnControlDate\": \"1985-04-12T23:20:50.52Z\",\n      \"senderReceiveTerminalCode\": \"<string>\",\n      \"toughWrap\": \"<boolean>\"\n    },\n    \"dimensions\": [\n      200,\n      50,\n      30\n    ],\n    \"weight\": {}\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"status\": \"string\"\n  },\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72c0cc21-6dbf-446f-8bff-27e8b0204fab",
+              "name": "Ошибка аутентификации. Например, некорректный токен.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "order",
+                    "properties"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"P00012345\",\n  \"properties\": {\n    \"delivery\": {\n      \"cost\": 15000,\n      \"directControlDate\": \"1985-04-12T23:20:50.52Z\",\n      \"receiverTerminalCode\": \"<string>\",\n      \"returnControlDate\": \"1985-04-12T23:20:50.52Z\",\n      \"senderReceiveTerminalCode\": \"<string>\",\n      \"toughWrap\": \"<boolean>\"\n    },\n    \"dimensions\": [\n      200,\n      50,\n      30\n    ],\n    \"weight\": {}\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad2b037c-1fa4-4e22-86ab-fae4067b2e05",
+              "name": "Ошибка авторизации. Например, нет прав для выполнения операции.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "order",
+                    "properties"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"P00012345\",\n  \"properties\": {\n    \"delivery\": {\n      \"cost\": 15000,\n      \"directControlDate\": \"1985-04-12T23:20:50.52Z\",\n      \"receiverTerminalCode\": \"<string>\",\n      \"returnControlDate\": \"1985-04-12T23:20:50.52Z\",\n      \"senderReceiveTerminalCode\": \"<string>\",\n      \"toughWrap\": \"<boolean>\"\n    },\n    \"dimensions\": [\n      200,\n      50,\n      30\n    ],\n    \"weight\": {}\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cfddd8c1-bd79-47f2-8237-4cc76a2f9fb9",
+              "name": "internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "order",
+                    "properties"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"P00012345\",\n  \"properties\": {\n    \"delivery\": {\n      \"cost\": 15000,\n      \"directControlDate\": \"1985-04-12T23:20:50.52Z\",\n      \"receiverTerminalCode\": \"<string>\",\n      \"returnControlDate\": \"1985-04-12T23:20:50.52Z\",\n      \"senderReceiveTerminalCode\": \"<string>\",\n      \"toughWrap\": \"<boolean>\"\n    },\n    \"dimensions\": [\n      200,\n      50,\n      30\n    ],\n    \"weight\": {}\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e86fd7e2-9981-4dd7-8d2f-a39c7cd90a25",
+          "name": "Фактический адрес приёма / возврата посылки",
+          "request": {
+            "name": "Фактический адрес приёма / возврата посылки",
+            "description": {
+              "content": "### Фактический ПВЗ приема\nФактический ПВЗ приема посылки посылки нужен Avito для работы как с [агентскими](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/agentskie_vozvraty), так и с [клиентскими](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/klientskie_vozvraty) возвратами. \nЕсли получатель посылки откажется от её получения \"на месте\", то Avito понадобится показать ПВЗ возврата\nотправителю, а этим ПВЗ будет фактический ПВЗ приема. Если же посылку нужно будет вернуть отправителю через клиентский \nвозврат, то для создания отдельной возвратной посылки Avito критически важно знать тот же фактический ПВЗ приема.<br/>\n\nПрисылайте адрес в момент приема посылки от отправителя или чуть позже, если нет возможности это делать сразу.<br/>\n\n### Фактический адрес возврата\nПВЗ, из которого забрали возврат.<br/>\n\n### Про повторные запросы\nВ случае повторной передачи новые данные будут записаны.<br/>\n\n### Описание ошибок\n| http code |   error code           |       error message                           |\n|-----------|------------------------|-----------------------------------------------|\n|    200    |   ORDER_ID_INVALID     | Could not found order by id and provider name |\n|    200    |   ORDER_ID_INVALID     | Incorrect order id                            |\n|    200    |   REAL_ADDRESS_INVALID | Failed to get real address from request       |\n|    200    |   REAL_ADDRESS_INVALID | Incorrect terminal type                       |\n|    200    |   REAL_ADDRESS_INVALID | Incorrect terminal number                     |\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery-sandbox",
+                "order",
+                "realAddress"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": \"<string>\",\n  \"address\": {\n    \"addressType\": \"<string>\",\n    \"terminalNumber\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "21ad4b93-e1c9-4a3d-b7e4-360c537c79e7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "order",
+                    "realAddress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"P00012345\",\n  \"address\": {\n    \"addressType\": \"<string>\",\n    \"terminalNumber\": \"234mlkh\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"status\": \"string\"\n  },\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aec6ab76-7c1f-434c-bde4-2c0824b6dc2a",
+              "name": "Ошибка аутентификации. Например, некорректный токен.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "order",
+                    "realAddress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"P00012345\",\n  \"address\": {\n    \"addressType\": \"<string>\",\n    \"terminalNumber\": \"234mlkh\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c65785a9-4107-45a6-bbe5-cfb7534c87c2",
+              "name": "Ошибка авторизации. Например, нет прав для выполнения операции.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "order",
+                    "realAddress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"P00012345\",\n  \"address\": {\n    \"addressType\": \"<string>\",\n    \"terminalNumber\": \"234mlkh\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "62d9135e-48fa-43a3-8cf4-e24d8e26a346",
+              "name": "internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "order",
+                    "realAddress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"P00012345\",\n  \"address\": {\n    \"addressType\": \"<string>\",\n    \"terminalNumber\": \"234mlkh\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "deea0ff6-1c58-43ac-a145-45227d9ffa01",
+          "name": "Трекинг",
+          "request": {
+            "name": "Трекинг",
+            "description": {
+              "content": "\nМетод для передачи информации по трекингу посылки от службы доставки в Avito.\n\nМеханика работы и прочие важные моменты описаны в [разделе](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/treking).\n\nОбязательно ознакомьтесь и реализуйте [политику повторов запросов](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/politika_povtorov_v_trekinge).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery-sandbox",
+                "order",
+                "tracking"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": \"<string>\",\n  \"avitoStatus\": \"<string>\",\n  \"avitoEventType\": \"<string>\",\n  \"providerEventCode\": \"<string>\",\n  \"date\": \"<string>\",\n  \"location\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"options\": {\n    \"barcode\": \"<string>\",\n    \"returnBarcode\": \"<string>\",\n    \"returnDispatchNumber\": \"<string>\",\n    \"returnTrackingNumber\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "30b763bc-ba50-4714-b56b-93ccb39bf2d9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "order",
+                    "tracking"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"P00012345\",\n  \"avitoStatus\": \"IN_TRANSIT\",\n  \"avitoEventType\": \"RECEIVED_AT_TRANSIT_TERMINAL\",\n  \"providerEventCode\": \"3246м4\",\n  \"date\": \"1985-04-12T23:20:50.52Z\",\n  \"location\": \"Казань\",\n  \"comment\": \"Не понравился цвет\",\n  \"options\": {\n    \"barcode\": \"<string>\",\n    \"returnBarcode\": \"<string>\",\n    \"returnDispatchNumber\": \"<string>\",\n    \"returnTrackingNumber\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"details\": {\n      \"from\": \"IN_TRANSIT\"\n    },\n    \"status\": \"string\"\n  },\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a5f189ac-3e49-4caf-93df-12acc00b25ec",
+              "name": "Ошибка аутентификации. Например, некорректный токен.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "order",
+                    "tracking"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"P00012345\",\n  \"avitoStatus\": \"IN_TRANSIT\",\n  \"avitoEventType\": \"RECEIVED_AT_TRANSIT_TERMINAL\",\n  \"providerEventCode\": \"3246м4\",\n  \"date\": \"1985-04-12T23:20:50.52Z\",\n  \"location\": \"Казань\",\n  \"comment\": \"Не понравился цвет\",\n  \"options\": {\n    \"barcode\": \"<string>\",\n    \"returnBarcode\": \"<string>\",\n    \"returnDispatchNumber\": \"<string>\",\n    \"returnTrackingNumber\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f5e8206e-7c59-40d8-83f7-2b6f34825d06",
+              "name": "Ошибка авторизации. Например, нет прав для выполнения операции.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "order",
+                    "tracking"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"P00012345\",\n  \"avitoStatus\": \"IN_TRANSIT\",\n  \"avitoEventType\": \"RECEIVED_AT_TRANSIT_TERMINAL\",\n  \"providerEventCode\": \"3246м4\",\n  \"date\": \"1985-04-12T23:20:50.52Z\",\n  \"location\": \"Казань\",\n  \"comment\": \"Не понравился цвет\",\n  \"options\": {\n    \"barcode\": \"<string>\",\n    \"returnBarcode\": \"<string>\",\n    \"returnDispatchNumber\": \"<string>\",\n    \"returnTrackingNumber\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e4acab31-4ae1-4b11-af2f-d82d31951a0e",
+              "name": "internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "order",
+                    "tracking"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"P00012345\",\n  \"avitoStatus\": \"IN_TRANSIT\",\n  \"avitoEventType\": \"RECEIVED_AT_TRANSIT_TERMINAL\",\n  \"providerEventCode\": \"3246м4\",\n  \"date\": \"1985-04-12T23:20:50.52Z\",\n  \"location\": \"Казань\",\n  \"comment\": \"Не понравился цвет\",\n  \"options\": {\n    \"barcode\": \"<string>\",\n    \"returnBarcode\": \"<string>\",\n    \"returnDispatchNumber\": \"<string>\",\n    \"returnTrackingNumber\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33fd8155-5bd9-496b-9521-c178980cfd39",
+          "name": "Запрет приёма посылки от отправителя",
+          "request": {
+            "name": "Запрет приёма посылки от отправителя",
+            "description": {
+              "content": "Метод должен быть имплементирован на стороне службы доставки.\n\nОписание механики работы и дополнительные требования см. [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/zapret_priema_posylki).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery-sandbox",
+                "prohibitOrderAcceptance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ef2a74c1-4c6f-48e9-9b84-57ee5e6a2d35",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "prohibitOrderAcceptance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"P00012345\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"status\": \"OK\"\n  },\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1dea603a-f936-4a7c-81d6-c911f649fda4",
+              "name": "Ошибка аутентификации. Например, некорректный токен.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "prohibitOrderAcceptance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"P00012345\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78dfb051-ee3d-4a10-a96e-a8d654731bc4",
+              "name": "internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery-sandbox",
+                    "prohibitOrderAcceptance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"P00012345\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c9a010f-d41d-432d-9e52-c14b5e4feb2f",
+          "name": "Отправка результата исполнения заявки",
+          "request": {
+            "name": "Отправка результата исполнения заявки",
+            "description": {
+              "content": "Описание механики изменения посылок [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/izmenenie_svoystv_posylok).\n\nМетод для передачи результата исполнения заявки, созданной с помощью метода [/changeParcels](#operation/ChangeParcels).\n\n### Описание ошибок\n| http code |   error code         |       причина ошибки                                                                                                                                                 |\n|-----------|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n|    200    | ID_INVALID           | “id” заявки невалидный.                                                                                                                                              |\n|    200    | NOT_FOUND            | заявка с “id” не найдена.                                                                                                                                            |\n|    200    | STATUS_INVALID       | заявка не может быть переведена в статус указанный в запросе.                                                                                                        |\n|    200    | FAILED_REASON_MISSES | отсутствует причина, по которой заявка не может быть исполнена. Данный код ошибки будет возвращен при статусе заявки declined и отсутствующем или пустом поле reason.|\n|    200    | PARCEL_CLOSED        | посылка, связанная с заявкой, уже неактивная (была получена, утеряна или ушла на возвратное движение).                                              |\n\n### Порядок повторных попыток\n\n- ID_INVALID, NOT_FOUND: повторные отправки запросов не помогут, имеет место ошибка валидации номера заявки.\n- STATUS_INVALID: может помочь повтор с другим, корректным, статусом.\n- FAILED_REASON_MISSES: повторная отправка возможна после заполнения поля reason для заявки в статусе declined или отправки запроса со статусом approved.\n- PARCEL_CLOSED: нет смысла отправлять запрос повторно, данный код означает, что изменение свойства для посылки более не актуально так как посылка вручена или изменилось направление движение посылки.\n- HTTP 500: означает недоступность API, необходим повтор.\n\n\n### Возможные причины для отклонения заявки и коды приведены в таблице\n\n| Тип заявки               |   reason code                   |       Описание                                                             |\n|--------------------------|---------------------------------|----------------------------------------------------------------------------|\n| prohibitParcelAcceptance | already_received                | Посылка уже была принята от продавца и запрет её приёма невозможен.        |\n| prohibitParcelAcceptance | parcel_not_found                | Посылка не найдена.                                                        |\n| prohibitParcelReceive    | already_received                | Посылка уже была вручена покупателю и запрет выдачи невозможен.            |\n| prohibitParcelReceive    | parcel_not_found                | Посылка не найдена.                                                        |\n| extendParcelStorage      | storage_period_already_exceeded | Продление срока хранения для посылки уже выполнялось.                      |\n| extendParcelStorage      | invalid_parcel_status           | Продление срока хранения невозможно в текущем состоянии (статусе посылки). |\n| extendParcelStorage      | parcel_not_found                | Посылка не найдена.                                                        |\n| любой                    | текст в свободной форме         | Причина отклонения, которая отличается от стандартизированных              |\n\nДля описанных сценариев важно использовать стандартизированные причины для отклонения заявки. Это может влиять на политику ретраев и другие внутренние процессы внутри Avito.\nСписок стандартных причин может расширяться в будущем в зависимости от статистики использования и возникающих корнер-кейсов.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery",
+                "order",
+                "changeParcelResult"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"status\": \"<string>\",\n  \"options\": {\n    \"storageExtendedTo\": \"<string>\"\n  },\n  \"reason\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5014908d-577c-487e-929c-00c88ca8b359",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "order",
+                    "changeParcelResult"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"status\": \"<string>\",\n  \"options\": {\n    \"storageExtendedTo\": \"2023-09-20T10:00:00.52Z\"\n  },\n  \"reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {},\n  \"error\": {\n    \"code\": \"PARCEL_CLOSED\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0070a956-c036-4217-8fad-d607f1e0cdb4",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "order",
+                    "changeParcelResult"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"status\": \"<string>\",\n  \"options\": {\n    \"storageExtendedTo\": \"2023-09-20T10:00:00.52Z\"\n  },\n  \"reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"fail\",\n  \"message\": \"something went wrong\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1dfc5c59-a409-4f72-ba85-c87b06964cd6",
+          "name": "Обновление свойств посылок",
+          "request": {
+            "name": "Обновление свойств посылок",
+            "description": {
+              "content": "Описание механики изменения посылок [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/izmenenie_svoystv_posylok).\n\nМетод реализуется на стороне службы доставки. Предназначен для обновления различных свойств посылок по инициативе Avito.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sandbox",
+                "changeParcels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"applications\": [\n    {\n      \"id\": \"<string>\",\n      \"parcelID\": \"<string>\",\n      \"receiver\": {\n        \"name\": \"<string>\",\n        \"phones\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"terminal\": {\n          \"id\": \"<string>\"\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"parcelID\": \"<string>\",\n      \"receiver\": {\n        \"name\": \"<string>\",\n        \"phones\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"terminal\": {\n          \"id\": \"<string>\"\n        }\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c5be1854-86c3-4628-a1ee-e13924ae70b6",
+              "name": "Все заявки внутри транзакции зарегистрированы / случилась ошибка.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "changeParcels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"changeReceiver\",\n  \"applications\": [\n    {\n      \"id\": \"6aad1860-23e0-4e4d-97d7-eff526127b51\",\n      \"parcelID\": \"P000123\",\n      \"receiver\": {\n        \"name\": \"Иванов Иван Иванович\",\n        \"phones\": [\n          \"88005553535\",\n          \"79999999999\",\n          \"+79859991234\"\n        ],\n        \"terminal\": {\n          \"id\": \"123\"\n        }\n      }\n    },\n    {\n      \"id\": \"6aad1860-23e0-4e4d-97d7-eff526127b51\",\n      \"parcelID\": \"P000123\",\n      \"receiver\": {\n        \"name\": \"Иванов Иван Иванович\",\n        \"phones\": [\n          \"88005553535\",\n          \"79999999999\",\n          \"+79859991234\"\n        ],\n        \"terminal\": {\n          \"id\": \"123\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"status\": \"ok\"\n  },\n  \"error\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"message\": \"applications[0].parcelID field is required\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c09d561a-7e9f-4425-84b8-a5f00f71f60d",
+              "name": "Ошибка аутентификации. Например, некорректный токен.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "changeParcels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"changeReceiver\",\n  \"applications\": [\n    {\n      \"id\": \"6aad1860-23e0-4e4d-97d7-eff526127b51\",\n      \"parcelID\": \"P000123\",\n      \"receiver\": {\n        \"name\": \"Иванов Иван Иванович\",\n        \"phones\": [\n          \"88005553535\",\n          \"79999999999\",\n          \"+79859991234\"\n        ],\n        \"terminal\": {\n          \"id\": \"123\"\n        }\n      }\n    },\n    {\n      \"id\": \"6aad1860-23e0-4e4d-97d7-eff526127b51\",\n      \"parcelID\": \"P000123\",\n      \"receiver\": {\n        \"name\": \"Иванов Иван Иванович\",\n        \"phones\": [\n          \"88005553535\",\n          \"79999999999\",\n          \"+79859991234\"\n        ],\n        \"terminal\": {\n          \"id\": \"123\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1f28a55-d57e-4bcc-9177-50013aae0655",
+              "name": "Ошибка авторизации. Например, нет прав для выполнения операции.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "changeParcels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"changeReceiver\",\n  \"applications\": [\n    {\n      \"id\": \"6aad1860-23e0-4e4d-97d7-eff526127b51\",\n      \"parcelID\": \"P000123\",\n      \"receiver\": {\n        \"name\": \"Иванов Иван Иванович\",\n        \"phones\": [\n          \"88005553535\",\n          \"79999999999\",\n          \"+79859991234\"\n        ],\n        \"terminal\": {\n          \"id\": \"123\"\n        }\n      }\n    },\n    {\n      \"id\": \"6aad1860-23e0-4e4d-97d7-eff526127b51\",\n      \"parcelID\": \"P000123\",\n      \"receiver\": {\n        \"name\": \"Иванов Иван Иванович\",\n        \"phones\": [\n          \"88005553535\",\n          \"79999999999\",\n          \"+79859991234\"\n        ],\n        \"terminal\": {\n          \"id\": \"123\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"something went wrong\",\n    \"status\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10013821-27eb-41f1-9d0f-18f1f790aca1",
+              "name": "internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "changeParcels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"changeReceiver\",\n  \"applications\": [\n    {\n      \"id\": \"6aad1860-23e0-4e4d-97d7-eff526127b51\",\n      \"parcelID\": \"P000123\",\n      \"receiver\": {\n        \"name\": \"Иванов Иван Иванович\",\n        \"phones\": [\n          \"88005553535\",\n          \"79999999999\",\n          \"+79859991234\"\n        ],\n        \"terminal\": {\n          \"id\": \"123\"\n        }\n      }\n    },\n    {\n      \"id\": \"6aad1860-23e0-4e4d-97d7-eff526127b51\",\n      \"parcelID\": \"P000123\",\n      \"receiver\": {\n        \"name\": \"Иванов Иван Иванович\",\n        \"phones\": [\n          \"88005553535\",\n          \"79999999999\",\n          \"+79859991234\"\n        ],\n        \"terminal\": {\n          \"id\": \"123\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"fail\",\n    \"message\": \"something went wrong\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.avito.ru/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "420f9fc4-c52c-418e-bc16-1a3d1c507cff",
+    "name": "Иерархия Аккаунтов Access ParcelProcessing API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API для взаимодействия с иерархией аккаунтов в Авито\n**Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**\n\n\nContact Support:\n Email: supportautoload@avito.ru",
+      "type": "text/plain"
+    }
+  }
+}

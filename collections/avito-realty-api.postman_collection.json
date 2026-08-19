@@ -1,0 +1,3610 @@
+{
+  "item": [
+    {
+      "id": "5e6ccc02-d50d-4c70-adbd-f355b2548a60",
+      "name": "Realty",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5fd7fa8c-bf44-4274-8802-cabf456ff1a2",
+          "name": "Получение соответствия переданной цены рыночной цене",
+          "request": {
+            "name": "Получение соответствия переданной цены рыночной цене",
+            "description": {
+              "content": "Получение соответствия переданной цены рыночной цене\n\n**Данный метод доступен только пользователям с активной подпиской «Лидер» в категории «Недвижимость»**\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "realty",
+                "v1",
+                "marketPriceCorrespondence",
+                ":itemId",
+                ":price"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "itemId",
+                  "description": "(Required) Идентифиактор объявления"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "price",
+                  "description": "(Required) Цена"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4c162307-d5d1-41f1-87fa-4cef81359880",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "marketPriceCorrespondence",
+                    ":itemId",
+                    ":price"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "itemId",
+                      "description": "(Required) Идентифиактор объявления"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "price",
+                      "description": "(Required) Цена"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"correspondence\": \"below\",\n  \"error\": {\n    \"code\": 6361,\n    \"message\": \"string\",\n    \"isTemporary\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75e9520f-372c-401d-a5cc-db6ec28e0e06",
+              "name": "Некорректный запрос",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "marketPriceCorrespondence",
+                    ":itemId",
+                    ":price"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "itemId",
+                      "description": "(Required) Идентифиактор объявления"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "price",
+                      "description": "(Required) Цена"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 1603,\n    \"message\": \"string\",\n    \"isTemporary\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c320664e-02b1-4556-a88b-4635d550f03c",
+              "name": "Неавторизован",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "marketPriceCorrespondence",
+                    ":itemId",
+                    ":price"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "itemId",
+                      "description": "(Required) Идентифиактор объявления"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "price",
+                      "description": "(Required) Цена"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "306f2287-4c14-40b9-9af3-501c88be970a",
+              "name": "Ошибка доступа",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "marketPriceCorrespondence",
+                    ":itemId",
+                    ":price"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "itemId",
+                      "description": "(Required) Идентифиактор объявления"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "price",
+                      "description": "(Required) Цена"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 1603,\n    \"message\": \"string\",\n    \"isTemporary\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ed3fee6-36e6-4aaa-ac37-b41b26a6f9cc",
+              "name": "Не найдено",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "marketPriceCorrespondence",
+                    ":itemId",
+                    ":price"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "itemId",
+                      "description": "(Required) Идентифиактор объявления"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "price",
+                      "description": "(Required) Цена"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 1603,\n    \"message\": \"string\",\n    \"isTemporary\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a500256-21d6-4cab-8e23-794393a14d20",
+              "name": "Внутренняя ошибка",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "marketPriceCorrespondence",
+                    ":itemId",
+                    ":price"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "itemId",
+                      "description": "(Required) Идентифиактор объявления"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "price",
+                      "description": "(Required) Цена"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 1603,\n    \"message\": \"string\",\n    \"isTemporary\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d4e7081e-e003-4ce0-8dfc-7212d5e142ed",
+          "name": "Получение аналитического отчета по недвижимости",
+          "request": {
+            "name": "Получение аналитического отчета по недвижимости",
+            "description": {
+              "content": "Получение аналитического отчета по недвижимости\n\n**Данный метод доступен только пользователям с активной подпиской «Лидер» в категории «Недвижимость»**\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "realty",
+                "v1",
+                "report",
+                "create",
+                ":itemId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "itemId",
+                  "description": "(Required) Идентификатор объявления"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4dbbd8c7-4ab4-4e39-be66-3dcc6ac8385d",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "report",
+                    "create",
+                    ":itemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "itemId",
+                      "description": "(Required) Идентификатор объявления"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": {\n    \"errors\": {\n      \"accessDenied\": true,\n      \"featureDisabled\": true,\n      \"invalidItem\": true,\n      \"message\": \"string\"\n    },\n    \"success\": {\n      \"reportLink\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c619bcb9-9655-45d2-9834-189a6e0d71f6",
+              "name": "Некорректный запрос",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "report",
+                    "create",
+                    ":itemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "itemId",
+                      "description": "(Required) Идентификатор объявления"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bad-request\": {\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "460918b5-8385-463e-9bd0-367f3d339675",
+              "name": "Неавторизован",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "report",
+                    "create",
+                    ":itemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "itemId",
+                      "description": "(Required) Идентификатор объявления"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"unauthenticated\": {\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d2fcb46e-8c9e-4941-926d-2f796c8091cc",
+              "name": "Ошибка доступа",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "report",
+                    "create",
+                    ":itemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "itemId",
+                      "description": "(Required) Идентификатор объявления"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"forbidden\": {\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ea19b4d-dec1-4a5f-b0d4-26c8ecc06291",
+              "name": "Внутренняя ошибка",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "report",
+                    "create",
+                    ":itemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "itemId",
+                      "description": "(Required) Идентификатор объявления"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"internal-error\": {\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "28f13e35-3b82-4f51-a1a4-6c0281c3db28",
+          "name": "Заполнение календаря занятости объекта недвижимости",
+          "request": {
+            "name": "Заполнение календаря занятости объекта недвижимости",
+            "description": {
+              "content": "Заполнение календаря занятости объекта недвижимости (для краткосрочной аренды)\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "core",
+                "v1",
+                "accounts",
+                ":user_id",
+                "items",
+                ":item_id",
+                "bookings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "user_id",
+                  "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "item_id",
+                  "description": "(Required) Идентификатор объявления на сайте"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bookings\": [\n    {\n      \"comment\": \"<string>\",\n      \"date_end\": \"<date>\",\n      \"date_start\": \"<date>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"comment\": \"<string>\",\n      \"date_end\": \"<date>\",\n      \"date_start\": \"<date>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"source\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e1f46133-17bd-4e12-b20f-e48add941609",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    "bookings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bookings\": [\n    {\n      \"comment\": \"Комментарий\",\n      \"date_end\": \"2026-03-24\",\n      \"date_start\": \"2026-03-23\"\n    },\n    {\n      \"date_end\": \"2026-03-25\",\n      \"date_start\": \"2026-03-24\",\n      \"type\": \"manual\"\n    },\n    {\n      \"date_end\": \"2026-03-26\",\n      \"date_start\": \"2026-03-25\",\n      \"type\": \"booking\"\n    }\n  ],\n  \"source\": \"pms\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7edd90a0-ac71-47d2-a1e4-e3cd1ed7d5f3",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    "bookings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bookings\": [\n    {\n      \"comment\": \"Комментарий\",\n      \"date_end\": \"2026-03-24\",\n      \"date_start\": \"2026-03-23\"\n    },\n    {\n      \"date_end\": \"2026-03-25\",\n      \"date_start\": \"2026-03-24\",\n      \"type\": \"manual\"\n    },\n    {\n      \"date_end\": \"2026-03-26\",\n      \"date_start\": \"2026-03-25\",\n      \"type\": \"booking\"\n    }\n  ],\n  \"source\": \"pms\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6273,\n    \"message\": \"error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23fa95d6-477c-4ab7-98b9-54982b144342",
+              "name": "Пользователь не владеет айтемом",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    "bookings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bookings\": [\n    {\n      \"comment\": \"Комментарий\",\n      \"date_end\": \"2026-03-24\",\n      \"date_start\": \"2026-03-23\"\n    },\n    {\n      \"date_end\": \"2026-03-25\",\n      \"date_start\": \"2026-03-24\",\n      \"type\": \"manual\"\n    },\n    {\n      \"date_end\": \"2026-03-26\",\n      \"date_start\": \"2026-03-25\",\n      \"type\": \"booking\"\n    }\n  ],\n  \"source\": \"pms\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6273,\n    \"message\": \"error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72de3d65-bff5-4ca6-ba20-f9f1d9ea9973",
+              "name": "Айтем не найден",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    "bookings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bookings\": [\n    {\n      \"comment\": \"Комментарий\",\n      \"date_end\": \"2026-03-24\",\n      \"date_start\": \"2026-03-23\"\n    },\n    {\n      \"date_end\": \"2026-03-25\",\n      \"date_start\": \"2026-03-24\",\n      \"type\": \"manual\"\n    },\n    {\n      \"date_end\": \"2026-03-26\",\n      \"date_start\": \"2026-03-25\",\n      \"type\": \"booking\"\n    }\n  ],\n  \"source\": \"pms\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6273,\n    \"message\": \"error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e079ac3a-140a-435e-9330-62a9bf14888d",
+              "name": "На заданные даты есть оплаченные брони",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    "bookings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bookings\": [\n    {\n      \"comment\": \"Комментарий\",\n      \"date_end\": \"2026-03-24\",\n      \"date_start\": \"2026-03-23\"\n    },\n    {\n      \"date_end\": \"2026-03-25\",\n      \"date_start\": \"2026-03-24\",\n      \"type\": \"manual\"\n    },\n    {\n      \"date_end\": \"2026-03-26\",\n      \"date_start\": \"2026-03-25\",\n      \"type\": \"booking\"\n    }\n  ],\n  \"source\": \"pms\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 409,\n    \"message\": \"error\",\n    \"conflicts\": [\n      {\n        \"interval\": {\n          \"date_start\": \"2026-03-23\",\n          \"date_end\": \"2026-04-01\"\n        },\n        \"bookings\": [\n          {\n            \"check_in\": \"2026-03-20\",\n            \"check_out\": \"2026-03-27\",\n            \"avito_booking_id\": 11111\n          },\n          {\n            \"check_in\": \"2026-03-20\",\n            \"check_out\": \"2026-03-27\",\n            \"avito_booking_id\": 11111\n          }\n        ]\n      },\n      {\n        \"interval\": {\n          \"date_start\": \"2026-03-23\",\n          \"date_end\": \"2026-04-01\"\n        },\n        \"bookings\": [\n          {\n            \"check_in\": \"2026-03-20\",\n            \"check_out\": \"2026-03-27\",\n            \"avito_booking_id\": 11111\n          },\n          {\n            \"check_in\": \"2026-03-20\",\n            \"check_out\": \"2026-03-27\",\n            \"avito_booking_id\": 11111\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7784c6db-4544-4549-a1c9-af2ceb24f29d",
+              "name": "Неверные данные",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    "bookings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bookings\": [\n    {\n      \"comment\": \"Комментарий\",\n      \"date_end\": \"2026-03-24\",\n      \"date_start\": \"2026-03-23\"\n    },\n    {\n      \"date_end\": \"2026-03-25\",\n      \"date_start\": \"2026-03-24\",\n      \"type\": \"manual\"\n    },\n    {\n      \"date_end\": \"2026-03-26\",\n      \"date_start\": \"2026-03-25\",\n      \"type\": \"booking\"\n    }\n  ],\n  \"source\": \"pms\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Validation error\",\n    \"fields\": {\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "037d88bd-0092-4a10-850f-e9dbddb673d0",
+              "name": "Внутренняя ошибка",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "core",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    "bookings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bookings\": [\n    {\n      \"comment\": \"Комментарий\",\n      \"date_end\": \"2026-03-24\",\n      \"date_start\": \"2026-03-23\"\n    },\n    {\n      \"date_end\": \"2026-03-25\",\n      \"date_start\": \"2026-03-24\",\n      \"type\": \"manual\"\n    },\n    {\n      \"date_end\": \"2026-03-26\",\n      \"date_start\": \"2026-03-25\",\n      \"type\": \"booking\"\n    }\n  ],\n  \"source\": \"pms\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6273,\n    \"message\": \"error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ca89601-9881-4f6a-9638-07caab501658",
+          "name": "Получение списка броней по объявлению\n",
+          "request": {
+            "name": "Получение списка броней по объявлению\n",
+            "description": {
+              "content": "Возвращает информацию о бронированиях объекта за весь период.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "realty",
+                "v1",
+                "accounts",
+                ":user_id",
+                "items",
+                ":item_id",
+                "bookings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skip_error",
+                  "value": "<boolean>",
+                  "description": "Флаг, с которым вместо ошибок(если ошибка произошла с айтемом) возвращается 200 статус, без ошибки"
+                },
+                {
+                  "disabled": false,
+                  "key": "date_start",
+                  "value": "<date>",
+                  "description": "(Required) Фильтр, ограничивающий выборку по нижней границе дат, не в прошлом"
+                },
+                {
+                  "disabled": false,
+                  "key": "date_end",
+                  "value": "<date>",
+                  "description": "(Required) Фильтр, ограничивающий выборку по верхней границе дат, не в прошлом"
+                },
+                {
+                  "disabled": false,
+                  "key": "with_unpaid",
+                  "value": "<boolean>",
+                  "description": "Флаг, позволяющий получить неоплаченные брони (возвращаются в статусе pending)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "user_id",
+                  "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "item_id",
+                  "description": "(Required) Идентификатор объявления на сайте"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "960c9eff-9de5-4d12-979c-ec3b91094e95",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    "bookings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip_error",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "date_start",
+                      "value": "2026-01-01"
+                    },
+                    {
+                      "key": "date_end",
+                      "value": "2026-05-01"
+                    },
+                    {
+                      "key": "with_unpaid",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bookings\": [\n    {\n      \"avito_booking_id\": 11111,\n      \"base_price\": 8000,\n      \"check_in\": \"2026-08-01\",\n      \"check_out\": \"2026-08-04\",\n      \"contact\": {\n        \"name\": \"Иван\",\n        \"email\": \"guest_email@domain.com\",\n        \"phone\": \"9997770000\"\n      },\n      \"guest_count\": 1,\n      \"nights\": 3,\n      \"safe_deposit\": {\n        \"owner_amount\": 4500,\n        \"tax\": 500,\n        \"total_amount\": 5000\n      },\n      \"status\": \"canceled\"\n    },\n    {\n      \"avito_booking_id\": 11111,\n      \"base_price\": 8000,\n      \"check_in\": \"2026-08-01\",\n      \"check_out\": \"2026-08-04\",\n      \"contact\": {\n        \"name\": \"Иван\",\n        \"email\": \"guest_email@domain.com\",\n        \"phone\": \"9997770000\"\n      },\n      \"guest_count\": 1,\n      \"nights\": 3,\n      \"safe_deposit\": {\n        \"owner_amount\": 4500,\n        \"tax\": 500,\n        \"total_amount\": 5000\n      },\n      \"status\": \"pending\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "edf2bee0-d71b-4119-b7f9-a165dcab626c",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    "bookings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip_error",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "date_start",
+                      "value": "2026-01-01"
+                    },
+                    {
+                      "key": "date_end",
+                      "value": "2026-05-01"
+                    },
+                    {
+                      "key": "with_unpaid",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6273,\n    \"message\": \"error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b227e523-0f5d-4bbc-b36f-da4b255160cc",
+              "name": "Пользователь не владеет айтемом",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    "bookings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip_error",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "date_start",
+                      "value": "2026-01-01"
+                    },
+                    {
+                      "key": "date_end",
+                      "value": "2026-05-01"
+                    },
+                    {
+                      "key": "with_unpaid",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6273,\n    \"message\": \"error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58434151-b099-4024-9d77-cc90c645aaf2",
+              "name": "Айтем не найден",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    "bookings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip_error",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "date_start",
+                      "value": "2026-01-01"
+                    },
+                    {
+                      "key": "date_end",
+                      "value": "2026-05-01"
+                    },
+                    {
+                      "key": "with_unpaid",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6273,\n    \"message\": \"error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f7e8f11-cf76-4879-99e3-c5dc46a5b393",
+              "name": "Неверные данные",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    "bookings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip_error",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "date_start",
+                      "value": "2026-01-01"
+                    },
+                    {
+                      "key": "date_end",
+                      "value": "2026-05-01"
+                    },
+                    {
+                      "key": "with_unpaid",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Validation error\",\n    \"fields\": {\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "951dfa18-b344-45b0-a61a-ae7514a3b943",
+              "name": "Внутренняя ошибка",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    "bookings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip_error",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "date_start",
+                      "value": "2026-01-01"
+                    },
+                    {
+                      "key": "date_end",
+                      "value": "2026-05-01"
+                    },
+                    {
+                      "key": "with_unpaid",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6273,\n    \"message\": \"error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eb9dafe9-50c0-4458-8ba6-f459f520989e",
+          "name": "Актуализация параметров для выбранных периодов\n",
+          "request": {
+            "name": "Актуализация параметров для выбранных периодов\n",
+            "description": {
+              "content": "Обновляет параметры (цена за ночь, доплата за гостя, минимальная продолжительность брони) для каждого из переданных диапазонов дат, изменения применяются к каждой дате диапазона. В случае, если на занимаемые даты есть брони в неподтвержденных статусах, то брони переводятся в статус overbook.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "realty",
+                "v1",
+                "accounts",
+                ":user_id",
+                "items",
+                ":item_id",
+                "prices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skip_error",
+                  "value": "<boolean>",
+                  "description": "Флаг, с которым вместо ошибок(если ошибка произошла с айтемом) возвращается 200 статус, без ошибки"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "user_id",
+                  "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "item_id",
+                  "description": "(Required) Идентификатор объявления на сайте"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prices\": [\n    {\n      \"date_from\": \"<date>\",\n      \"date_to\": \"<date>\",\n      \"extra_guest_fee\": \"<long>\",\n      \"minimal_duration\": \"<integer>\",\n      \"night_price\": \"<long>\"\n    },\n    {\n      \"date_from\": \"<date>\",\n      \"date_to\": \"<date>\",\n      \"extra_guest_fee\": \"<long>\",\n      \"minimal_duration\": \"<integer>\",\n      \"night_price\": \"<long>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "84ebce6e-ece0-4f8c-bc7d-dcf8e7607f89",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    "prices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip_error",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prices\": [\n    {\n      \"date_from\": \"2026-06-02\",\n      \"date_to\": \"2026-06-14\",\n      \"extra_guest_fee\": 500,\n      \"minimal_duration\": 1,\n      \"night_price\": 1500\n    },\n    {\n      \"date_from\": \"2026-06-15\",\n      \"date_to\": \"2026-06-15\",\n      \"extra_guest_fee\": 1000,\n      \"minimal_duration\": 7,\n      \"night_price\": 5000\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "139a5caa-676b-4118-acc4-657e8db0a49d",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    "prices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip_error",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prices\": [\n    {\n      \"date_from\": \"2026-06-02\",\n      \"date_to\": \"2026-06-14\",\n      \"extra_guest_fee\": 500,\n      \"minimal_duration\": 1,\n      \"night_price\": 1500\n    },\n    {\n      \"date_from\": \"2026-06-15\",\n      \"date_to\": \"2026-06-15\",\n      \"extra_guest_fee\": 1000,\n      \"minimal_duration\": 7,\n      \"night_price\": 5000\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6273,\n    \"message\": \"error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "22603eea-9dd6-40a1-803d-c184f948fcec",
+              "name": "Пользователь не владеет айтемом",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    "prices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip_error",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prices\": [\n    {\n      \"date_from\": \"2026-06-02\",\n      \"date_to\": \"2026-06-14\",\n      \"extra_guest_fee\": 500,\n      \"minimal_duration\": 1,\n      \"night_price\": 1500\n    },\n    {\n      \"date_from\": \"2026-06-15\",\n      \"date_to\": \"2026-06-15\",\n      \"extra_guest_fee\": 1000,\n      \"minimal_duration\": 7,\n      \"night_price\": 5000\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6273,\n    \"message\": \"error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0fbba4c7-4476-4d43-9bdb-1d59cac82976",
+              "name": "Айтем не найден",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    "prices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip_error",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prices\": [\n    {\n      \"date_from\": \"2026-06-02\",\n      \"date_to\": \"2026-06-14\",\n      \"extra_guest_fee\": 500,\n      \"minimal_duration\": 1,\n      \"night_price\": 1500\n    },\n    {\n      \"date_from\": \"2026-06-15\",\n      \"date_to\": \"2026-06-15\",\n      \"extra_guest_fee\": 1000,\n      \"minimal_duration\": 7,\n      \"night_price\": 5000\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6273,\n    \"message\": \"error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "433ad4f1-f760-454e-9d3d-23589e29e64c",
+              "name": "Неверные данные",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    "prices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip_error",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prices\": [\n    {\n      \"date_from\": \"2026-06-02\",\n      \"date_to\": \"2026-06-14\",\n      \"extra_guest_fee\": 500,\n      \"minimal_duration\": 1,\n      \"night_price\": 1500\n    },\n    {\n      \"date_from\": \"2026-06-15\",\n      \"date_to\": \"2026-06-15\",\n      \"extra_guest_fee\": 1000,\n      \"minimal_duration\": 7,\n      \"night_price\": 5000\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Validation error\",\n    \"fields\": {\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b20bc4a9-fa51-4f18-9219-6264f764df22",
+              "name": "Внутренняя ошибка",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "accounts",
+                    ":user_id",
+                    "items",
+                    ":item_id",
+                    "prices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip_error",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "user_id",
+                      "description": "(Required) Номер пользователя в Личном кабинете Авито"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prices\": [\n    {\n      \"date_from\": \"2026-06-02\",\n      \"date_to\": \"2026-06-14\",\n      \"extra_guest_fee\": 500,\n      \"minimal_duration\": 1,\n      \"night_price\": 1500\n    },\n    {\n      \"date_from\": \"2026-06-15\",\n      \"date_to\": \"2026-06-15\",\n      \"extra_guest_fee\": 1000,\n      \"minimal_duration\": 7,\n      \"night_price\": 5000\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6273,\n    \"message\": \"error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c5b94cd8-dc35-4f2c-96af-cf5ea3e016a1",
+          "name": "Заполнение доступности объекта недвижимости с квотами и без",
+          "request": {
+            "name": "Заполнение доступности объекта недвижимости с квотами и без",
+            "description": {
+              "content": "Заполнение календаря доступности объекта недвижимости с квотами и без (для краткосрочной аренды)\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "realty",
+                "v1",
+                "items",
+                "intervals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skip_error",
+                  "value": "<boolean>",
+                  "description": "Флаг, с которым вместо ошибок(если ошибка произошла с айтемом) возвращается 200 статус, без ошибки"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"intervals\": [\n    {\n      \"date_end\": \"<date>\",\n      \"date_start\": \"<date>\",\n      \"open\": \"<integer>\"\n    },\n    {\n      \"date_end\": \"<date>\",\n      \"date_start\": \"<date>\",\n      \"open\": \"<integer>\"\n    }\n  ],\n  \"item_id\": \"<integer>\",\n  \"source\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "58cc9e33-4d04-4352-a773-10d829df495e",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "items",
+                    "intervals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip_error",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"intervals\": [\n    {\n      \"date_end\": \"2024-03-24\",\n      \"date_start\": \"2024-03-23\",\n      \"open\": 10\n    },\n    {\n      \"date_end\": \"2024-03-25\",\n      \"date_start\": \"2024-03-24\",\n      \"open\": 2\n    }\n  ],\n  \"item_id\": 270000555,\n  \"source\": \"pms\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c2ea2e0-09a7-4454-8eb3-53332c6d67af",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "items",
+                    "intervals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip_error",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"intervals\": [\n    {\n      \"date_end\": \"2024-03-24\",\n      \"date_start\": \"2024-03-23\",\n      \"open\": 10\n    },\n    {\n      \"date_end\": \"2024-03-25\",\n      \"date_start\": \"2024-03-24\",\n      \"open\": 2\n    }\n  ],\n  \"item_id\": 270000555,\n  \"source\": \"pms\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6273,\n    \"message\": \"error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99e52fde-4e14-4871-a597-7febe8d19423",
+              "name": "Пользователь не владеет айтемом",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "items",
+                    "intervals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip_error",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"intervals\": [\n    {\n      \"date_end\": \"2024-03-24\",\n      \"date_start\": \"2024-03-23\",\n      \"open\": 10\n    },\n    {\n      \"date_end\": \"2024-03-25\",\n      \"date_start\": \"2024-03-24\",\n      \"open\": 2\n    }\n  ],\n  \"item_id\": 270000555,\n  \"source\": \"pms\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6273,\n    \"message\": \"error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "50649aac-cf60-4019-af19-6c5d3ba254eb",
+              "name": "Айтем не найден",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "items",
+                    "intervals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip_error",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"intervals\": [\n    {\n      \"date_end\": \"2024-03-24\",\n      \"date_start\": \"2024-03-23\",\n      \"open\": 10\n    },\n    {\n      \"date_end\": \"2024-03-25\",\n      \"date_start\": \"2024-03-24\",\n      \"open\": 2\n    }\n  ],\n  \"item_id\": 270000555,\n  \"source\": \"pms\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6273,\n    \"message\": \"error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "53d4b230-530d-4696-820c-a01ed580fe5a",
+              "name": "Неверные данные",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "items",
+                    "intervals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip_error",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"intervals\": [\n    {\n      \"date_end\": \"2024-03-24\",\n      \"date_start\": \"2024-03-23\",\n      \"open\": 10\n    },\n    {\n      \"date_end\": \"2024-03-25\",\n      \"date_start\": \"2024-03-24\",\n      \"open\": 2\n    }\n  ],\n  \"item_id\": 270000555,\n  \"source\": \"pms\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Validation error\",\n    \"fields\": {\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7ce9cdc6-a537-43a3-b409-a8b7c4d37fb2",
+              "name": "Внутренняя ошибка",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "items",
+                    "intervals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip_error",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"intervals\": [\n    {\n      \"date_end\": \"2024-03-24\",\n      \"date_start\": \"2024-03-23\",\n      \"open\": 10\n    },\n    {\n      \"date_end\": \"2024-03-25\",\n      \"date_start\": \"2024-03-24\",\n      \"open\": 2\n    }\n  ],\n  \"item_id\": 270000555,\n  \"source\": \"pms\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6273,\n    \"message\": \"error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7035d355-0fb4-4bb0-884f-4a58d520d3e6",
+          "name": "Установка базовых параметров\n",
+          "request": {
+            "name": "Установка базовых параметров\n",
+            "description": {
+              "content": "Обновляет базовые параметры: цена за ночь, минимальное количество ночей, доплата за гостя,  количество гостей больше которых активируется опция доплаты за гостя, период бесплатной отмены, параметры мгновенного бронирования (активность, максимальное/минимальное количество дней до заселения), скидки на бронирование.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "realty",
+                "v1",
+                "items",
+                ":item_id",
+                "base"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "item_id",
+                  "description": "(Required) Идентификатор объявления на сайте"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ah:access"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.avito.ru/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://avito.ru/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"discount\": [\n    {\n      \"percent\": \"<long>\",\n      \"threshold\": \"<long>\"\n    },\n    {\n      \"percent\": \"<long>\",\n      \"threshold\": \"<long>\"\n    }\n  ],\n  \"extra_guest_fee\": \"<long>\",\n  \"extra_guest_threshold\": \"<long>\",\n  \"fees\": {\n    \"cleaning\": {\n      \"amount\": \"<long>\"\n    },\n    \"pets\": {\n      \"allowed\": \"<boolean>\",\n      \"amount\": \"<long>\",\n      \"application\": \"<string>\"\n    }\n  },\n  \"instant\": {\n    \"active\": \"<boolean>\",\n    \"max_days\": \"<long>\",\n    \"min_days\": \"<long>\"\n  },\n  \"minimal_duration\": \"<integer>\",\n  \"night_price\": \"<long>\",\n  \"refund\": {\n    \"days\": \"<long>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "82962f12-b363-4d52-966b-1ddfd7aeb331",
+              "name": "Успешный ответ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "items",
+                    ":item_id",
+                    "base"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"discount\": [\n    {\n      \"percent\": 10,\n      \"threshold\": 3\n    },\n    {\n      \"percent\": 15,\n      \"threshold\": 7\n    }\n  ],\n  \"extra_guest_fee\": 500,\n  \"extra_guest_threshold\": 4,\n  \"instant\": {\n    \"active\": true,\n    \"max_days\": 30,\n    \"min_days\": 3\n  },\n  \"minimal_duration\": 1,\n  \"night_price\": 3000,\n  \"refund\": {\n    \"days\": 7\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e56d22ee-7f63-4490-98b0-dac58f302d02",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "items",
+                    ":item_id",
+                    "base"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"discount\": [\n    {\n      \"percent\": 10,\n      \"threshold\": 3\n    },\n    {\n      \"percent\": 15,\n      \"threshold\": 7\n    }\n  ],\n  \"extra_guest_fee\": 500,\n  \"extra_guest_threshold\": 4,\n  \"instant\": {\n    \"active\": true,\n    \"max_days\": 30,\n    \"min_days\": 3\n  },\n  \"minimal_duration\": 1,\n  \"night_price\": 3000,\n  \"refund\": {\n    \"days\": 7\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6273,\n    \"message\": \"error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d18ddf5f-761e-413c-810a-642e26fba928",
+              "name": "Пользователь не владеет айтемом",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "items",
+                    ":item_id",
+                    "base"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"discount\": [\n    {\n      \"percent\": 10,\n      \"threshold\": 3\n    },\n    {\n      \"percent\": 15,\n      \"threshold\": 7\n    }\n  ],\n  \"extra_guest_fee\": 500,\n  \"extra_guest_threshold\": 4,\n  \"instant\": {\n    \"active\": true,\n    \"max_days\": 30,\n    \"min_days\": 3\n  },\n  \"minimal_duration\": 1,\n  \"night_price\": 3000,\n  \"refund\": {\n    \"days\": 7\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6273,\n    \"message\": \"error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "02ea5e44-d591-4ab7-9d3f-a04848912749",
+              "name": "Айтем не найден",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "items",
+                    ":item_id",
+                    "base"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"discount\": [\n    {\n      \"percent\": 10,\n      \"threshold\": 3\n    },\n    {\n      \"percent\": 15,\n      \"threshold\": 7\n    }\n  ],\n  \"extra_guest_fee\": 500,\n  \"extra_guest_threshold\": 4,\n  \"instant\": {\n    \"active\": true,\n    \"max_days\": 30,\n    \"min_days\": 3\n  },\n  \"minimal_duration\": 1,\n  \"night_price\": 3000,\n  \"refund\": {\n    \"days\": 7\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6273,\n    \"message\": \"error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7ebfcde-f6d4-4e5c-98c9-5061128cc662",
+              "name": "Неверные данные",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "items",
+                    ":item_id",
+                    "base"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"discount\": [\n    {\n      \"percent\": 10,\n      \"threshold\": 3\n    },\n    {\n      \"percent\": 15,\n      \"threshold\": 7\n    }\n  ],\n  \"extra_guest_fee\": 500,\n  \"extra_guest_threshold\": 4,\n  \"instant\": {\n    \"active\": true,\n    \"max_days\": 30,\n    \"min_days\": 3\n  },\n  \"minimal_duration\": 1,\n  \"night_price\": 3000,\n  \"refund\": {\n    \"days\": 7\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Validation error\",\n    \"fields\": {\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f66188c-b148-438d-aee6-ace382d7c8ed",
+              "name": "Внутренняя ошибка",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realty",
+                    "v1",
+                    "items",
+                    ":item_id",
+                    "base"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "item_id",
+                      "description": "(Required) Идентификатор объявления на сайте"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Токен для авторизации",
+                    "key": "Authorization",
+                    "value": "Bearer ACCESS_TOKEN"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"discount\": [\n    {\n      \"percent\": 10,\n      \"threshold\": 3\n    },\n    {\n      \"percent\": 15,\n      \"threshold\": 7\n    }\n  ],\n  \"extra_guest_fee\": 500,\n  \"extra_guest_threshold\": 4,\n  \"instant\": {\n    \"active\": true,\n    \"max_days\": 30,\n    \"min_days\": 3\n  },\n  \"minimal_duration\": 1,\n  \"night_price\": 3000,\n  \"refund\": {\n    \"days\": 7\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 6273,\n    \"message\": \"error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.avito.ru/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f014312d-6537-47b3-a186-8aa2d26ea591",
+    "name": "Иерархия Аккаунтов Access Realty API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API для взаимодействия с иерархией аккаунтов в Авито\n**Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**\n\n\nContact Support:\n Email: supportautoload@avito.ru",
+      "type": "text/plain"
+    }
+  }
+}
