@@ -37,6 +37,19 @@ tags:
 - Consumer
 - Classifieds
 - Marketplace
+- E-Commerce
+- Real-Estate
+- Automotive
+- Job
+- Advertising
+- Messaging
+- Delivery
+- Russia
+tags_raw:
+- Company
+- Consumer
+- Classifieds
+- Marketplace
 - E-commerce
 - Real Estate
 - Automotive
@@ -714,6 +727,8 @@ apis:
   humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
   baseURL: https://api.avito.ru/
   tags:
+  - Balances
+  tags_raw:
   - balance
   properties:
   - type: OpenAPI
@@ -834,6 +849,8 @@ apis:
   humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
   baseURL: https://api.avito.ru/
   tags:
+  - Call Tracking
+  tags_raw:
   - Calltracking
   properties:
   - type: OpenAPI
@@ -2276,6 +2293,8 @@ apis:
   humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
   baseURL: https://api.avito.ru/
   tags:
+  - Profile
+  tags_raw:
   - profile
   properties:
   - type: OpenAPI
@@ -2576,6 +2595,8 @@ apis:
   humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
   baseURL: https://api.avito.ru/
   tags:
+  - Reference Data
+  tags_raw:
   - ReferenceData
   properties:
   - type: OpenAPI
@@ -2888,6 +2909,8 @@ apis:
   humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
   baseURL: https://api.avito.ru/
   tags:
+  - Statistics
+  tags_raw:
   - statistics
   properties:
   - type: OpenAPI
@@ -3029,6 +3052,8 @@ apis:
   humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
   baseURL: https://api.avito.ru/
   tags:
+  - Targeting
+  tags_raw:
   - targeting
   properties:
   - type: OpenAPI
@@ -3209,6 +3234,8 @@ apis:
   humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
   baseURL: https://api.avito.ru/
   tags:
+  - Terminal Management
+  tags_raw:
   - TerminalManagement
   properties:
   - type: OpenAPI
@@ -3288,6 +3315,8 @@ apis:
   humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
   baseURL: https://api.avito.ru/
   tags:
+  - Transaction
+  tags_raw:
   - transactions
   properties:
   - type: OpenAPI
