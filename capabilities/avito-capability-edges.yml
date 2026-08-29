@@ -3,7 +3,7 @@ provider: Avito
 generated_by: planning/capability-mapping/scripts/classify_capabilities.py
 model: claude-opus-5
 frame:
-- Software & Technology
+- Telecommunications
 min_confidence: 0.7
 capability_model:
   source: https://github.com/vincentmakes/turbo-ea-capabilities
@@ -19,83 +19,86 @@ edges:
   capability_id_l1: BC-300
   capability_name: Talent Acquisition Management
   confidence: 0.9
-  evidence: POST /job/v1/vacancies  vacancyCreate  Публикация вакансии; GET /job/v1/resumes/  resumesGet  Поиск
-    резюме; GET /job/v1/resumes/{resume_id}/contacts/  resumeGetContacts  Доступ к контактным данным соискателя
-  reason: Vacancy publication, resume search, candidate contact access and application (отклик) status
-    workflow are recruiting operations — Talent Acquisition Management, whoever the buyer is.
+  evidence: vacancyCreate  Публикация вакансии; resumesGet  Поиск резюме; resumeGetContacts  Доступ к
+    контактным данным соискателя; applicationsGetByIds  Получение списка откликов
+  reason: Operations publish vacancies, search candidate resumes, access applicant contact details and
+    manage application statuses — recruiting workflow, i.e. Talent Acquisition Management for the employer
+    using the API.
+- tag: Autostrategy
+  spec_file: avito-autostrategy-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.8
+  evidence: POST /autostrategy/v1/campaign/create  createAutostrategyCampaign  Создание новой кампании;
+    POST /autostrategy/v1/budget  getAutostrategyBudget  Расчет бюджета кампании
+  reason: Creation, editing, stopping, budgeting and statistics of automated-bidding advertising campaigns
+    — paid-media campaign management under Digital Marketing Management.
 - tag: Ads
   spec_file: avito-ads-api-openapi.yml
   capability_id: BC-400.60
   capability_id_l1: BC-400
   capability_name: Digital Marketing Management
-  confidence: 0.8
-  evidence: V1GetCampaignsList "Получить список кампаний по фильтрам"; V1GetCreativesStatistic "Получить
-    статистику по креативам кампании"; schemas Campaign, CampaignPaymentModel, AudienceType
+  confidence: 0.75
+  evidence: POST /ads/v1/account/{accountID}/campaigns  V1GetCampaignsList  Получить список кампаний по
+    фильтрам; V1GetCreativesStatistic  Получить статистику по креативам кампании
   reason: Operations manage advertiser accounts, ad campaigns, creatives, budgets/balances and campaign
-    statistics — paid media / advertising campaign management, i.e. Digital Marketing Management. Some
-    hierarchy/balance operations are account admin, hence 0.8.
+    statistics on Avito's ad platform — i.e. paid-media/digital advertising campaign management, mapped
+    to Digital Marketing Management. Some ambiguity because a large part of the surface is account-hierarchy/balance
+    plumbing, hence 0.75.
 - tag: Order Management
   spec_file: avito-order-management-api-openapi.yml
   capability_id: BC-520.40
   capability_id_l1: BC-520
   capability_name: Order Fulfilment Management
-  confidence: 0.8
-  evidence: POST /order-management/1/order/applyTransition  applyTransition  Изменение статуса заказа;
-    POST /order-management/1/order/setTrackingNumber  setOrderTrackingNumber  Передача трек-номера; POST
-    /order-management/1/orders/labels  generateLabels  Создать задачу на генерацию этикеток
-  reason: Operations manage the marketplace order lifecycle end to end — status transitions, confirmation
-    codes, pickup preparation, courier time slots, tracking numbers, shipping labels and returns — which
-    is order fulfilment orchestration (with adjacent logistics execution).
-- tag: Stock Management
-  spec_file: avito-stock-management-api-openapi.yml
-  capability_id: BC-530.10
-  capability_id_l1: BC-530
-  capability_name: Stock Level Management
-  confidence: 0.78
-  evidence: POST /stock-management/1/info Получение остатков; PUT /stock-management/1/stocks Редактирование
-    остатков
-  reason: Reading and updating stock balances (остатки) for a seller's goods, with schemas stocksInfoResult
-    and stockEditResult. This is straightforward stock level maintenance; slight uncertainty only over
-    the L2 split between stock level and inventory accuracy.
+  confidence: 0.75
+  evidence: POST /order-management/1/order/applyTransition Изменение статуса заказа; GET /order-management/1/orders
+    getOrders Получение информации о заказах; POST /order-management/1/order/setTrackingNumber Передача
+    трек-номера
+  reason: Operations move marketplace orders through status transitions, set delivery slots, tracking
+    numbers and shipping labels — order fulfilment orchestration for the seller. Some overlap with logistics
+    operations, hence not maximal confidence.
 - tag: ParcelProcessing
   spec_file: avito-parcelprocessing-api-openapi.yml
   capability_id: BC-520.50
   capability_id_l1: BC-520
   capability_name: Logistics Operations Management
   confidence: 0.75
-  evidence: POST /createParcel createParcel Создание посылки; POST /delivery-sandbox/order/tracking tracking
-    Трекинг; prohibitOrderAcceptance Запрет приёма посылки от отправителя
-  reason: Operations create, cancel, track and set delivery properties for parcels (пoсылки), including
-    real pickup/return addresses and courier/terminal delivery options. That is parcel shipment execution
-    — logistics operations within the supply chain — not merely order capture.
-- tag: Autostrategy
-  spec_file: avito-autostrategy-api-openapi.yml
-  capability_id: BC-400.60
-  capability_id_l1: BC-400
-  capability_name: Digital Marketing Management
-  confidence: 0.72
-  evidence: POST /autostrategy/v1/campaign/create  createAutostrategyCampaign  Создание новой кампании;
-    POST /autostrategy/v1/budget  getAutostrategyBudget  Расчет бюджета кампании
-  reason: Create/edit/stop promotion campaigns with budget computation and campaign statistics — paid-media
-    campaign management on a digital platform, i.e. digital marketing management. Slight ambiguity vs.
-    demand generation.
-- tag: Cpxpromo
-  spec_file: avito-cpxpromo-api-openapi.yml
-  capability_id: BC-400.60
-  capability_id_l1: BC-400
-  capability_name: Digital Marketing Management
-  confidence: 0.72
-  evidence: POST /cpxpromo/1/setAuto  saveAutoBid  Применение автоматической настройки; POST /cpxpromo/1/remove  removePromotion  Остановка
-    продвижения
-  reason: Bid and budget management for cost-per-target-action promotion of listings (schemas bid, budget,
-    autoPromotion, manualPromotion) — paid-media/bid management within digital marketing.
+  evidence: POST /createParcel Создание посылки; POST /delivery-sandbox/order/tracking Трекинг; POST /delivery-sandbox/order/realAddress
+    Фактический адрес приёма / возврата посылки
+  reason: Parcel creation, cancellation, delivery properties, courier/terminal addresses and tracking
+    — shipment execution, i.e. logistics operations within fulfilment. Ambiguity between order fulfilment
+    and logistics keeps confidence at 0.75.
 - tag: XDelivery
   spec_file: avito-xdelivery-api-openapi.yml
   capability_id: BC-520.50
   capability_id_l1: BC-520
   capability_name: Logistics Operations Management
-  confidence: 0.7
-  evidence: POST /createAnnouncement CreateAnnouncement3PL 'Создание анонса в СД'; POST /delivery-sandbox/announcements/track
+  confidence: 0.72
+  evidence: POST /createAnnouncement 'Создание анонса в СД'; POST /delivery-sandbox/announcements/track
     'Трекинг анонсов'; GET /delivery-sandbox/sorting-center 'Получить список сортировочных центров'
-  reason: Operations create/cancel and track shipment announcements with third-party delivery providers
-    (3PL) and manage sorting centres — transport and delivery network execution, i.e. logistics operations.
+  reason: Creates and cancels shipment announcements with delivery carriers, tracks them and manages sorting
+    centres — transport/logistics execution.
+- tag: Cpxpromo
+  spec_file: avito-cpxpromo-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: getBids  Получение детализированной информации о действующих и доступных ценах за целевые
+    действия и бюджетах; saveAutoBid  Применение автоматической настройки; removePromotion  Остановка
+    продвижения
+  reason: Operations manage cost-per-target-action bids, budgets, and start/stop of paid promotion for
+    listings — i.e. paid-media bid and budget management on a digital platform, which is Digital Marketing
+    Management. Some residual ambiguity with promotion management in a pricing sense, but the bid/budget
+    schemas (bid, budget, AutoBid, ManualBid) point to ad buying.
+- tag: Stock Management
+  spec_file: avito-stock-management-api-openapi.yml
+  capability_id: BC-530.10
+  capability_id_l1: BC-530
+  capability_name: Stock Level Management
+  confidence: 0.7
+  evidence: POST /stock-management/1/info 'Получение остатков'; PUT /stock-management/1/stocks 'Редактирование
+    остатков' (stocksInfoResult, stockEditResult)
+  reason: Reads and updates stock remainders for seller goods — stock level maintenance. Sub-capability
+    inferred; no replenishment or allocation logic exposed.
