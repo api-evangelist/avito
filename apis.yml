@@ -3594,6 +3594,9 @@ apis:
   - type: Documentation
     url: https://developers.avito.ru/api-catalog/user/documentation
 common:
+- type: CapabilityMap
+  url: capabilities/avito-capability-edges.yml
+  name: Avito Business Capability Map
 - type: DomainSecurity
   url: security/avito-domain-security.yml
 - type: AgenticAccess
