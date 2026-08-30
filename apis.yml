@@ -861,7 +861,7 @@ apis:
   humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
   baseURL: https://api.avito.ru/
   tags:
-  - Call Tracking
+  - Calltracking
   tags_raw:
   - Calltracking
   properties:
@@ -3064,7 +3064,7 @@ apis:
   humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
   baseURL: https://api.avito.ru/
   tags:
-  - Targeting
+  - targeting
   tags_raw:
   - targeting
   properties:
@@ -3246,7 +3246,7 @@ apis:
   humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
   baseURL: https://api.avito.ru/
   tags:
-  - Terminal Management
+  - TerminalManagement
   tags_raw:
   - TerminalManagement
   properties:
