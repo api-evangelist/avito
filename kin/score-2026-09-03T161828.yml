@@ -1,44 +1,46 @@
-# Kin Score artifact — avito — 2026-08-04T083143
+# Kin Score artifact — avito — 2026-09-03T161828
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: avito
-  schema_version: 0.9
-  scored_at: '2026-08-04'
-  run_ts: 2026-08-04T083143
-  composite: 50.6
+  schema_version: 0.18.1
+  scored_at: '2026-09-03'
+  run_ts: 2026-09-03T161828
+  composite: 48.2
   band: developing
   facets:
-    discoverability: 74.1
-    contract_quality: 60.9
-    governance: 20.8
-    operational_transparency: 50.0
-    developer_ergonomics: 53.8
+    discoverability: 81.5
+    contract_quality: 54.3
+    governance: 18.2
+    operational_transparency: 47.4
+    developer_ergonomics: 56.5
     commercial_clarity: 34.2
+    contract_governance: 18.2
+    access_clarity: 34.2
   agent_readiness:
-    score: 57.0
+    score: 42.6
     band: agent-ready
+    band_gated_from: agent-native
     dimensions:
       spec_presence: true
       agentic_access: derived
-      mcp_server: derived
-      auth_clarity: true
+      reversibility_documented: documented
+      mcp_server: false
+      auth_clarity: negotiable
       idempotency: false
       error_semantics: verified
       openapi_examples: partial
       rate_limit_signal: verified
       event_surface_described: true
       agent_skills: derived
-      well_known_catalog: true
+      well_known_catalog: false
       consent_identity: false
       agent_card: false
       dry_run_mode: false
-  regulatory:
-    applies: true
-    regime: Telecommunications
-    regime_id: telecommunications
-    score: 58.3
-    matched_via: tags
+      delegated_identity: documented
+      protected_resource_metadata: false
+      dynamic_client_registration: false
+      agentic_commerce: false
   provenance:
     mcp: derived
     skills: derived
