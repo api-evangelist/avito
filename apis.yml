@@ -486,6 +486,8 @@ apis:
   humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
   baseURL: https://api.avito.ru/
   tags:
+  - Auctions
+  tags_raw:
   - Auction
   properties:
   - type: OpenAPI
@@ -2305,7 +2307,7 @@ apis:
   humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
   baseURL: https://api.avito.ru/
   tags:
-  - Profile
+  - Profiles
   tags_raw:
   - profile
   properties:
@@ -3064,6 +3066,8 @@ apis:
   humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
   baseURL: https://api.avito.ru/
   tags:
+  - Tariffs
+  tags_raw:
   - Tariff
   properties:
   - type: OpenAPI
