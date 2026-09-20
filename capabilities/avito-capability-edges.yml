@@ -11,7 +11,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 8
+edge_count: 9
 edges:
 - tag: Job
   spec_file: avito-job-api-openapi.yml
@@ -69,6 +69,17 @@ edges:
   reason: Parcel creation, cancellation, delivery properties, courier/terminal addresses and tracking
     — shipment execution, i.e. logistics operations within fulfilment. Ambiguity between order fulfilment
     and logistics keeps confidence at 0.75.
+- tag: Ratings
+  spec_file: avito-ratings-api-openapi.yml
+  capability_id: BC-430.50
+  capability_id_l1: BC-430
+  capability_name: Customer Feedback Management
+  confidence: 0.75
+  evidence: GET /ratings/v1/reviews Получение списка активных отзывов на пользователя; POST /ratings/v1/answers
+    createReviewAnswerV1 Отправка ответа на отзыв
+  reason: Retrieval of customer reviews and seller rating plus posting/removing replies to reviews — voice-of-customer
+    capture and response. Schemas Review, Rating, ReviewAnswer confirm. Not pure plumbing.
+  recovered_from: vertical-automotive-mobility-edges.json
 - tag: XDelivery
   spec_file: avito-xdelivery-api-openapi.yml
   capability_id: BC-520.50
