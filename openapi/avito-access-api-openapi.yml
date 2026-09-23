@@ -1,18 +1,16 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: supportautoload@avito.ru
-  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+  description: 'Получение и обновление авторизационных токенов для персональной авторизации и авторизации приложений
 
-    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
-
-    '
-  title: Иерархия Аккаунтов Access API
+    **Авито API для бизнеса предоставляется согласно Условиям использования.**'
+  title: Авторизация Access API
   version: '1'
 servers:
 - url: https://api.avito.ru/
 tags:
-- description: "Для работы с API от своего лица необходимо получить токен авторизации — отдельный для каждой учетной записи на Авито.\n\n\n  1. Получаем **client_id** и **client_secret** в [личном кабинете](https://www.avito.ru/professionals/api)\n  2. Выписываем себе токен:\n     ```\n     curl -L -X POST 'https://api.avito.ru/token/' \\\n         -H 'Content-Type: application/x-www-form-urlencoded' \\\n         --data-urlencode 'grant_type=client_credentials' \\\n         --data-urlencode 'client_id=<CLIENT_ID>' \\\n         --data-urlencode 'client_secret=<CLIENT_SECRET>'\n     ```\n  3. Далее выполняем запросы к API с заголовком `Authorization: Bearer <ACCESS_TOKEN>`\n\n  Время действия токена ограничено - 24 часа с момента его получения.\n  После этого вам необходимо получить новый токен.\n"
+- description: Для работы с API от своего лица необходимо получить токен авторизации — отдельный для каждой учетной записи на Авито.
   name: Access
   x-displayName: Персональная авторизация
 paths:
@@ -68,12 +66,26 @@ components:
       type: object
   securitySchemes:
     AuthorizationCode:
-      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](#tag/ApplicationAccess)
       flows:
         authorizationCode:
           authorizationUrl: https://avito.ru/oauth
           scopes:
-            ah:access: Взаимодействие с иерархией аккаунтов
+            autoload:reports: Получение отчетов Автозагрузки
+            items:apply_vas: Применение дополнительных услуг
+            items:info: Получение информации об объявлениях
+            job:applications: Получение информации об откликах на вакансии
+            job:cv: Получение информации резюме
+            job:vacancy: Работа с вакансиями
+            job:write: Изменение объявлений вертикали Работа
+            messenger:read: Чтение сообщений в мессенджере Авито
+            messenger:write: Модифицирование сообщений в мессенджере Авито
+            short_term_rent:read: Получение информации об объявлениях краткосрочной аренды
+            short_term_rent:write: Изменение объявлений краткосрочной аренды
+            stats:read: Получение статистики объявлений
+            user:read: Получение информации о пользователе
+            user_balance:read: Получение баланса пользователя
+            user_operations:read: Получение истории операций пользователя
           tokenUrl: https://api.avito.ru/token
       type: oauth2
     ClientCredentials:

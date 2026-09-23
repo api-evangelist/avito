@@ -1,14 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
+  title: Avito Realty API
+  version: '1'
   contact:
     email: supportautoload@avito.ru
-  description: 'API для взаимодействия с иерархией аккаунтов в Авито
-
-    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
-
-    '
-  title: Иерархия Аккаунтов Access Realty API
-  version: '1'
+  description: 'Operations tagged Realty across 2 of this provider''s published API definitions: avito-realty-reports-openapi.json, avito-str-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.avito.ru/
 tags:
@@ -19,9 +15,7 @@ paths:
       description: 'Получение соответствия переданной цены рыночной цене
 
 
-        **Данный метод доступен только пользователям с активной подпиской «Лидер» в категории «Недвижимость»**
-
-        '
+        **Данный метод доступен только пользователям с активной подпиской «Лидер» в категории «Недвижимость»**'
       operationId: market_price_correspondence_v1
       parameters:
       - description: Идентифиактор объявления
@@ -112,14 +106,14 @@ paths:
         default: 60
       tags:
       - Realty
+    servers:
+    - url: https://api.avito.ru/
   /realty/v1/report/create/{itemId}:
     post:
       description: 'Получение аналитического отчета по недвижимости
 
 
-        **Данный метод доступен только пользователям с активной подпиской «Лидер» в категории «Недвижимость»**
-
-        '
+        **Данный метод доступен только пользователям с активной подпиской «Лидер» в категории «Недвижимость»**'
       operationId: CreateReportForClassified
       parameters:
       - description: Идентификатор объявления
@@ -216,15 +210,15 @@ paths:
         default: 60
       tags:
       - Realty
+    servers:
+    - url: https://api.avito.ru/
   /core/v1/accounts/{user_id}/items/{item_id}/bookings:
     parameters:
     - $ref: '#/components/parameters/authHeader'
     - $ref: '#/components/parameters/pathUserId'
     - $ref: '#/components/parameters/pathItemId'
     post:
-      description: 'Заполнение календаря занятости объекта недвижимости (для краткосрочной аренды)
-
-        '
+      description: Заполнение календаря занятости объекта недвижимости (для краткосрочной аренды)
       operationId: putBookingsInfo
       requestBody:
         content:
@@ -308,6 +302,8 @@ paths:
       summary: Заполнение календаря занятости объекта недвижимости
       tags:
       - Realty
+    servers:
+    - url: https://api.avito.ru/
   /realty/v1/accounts/{user_id}/items/{item_id}/bookings:
     parameters:
     - $ref: '#/components/parameters/authHeader'
@@ -337,9 +333,7 @@ paths:
         example: true
         type: boolean
     get:
-      description: 'Возвращает информацию о бронированиях объекта за весь период.
-
-        '
+      description: Возвращает информацию о бронированиях объекта за весь период.
       operationId: getRealtyBookings
       responses:
         '200':
@@ -390,11 +384,11 @@ paths:
       - AuthorizationCode:
         - short_term_rent:read
       - ClientCredentials: []
-      summary: 'Получение списка броней по объявлению
-
-        '
+      summary: Получение списка броней по объявлению
       tags:
       - Realty
+    servers:
+    - url: https://api.avito.ru/
   /realty/v1/accounts/{user_id}/items/{item_id}/prices:
     parameters:
     - $ref: '#/components/parameters/authHeader'
@@ -402,9 +396,7 @@ paths:
     - $ref: '#/components/parameters/pathItemId'
     - $ref: '#/components/parameters/skipError'
     post:
-      description: 'Обновляет параметры (цена за ночь, доплата за гостя, минимальная продолжительность брони) для каждого из переданных диапазонов дат, изменения применяются к каждой дате диапазона. В случае, если на занимаемые даты есть брони в неподтвержденных статусах, то брони переводятся в статус overbook.
-
-        '
+      description: Обновляет параметры (цена за ночь, доплата за гостя, минимальная продолжительность брони) для каждого из переданных диапазонов дат, изменения применяются к каждой дате диапазона. В случае, если на занимаемые даты есть брони в неподтвержденных статусах, то брони переводятся в статус overbook.
       operationId: postRealtyPrices
       requestBody:
         content:
@@ -471,19 +463,17 @@ paths:
       - AuthorizationCode:
         - short_term_rent:write
       - ClientCredentials: []
-      summary: 'Актуализация параметров для выбранных периодов
-
-        '
+      summary: Актуализация параметров для выбранных периодов
       tags:
       - Realty
+    servers:
+    - url: https://api.avito.ru/
   /realty/v1/items/intervals:
     parameters:
     - $ref: '#/components/parameters/authHeader'
     - $ref: '#/components/parameters/skipError'
     post:
-      description: 'Заполнение календаря доступности объекта недвижимости с квотами и без (для краткосрочной аренды)
-
-        '
+      description: Заполнение календаря доступности объекта недвижимости с квотами и без (для краткосрочной аренды)
       operationId: putIntervals
       requestBody:
         content:
@@ -553,14 +543,14 @@ paths:
       summary: Заполнение доступности объекта недвижимости с квотами и без
       tags:
       - Realty
+    servers:
+    - url: https://api.avito.ru/
   /realty/v1/items/{item_id}/base:
     parameters:
     - $ref: '#/components/parameters/authHeader'
     - $ref: '#/components/parameters/pathItemId'
     post:
-      description: 'Обновляет базовые параметры: цена за ночь, минимальное количество ночей, доплата за гостя,  количество гостей больше которых активируется опция доплаты за гостя, период бесплатной отмены, параметры мгновенного бронирования (активность, максимальное/минимальное количество дней до заселения), скидки на бронирование.
-
-        '
+      description: 'Обновляет базовые параметры: цена за ночь, минимальное количество ночей, доплата за гостя, количество гостей больше которых активируется опция доплаты за гостя, период бесплатной отмены, параметры мгновенного бронирования (активность, максимальное/минимальное количество дней до заселения), скидки на бронирование.'
       operationId: postBaseParams
       requestBody:
         content:
@@ -621,149 +611,125 @@ paths:
       - AuthorizationCode:
         - short_term_rent:write
       - ClientCredentials: []
-      summary: 'Установка базовых параметров
-
-        '
+      summary: Установка базовых параметров
       tags:
       - Realty
+    servers:
+    - url: https://api.avito.ru/
 components:
   schemas:
-    BaseParams:
-      description: Базовые параметры
+    ErrorMessage:
       properties:
-        discount:
-          description: Скидки при бронировании от threshold ночей
+        message:
+          type: string
+      required:
+      - message
+      type: object
+    Error:
+      description: Ошибка
+      properties:
+        code:
+          description: Код ошибки
+          type: integer
+        isTemporary:
+          description: Признак того, что ошибка временная (можно попробовать повторить запрос через некоторое время)
+          type:
+          - boolean
+          - 'null'
+        message:
+          description: Сообщение
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    validatingError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 400
+              format: int32
+              type: integer
+            fields:
+              additionalProperties: {}
+              description: Информация об ошибке валидации параметров в формате ключ-значение
+              type:
+              - object
+              - 'null'
+            message:
+              description: Сообщение об ошибке
+              example: Validation error
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    AvitoBooking:
+      description: Оплаченная на Авито бронь
+      properties:
+        avito_booking_id:
+          description: Идентификатор бронирования на Авито
+          example: 11111
+          format: int64
+          type:
+          - integer
+          - 'null'
+        check_in:
+          description: Дата заезда гостей
+          example: '2026-03-20'
+          format: date
+          type: string
+        check_out:
+          description: Дата выезда гостей
+          example: '2026-03-27'
+          format: date
+          type: string
+      required:
+      - check_in
+      - check_out
+      type: object
+    PostCalendarData:
+      description: Информация о занятости объекта на определённые периоды
+      properties:
+        bookings:
+          description: Список броней для выбранного объекта недвижимости (объявления)
           items:
             properties:
-              percent:
-                description: Процент скидки от суммы бронирования
-                format: int64
-                type: integer
-              threshold:
-                description: Порог ночей, после которых применяется скидка
+              comment:
+                description: Дополнительная информация
+                example: Дополнительная информация
+                type:
+                - string
+                - 'null'
+              date_end:
+                description: Дата окончания периода аренды, не в прошлом
+                example: '2026-04-01'
+                format: date
+                type: string
+              date_start:
+                description: Дата начала периода аренды, не в прошлом
+                example: '2026-03-23'
+                format: date
+                type: string
+              type:
+                description: Даты закрыты вручную или по данными другого OTA (manual, booking)
                 enum:
-                - 3
-                - 7
-                - 30
-                format: int64
-                type: integer
+                - manual
+                - booking
+                type:
+                - string
+                - 'null'
             type: object
           type: array
-        extra_guest_fee:
-          description: Доплата за гостя (рубли)
-          format: int64
-          nullable: true
-          type: integer
-        extra_guest_threshold:
-          description: Порог гостей, при котором цена - night_price
-          enum:
-          - 1
-          - 2
-          - 3
-          - 4
-          - 5
-          - 6
-          - 7
-          - 8
-          format: int64
-          nullable: true
-          type: integer
-        fees:
-          description: Настройки доплат
-          nullable: true
-          properties:
-            cleaning:
-              description: Доплата за уборку после выезда
-              nullable: true
-              properties:
-                amount:
-                  description: Сумма доплаты в рублях. Можно указать 0, если уборка включена в стоимость
-                  format: int64
-                  type: integer
-              type: object
-            pets:
-              description: Доплата за проживание с питомцем
-              nullable: true
-              properties:
-                allowed:
-                  description: Разрешено ли размещение с питомцем
-                  type: boolean
-                amount:
-                  description: Стоимость проживания с питомцем в рублях
-                  format: int64
-                  type: integer
-                application:
-                  description: Тип применения доплаты за питомца (за ночь, за бронь)
-                  enum:
-                  - by_booking
-                  - by_night
-                  type: string
-              type: object
-          type: object
-        instant:
-          description: Параметры мгновенного бронирования
-          nullable: true
-          properties:
-            active:
-              description: Включено ли мгновенное бронирование
-              type: boolean
-            max_days:
-              description: Максимальное количество дней до заселения для работы МБ (если нет, то без ограничений)
-              enum:
-              - 30
-              - 60
-              - 90
-              - 120
-              - 150
-              format: int64
-              nullable: true
-              type: integer
-            min_days:
-              description: Минимальное количество дней до заселения для работы МБ (если нет, то без ограничений)
-              enum:
-              - 1
-              - 2
-              - 3
-              - 4
-              - 5
-              format: int64
-              nullable: true
-              type: integer
-          type: object
-        minimal_duration:
-          description: Минимальная продолжительность (ночи)
-          enum:
-          - 1
-          - 2
-          - 3
-          - 4
-          - 5
-          - 6
-          - 7
-          format: int32
-          nullable: true
-          type: integer
-        night_price:
-          description: Цена проживания за ночь (рубли)
-          format: int64
-          nullable: true
-          type: integer
-        refund:
-          description: Параметры возврата
-          nullable: true
-          properties:
-            days:
-              description: Количество дней до заезда, когда за отмену налагается штраф
-              enum:
-              - 0
-              - 1
-              - 3
-              - 5
-              - 7
-              - 14
-              format: int64
-              type: integer
-          type: object
+        source:
+          description: Название PMS системы
+          example: pms
+          type:
+          - string
+          - 'null'
       type: object
     DatesOverlapBookingError:
       properties:
@@ -787,83 +753,6 @@ components:
           - code
           - message
           - conflicts
-          type: object
-      type: object
-    PostCalendarData:
-      description: Информация о занятости объекта на определённые периоды
-      properties:
-        bookings:
-          description: Список броней для выбранного объекта недвижимости (объявления)
-          items:
-            properties:
-              comment:
-                description: Дополнительная информация
-                example: Дополнительная информация
-                nullable: true
-                type: string
-              date_end:
-                description: Дата окончания периода аренды, не в прошлом
-                example: '2026-04-01'
-                format: date
-                type: string
-              date_start:
-                description: Дата начала периода аренды, не в прошлом
-                example: '2026-03-23'
-                format: date
-                type: string
-              type:
-                description: Даты закрыты вручную или по данными другого OTA (manual, booking)
-                enum:
-                - manual
-                - booking
-                nullable: true
-                type: string
-            type: object
-          type: array
-        source:
-          description: Название PMS системы
-          example: pms
-          nullable: true
-          type: string
-      type: object
-    Error_2:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: error
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    validatingError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 400
-              format: int32
-              type: integer
-            fields:
-              additionalProperties: {}
-              description: Информация об ошибке валидации параметров в формате ключ-значение
-              nullable: true
-              type: object
-            message:
-              description: Сообщение об ошибке
-              example: Validation error
-              type: string
-          required:
-          - code
-          - message
           type: object
       type: object
     ConflictedInterval:
@@ -895,45 +784,187 @@ components:
       - interval
       - bookings
       type: object
-    AvitoBooking:
-      description: Оплаченная на Авито бронь
+    BaseParams:
+      description: Базовые параметры
       properties:
-        avito_booking_id:
-          description: Идентификатор бронирования на Авито
-          example: 11111
+        discount:
+          description: Скидки при бронировании от threshold ночей
+          items:
+            properties:
+              percent:
+                description: Процент скидки от суммы бронирования
+                format: int64
+                type: integer
+              threshold:
+                description: Порог ночей, после которых применяется скидка
+                enum:
+                - 3
+                - 7
+                - 30
+                format: int64
+                type: integer
+            type: object
+          type: array
+        extra_guest_fee:
+          description: Доплата за гостя (рубли)
           format: int64
-          nullable: true
-          type: integer
-        check_in:
-          description: Дата заезда гостей
-          example: '2026-03-20'
-          format: date
-          type: string
-        check_out:
-          description: Дата выезда гостей
-          example: '2026-03-27'
-          format: date
-          type: string
-      required:
-      - check_in
-      - check_out
+          type:
+          - integer
+          - 'null'
+        extra_guest_threshold:
+          description: Порог гостей, при котором цена - night_price
+          enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          format: int64
+          type:
+          - integer
+          - 'null'
+        fees:
+          description: Настройки доплат
+          properties:
+            cleaning:
+              description: Доплата за уборку после выезда
+              properties:
+                amount:
+                  description: Сумма доплаты в рублях. Можно указать 0, если уборка включена в стоимость
+                  format: int64
+                  type: integer
+              type:
+              - object
+              - 'null'
+            pets:
+              description: Доплата за проживание с питомцем
+              properties:
+                allowed:
+                  description: Разрешено ли размещение с питомцем
+                  type: boolean
+                amount:
+                  description: Стоимость проживания с питомцем в рублях
+                  format: int64
+                  type: integer
+                application:
+                  description: Тип применения доплаты за питомца (за ночь, за бронь)
+                  enum:
+                  - by_booking
+                  - by_night
+                  type: string
+              type:
+              - object
+              - 'null'
+          type:
+          - object
+          - 'null'
+        instant:
+          description: Параметры мгновенного бронирования
+          properties:
+            active:
+              description: Включено ли мгновенное бронирование
+              type: boolean
+            max_days:
+              description: Максимальное количество дней до заселения для работы МБ (если нет, то без ограничений)
+              enum:
+              - 30
+              - 60
+              - 90
+              - 120
+              - 150
+              format: int64
+              type:
+              - integer
+              - 'null'
+            min_days:
+              description: Минимальное количество дней до заселения для работы МБ (если нет, то без ограничений)
+              enum:
+              - 1
+              - 2
+              - 3
+              - 4
+              - 5
+              format: int64
+              type:
+              - integer
+              - 'null'
+          type:
+          - object
+          - 'null'
+        minimal_duration:
+          description: Минимальная продолжительность (ночи)
+          enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          format: int32
+          type:
+          - integer
+          - 'null'
+        night_price:
+          description: Цена проживания за ночь (рубли)
+          format: int64
+          type:
+          - integer
+          - 'null'
+        refund:
+          description: Параметры возврата
+          properties:
+            days:
+              description: Количество дней до заезда, когда за отмену налагается штраф
+              enum:
+              - 0
+              - 1
+              - 3
+              - 5
+              - 7
+              - 14
+              format: int64
+              type: integer
+          type:
+          - object
+          - 'null'
       type: object
-    Error:
-      description: Ошибка
+    PostCalendarDataV2:
+      description: Информация о доступности объекта на заданные интервалы
       properties:
-        code:
-          description: Код ошибки
+        intervals:
+          description: Список интервалов для выбранного объявления
+          items:
+            properties:
+              date_end:
+                description: Дата окончания периода
+                example: '2024-04-01'
+                format: date
+                type: string
+              date_start:
+                description: Дата начала периода
+                example: '2024-03-23'
+                format: date
+                type: string
+              open:
+                description: Квота на заданные даты (> 0)
+                example: 5
+                type: integer
+            type: object
+          type: array
+        item_id:
+          description: ID объявления
+          example: 270000555
           type: integer
-        isTemporary:
-          description: Признак того, что ошибка временная (можно попробовать повторить запрос через некоторое время)
-          nullable: true
-          type: boolean
-        message:
-          description: Сообщение
-          type: string
-      required:
-      - code
-      - message
+        source:
+          description: Название PMS системы
+          example: pms
+          type:
+          - string
+          - 'null'
       type: object
     ParamPriceItemRealty:
       description: Параметры аренды для определённого периода
@@ -965,13 +996,6 @@ components:
           example: 1990
           format: int64
           type: integer
-      type: object
-    ErrorMessage:
-      properties:
-        message:
-          type: string
-      required:
-      - message
       type: object
     RealtyBooking:
       description: Информация о бронировании
@@ -1045,39 +1069,6 @@ components:
           - pending
           type: string
       type: object
-    PostCalendarDataV2:
-      description: Информация о доступности объекта на заданные интервалы
-      properties:
-        intervals:
-          description: Список интервалов для выбранного объявления
-          items:
-            properties:
-              date_end:
-                description: Дата окончания периода
-                example: '2024-04-01'
-                format: date
-                type: string
-              date_start:
-                description: Дата начала периода
-                example: '2024-03-23'
-                format: date
-                type: string
-              open:
-                description: Квота на заданные даты (> 0)
-                example: 5
-                type: integer
-            type: object
-          type: array
-        item_id:
-          description: ID объявления
-          example: 270000555
-          type: integer
-        source:
-          description: Название PMS системы
-          example: pms
-          nullable: true
-          type: string
-      type: object
     ParamPricesRealty:
       description: Диапазоны дат и соответствующие им ценовые параметры
       properties:
@@ -1086,7 +1077,30 @@ components:
             $ref: '#/components/schemas/ParamPriceItemRealty'
           type: array
       type: object
+    Error_2:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: error
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
   parameters:
+    skipError:
+      description: Флаг, с которым вместо ошибок(если ошибка произошла с айтемом) возвращается 200 статус, без ошибки
+      in: query
+      name: skip_error
+      schema:
+        type: boolean
     pathItemId:
       description: Идентификатор объявления на сайте
       in: path
@@ -1105,12 +1119,6 @@ components:
         format: int64
         minimum: 1
         type: integer
-    skipError:
-      description: Флаг, с которым вместо ошибок(если ошибка произошла с айтемом) возвращается 200 статус, без ошибки
-      in: query
-      name: skip_error
-      schema:
-        type: boolean
     authHeader:
       description: Токен для авторизации
       example: Bearer ACCESS_TOKEN
@@ -1120,15 +1128,6 @@ components:
       schema:
         type: string
   securitySchemes:
-    AuthorizationCode:
-      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
-      flows:
-        authorizationCode:
-          authorizationUrl: https://avito.ru/oauth
-          scopes:
-            ah:access: Взаимодействие с иерархией аккаунтов
-          tokenUrl: https://api.avito.ru/token
-      type: oauth2
     ClientCredentials:
       description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
       flows:
@@ -1136,3 +1135,28 @@ components:
           scopes: {}
           tokenUrl: https://api.avito.ru/token
       type: oauth2
+    AuthorizationCode:
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      flows:
+        authorizationCode:
+          authorizationUrl: https://avito.ru/oauth
+          scopes:
+            autoload:reports: Получение отчетов Автозагрузки
+            items:apply_vas: Применение дополнительных услуг
+            items:info: Получение информации об объявлениях
+            job:applications: Получение информации об откликах на вакансии
+            job:cv: Получение информации резюме
+            job:write: Изменение объявлений вертикали Работа
+            messenger:read: Чтение сообщений в мессенджере Авито
+            messenger:write: Модифицирование сообщений в мессенджере Авито
+            short_term_rent:read: Получение информации об объявлениях краткосрочной аренды
+            short_term_rent:write: Изменение объявлений краткосрочной аренды
+            stats:read: Получение статистики объявлений
+            user:read: Получение информации о пользователе
+            user_balance:read: Получение баланса пользователя
+            user_operations:read: Получение истории операций пользователя
+          tokenUrl: https://api.avito.ru/token
+      type: oauth2
+x-refined-from:
+- avito-realty-reports-openapi.json
+- avito-str-openapi.json

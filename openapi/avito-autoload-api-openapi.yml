@@ -1,13 +1,13 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: supportautoload@avito.ru
-  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+  description: 'Получение отчётов о публикации и редактировании объявлений через Автозагрузку
 
-    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+    **Авито API для бизнеса предоставляется согласно Условиям использования.**
 
-    '
-  title: Иерархия Аккаунтов Access Autoload API
+    -->'
+  title: Автозагрузка Autoload API
   version: '1'
 servers:
 - url: https://api.avito.ru/
@@ -23,7 +23,7 @@ paths:
       deprecated: true
       description: 'Возвращает настройки профиля пользователя автозагрузки.
 
-        С 23.12.2024 вместо поля upload_url используйте поле feeds_data. В нём содержится название файла и ссылка на него. [Новая версия](https://developers.avito.ru/api-catalog/autoload/documentation#operation/getProfileV2)'
+        С 23.12.2024 вместо поля upload_url используйте поле feeds_data. В нём содержится название файла и ссылка на него. Новая версия'
       operationId: getProfile
       responses:
         '200':
@@ -36,14 +36,16 @@ paths:
                     type: boolean
                   report_email:
                     description: Почта, на которую будут приходить отчеты о выгрузках
-                    nullable: true
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   schedule:
                     $ref: '#/components/schemas/ExportSchedule'
                   upload_url:
                     description: URL-адрес фида, для которого настроены регулярные выгрузки. Должен начинаться с http или https.
-                    nullable: true
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                 required:
                 - upload_url
                 - autoload_enabled
@@ -82,7 +84,10 @@ paths:
       - Autoload
     post:
       deprecated: true
-      description: "Предназначен для создания и управления профилем автозагрузки. Если профиля еще не существует - через этот метод можно его создать. \n\nС 23.12.2024 вместо поля upload_url используйте поле feeds_data. В нём содержится название файла и ссылка на него. [Новая версия](https://developers.avito.ru/api-catalog/autoload/documentation#operation/createOrUpdateProfileV2)\n"
+      description: 'Предназначен для создания и управления профилем автозагрузки. Если профиля еще не существует - через этот метод можно его создать.
+
+
+        С 23.12.2024 вместо поля upload_url используйте поле feeds_data. В нём содержится название файла и ссылка на него. Новая версия'
       operationId: createOrUpdateProfile
       requestBody:
         content:
@@ -117,7 +122,7 @@ paths:
     post:
       description: 'Метод запускает процесс выгрузки объявлений из файла по ссылке, которая указана
 
-        [в настройках автозагрузки](https://www.avito.ru/autoload/settings) в профиле Авито.
+        в настройках автозагрузки в профиле Авито.
 
         В течение часа таким способом можно запустить только одну выгрузку.
 
@@ -127,11 +132,9 @@ paths:
         Все объявления из файла, которые могут быть опубликованы или активированы, будут опубликованы или активированы.
 
 
-        📝 [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link),
+        📝 Напишите нам,
 
-        если в методе вам не хватает каких-либо данных.
-
-        '
+        если в методе вам не хватает каких-либо данных.'
       operationId: upload
       responses:
         '200':
@@ -153,9 +156,7 @@ paths:
       description: 'Метод позволяет получить поля конкретной категории и их параметры, зависимости полей, возможные значения и их типы, предупреждения (например, когда поле станет обязательным) и ссылки на каталоги значений.
 
 
-        📝 [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link), если в методе вам не хватает каких-либо данных.
-
-        '
+        📝 Напишите нам, если в методе вам не хватает каких-либо данных.'
       operationId: userDocsNodeFields
       responses:
         '200':
@@ -227,7 +228,9 @@ paths:
     parameters:
     - $ref: '#/components/parameters/IfModifiedSinceHeader'
     get:
-      description: "Метод позволяет получить дерево категорий Авито в виде массива.  \n\U0001F4DD [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link), если в методе вам не хватает каких-либо данных.\n"
+      description: 'Метод позволяет получить дерево категорий Авито в виде массива.
+
+        📝 Напишите нам, если в методе вам не хватает каких-либо данных.'
       operationId: userDocsTree
       responses:
         '200':
@@ -268,11 +271,9 @@ paths:
       description: 'Метод позволяет получить идентификаторы (ID) объявлений из файла автозагрузки по ID объявлений на Авито.
 
 
-        📝 [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link),
+        📝 Напишите нам,
 
-        если в методе вам не хватает каких-либо данных.
-
-        '
+        если в методе вам не хватает каких-либо данных.'
       operationId: getAdIdsByAvitoIds
       parameters:
       - description: 'Список ID объявлений.
@@ -298,8 +299,9 @@ paths:
                       properties:
                         ad_id:
                           description: Идентификатор объявления из файла
-                          nullable: true
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                         avito_id:
                           description: Идентификатор объявления на Авито
                           type: integer
@@ -325,11 +327,9 @@ paths:
       description: 'Метод позволяет получить идентификаторы (ID) объявлений на Авито по идентификаторам объявлений из файла автозагрузки.
 
 
-        📝 [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link),
+        📝 Напишите нам,
 
-        если в методе вам не хватает каких-либо данных.
-
-        '
+        если в методе вам не хватает каких-либо данных.'
       operationId: getAvitoIdsByAdIds
       parameters:
       - description: 'Список ID объявлений.
@@ -360,8 +360,9 @@ paths:
                           type: string
                         avito_id:
                           description: Идентификатор объявления на Авито
-                          nullable: true
-                          type: integer
+                          type:
+                          - integer
+                          - 'null'
                       required:
                       - ad_id
                       type: object
@@ -398,8 +399,9 @@ paths:
                     $ref: '#/components/schemas/FeedsData'
                   report_email:
                     description: Почта, на которую будут приходить отчеты о выгрузках
-                    nullable: true
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   schedule:
                     $ref: '#/components/schemas/ExportSchedule'
                 required:
@@ -439,9 +441,7 @@ paths:
       tags:
       - Autoload
     post:
-      description: 'Предназначен для создания и управления профилем автозагрузки. Если профиля еще не существует - через этот метод можно его создать. С 23.12.2024 вместо поля feed_url используйте поле feeds_data. В нём содержится название файла и ссылка на него.
-
-        '
+      description: Предназначен для создания и управления профилем автозагрузки. Если профиля еще не существует - через этот метод можно его создать. С 23.12.2024 вместо поля feed_url используйте поле feeds_data. В нём содержится название файла и ссылка на него.
       operationId: createOrUpdateProfileV2
       requestBody:
         content:
@@ -480,14 +480,12 @@ paths:
         Они будут отсортированы в порядке убывания: самый свежий отчёт — в начале списка.
 
 
-        📝 [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link),
+        📝 Напишите нам,
 
         если в методе вам не хватает каких-либо данных.
 
 
-        Метод будет отключен 08.03.2027. С 08.09.2026 метод начнёт возвращать меньше данных. Подробнее читайте в [плане миграции](https://developers.avito.ru/api-catalog/autoload/documentation#migration-v4).
-
-        '
+        Метод будет отключен 08.03.2027. С 08.09.2026 метод начнёт возвращать меньше данных. Подробнее читайте в плане миграции.'
       operationId: getReportsV2
       parameters:
       - description: 'Количество отчётов на странице: целое число больше 0 и меньше или равно 200.
@@ -556,14 +554,12 @@ paths:
       description: 'По запросу API отдаст данные по конкретным объявлениям.
 
 
-        📝 [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link),
+        📝 Напишите нам,
 
         если в методе вам не хватает каких-либо данных.
 
 
-        Метод будет отключен 08.03.2027. С 08.09.2026 метод начнёт возвращать меньше данных. Подробнее читайте в [плане миграции](https://developers.avito.ru/api-catalog/autoload/documentation#migration-v4).
-
-        '
+        Метод будет отключен 08.03.2027. С 08.09.2026 метод начнёт возвращать меньше данных. Подробнее читайте в плане миграции.'
       operationId: getAutoloadItemsInfoV2
       parameters:
       - description: 'Идентификаторы объявлений из файла ([параметр Id](https://autoload.avito.ru/format/realty/#Id)).
@@ -609,7 +605,7 @@ paths:
         Например, сколько объявлений было в файле и сколько из них было опубликовано с ошибками или без.
 
 
-        📝 [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link),
+        📝 Напишите нам,
 
         если в методе вам не хватает каких-либо данных.
 
@@ -617,9 +613,7 @@ paths:
         С 23.12.2024 вместо поля feed_url используйте поле feeds_urls. В нём содержится название файла и ссылка на него.
 
 
-        Метод будет отключен 08.03.2027. С 08.09.2026 метод начнёт возвращать меньше данных. Подробнее читайте в [плане миграции](https://developers.avito.ru/api-catalog/autoload/documentation#migration-v4).
-
-        '
+        Метод будет отключен 08.03.2027. С 08.09.2026 метод начнёт возвращать меньше данных. Подробнее читайте в плане миграции.'
       operationId: getLastCompletedReport
       parameters:
       - $ref: '#/components/parameters/authHeader'
@@ -647,7 +641,7 @@ paths:
         Например, сколько объявлений было в файле и сколько из них было опубликовано с ошибками или без.
 
 
-        📝 [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link),
+        📝 Напишите нам,
 
         если в методе вам не хватает каких-либо данных.
 
@@ -655,9 +649,7 @@ paths:
         С 23.12.2024 вместо поля feed_url используйте поле feeds_urls. В нём содержится название файла и ссылка на него.
 
 
-        Метод будет отключен 08.03.2027. С 08.09.2026 метод начнёт возвращать меньше данных. Подробнее читайте в [плане миграции](https://developers.avito.ru/api-catalog/autoload/documentation#migration-v4).
-
-        '
+        Метод будет отключен 08.03.2027. С 08.09.2026 метод начнёт возвращать меньше данных. Подробнее читайте в плане миграции.'
       operationId: getReportByIdV2
       parameters:
       - description: Идентификатор отчёта (ID)
@@ -689,7 +681,7 @@ paths:
       description: 'С помощью этого метода можно получить результаты обработки каждого объявления в конкретной выгрузке.
 
 
-        📝 [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link),
+        📝 Напишите нам,
 
         если в методе вам не хватает каких-либо данных.
 
@@ -697,9 +689,7 @@ paths:
         С 23.12.2024 добавляется поле feed_name. В нём содержится название файла.
 
 
-        Метод будет отключен 08.03.2027. С 08.09.2026 метод начнёт возвращать меньше данных. Подробнее читайте в [плане миграции](https://developers.avito.ru/api-catalog/autoload/documentation#migration-v4).
-
-        '
+        Метод будет отключен 08.03.2027. С 08.09.2026 метод начнёт возвращать меньше данных. Подробнее читайте в плане миграции.'
       operationId: getReportItemsById
       parameters:
       - description: Идентификатор отчёта (ID)
@@ -783,14 +773,12 @@ paths:
       description: 'С помощью этого метода можно получить информацию о списаниях за размещение каждого объявления в конкретной выгрузке.
 
 
-        📝 [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link),
+        📝 Напишите нам,
 
         если в методе вам не хватает каких-либо данных.
 
 
-        Метод будет отключен 08.03.2027. С 08.09.2026 метод начнёт возвращать меньше данных. Подробнее читайте в [плане миграции](https://developers.avito.ru/api-catalog/autoload/documentation#migration-v4).
-
-        '
+        Метод будет отключен 08.03.2027. С 08.09.2026 метод начнёт возвращать меньше данных. Подробнее читайте в плане миграции.'
       operationId: getReportItemsFeesById
       parameters:
       - description: Идентификатор отчёта (ID)
@@ -888,7 +876,7 @@ paths:
         Например, сколько объявлений было в файле и сколько из них было опубликовано с ошибками или без.
 
 
-        📝 [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link),
+        📝 Напишите нам,
 
         если в методе вам не хватает каких-либо данных.
 
@@ -896,9 +884,7 @@ paths:
         С 23.12.2024 вместо поля feed_url используйте поле feeds_urls. В нём содержится название файла и ссылка на него.
 
 
-        Метод будет отключен 08.03.2027. С 08.09.2026 метод начнёт возвращать меньше данных. Подробнее читайте в [плане миграции](https://developers.avito.ru/api-catalog/autoload/documentation#migration-v4).
-
-        '
+        Метод будет отключен 08.03.2027. С 08.09.2026 метод начнёт возвращать меньше данных. Подробнее читайте в плане миграции.'
       operationId: getLastCompletedReportV3
       parameters:
       - $ref: '#/components/parameters/authHeader'
@@ -926,7 +912,7 @@ paths:
         Например, сколько объявлений было в файле и сколько из них было опубликовано с ошибками или без.
 
 
-        📝 [Напишите нам](https://docs.google.com/forms/d/e/1FAIpQLSdfTHlP6PKtOb08fxD7BaJ0VjtkaLXoRAswhF9gnKvrEyY16g/viewform?usp=sf_link),
+        📝 Напишите нам,
 
         если в методе вам не хватает каких-либо данных.
 
@@ -934,9 +920,7 @@ paths:
         С 23.12.2024 вместо поля feed_url используйте поле feeds_urls. В нём содержится название файла и ссылка на него.
 
 
-        Метод будет отключен 08.03.2027. С 08.09.2026 метод начнёт возвращать меньше данных. Подробнее читайте в [плане миграции](https://developers.avito.ru/api-catalog/autoload/documentation#migration-v4).
-
-        '
+        Метод будет отключен 08.03.2027. С 08.09.2026 метод начнёт возвращать меньше данных. Подробнее читайте в плане миграции.'
       operationId: getReportByIdV3
       parameters:
       - description: Идентификатор отчёта (ID)
@@ -964,9 +948,7 @@ paths:
       - Autoload
   /autoload/v4/uploads:
     get:
-      description: 'Возвращает список загрузок. Самая свежая загрузка — в начале списка.
-
-        '
+      description: Возвращает список загрузок. Самая свежая загрузка — в начале списка.
       operationId: getUploads
       parameters:
       - description: 'Количество загрузок на странице
@@ -1117,11 +1099,9 @@ paths:
       - Autoload
   /autoload/v4/uploads/current:
     get:
-      description: 'Возвращает текущую загрузку пользователя, т.е. последнюю загрузку, которая обработала хотя бы одно объявление фида. Подходит, когда нужны самые актуальные данные. Но эти данные могут меняться в процессе загрузки - для получения стабильных данных лучше использовать метод [последней завершённой загрузки](#operation/getLastSuccessfulUpload).
+      description: 'Возвращает текущую загрузку пользователя, т.е. последнюю загрузку, которая обработала хотя бы одно объявление фида. Подходит, когда нужны самые актуальные данные. Но эти данные могут меняться в процессе загрузки - для получения стабильных данных лучше использовать метод последней завершённой загрузки.
 
-        Если подходящей загрузки нет — возвращается ответ `404`.
-
-        '
+        Если подходящей загрузки нет — возвращается ответ `404`.'
       operationId: getCurrentUpload
       parameters:
       - $ref: '#/components/parameters/authHeader'
@@ -1201,12 +1181,10 @@ paths:
       - Autoload
   /autoload/v4/uploads/current/items:
     get:
-      description: 'Возвращает объявления [текущей загрузки](#operation/getCurrentUpload).
+      description: 'Возвращает объявления текущей загрузки.
 
 
-        Если подходящей загрузки нет — возвращается ответ `404`.
-
-        '
+        Если подходящей загрузки нет — возвращается ответ `404`.'
       operationId: getCurrentUploadItems
       parameters:
       - description: 'Поиск по одному или нескольким [идентификаторам объявлений из файла](https://www.avito.ru/autoload/documentation/templates/66940?fileFormat=xml#field-Id),
@@ -1340,12 +1318,10 @@ paths:
       - Autoload
   /autoload/v4/uploads/last_successful:
     get:
-      description: 'Возвращает последнюю успешно завершённую загрузку, т.е. загрузку, которая обработала все объявления фида. Для самой последней загрузки возможны задержки при определении того, что загрузка завершена — в таком случае смотрите актуальные данные в методе [текущей загрузки](#operation/getCurrentUpload).
+      description: 'Возвращает последнюю успешно завершённую загрузку, т.е. загрузку, которая обработала все объявления фида. Для самой последней загрузки возможны задержки при определении того, что загрузка завершена — в таком случае смотрите актуальные данные в методе текущей загрузки.
 
 
-        Если подходящей загрузки нет — возвращается ответ `404`.
-
-        '
+        Если подходящей загрузки нет — возвращается ответ `404`.'
       operationId: getLastSuccessfulUpload
       parameters:
       - $ref: '#/components/parameters/authHeader'
@@ -1425,12 +1401,10 @@ paths:
       - Autoload
   /autoload/v4/uploads/last_successful/items:
     get:
-      description: 'Возвращает объявления [последней успешно завершённой загрузки](#operation/getLastSuccessfulUpload).
+      description: 'Возвращает объявления последней успешно завершённой загрузки.
 
 
-        Если подходящей загрузки нет — возвращается ответ `404`.
-
-        '
+        Если подходящей загрузки нет — возвращается ответ `404`.'
       operationId: getLastSuccessfulUploadItems
       parameters:
       - description: 'Поиск по одному или нескольким [идентификаторам объявлений из файла](https://www.avito.ru/autoload/documentation/templates/66940?fileFormat=xml#field-Id),
@@ -1564,6 +1538,345 @@ paths:
       - Autoload
 components:
   schemas:
+    ItemInfoAutoloadV2:
+      properties:
+        ad_id:
+          description: 'Идентификатор объявления из файла ([параметр Id](https://autoload.avito.ru/format/realty/#Id))
+
+            '
+          type: string
+        avito_date_end:
+          description: Дата окончания оплаченного периода размещения объявления
+          format: date-time
+          type:
+          - string
+          - 'null'
+        avito_id:
+          description: Идентификатор объявления на Авито
+          type:
+          - integer
+          - 'null'
+        avito_status:
+          description: "Статус объявления на Авито\n  - active – Объявление активно\n  - old – Срок размещения объявления истёек\n  - blocked – Объявление заблокировано\n  - rejected – Объявление отклонено для исправления нарушений\n  - archived – Объявление находится в Архиве\n  - removed – Объявление удалено навсегда\n"
+          enum:
+          - active
+          - old
+          - blocked
+          - rejected
+          - archived
+          - removed
+          type:
+          - string
+          - 'null'
+        fee_info:
+          description: Информация о списании за размещение объявления
+          properties:
+            amount:
+              description: Сумма средств, списанных из кошелька за это объявление (передаётся, если type = single)
+              type:
+              - integer
+              - 'null'
+            package_id:
+              description: ID пакета размещений, из которого было списание за это объявление (передаётся, если type = package)
+              type:
+              - integer
+              - 'null'
+            type:
+              description: "Способ оплаты\n  - single – Оплата из кошелька\n  - package – Оплата из пакета размещений\n"
+              enum:
+              - single
+              - package
+              type: string
+          type:
+          - object
+          - 'null'
+        messages:
+          description: Ошибки или предупреждения по объявлению
+          items:
+            $ref: '#/components/schemas/ItemInfoError'
+          type: array
+        processing_time:
+          description: Дата и время последней обработки объявления
+          format: date-time
+          type:
+          - string
+          - 'null'
+        section:
+          description: Раздел отчёта, в котором находится объявление — то есть результат обработки объявления в последней выгрузке
+          properties:
+            slug:
+              description: ID раздела
+              type: string
+            title:
+              description: Название раздела
+              type: string
+          required:
+          - slug
+          - title
+          type: object
+        url:
+          description: Ссылка на объявление на Авито
+          type:
+          - string
+          - 'null'
+      required:
+      - ad_id
+      - avito_id
+      - url
+      - messages
+      - fee_info
+      - processing_time
+      - avito_date_end
+      - avito_status
+      type: object
+    UploadEventV4:
+      description: Событие загрузки (ошибка или предупреждение, относящееся ко всей загрузке)
+      properties:
+        code:
+          description: Код события
+          type: integer
+        description:
+          description: Описание события
+          type: string
+        type:
+          description: Тип события
+          type: string
+      required:
+      - code
+      - type
+      - description
+      type: object
+    APIDependencyPair:
+      properties:
+        clause:
+          enum:
+          - value
+          - filled
+          - empty
+          type: string
+        source_field_tag:
+          type: string
+        values:
+          items:
+            type: string
+          type: array
+      type: object
+    ChildAPIField:
+      description: Поля для категории, включая поля вложенных подкатегорий.
+      properties:
+        content:
+          description: 'Набор правил для заполнения тега. У одного тега может быть набор правил с разными условиями их применения. Одновременно они не применяются — все, кроме одного, должны быть исключены по правилам, описанным в атрибуте dependencies.
+
+
+            Иногда ни один из элементов не применяется. Так бывает, если текущее поле зависит от значения другого поля — пока не будет удовлетворено условие заполнения другого поля, текущее поле будет недоступно.
+
+
+            Если у поля нет аттрибута dependencies, поле считается доступным для заполнения.
+
+            '
+          items:
+            $ref: '#/components/schemas/APIFieldContent'
+          type: array
+        descriptions:
+          description: Описание тега
+          example: Категория объявления
+          type: string
+        feed_format:
+          example:
+            xml: null
+          items:
+            enum:
+            - xml
+            - excel
+            type: string
+          type: array
+        label:
+          description: Label (на русском) для указания в файле загрузки
+          example: Категория
+          type: string
+        tag:
+          description: Тег для указания в файле загрузки
+          example: Category
+          type: string
+      type: object
+    APIDependency:
+      properties:
+        action:
+          description: 'Что нужно сделать с полем после применения правил.
+
+            - visible означает, что поле становится доступным для заполнения.
+
+            - required означает, что поле становится обязательным. Поле до применения этого правила считается доступным для заполнения, меняется только обязательность.
+
+            - hidden означает, что поле становится недоступным для заполнения.
+
+            '
+          enum:
+          - visible
+          - required
+          - hidden
+          type: string
+        clause:
+          description: Логический оператор для определения применимости — нужно применить все правила или только одно из них.
+          enum:
+          - or
+          - and
+          type: string
+        pairs:
+          description: Список правил
+          items:
+            $ref: '#/components/schemas/APIDependencyPair'
+          type: array
+      type: object
+    UploadItemAutoloadV4:
+      properties:
+        ad_id:
+          description: 'Идентификатор объявления из файла ([параметр Id](https://www.avito.ru/autoload/documentation/templates/66940?fileFormat=xml#field-Id))
+
+            '
+          type: string
+        avito_date_end:
+          description: Дата окончания оплаченного периода размещения
+          format: date-time
+          type:
+          - string
+          - 'null'
+        avito_id:
+          description: Идентификатор объявления на Авито
+          type:
+          - integer
+          - 'null'
+        avito_status:
+          description: 'Статус объявления на Авито
+
+            - `active` — объявление активно
+
+            - `old` — срок размещения объявления истёк
+
+            - `blocked` — объявление заблокировано
+
+            - `rejected` — объявление отклонено для исправления нарушений
+
+            - `archived` — объявление находится в архиве
+
+            - `removed` — объявление удалено навсегда
+
+            '
+          enum:
+          - active
+          - old
+          - blocked
+          - rejected
+          - archived
+          - removed
+          type:
+          - string
+          - 'null'
+        feed_name:
+          description: Название файла, из которого было взято объявление
+          type:
+          - string
+          - 'null'
+        messages:
+          description: Сообщения по объявлению (ошибки, предупреждения)
+          items:
+            $ref: '#/components/schemas/ItemMessageV4'
+          type: array
+        section:
+          $ref: '#/components/schemas/ItemSectionV4'
+        url:
+          description: Ссылка на объявление на Авито
+          type:
+          - string
+          - 'null'
+      required:
+      - ad_id
+      - section
+      - messages
+      type: object
+    APICategoryTreeOut:
+      properties:
+        categories:
+          items:
+            $ref: '#/components/schemas/APICategoryNode'
+          type: array
+      required:
+      - categories
+      type: object
+    FieldValue:
+      properties:
+        description:
+          description: Опциональное описание значения
+          type: string
+        value:
+          description: Текстовое значение
+          example: Предложение услуг
+          type: string
+      type:
+      - object
+      - 'null'
+    ItemSectionV4:
+      description: Раздел отчёта, в котором находится объявление
+      properties:
+        slug:
+          description: ID раздела
+          type: string
+        title:
+          description: Название раздела
+          type: string
+      required:
+      - slug
+      - title
+      type: object
+    ExportSchedule:
+      description: "Расписание регулярных выгрузок. Содержит в себе периоды и сколько объявлений загружать за каждый период. \nКаждый период означает часовой промежуток, в течение которого будет запущена выгрузка.\nВремя указывается по Москве.\n"
+      items:
+        properties:
+          rate:
+            description: Количество объявлений за период
+            type: integer
+          time_slots:
+            description: 'Период, в который будет запущена выгрузка.
+
+              Допустимые значения: целые числа от 0 до 23, где 0 - это промежуток времени 00:00-01:00, а 23 - промежуток 23:00-24:00
+
+              '
+            items:
+              type: integer
+            type: array
+          weekdays:
+            description: 'День недели периода.
+
+              Допустимые значения: целые числа от 0 до 6, где 0 - понедельник, 6 - воскресенье.
+
+              '
+            items:
+              type: integer
+            type: array
+        required:
+        - rate
+        - weekdays
+        - time_slots
+        type: object
+      type: array
+    APICategoryNode:
+      properties:
+        name:
+          description: Название категории
+          type: string
+        nested:
+          description: Дочерние категории
+          items:
+            additionalProperties:
+              items:
+                $ref: '#/components/schemas/APICategoryNode'
+          type: array
+        slug:
+          description: Slug категории для получения полей
+          type: string
+      required:
+      - name
+      type: object
     SectionStatsV4:
       description: 'Дерево разделов загрузки с количеством объявлений в каждом разделе.
 
@@ -1637,20 +1950,7 @@ components:
       - count
       - sections
       type: object
-    ItemSectionV4:
-      description: Раздел отчёта, в котором находится объявление
-      properties:
-        slug:
-          description: ID раздела
-          type: string
-        title:
-          description: Название раздела
-          type: string
-      required:
-      - slug
-      - title
-      type: object
-    MetaReportsAutoloadV2:
+    PaginationMetaV4:
       description: Данные пагинации
       properties:
         page:
@@ -1659,12 +1959,193 @@ components:
         pages:
           description: Общее количество страниц
           type: integer
-        per_page:
-          description: Количество отчётов на странице
+        perPage:
+          description: Количество ресурсов на странице
           type: integer
         total:
-          description: Общее количество отчётов
+          description: Общее количество ресурсов
           type: integer
+      required:
+      - perPage
+      - page
+      - pages
+      - total
+      type: object
+    APIField:
+      description: Поля для категории, включая поля вложенных подкатегорий.
+      properties:
+        children:
+          items:
+            $ref: '#/components/schemas/ChildAPIField'
+          type: array
+        content:
+          description: 'Набор правил для заполнения тега. У одного тега может быть набор правил с разными условиями их применения. Одновременно они не применяются — все, кроме одного, должны быть исключены по правилам, описанным в атрибуте dependencies.
+
+
+            Иногда ни один из элементов не применяется. Так бывает, если текущее поле зависит от значения другого поля — пока не будет удовлетворено условие заполнения другого поля, текущее поле будет недоступно.
+
+
+            Если у поля нет аттрибута dependencies, поле считается доступным для заполнения.
+
+            '
+          items:
+            $ref: '#/components/schemas/APIFieldContent'
+          type: array
+        descriptions:
+          description: Описание тега
+          example: Категория объявления
+          type: string
+        feed_format:
+          example:
+            xml: null
+          items:
+            enum:
+            - xml
+            - excel
+            type: string
+          type: array
+        label:
+          description: Label (на русском) для указания в файле загрузки
+          example: Категория
+          type: string
+        tag:
+          description: Тег для указания в файле загрузки
+          example: Category
+          type: string
+      type: object
+    ItemFeesInfoReportAutoloadV2:
+      properties:
+        ad_id:
+          description: 'Идентификатор объявления из файла ([параметр Id](https://autoload.avito.ru/format/realty/#Id))
+
+            '
+          type: string
+        avito_id:
+          description: Идентификатор объявления на Авито
+          type: integer
+        fees_amount:
+          description: 'Сумма средств, списанных из кошелька, при разовой оплате либо количество размещений, списанных из пакета
+
+            '
+          type: integer
+        fees_package_id:
+          description: ID пакета размещений
+          type:
+          - integer
+          - 'null'
+        fees_type:
+          description: Тип списания (разовая оплата или из пакета размещений)
+          enum:
+          - single
+          - package
+          type: string
+      required:
+      - ad_id
+      - avito_id
+      - fees_type
+      - fees_amount
+      type: object
+    FieldErrorV2:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              type: integer
+            message:
+              description: Описание ошибки
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    APIFieldContent:
+      properties:
+        data_type:
+          description: Тип данных в поле.
+          enum:
+          - string
+          - integer
+          - float
+          example: string
+          type: string
+        default:
+          $ref: '#/components/schemas/FieldValue'
+        dependencies:
+          description: Список зависимостей одного поля от других. Информация в этих объектах нужна для определения, какое именно правило заполнения поля применить.
+          items:
+            $ref: '#/components/schemas/APIDependency'
+          type: array
+        dependencies_text:
+          description: Текстовое представление описания зависимостей поля.
+          items:
+            type: string
+          type: array
+        field_type:
+          description: "Тип поля. \n- input означает, что поле может быть заполнено произвольным значением.\n- select означает, что поле может принимать одно из заданных значений.   Заданные значения указаны в поле values или доступны по ссылке.\n- checkbox означает, что поле может принимать одно или несколько заданных значений. Заданные значения указаны в поле values или доступны по ссылке.\n"
+          enum:
+          - input
+          - select
+          - checkbox
+          example: select
+          type: string
+        is_catalog:
+          description: 'Являются ли значения поля каталожными.
+
+            '
+          example: 'true'
+          type: boolean
+        name_in_catalog:
+          description: 'Название поля в каталоге.
+
+            '
+          example: vendor
+          type:
+          - string
+          - 'null'
+        required:
+          description: Признак обязательности поля
+          example: true
+          type: boolean
+        required_by_dependency:
+          description: Признак того, что поле может быть обязательным в зависимости от значения другого поля. Чтобы понять, есть ли зависимость, надо смотреть содержание атрибута dependencies.
+          example: true
+          type: boolean
+        values:
+          description: Список возможных значений для поля.
+          items:
+            $ref: '#/components/schemas/FieldValue'
+          type: array
+        values_link_json:
+          description: 'Ссылка для получения списка полей в формате json. Структура значений по этой ссылке строго определена. Иногда бывает так, что ссылки нет.
+
+            '
+          example: https://api.avito.ru/autoload/v1/user-docs/node/zapchasti_i_aksessuary/field/115633/values-json
+          type:
+          - string
+          - 'null'
+        values_link_xml:
+          description: 'Ссылка для получения списка полей в формате xml. Нет строгого формата значений по этой ссылке. Иногда бывает так, что ссылки нет, — вместо неё отображается атрибут values.
+
+            '
+          example: https://api.avito.ru/autoload/v1/user-docs/node/zapchasti_i_aksessuary/field/115633/values-xml
+          type:
+          - string
+          - 'null'
+        values_range:
+          $ref: '#/components/schemas/FieldValueRange'
+        warnings:
+          items:
+            $ref: '#/components/schemas/FieldWarning'
+          type:
+          - array
+          - 'null'
+      required:
+      - field_type
+      - data_type
+      - required
+      - required_by_dependency
       type: object
     ItemInfoError:
       properties:
@@ -1696,7 +2177,22 @@ components:
       - description
       - updated_at
       type: object
-    UpsertProfileIn:
+    APIFieldsOut:
+      properties:
+        alert:
+          $ref: '#/components/schemas/APFieldsNodeAlert'
+        fields:
+          description: Массив полей категории
+          items:
+            $ref: '#/components/schemas/APIField'
+          type: array
+        node:
+          $ref: '#/components/schemas/APIFieldsNode'
+      required:
+      - node
+      - fields
+      type: object
+    UpsertProfileInV2:
       properties:
         agreement:
           description: 'Согласие с [правилами](https://support.avito.ru/articles/203867776) использования Авито Автозагрузки.
@@ -1705,69 +2201,43 @@ components:
             Обязательно, если профиль еще не существует.
 
             '
-          nullable: true
-          type: boolean
+          type:
+          - boolean
+          - 'null'
         autoload_enabled:
           description: Статус автозагрузки (вкл/выкл)
           type: boolean
+        feeds_data:
+          $ref: '#/components/schemas/FeedsData'
         report_email:
           description: Почта, на которую будут приходить отчеты о выгрузках
           type: string
         schedule:
           $ref: '#/components/schemas/ExportSchedule'
-        upload_url:
-          description: URL-адрес фида, для которого настроены регулярные выгрузки. Должен начинаться с http или https.
-          type: string
       required:
-      - upload_url
+      - feeds_data
       - schedule
       - autoload_enabled
       - report_email
       type: object
-    ItemMessageV4:
-      description: Сообщение по объявлению (ошибка, предупреждение, информационное сообщение)
+    FieldValueRange:
+      description: Промежуток допустимых значений. Применимо для типов данных int и float. Для типа данных string является ограничением длины строки.
       properties:
-        code:
-          description: Код сообщения
-          type: integer
-        description:
-          description: Описание сообщения
-          type: string
-        title:
-          description: Название сообщения
-          type: string
-        type:
-          description: 'Тип сообщения
-
-            - `error` — критическая ошибка, объявление не редактируется/не публикуется
-
-            - `warning` — некритическая ошибка
-
-            - `alarm` — предупреждение, не влияющее на загрузку
-
-            - `info` — информационное сообщение
-
-            '
-          enum:
-          - error
-          - warning
-          - alarm
-          - info
-          type: string
-        updated_at:
-          description: Дата актуальности сообщения
-          format: date-time
-          type: string
-      required:
-      - code
-      - title
-      - description
-      - type
-      - updated_at
-      type: object
+        max:
+          example: 42
+          type:
+          - integer
+          - 'null'
+        min:
+          example: 0
+          type:
+          - integer
+          - 'null'
+      type:
+      - object
+      - 'null'
     APFieldsNodeAlert:
       description: Предупреждение для запрошенной категории
-      nullable: true
       properties:
         description:
           description: Описание предупреждения
@@ -1785,63 +2255,34 @@ components:
           - info
           example: warning
           type: string
-      type: object
-    APICategoryTreeOut:
-      properties:
-        categories:
-          items:
-            $ref: '#/components/schemas/APICategoryNode'
-          type: array
-      required:
-      - categories
-      type: object
-    APIDependency:
-      properties:
-        action:
-          description: 'Что нужно сделать с полем после применения правил.
-
-            - visible означает, что поле становится доступным для заполнения.
-
-            - required означает, что поле становится обязательным. Поле до применения этого правила считается доступным для заполнения, меняется только обязательность.
-
-            - hidden означает, что поле становится недоступным для заполнения.
-
-            '
-          enum:
-          - visible
-          - required
-          - hidden
-          type: string
-        clause:
-          description: Логический оператор для определения применимости — нужно применить все правила или только одно из них.
-          enum:
-          - or
-          - and
-          type: string
-        pairs:
-          description: Список правил
-          items:
-            $ref: '#/components/schemas/APIDependencyPair'
-          type: array
-      type: object
-    ItemInfoAutoloadV2:
+      type:
+      - object
+      - 'null'
+    ItemInfoReportAutoloadV2:
       properties:
         ad_id:
           description: 'Идентификатор объявления из файла ([параметр Id](https://autoload.avito.ru/format/realty/#Id))
 
             '
           type: string
+        applied_vas:
+          description: Список примененных в конкретной выгрузке [услуг продвижения](https://support.avito.ru/partitions/131)
+          items:
+            $ref: '#/components/schemas/ItemInfoVas'
+          type: array
         avito_date_end:
           description: Дата окончания оплаченного периода размещения объявления
-          format: date-time
-          nullable: true
-          type: string
+          format: ISO 8601
+          type:
+          - string
+          - 'null'
         avito_id:
           description: Идентификатор объявления на Авито
-          nullable: true
-          type: integer
+          type:
+          - integer
+          - 'null'
         avito_status:
-          description: "Статус объявления на Авито\n  - active – Объявление активно\n  - old – Срок размещения объявления истёек\n  - blocked – Объявление заблокировано\n  - rejected – Объявление отклонено для исправления нарушений\n  - archived – Объявление находится в Архиве\n  - removed – Объявление удалено навсегда\n"
+          description: "Статус объявления на Авито\n  - active – Объявление активно\n  - old – Срок размещения объявления истёк\n  - blocked – Объявление заблокировано\n  - rejected – Объявление отклонено для исправления нарушений\n  - archived – Объявление находится в архиве\n  - removed – Объявление удалено навсегда\n"
           enum:
           - active
           - old
@@ -1849,39 +2290,21 @@ components:
           - rejected
           - archived
           - removed
-          nullable: true
-          type: string
-        fee_info:
-          description: Информация о списании за размещение объявления
-          nullable: true
-          properties:
-            amount:
-              description: Сумма средств, списанных из кошелька за это объявление (передаётся, если type = single)
-              nullable: true
-              type: integer
-            package_id:
-              description: ID пакета размещений, из которого было списание за это объявление (передаётся, если type = package)
-              nullable: true
-              type: integer
-            type:
-              description: "Способ оплаты\n  - single – Оплата из кошелька\n  - package – Оплата из пакета размещений\n"
-              enum:
-              - single
-              - package
-              type: string
-          type: object
+          type:
+          - string
+          - 'null'
+        feed_name:
+          description: Название фида из которого был взято объявление
+          type:
+          - string
+          - 'null'
         messages:
           description: Ошибки или предупреждения по объявлению
           items:
             $ref: '#/components/schemas/ItemInfoError'
           type: array
-        processing_time:
-          description: Дата и время последней обработки объявления
-          format: date-time
-          nullable: true
-          type: string
         section:
-          description: Раздел отчёта, в котором находится объявление — то есть результат обработки объявления в последней выгрузке
+          description: Раздел отчёта, в котором находится объявление — то есть результат обработки объявления в конкретной выгрузке
           properties:
             slug:
               description: ID раздела
@@ -1895,15 +2318,15 @@ components:
           type: object
         url:
           description: Ссылка на объявление на Авито
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
       required:
+      - section
       - ad_id
       - avito_id
       - url
       - messages
-      - fee_info
-      - processing_time
       - avito_date_end
       - avito_status
       type: object
@@ -1962,6 +2385,417 @@ components:
       - title
       - price
       type: object
+    MetaReportsAutoloadV2:
+      description: Данные пагинации
+      properties:
+        page:
+          description: Номер страницы
+          type: integer
+        pages:
+          description: Общее количество страниц
+          type: integer
+        per_page:
+          description: Количество отчётов на странице
+          type: integer
+        total:
+          description: Общее количество отчётов
+          type: integer
+      type: object
+    APIFieldsNode:
+      description: Данные запрашиваемой категории
+      properties:
+        name:
+          description: Название категории
+          example: Ремонт
+          type: string
+        slug:
+          description: Уникальный идентификатор категории (slug)
+          example: remont
+          type: string
+      required:
+      - name
+      - slug
+      type: object
+    ReportShortAutoloadV2:
+      description: Список отчетов (новый)
+      items:
+        properties:
+          finished_at:
+            description: Дата и время закрытия отчёта (окончания выгрузки)
+            format: date-time
+            type: string
+          id:
+            description: Идентификатор отчёта (ID)
+            type: integer
+          started_at:
+            description: Дата и время создания отчёта (начала выгрузки)
+            format: date-time
+            type: string
+          status:
+            description: 'Статус отчёта
+
+              - processing – Отчёт в процессе, загрузка ещё не завершена
+
+              - success – Загрузка прошла без ошибок
+
+              - success_warning – В части объявлений есть ошибки
+
+              - error – Загрузка не удалась
+
+              '
+            enum:
+            - processing
+            - success
+            - success_warning
+            - error
+            type: string
+        required:
+        - id
+        - started_at
+        - finished_at
+        - status
+        type: object
+      type: array
+    ItemMessageV4:
+      description: Сообщение по объявлению (ошибка, предупреждение, информационное сообщение)
+      properties:
+        code:
+          description: Код сообщения
+          type: integer
+        description:
+          description: Описание сообщения
+          type: string
+        title:
+          description: Название сообщения
+          type: string
+        type:
+          description: 'Тип сообщения
+
+            - `error` — критическая ошибка, объявление не редактируется/не публикуется
+
+            - `warning` — некритическая ошибка
+
+            - `alarm` — предупреждение, не влияющее на загрузку
+
+            - `info` — информационное сообщение
+
+            '
+          enum:
+          - error
+          - warning
+          - alarm
+          - info
+          type: string
+        updated_at:
+          description: Дата актуальности сообщения
+          format: date-time
+          type: string
+      required:
+      - code
+      - title
+      - description
+      - type
+      - updated_at
+      type: object
+    MetaReportItemsAutoloadV2:
+      description: Данные пагинации
+      properties:
+        page:
+          description: Номер страницы
+          type: integer
+        pages:
+          description: Общее количество страниц
+          type: integer
+        per_page:
+          description: Количество объявлений на странице
+          type: integer
+        total:
+          description: Общее количество объявлений в отчёте
+          type: integer
+      type: object
+    UpsertProfileIn:
+      properties:
+        agreement:
+          description: 'Согласие с [правилами](https://support.avito.ru/articles/203867776) использования Авито Автозагрузки.
+
+
+            Обязательно, если профиль еще не существует.
+
+            '
+          type:
+          - boolean
+          - 'null'
+        autoload_enabled:
+          description: Статус автозагрузки (вкл/выкл)
+          type: boolean
+        report_email:
+          description: Почта, на которую будут приходить отчеты о выгрузках
+          type: string
+        schedule:
+          $ref: '#/components/schemas/ExportSchedule'
+        upload_url:
+          description: URL-адрес фида, для которого настроены регулярные выгрузки. Должен начинаться с http или https.
+          type: string
+      required:
+      - upload_url
+      - schedule
+      - autoload_enabled
+      - report_email
+      type: object
+    ReportAutoloadV2:
+      properties:
+        events:
+          description: Ошибки и предупреждения, которые относятся ко всей выгрузке
+          items:
+            properties:
+              code:
+                description: Код события
+                type: integer
+              description:
+                description: Описание события
+                type: string
+              type:
+                description: Тип события
+                type: string
+            required:
+            - code
+            - type
+            - description
+            type: object
+          type: array
+        feed_url:
+          description: Ссылка на копию файла с объявлениями в момент начала загрузки
+          type: string
+        finished_at:
+          description: Дата и время закрытия отчёта (окончания выгрузки)
+          format: date-time
+          type: string
+        listing_fees:
+          description: Статистика по списаниям за размещения объявлений, которые произошли в результате выгрузки
+          properties:
+            packages:
+              description: Статистика по списаниям из пакетов размещений
+              items:
+                properties:
+                  count:
+                    description: Количество объявлений, размещения которых были оплачены из этого пакета
+                    type: integer
+                  package_id:
+                    description: ID пакета размещений
+                    type: integer
+                type: object
+              type: array
+            single:
+              description: Статистика по списаниям из кошелька
+              properties:
+                count:
+                  description: Количество объявлений, размещения которых были оплачены из кошелька
+                  type: integer
+                total_amount:
+                  description: Общая сумма средств, списанных из кошелька
+                  type: integer
+              type: object
+          required:
+          - single
+          - packages
+          type: object
+        report_id:
+          description: Идентификатор отчёта (ID)
+          type: integer
+        section_stats:
+          description: Разделы отчёта с количеством объявлений в каждом
+          properties:
+            count:
+              description: Количество объявлений в разделе
+              type: integer
+            sections:
+              description: Разделы второго уровня с количеством объявлений в каждом
+              items:
+                properties:
+                  count:
+                    description: Количество объявлений в разделе второго уровня
+                    type: integer
+                  sections:
+                    description: Разделы третьего уровня с количеством объявлений в каждом
+                    items:
+                      properties:
+                        count:
+                          description: Количество объявлений в разделе третьего уровня
+                          type: integer
+                        slug:
+                          description: ID раздела третьего уровня
+                          type: string
+                        title:
+                          description: Название раздела третьего уровня
+                          type: string
+                      required:
+                      - slug
+                      - count
+                      - title
+                      type: object
+                    type: array
+                  slug:
+                    description: ID раздела второго уровня
+                    type: string
+                  title:
+                    description: Название раздела второго уровня
+                    type: string
+                required:
+                - slug
+                - count
+                - title
+                type: object
+              type: array
+            slug:
+              description: ID раздела
+              type: string
+            title:
+              description: Название раздела
+              type: string
+          required:
+          - slug
+          - title
+          - count
+          type: object
+        source:
+          description: "Источник загрузки\n - email – Загрузка файла по почте\n - url – Загрузка файла по ссылке\n - web – Загрузка файла вручную в профиле Авито\n - openapi – Загрузка по API с помощью метода Загрузка файла по ссылке\n"
+          enum:
+          - email
+          - url
+          - web
+          - openapi
+          type: string
+        started_at:
+          description: Дата и время создания отчёта (начала выгрузки)
+          format: date-time
+          type: string
+        status:
+          description: 'Статус отчёта
+
+            - processing – Отчёт в процессе, загрузка ещё не завершена
+
+            - success – Загрузка прошла без ошибок
+
+            - success_warning – В части объявлений есть ошибки
+
+            - error – Загрузка не удалась
+
+            '
+          enum:
+          - processing
+          - success
+          - success_warning
+          - error
+          type: string
+      required:
+      - report_id
+      - started_at
+      - finished_at
+      - status
+      - section_stats
+      - feed_url
+      - source
+      - events
+      type: object
+    UploadAutoloadV4:
+      properties:
+        events:
+          description: События, относящиеся ко всей загрузке
+          items:
+            $ref: '#/components/schemas/UploadEventV4'
+          type: array
+        feed_urls:
+          description: Список файлов, которые входили в загрузку
+          items:
+            properties:
+              name:
+                description: Название файла
+                type: string
+              url:
+                description: Ссылка на копию файла на момент начала загрузки
+                type: string
+            required:
+            - name
+            - url
+            type: object
+          type: array
+        source:
+          description: 'Источник загрузки.
+
+            - `Email` — загрузка файла по почте
+
+            - `Url` — загрузка файла по ссылке
+
+            - `Web` — загрузка файла вручную в профиле Авито
+
+            - `OpenAPI` — загрузка по API через [метод `upload`](#operation/upload)
+
+            '
+          type:
+          - string
+          - 'null'
+        started_at:
+          description: Время загрузки
+          format: date-time
+          type:
+          - string
+          - 'null'
+        stats:
+          $ref: '#/components/schemas/SectionStatsV4'
+        status:
+          description: 'Статус загрузки.
+
+            - `processing` — загрузка в процессе
+
+            - `success` — загрузка завершилась без ошибок
+
+            - `success_warning` — загрузка завершилась, в части объявлений есть ошибки
+
+            - `error` — загрузка завершилась с ошибкой
+
+            '
+          type:
+          - string
+          - 'null'
+        upload_id:
+          description: Идентификатор загрузки
+          type: integer
+      required:
+      - upload_id
+      - stats
+      - events
+      - feed_urls
+      type: object
+    FieldWarning:
+      properties:
+        content:
+          description: Содержание предупреждения
+          example: Поле станет обязательным после 12.12.2022
+          type: string
+        title:
+          description: Заголовок предупреждения
+          example: Изменяется обязательность
+          type: string
+      required:
+      - title
+      - content
+      type: object
+    FeedsData:
+      items:
+        properties:
+          feed_name:
+            description: Название фида. Будет отображаться в отчете, показывает откуда взято объявление
+            type: string
+          feed_url:
+            description: URL-адрес фида, для которого настроены регулярные выгрузки. Должен начинаться с http или https.
+            type: string
+        required:
+        - feed_name
+        - feed_url
+        type: object
+      type:
+      - array
+      - 'null'
     ReportAutoloadV3:
       properties:
         events:
@@ -2125,838 +2959,6 @@ components:
       - source
       - events
       type: object
-    FieldErrorV2:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              type: integer
-            message:
-              description: Описание ошибки
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    PaginationMetaV4:
-      description: Данные пагинации
-      properties:
-        page:
-          description: Номер страницы
-          type: integer
-        pages:
-          description: Общее количество страниц
-          type: integer
-        perPage:
-          description: Количество ресурсов на странице
-          type: integer
-        total:
-          description: Общее количество ресурсов
-          type: integer
-      required:
-      - perPage
-      - page
-      - pages
-      - total
-      type: object
-    FieldWarning:
-      properties:
-        content:
-          description: Содержание предупреждения
-          example: Поле станет обязательным после 12.12.2022
-          type: string
-        title:
-          description: Заголовок предупреждения
-          example: Изменяется обязательность
-          type: string
-      required:
-      - title
-      - content
-      type: object
-    ExportSchedule:
-      description: "Расписание регулярных выгрузок. Содержит в себе периоды и сколько объявлений загружать за каждый период. \nКаждый период означает часовой промежуток, в течение которого будет запущена выгрузка.\nВремя указывается по Москве.\n"
-      items:
-        properties:
-          rate:
-            description: Количество объявлений за период
-            type: integer
-          time_slots:
-            description: 'Период, в который будет запущена выгрузка.
-
-              Допустимые значения: целые числа от 0 до 23, где 0 - это промежуток времени 00:00-01:00, а 23 - промежуток 23:00-24:00
-
-              '
-            items:
-              type: integer
-            type: array
-          weekdays:
-            description: 'День недели периода.
-
-              Допустимые значения: целые числа от 0 до 6, где 0 - понедельник, 6 - воскресенье.
-
-              '
-            items:
-              type: integer
-            type: array
-        required:
-        - rate
-        - weekdays
-        - time_slots
-        type: object
-      type: array
-    FeedsData:
-      items:
-        properties:
-          feed_name:
-            description: Название фида. Будет отображаться в отчете, показывает откуда взято объявление
-            type: string
-          feed_url:
-            description: URL-адрес фида, для которого настроены регулярные выгрузки. Должен начинаться с http или https.
-            type: string
-        required:
-        - feed_name
-        - feed_url
-        type: object
-      nullable: true
-      type: array
-    UpsertProfileInV2:
-      properties:
-        agreement:
-          description: 'Согласие с [правилами](https://support.avito.ru/articles/203867776) использования Авито Автозагрузки.
-
-
-            Обязательно, если профиль еще не существует.
-
-            '
-          nullable: true
-          type: boolean
-        autoload_enabled:
-          description: Статус автозагрузки (вкл/выкл)
-          type: boolean
-        feeds_data:
-          $ref: '#/components/schemas/FeedsData'
-        report_email:
-          description: Почта, на которую будут приходить отчеты о выгрузках
-          type: string
-        schedule:
-          $ref: '#/components/schemas/ExportSchedule'
-      required:
-      - feeds_data
-      - schedule
-      - autoload_enabled
-      - report_email
-      type: object
-    APIFieldsNode:
-      description: Данные запрашиваемой категории
-      properties:
-        name:
-          description: Название категории
-          example: Ремонт
-          type: string
-        slug:
-          description: Уникальный идентификатор категории (slug)
-          example: remont
-          type: string
-      required:
-      - name
-      - slug
-      type: object
-    ItemFeesInfoReportAutoloadV2:
-      properties:
-        ad_id:
-          description: 'Идентификатор объявления из файла ([параметр Id](https://autoload.avito.ru/format/realty/#Id))
-
-            '
-          type: string
-        avito_id:
-          description: Идентификатор объявления на Авито
-          type: integer
-        fees_amount:
-          description: 'Сумма средств, списанных из кошелька, при разовой оплате либо количество размещений, списанных из пакета
-
-            '
-          type: integer
-        fees_package_id:
-          description: ID пакета размещений
-          nullable: true
-          type: integer
-        fees_type:
-          description: Тип списания (разовая оплата или из пакета размещений)
-          enum:
-          - single
-          - package
-          type: string
-      required:
-      - ad_id
-      - avito_id
-      - fees_type
-      - fees_amount
-      type: object
-    ItemInfoReportAutoloadV2:
-      properties:
-        ad_id:
-          description: 'Идентификатор объявления из файла ([параметр Id](https://autoload.avito.ru/format/realty/#Id))
-
-            '
-          type: string
-        applied_vas:
-          description: Список примененных в конкретной выгрузке [услуг продвижения](https://support.avito.ru/partitions/131)
-          items:
-            $ref: '#/components/schemas/ItemInfoVas'
-          type: array
-        avito_date_end:
-          description: Дата окончания оплаченного периода размещения объявления
-          format: ISO 8601
-          nullable: true
-          type: string
-        avito_id:
-          description: Идентификатор объявления на Авито
-          nullable: true
-          type: integer
-        avito_status:
-          description: "Статус объявления на Авито\n  - active – Объявление активно\n  - old – Срок размещения объявления истёк\n  - blocked – Объявление заблокировано\n  - rejected – Объявление отклонено для исправления нарушений\n  - archived – Объявление находится в архиве\n  - removed – Объявление удалено навсегда\n"
-          enum:
-          - active
-          - old
-          - blocked
-          - rejected
-          - archived
-          - removed
-          nullable: true
-          type: string
-        feed_name:
-          description: Название фида из которого был взято объявление
-          nullable: true
-          type: string
-        messages:
-          description: Ошибки или предупреждения по объявлению
-          items:
-            $ref: '#/components/schemas/ItemInfoError'
-          type: array
-        section:
-          description: Раздел отчёта, в котором находится объявление — то есть результат обработки объявления в конкретной выгрузке
-          properties:
-            slug:
-              description: ID раздела
-              type: string
-            title:
-              description: Название раздела
-              type: string
-          required:
-          - slug
-          - title
-          type: object
-        url:
-          description: Ссылка на объявление на Авито
-          nullable: true
-          type: string
-      required:
-      - section
-      - ad_id
-      - avito_id
-      - url
-      - messages
-      - avito_date_end
-      - avito_status
-      type: object
-    APIFieldsOut:
-      properties:
-        alert:
-          $ref: '#/components/schemas/APFieldsNodeAlert'
-        fields:
-          description: Массив полей категории
-          items:
-            $ref: '#/components/schemas/APIField'
-          type: array
-        node:
-          $ref: '#/components/schemas/APIFieldsNode'
-      required:
-      - node
-      - fields
-      type: object
-    UploadAutoloadV4:
-      properties:
-        events:
-          description: События, относящиеся ко всей загрузке
-          items:
-            $ref: '#/components/schemas/UploadEventV4'
-          type: array
-        feed_urls:
-          description: Список файлов, которые входили в загрузку
-          items:
-            properties:
-              name:
-                description: Название файла
-                type: string
-              url:
-                description: Ссылка на копию файла на момент начала загрузки
-                type: string
-            required:
-            - name
-            - url
-            type: object
-          type: array
-        source:
-          description: 'Источник загрузки.
-
-            - `Email` — загрузка файла по почте
-
-            - `Url` — загрузка файла по ссылке
-
-            - `Web` — загрузка файла вручную в профиле Авито
-
-            - `OpenAPI` — загрузка по API через [метод `upload`](#operation/upload)
-
-            '
-          nullable: true
-          type: string
-        started_at:
-          description: Время загрузки
-          format: date-time
-          nullable: true
-          type: string
-        stats:
-          $ref: '#/components/schemas/SectionStatsV4'
-        status:
-          description: 'Статус загрузки.
-
-            - `processing` — загрузка в процессе
-
-            - `success` — загрузка завершилась без ошибок
-
-            - `success_warning` — загрузка завершилась, в части объявлений есть ошибки
-
-            - `error` — загрузка завершилась с ошибкой
-
-            '
-          nullable: true
-          type: string
-        upload_id:
-          description: Идентификатор загрузки
-          type: integer
-      required:
-      - upload_id
-      - stats
-      - events
-      - feed_urls
-      type: object
-    APIFieldContent:
-      properties:
-        data_type:
-          description: Тип данных в поле.
-          enum:
-          - string
-          - integer
-          - float
-          example: string
-          type: string
-        default:
-          $ref: '#/components/schemas/FieldValue'
-        dependencies:
-          description: Список зависимостей одного поля от других. Информация в этих объектах нужна для определения, какое именно правило заполнения поля применить.
-          items:
-            $ref: '#/components/schemas/APIDependency'
-          type: array
-        dependencies_text:
-          description: Текстовое представление описания зависимостей поля.
-          items:
-            type: string
-          type: array
-        field_type:
-          description: "Тип поля. \n- input означает, что поле может быть заполнено произвольным значением.\n- select означает, что поле может принимать одно из заданных значений.   Заданные значения указаны в поле values или доступны по ссылке.\n- checkbox означает, что поле может принимать одно или несколько заданных значений. Заданные значения указаны в поле values или доступны по ссылке.\n"
-          enum:
-          - input
-          - select
-          - checkbox
-          example: select
-          type: string
-        is_catalog:
-          description: 'Являются ли значения поля каталожными.
-
-            '
-          example: 'true'
-          type: boolean
-        name_in_catalog:
-          description: 'Название поля в каталоге.
-
-            '
-          example: vendor
-          nullable: true
-          type: string
-        required:
-          description: Признак обязательности поля
-          example: true
-          type: boolean
-        required_by_dependency:
-          description: Признак того, что поле может быть обязательным в зависимости от значения другого поля. Чтобы понять, есть ли зависимость, надо смотреть содержание атрибута dependencies.
-          example: true
-          type: boolean
-        values:
-          description: Список возможных значений для поля.
-          items:
-            $ref: '#/components/schemas/FieldValue'
-          type: array
-        values_link_json:
-          description: 'Ссылка для получения списка полей в формате json. Структура значений по этой ссылке строго определена. Иногда бывает так, что ссылки нет.
-
-            '
-          example: https://api.avito.ru/autoload/v1/user-docs/node/zapchasti_i_aksessuary/field/115633/values-json
-          nullable: true
-          type: string
-        values_link_xml:
-          description: 'Ссылка для получения списка полей в формате xml. Нет строгого формата значений по этой ссылке. Иногда бывает так, что ссылки нет, — вместо неё отображается атрибут values.
-
-            '
-          example: https://api.avito.ru/autoload/v1/user-docs/node/zapchasti_i_aksessuary/field/115633/values-xml
-          nullable: true
-          type: string
-        values_range:
-          $ref: '#/components/schemas/FieldValueRange'
-        warnings:
-          items:
-            $ref: '#/components/schemas/FieldWarning'
-          nullable: true
-          type: array
-      required:
-      - field_type
-      - data_type
-      - required
-      - required_by_dependency
-      type: object
-    APIField:
-      description: Поля для категории, включая поля вложенных подкатегорий.
-      properties:
-        children:
-          items:
-            $ref: '#/components/schemas/ChildAPIField'
-          type: array
-        content:
-          description: 'Набор правил для заполнения тега. У одного тега может быть набор правил с разными условиями их применения. Одновременно они не применяются — все, кроме одного, должны быть исключены по правилам, описанным в атрибуте dependencies.
-
-
-            Иногда ни один из элементов не применяется. Так бывает, если текущее поле зависит от значения другого поля — пока не будет удовлетворено условие заполнения другого поля, текущее поле будет недоступно.
-
-
-            Если у поля нет аттрибута dependencies, поле считается доступным для заполнения.
-
-            '
-          items:
-            $ref: '#/components/schemas/APIFieldContent'
-          type: array
-        descriptions:
-          description: Описание тега
-          example: Категория объявления
-          type: string
-        feed_format:
-          example:
-            xml: null
-          items:
-            enum:
-            - xml
-            - excel
-            type: string
-          type: array
-        label:
-          description: Label (на русском) для указания в файле загрузки
-          example: Категория
-          type: string
-        tag:
-          description: Тег для указания в файле загрузки
-          example: Category
-          type: string
-      type: object
-    ChildAPIField:
-      description: Поля для категории, включая поля вложенных подкатегорий.
-      properties:
-        content:
-          description: 'Набор правил для заполнения тега. У одного тега может быть набор правил с разными условиями их применения. Одновременно они не применяются — все, кроме одного, должны быть исключены по правилам, описанным в атрибуте dependencies.
-
-
-            Иногда ни один из элементов не применяется. Так бывает, если текущее поле зависит от значения другого поля — пока не будет удовлетворено условие заполнения другого поля, текущее поле будет недоступно.
-
-
-            Если у поля нет аттрибута dependencies, поле считается доступным для заполнения.
-
-            '
-          items:
-            $ref: '#/components/schemas/APIFieldContent'
-          type: array
-        descriptions:
-          description: Описание тега
-          example: Категория объявления
-          type: string
-        feed_format:
-          example:
-            xml: null
-          items:
-            enum:
-            - xml
-            - excel
-            type: string
-          type: array
-        label:
-          description: Label (на русском) для указания в файле загрузки
-          example: Категория
-          type: string
-        tag:
-          description: Тег для указания в файле загрузки
-          example: Category
-          type: string
-      type: object
-    ReportShortAutoloadV2:
-      description: Список отчетов (новый)
-      items:
-        properties:
-          finished_at:
-            description: Дата и время закрытия отчёта (окончания выгрузки)
-            format: date-time
-            type: string
-          id:
-            description: Идентификатор отчёта (ID)
-            type: integer
-          started_at:
-            description: Дата и время создания отчёта (начала выгрузки)
-            format: date-time
-            type: string
-          status:
-            description: 'Статус отчёта
-
-              - processing – Отчёт в процессе, загрузка ещё не завершена
-
-              - success – Загрузка прошла без ошибок
-
-              - success_warning – В части объявлений есть ошибки
-
-              - error – Загрузка не удалась
-
-              '
-            enum:
-            - processing
-            - success
-            - success_warning
-            - error
-            type: string
-        required:
-        - id
-        - started_at
-        - finished_at
-        - status
-        type: object
-      type: array
-    UploadEventV4:
-      description: Событие загрузки (ошибка или предупреждение, относящееся ко всей загрузке)
-      properties:
-        code:
-          description: Код события
-          type: integer
-        description:
-          description: Описание события
-          type: string
-        type:
-          description: Тип события
-          type: string
-      required:
-      - code
-      - type
-      - description
-      type: object
-    FieldValueRange:
-      description: Промежуток допустимых значений. Применимо для типов данных int и float. Для типа данных string является ограничением длины строки.
-      nullable: true
-      properties:
-        max:
-          example: 42
-          nullable: true
-          type: integer
-        min:
-          example: 0
-          nullable: true
-          type: integer
-      type: object
-    APIDependencyPair:
-      properties:
-        clause:
-          enum:
-          - value
-          - filled
-          - empty
-          type: string
-        source_field_tag:
-          type: string
-        values:
-          items:
-            type: string
-          type: array
-      type: object
-    MetaReportItemsAutoloadV2:
-      description: Данные пагинации
-      properties:
-        page:
-          description: Номер страницы
-          type: integer
-        pages:
-          description: Общее количество страниц
-          type: integer
-        per_page:
-          description: Количество объявлений на странице
-          type: integer
-        total:
-          description: Общее количество объявлений в отчёте
-          type: integer
-      type: object
-    ReportAutoloadV2:
-      properties:
-        events:
-          description: Ошибки и предупреждения, которые относятся ко всей выгрузке
-          items:
-            properties:
-              code:
-                description: Код события
-                type: integer
-              description:
-                description: Описание события
-                type: string
-              type:
-                description: Тип события
-                type: string
-            required:
-            - code
-            - type
-            - description
-            type: object
-          type: array
-        feed_url:
-          description: Ссылка на копию файла с объявлениями в момент начала загрузки
-          type: string
-        finished_at:
-          description: Дата и время закрытия отчёта (окончания выгрузки)
-          format: date-time
-          type: string
-        listing_fees:
-          description: Статистика по списаниям за размещения объявлений, которые произошли в результате выгрузки
-          properties:
-            packages:
-              description: Статистика по списаниям из пакетов размещений
-              items:
-                properties:
-                  count:
-                    description: Количество объявлений, размещения которых были оплачены из этого пакета
-                    type: integer
-                  package_id:
-                    description: ID пакета размещений
-                    type: integer
-                type: object
-              type: array
-            single:
-              description: Статистика по списаниям из кошелька
-              properties:
-                count:
-                  description: Количество объявлений, размещения которых были оплачены из кошелька
-                  type: integer
-                total_amount:
-                  description: Общая сумма средств, списанных из кошелька
-                  type: integer
-              type: object
-          required:
-          - single
-          - packages
-          type: object
-        report_id:
-          description: Идентификатор отчёта (ID)
-          type: integer
-        section_stats:
-          description: Разделы отчёта с количеством объявлений в каждом
-          properties:
-            count:
-              description: Количество объявлений в разделе
-              type: integer
-            sections:
-              description: Разделы второго уровня с количеством объявлений в каждом
-              items:
-                properties:
-                  count:
-                    description: Количество объявлений в разделе второго уровня
-                    type: integer
-                  sections:
-                    description: Разделы третьего уровня с количеством объявлений в каждом
-                    items:
-                      properties:
-                        count:
-                          description: Количество объявлений в разделе третьего уровня
-                          type: integer
-                        slug:
-                          description: ID раздела третьего уровня
-                          type: string
-                        title:
-                          description: Название раздела третьего уровня
-                          type: string
-                      required:
-                      - slug
-                      - count
-                      - title
-                      type: object
-                    type: array
-                  slug:
-                    description: ID раздела второго уровня
-                    type: string
-                  title:
-                    description: Название раздела второго уровня
-                    type: string
-                required:
-                - slug
-                - count
-                - title
-                type: object
-              type: array
-            slug:
-              description: ID раздела
-              type: string
-            title:
-              description: Название раздела
-              type: string
-          required:
-          - slug
-          - title
-          - count
-          type: object
-        source:
-          description: "Источник загрузки\n - email – Загрузка файла по почте\n - url – Загрузка файла по ссылке\n - web – Загрузка файла вручную в профиле Авито\n - openapi – Загрузка по API с помощью метода Загрузка файла по ссылке\n"
-          enum:
-          - email
-          - url
-          - web
-          - openapi
-          type: string
-        started_at:
-          description: Дата и время создания отчёта (начала выгрузки)
-          format: date-time
-          type: string
-        status:
-          description: 'Статус отчёта
-
-            - processing – Отчёт в процессе, загрузка ещё не завершена
-
-            - success – Загрузка прошла без ошибок
-
-            - success_warning – В части объявлений есть ошибки
-
-            - error – Загрузка не удалась
-
-            '
-          enum:
-          - processing
-          - success
-          - success_warning
-          - error
-          type: string
-      required:
-      - report_id
-      - started_at
-      - finished_at
-      - status
-      - section_stats
-      - feed_url
-      - source
-      - events
-      type: object
-    FieldValue:
-      nullable: true
-      properties:
-        description:
-          description: Опциональное описание значения
-          type: string
-        value:
-          description: Текстовое значение
-          example: Предложение услуг
-          type: string
-      type: object
-    APICategoryNode:
-      properties:
-        name:
-          description: Название категории
-          type: string
-        nested:
-          description: Дочерние категории
-          items:
-            additionalProperties:
-              items:
-                $ref: '#/components/schemas/APICategoryNode'
-          type: array
-        slug:
-          description: Slug категории для получения полей
-          type: string
-      required:
-      - name
-      type: object
-    UploadItemAutoloadV4:
-      properties:
-        ad_id:
-          description: 'Идентификатор объявления из файла ([параметр Id](https://www.avito.ru/autoload/documentation/templates/66940?fileFormat=xml#field-Id))
-
-            '
-          type: string
-        avito_date_end:
-          description: Дата окончания оплаченного периода размещения
-          format: date-time
-          nullable: true
-          type: string
-        avito_id:
-          description: Идентификатор объявления на Авито
-          nullable: true
-          type: integer
-        avito_status:
-          description: 'Статус объявления на Авито
-
-            - `active` — объявление активно
-
-            - `old` — срок размещения объявления истёк
-
-            - `blocked` — объявление заблокировано
-
-            - `rejected` — объявление отклонено для исправления нарушений
-
-            - `archived` — объявление находится в архиве
-
-            - `removed` — объявление удалено навсегда
-
-            '
-          enum:
-          - active
-          - old
-          - blocked
-          - rejected
-          - archived
-          - removed
-          nullable: true
-          type: string
-        feed_name:
-          description: Название файла, из которого было взято объявление
-          nullable: true
-          type: string
-        messages:
-          description: Сообщения по объявлению (ошибки, предупреждения)
-          items:
-            $ref: '#/components/schemas/ItemMessageV4'
-          type: array
-        section:
-          $ref: '#/components/schemas/ItemSectionV4'
-        url:
-          description: Ссылка на объявление на Авито
-          nullable: true
-          type: string
-      required:
-      - ad_id
-      - section
-      - messages
-      type: object
-  headers:
-    LastModifiedSinceHeader:
-      description: Дата и время последней полученной версии в формате RFC1123 в UTC
-      schema:
-        type: string
-      example: Mon, 01 Jan 0001 00:00:00 UTC
   parameters:
     authHeader:
       description: Токен для авторизации
@@ -2966,6 +2968,15 @@ components:
       schema:
         example: Bearer ACCESS_TOKEN
         type: string
+    IfModifiedSinceHeader:
+      description: Дата и время последней полученной версии в формате RFC1123 в UTC
+      example: Mon, 01 Jan 0001 00:00:00 UTC
+      in: header
+      name: If-Modified-Since
+      schema:
+        type:
+        - string
+        - 'null'
     NodeSlug:
       description: slug узла дерева категории
       example: remont
@@ -2974,14 +2985,12 @@ components:
       required: true
       schema:
         type: string
-    IfModifiedSinceHeader:
+  headers:
+    LastModifiedSinceHeader:
       description: Дата и время последней полученной версии в формате RFC1123 в UTC
-      example: Mon, 01 Jan 0001 00:00:00 UTC
-      in: header
-      name: If-Modified-Since
       schema:
-        nullable: true
         type: string
+      example: Mon, 01 Jan 0001 00:00:00 UTC
   securitySchemes:
     AuthorizationCode:
       description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
@@ -2989,7 +2998,20 @@ components:
         authorizationCode:
           authorizationUrl: https://avito.ru/oauth
           scopes:
-            ah:access: Взаимодействие с иерархией аккаунтов
+            autoload:reports: Получение отчетов Автозагрузки
+            items:apply_vas: Применение дополнительных услуг
+            items:info: Получение информации об объявлениях
+            job:applications: Получение информации об откликах на вакансии
+            job:cv: Получение информации резюме
+            job:write: Изменение объявлений вертикали Работа
+            messenger:read: Чтение сообщений в мессенджере Авито
+            messenger:write: Модифицирование сообщений в мессенджере Авито
+            short_term_rent:read: Получение информации об объявлениях краткосрочной аренды
+            short_term_rent:write: Изменение объявлений краткосрочной аренды
+            stats:read: Получение статистики объявлений
+            user:read: Получение информации о пользователе
+            user_balance:read: Получение баланса пользователя
+            user_operations:read: Получение истории операций пользователя
           tokenUrl: https://api.avito.ru/token
       type: oauth2
     ClientCredentials:

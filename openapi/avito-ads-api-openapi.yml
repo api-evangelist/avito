@@ -1,14 +1,9 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  contact:
-    email: supportautoload@avito.ru
-  description: 'API для взаимодействия с иерархией аккаунтов в Авито
-
-    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
-
-    '
-  title: Иерархия Аккаунтов Access Ads API
-  version: '1'
+  description: Публичное API кабинета Авито Реклама
+  title: Авито Реклама Ads API
+  version: 1.1.0
+  x-skip-documentation: false
 servers:
 - url: https://api.avito.ru/
 tags:
@@ -24,9 +19,7 @@ paths:
     get:
       description: 'Возвращает реквизиты рекламного аккаунта по его ID: ИНН, КПП, ОГРН, юридический и фактический адреса, контактное лицо и менеджера.
 
-        Токен имеет доступ только к тому аккаунту, в котором был выдан.
-
-        '
+        Токен имеет доступ только к тому аккаунту, в котором был выдан.'
       operationId: V1GetAccountByID
       responses:
         '200':
@@ -95,9 +88,7 @@ paths:
     post:
       description: 'Создаёт тестовый аккаунт. Метод работает **только в песочнице** (`https://api.avito.ru/ads-sandbox/`); для боевых аккаунтов используйте веб-интерфейс кабинета.
 
-        Ограничения песочницы: время жизни аккаунта — до 00:00 текущего дня; в сутки можно создать не более 1 тестового аккаунта.
-
-        '
+        Ограничения песочницы: время жизни аккаунта — до 00:00 текущего дня; в сутки можно создать не более 1 тестового аккаунта.'
       operationId: V1CreateAccount
       requestBody:
         content:
@@ -182,9 +173,7 @@ paths:
     post:
       description: 'Добавляет пользователя Авито в рекламный аккаунт с указанной ролью. Доступные роли: `admin` (полный доступ) и `viewer` (только просмотр).
 
-        Пользователь идентифицируется по `userId` (ID профиля на Авито).
-
-        '
+        Пользователь идентифицируется по `userId` (ID профиля на Авито).'
       operationId: V1AddUser
       requestBody:
         content:
@@ -260,9 +249,7 @@ paths:
     post:
       description: 'Возвращает список рекламодателей аккаунта с пагинацией. Доступные фильтры: список `ids`, список `inns`, список ролей (`roles`).
 
-        Параметры пагинации: `limit` — от 1 до 100 (по умолчанию 20), `page` — от 1.
-
-        '
+        Параметры пагинации: `limit` — от 1 до 100 (по умолчанию 20), `page` — от 1.'
       operationId: V1GetAdvertisersList
       requestBody:
         content:
@@ -344,9 +331,7 @@ paths:
     get:
       description: 'Возвращает текущий баланс рекламного аккаунта: денежные средства (`balance`) и бонусы (`bonusBalance`).
 
-        Все суммы — в рублях, целые числа.
-
-        '
+        Все суммы — в рублях, целые числа.'
       operationId: V1GetAccountBalanceByID
       responses:
         '200':
@@ -422,9 +407,7 @@ paths:
     post:
       description: 'Переводит бонусы между родительским и дочерним аккаунтом-неплательщиком. Логика направления та же, что у `funds-transfer`: `accountID` в path — источник, `accountIdTo` в body — получатель; для перевода с дочернего на родителя нужен токен дочернего аккаунта.
 
-        Сумма `amount` — целое число, не меньше 1 бонуса.
-
-        '
+        Сумма `amount` — целое число, не меньше 1 бонуса.'
       operationId: V1TransferBonus
       requestBody:
         content:
@@ -506,9 +489,7 @@ paths:
     post:
       description: 'Возвращает список рекламных кампаний аккаунта с пагинацией. Поддерживает фильтрацию по ID, моделям оплаты (`CPM`/`CPC`), типам кампании (`textImage`/`HTML`/`video`), статусам, менеджерам, рекламодателям, договорам, диапазону дат создания и диапазону периода размещения.
 
-        Параметры пагинации: `limit` — от 1 до 100 (по умолчанию 20), `page` — от 1.
-
-        '
+        Параметры пагинации: `limit` — от 1 до 100 (по умолчанию 20), `page` — от 1.'
       operationId: V1GetCampaignsList
       requestBody:
         content:
@@ -595,9 +576,7 @@ paths:
     post:
       description: 'Возвращает статистику по конкретным креативам указанной кампании за заданный период. В `creativeIDs` нужно передать минимум один ID креатива.
 
-        **Ограничение:** максимальный период между `dateFrom` и `dateTo` — 100 дней.
-
-        '
+        **Ограничение:** максимальный период между `dateFrom` и `dateTo` — 100 дней.'
       operationId: V1GetCreativesStatistic
       requestBody:
         content:
@@ -686,9 +665,7 @@ paths:
     post:
       description: 'Возвращает статистику по конкретным группам объявлений внутри указанной кампании за заданный период. В `groupIDs` нужно передать минимум один ID группы.
 
-        **Ограничение:** максимальный период между `dateFrom` и `dateTo` — 100 дней.
-
-        '
+        **Ограничение:** максимальный период между `dateFrom` и `dateTo` — 100 дней.'
       operationId: V1GetGroupsStatistic
       requestBody:
         content:
@@ -777,9 +754,7 @@ paths:
     post:
       description: 'Возвращает агрегированную статистику по кампании (показы, клики, CTR, расход, CPM/CPC, метрики видеопросмотров) за указанный период с дневной гранулярностью, а также сводку по группам и креативам кампании.
 
-        **Ограничение:** максимальный период между `dateFrom` и `dateTo` — 100 дней.
-
-        '
+        **Ограничение:** максимальный период между `dateFrom` и `dateTo` — 100 дней.'
       operationId: V1GetCampaignStatistic
       requestBody:
         content:
@@ -859,7 +834,11 @@ paths:
       schema:
         type: integer
     get:
-      description: "Возвращает список дочерних аккаунтов, привязанных к текущему (родительскому) аккаунту, вместе с их договорами. \nУ дочерних аккаунтов на одном договоре с родителем не передается информация о договоре.\nЕсли нужны также балансы дочерних аккаунтов, используйте `GET /ads/v1/account/{accountID}/children-with-balances`.\n"
+      description: 'Возвращает список дочерних аккаунтов, привязанных к текущему (родительскому) аккаунту, вместе с их договорами.
+
+        У дочерних аккаунтов на одном договоре с родителем не передается информация о договоре.
+
+        Если нужны также балансы дочерних аккаунтов, используйте `GET /ads/v1/account/{accountID}/children-with-balances`.'
       operationId: V1GetChildAccountsList
       responses:
         '200':
@@ -933,9 +912,7 @@ paths:
     get:
       description: 'Возвращает список дочерних аккаунтов вместе с их балансами (денежные средства, бонусы).
 
-        Удобно для проверки результата переводов через `funds-transfer` / `bonus-transfer`.
-
-        '
+        Удобно для проверки результата переводов через `funds-transfer` / `bonus-transfer`.'
       operationId: V1GetChildAccountsWithBalancesList
       responses:
         '200':
@@ -1009,9 +986,7 @@ paths:
     post:
       description: 'Возвращает список договоров аккаунта с пагинацией. Доступные фильтры: `ids` (ID договоров), `numbers` (номера договоров), `contractors` и `clients` (фильтры по сторонам договора).
 
-        Параметры пагинации: `limit` — от 1 до 100 (по умолчанию 20), `page` — от 1.
-
-        '
+        Параметры пагинации: `limit` — от 1 до 100 (по умолчанию 20), `page` — от 1.'
       operationId: V1GetContractsList
       requestBody:
         content:
@@ -1091,9 +1066,7 @@ paths:
     post:
       description: 'Создаёт рекламодателя — юридическое лицо (или ИП), от лица которого будут размещаться рекламные кампании в этом аккаунте.
 
-        Один аккаунт может иметь несколько рекламодателей. Если рекламодатель и аккаунт — одно и то же ЮЛ/ИП, договор между ними создавать не нужно; иначе после создания рекламодателя необходимо создать договор через `POST /ads/v1/account/{accountID}/create-contract`.
-
-        '
+        Один аккаунт может иметь несколько рекламодателей. Если рекламодатель и аккаунт — одно и то же ЮЛ/ИП, договор между ними создавать не нужно; иначе после создания рекламодателя необходимо создать договор через `POST /ads/v1/account/{accountID}/create-contract`.'
       operationId: V1CreateAdvertiser
       requestBody:
         content:
@@ -1175,9 +1148,7 @@ paths:
     post:
       description: 'Создаёт изначальный договор между аккаунтом и рекламодателем. Договор требуется только если рекламодатель и аккаунт — не одно и то же ЮЛ/ИП; для совпадающих контрагентов договор не создаётся.
 
-        Для дополнительного соглашения укажите `parentId` (родительский договор) и не передавайте `intermediary`; для внешнего договора (`type = external`) передайте `cid` и не передавайте `parentId`.
-
-        '
+        Для дополнительного соглашения укажите `parentId` (родительский договор) и не передавайте `intermediary`; для внешнего договора (`type = external`) передайте `cid` и не передавайте `parentId`.'
       operationId: V1CreateContract
       requestBody:
         content:
@@ -1257,9 +1228,7 @@ paths:
     post:
       description: 'Создаёт дочерний аккаунта под текущим (родительским) аккаунтом на том же договоре. В ответе возвращаются `accountID`, `clientKey` и `clientSecret` — пара ключей для генерации отдельного токена дочернего аккаунта.
 
-        В песочнице токен для созданного дочернего аккаунта использовать **нельзя**; проверить факт создания можно через `GET /ads/v1/account/{accountID}/children`.
-
-        '
+        В песочнице токен для созданного дочернего аккаунта использовать **нельзя**; проверить факт создания можно через `GET /ads/v1/account/{accountID}/children`.'
       operationId: V1CreateNonPayerAccount
       requestBody:
         content:
@@ -1341,9 +1310,7 @@ paths:
     post:
       description: 'Возвращает список креативов аккаунта с пагинацией. Поддерживает фильтрацию по ID креативов, ID групп, ID кампаний, моделям оплаты, типам кампании, статусам, менеджерам, рекламодателям и периоду размещения.
 
-        Параметры пагинации: `limit` — от 1 до 100 (по умолчанию 20), `page` — от 1.
-
-        '
+        Параметры пагинации: `limit` — от 1 до 100 (по умолчанию 20), `page` — от 1.'
       operationId: V1GetCreativesList
       requestBody:
         content:
@@ -1428,9 +1395,7 @@ paths:
     delete:
       description: 'Удаляет пользователя из рекламного аккаунта. Доступ пользователя к аккаунту прекращается сразу после успешного выполнения запроса.
 
-        `userID` в path — ID пользователя, которого нужно удалить.
-
-        '
+        `userID` в path — ID пользователя, которого нужно удалить.'
       operationId: V1DeleteUser
       responses:
         '200':
@@ -1498,9 +1463,7 @@ paths:
     post:
       description: 'Переводит денежные средства между родительским и дочерним аккаунтом на одном договоре. `accountID` в path — аккаунт-источник (с него списываются деньги), `accountIdTo` в body — аккаунт-получатель.
 
-        Перевод выполняется от имени аккаунта-источника, поэтому для перевода с дочернего на родительский нужен токен дочернего аккаунта. Сумма `amount` — целое число, не меньше 1 рубля.
-
-        '
+        Перевод выполняется от имени аккаунта-источника, поэтому для перевода с дочернего на родительский нужен токен дочернего аккаунта. Сумма `amount` — целое число, не меньше 1 рубля.'
       operationId: V1TransferFunds
       requestBody:
         content:
@@ -1587,9 +1550,7 @@ paths:
     post:
       description: 'Устанавливает новый бюджет для указанной группы объявлений. Значение `budget` указывается в рублях с НДС, целое число.
 
-        **Ограничение:** `budget` — целое число не меньше 1. Метод работает только для групп с ручным управлением ставкой.
-
-        '
+        **Ограничение:** `budget` — целое число не меньше 1. Метод работает только для групп с ручным управлением ставкой.'
       operationId: V1ChangeBudget
       requestBody:
         content:
@@ -1674,9 +1635,7 @@ paths:
     post:
       description: 'Устанавливает новую цену (CPC или CPM в зависимости от модели оплаты кампании) для указанной группы объявлений. Значение `price` указывается в рублях с НДС, целое число.
 
-        **Ограничение:** `price` — целое число не меньше 1. Метод работает только для групп с ручным управлением ставкой.
-
-        '
+        **Ограничение:** `price` — целое число не меньше 1. Метод работает только для групп с ручным управлением ставкой.'
       operationId: V1ChangePrice
       requestBody:
         content:
@@ -1756,9 +1715,7 @@ paths:
     post:
       description: 'Возвращает список групп объявлений аккаунта с пагинацией. Поддерживает фильтрацию по ID групп, ID кампаний, статусам, скоростям показов (`paces`), менеджерам, рекламодателям, моделям оплаты и периоду размещения.
 
-        Параметры пагинации: `limit` — от 1 до 100 (по умолчанию 20), `page` — от 1.
-
-        '
+        Параметры пагинации: `limit` — от 1 до 100 (по умолчанию 20), `page` — от 1.'
       operationId: V1GetGroupsList
       requestBody:
         content:
@@ -1838,9 +1795,7 @@ paths:
     post:
       description: 'Меняет роль уже добавленного в аккаунт пользователя. Доступные значения роли: `admin` (полный доступ) и `viewer` (только просмотр).
 
-        Если пользователя нужно полностью убрать, используйте `DELETE /ads/v1/account/{accountID}/delete-user/{userID}`.
-
-        '
+        Если пользователя нужно полностью убрать, используйте `DELETE /ads/v1/account/{accountID}/delete-user/{userID}`.'
       operationId: V1SetUserRole
       requestBody:
         content:
@@ -1914,9 +1869,7 @@ paths:
     get:
       description: 'Возвращает список пользователей, имеющих доступ к рекламному аккаунту, с их ролями и флагом `hasLoggedIn` (заходил ли пользователь в аккаунт хотя бы раз).
 
-        Метод без пагинации — возвращает всех пользователей сразу.
-
-        '
+        Метод без пагинации — возвращает всех пользователей сразу.'
       operationId: V1GetUsersListByAccount
       responses:
         '200':
@@ -1978,15 +1931,202 @@ paths:
       - Ads
 components:
   schemas:
-    CampaignType:
-      description: Тип кампании
+    ContractAction:
+      description: Описание действия договора
       enum:
-      - textImage
-      - HTML
-      - video
+      - distribution
+      - conclude
+      - commercial
+      - other
       type: string
-    V1GetCampaignStatisticIn:
-      description: Request body для запроса статистики по кампании. Максимальный период между dateFrom и dateTo — 100 дней.
+    CampaignStatistic:
+      description: Статистика кампании
+      properties:
+        campaignType:
+          $ref: '#/components/schemas/CampaignType'
+        data:
+          description: Статистика в разбивке по дням
+          items:
+            $ref: '#/components/schemas/StatsData'
+          type: array
+        id:
+          description: ID кампании
+          type: integer
+        name:
+          description: Название кампании
+          type: string
+        paymentModel:
+          $ref: '#/components/schemas/CampaignPaymentModel'
+        totalData:
+          $ref: '#/components/schemas/StatsData'
+      required:
+      - id
+      - name
+      - paymentModel
+      - campaignType
+      - data
+      - totalData
+      type: object
+    AdvertiserFilter:
+      properties:
+        ids:
+          description: Список ID рекламодателей
+          items:
+            type: integer
+          type:
+          - array
+          - 'null'
+        inns:
+          description: Список ИНН рекламодателей
+          items:
+            type: string
+          type:
+          - array
+          - 'null'
+        roles:
+          description: Список ролей рекламодателей
+          items:
+            $ref: '#/components/schemas/LegalRole'
+          type:
+          - array
+          - 'null'
+      type: object
+    V1GetContractsListOut:
+      properties:
+        contracts:
+          items:
+            $ref: '#/components/schemas/Contract'
+          type: array
+        total:
+          type: integer
+      required:
+      - total
+      - contracts
+      type: object
+    V1CreateAccountOut:
+      properties:
+        accountID:
+          type: integer
+        warnings:
+          description: Предупреждения о частично невыполненных sandbox-операциях. Если массив пустой, аккаунт подготовлен полностью.
+          items:
+            type: string
+          type: array
+      required:
+      - accountID
+      - warnings
+      type: object
+    Error:
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+      - message
+      - code
+      type: object
+    Advertiser:
+      properties:
+        accountId:
+          type: integer
+        actualAddress:
+          type: string
+        id:
+          type: integer
+        inn:
+          type: string
+        kpp:
+          type: string
+        legalAddress:
+          type: string
+        legalRole:
+          $ref: '#/components/schemas/LegalRole'
+        legalType:
+          $ref: '#/components/schemas/LegalType'
+        longName:
+          type: string
+        ogrn:
+          type: string
+        shortName:
+          type: string
+      required:
+      - id
+      - shortName
+      - longName
+      - inn
+      - legalRole
+      - ogrn
+      - legalAddress
+      - actualAddress
+      - accountId
+      - legalType
+      type: object
+    EmptyResponse:
+      type: object
+    LegalInfo:
+      properties:
+        ageRestriction:
+          description: Возрастное ограничение
+          type:
+          - integer
+          - 'null'
+        description:
+          description: Юридическое описание
+          type:
+          - string
+          - 'null'
+        kktu:
+          description: ККТУ
+          type: string
+        notes:
+          description: Примечания
+          type:
+          - string
+          - 'null'
+      type: object
+    V1TransferBonusIn:
+      description: Payload Перевода денег между аккаунтом родителем и дочками неплательщиками
+      properties:
+        accountIdTo:
+          description: accountId на который перевести
+          type: integer
+        amount:
+          description: Сумма бонусов, не меньше 1 бонуса
+          minimum: 1
+          type: integer
+      required:
+      - accountIdTo
+      - amount
+      type: object
+    DateRange:
+      description: Диапазон дат
+      properties:
+        from:
+          description: Дата начала в формате YYYY-MM-DD
+          format: date
+          type: string
+        to:
+          description: Дата окончания в формате YYYY-MM-DD
+          format: date
+          type: string
+      type:
+      - object
+      - 'null'
+    V1GetGroupsListOut:
+      properties:
+        groups:
+          items:
+            $ref: '#/components/schemas/Group'
+          type: array
+        total:
+          type: integer
+      required:
+      - total
+      - groups
+      type: object
+    V1GetGroupsStatisticIn:
+      description: Request body для запроса статистики по группам кампании. Максимальный период между dateFrom и dateTo — 100 дней.
       properties:
         dateFrom:
           description: Дата начала периода в формате YYYY-MM-DD
@@ -1996,57 +2136,147 @@ components:
           description: Дата окончания периода в формате YYYY-MM-DD
           format: date
           type: string
+        groupIDs:
+          description: Список ID групп для получения статистики
+          items:
+            type: integer
+          minItems: 1
+          type: array
       required:
       - dateFrom
       - dateTo
+      - groupIDs
       type: object
-    GroupsFilter:
+    LegalRole:
+      description: Роль ЮЛ
+      enum:
+      - rd
+      - ra
+      - rr
+      type: string
+    V1GetAdvertisersListIn:
+      description: Payload запроса на получение списка рекламодателей
       properties:
-        advertisers:
-          description: Список ID рекламодателей
-          items:
-            type: integer
-          nullable: true
-          type: array
-        campaignIDs:
-          description: Список ID кампаний
-          items:
-            type: integer
-          nullable: true
-          type: array
-        ids:
-          description: Список ID групп
-          items:
-            type: integer
-          nullable: true
-          type: array
-        managers:
-          description: Список ID менеджеров
-          items:
-            type: integer
-          nullable: true
-          type: array
-        paces:
-          description: Скорости показов
-          items:
-            $ref: '#/components/schemas/Paces'
-          nullable: true
-          type: array
-        paymentModels:
-          description: Список моделей оплаты
-          items:
-            $ref: '#/components/schemas/CampaignPaymentModel'
-          nullable: true
-          type: array
-        statuses:
-          description: Список статусов групп
-          items:
-            $ref: '#/components/schemas/GroupsStatus'
-          nullable: true
-          type: array
-        timeFrame:
-          $ref: '#/components/schemas/DateRange'
+        filter:
+          $ref: '#/components/schemas/AdvertiserFilter'
+        limit:
+          default: 20
+          description: Количество записей на странице
+          maximum: 100
+          minimum: 1
+          type: integer
+        page:
+          default: 1
+          description: Номер страницы
+          minimum: 1
+          type: integer
+      required:
+      - filter
+      - limit
+      - page
       type: object
+    ContractType:
+      description: Тип контракта
+      enum:
+      - service
+      - intermediary
+      - external
+      type: string
+    ShortAccountWithBalance:
+      properties:
+        account:
+          $ref: '#/components/schemas/ShortAccount'
+        balance:
+          $ref: '#/components/schemas/V1GetAccountBalanceByIdOut'
+      required:
+      - account
+      - balance
+      type: object
+    FrequencyPeriod:
+      description: Период частотного ограничения
+      enum:
+      - no_limit
+      - day
+      - week
+      - month
+      type: string
+    V1GetAccountBalanceByIdOut:
+      properties:
+        balance:
+          description: Баланс аккаунта  в рублях
+          type: integer
+        balanceKopeks:
+          description: Баланс аккаунта в копейках
+          type: integer
+        bonusBalance:
+          description: Баланс бонусов на аккаунте в рублях
+          type: integer
+        bonusBalanceKopeks:
+          description: Баланс бонусов на аккаунте в копейках
+          type: integer
+      required:
+      - balance
+      - balanceKopeks
+      - bonusBalance
+      - bonusBalanceKopeks
+      type: object
+    ContractCounterpartyType:
+      enum:
+      - direct_with_advertiser
+      - advertiser_intermediary
+      type: string
+    UserRole:
+      description: Роль пользователя в рекламном кабинете
+      enum:
+      - admin
+      - viewer
+      type: string
+    V1GetCreativesListIn:
+      description: Payload запроса на получение списка креативов
+      properties:
+        filter:
+          $ref: '#/components/schemas/CreativesFilter'
+        limit:
+          default: 20
+          description: Количество записей на странице
+          maximum: 100
+          minimum: 1
+          type: integer
+        page:
+          default: 1
+          description: Номер страницы
+          minimum: 1
+          type: integer
+      required:
+      - filter
+      - limit
+      - page
+      type: object
+    CampaignPaymentModel:
+      description: Модель оплаты кампании
+      enum:
+      - CPM
+      - CPC
+      type: string
+    V1CreateAdvertiserOut:
+      properties:
+        id:
+          type: integer
+      required:
+      - id
+      type: object
+    GroupFormat:
+      description: Формат группы объявлений
+      enum:
+      - mediaRoot
+      - mediaSellerProfile
+      - mediaPremium
+      - media
+      - native
+      - htmlPremium
+      - html
+      - video
+      type: string
     Group:
       properties:
         accountID:
@@ -2111,8 +2341,9 @@ components:
           type: array
         haveCreative:
           description: Есть ли в группе креатив
-          nullable: true
-          type: boolean
+          type:
+          - boolean
+          - 'null'
         id:
           description: ID группы
           type: integer
@@ -2129,13 +2360,15 @@ components:
         periodEndAt:
           description: Конец периода кампании
           format: date-time
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         periodStartAt:
           description: Начало периода кампании
           format: date-time
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         periodTimezone:
           description: Таймзона периода показов
           type: string
@@ -2206,27 +2439,632 @@ components:
       - frequencyCount
       - frequencyRules
       type: object
-    V1GetAdvertisersListIn:
-      description: Payload запроса на получение списка рекламодателей
+    V1GetChildAccountsWithBalancesListOut:
       properties:
-        filter:
+        children:
+          items:
+            $ref: '#/components/schemas/ShortAccountWithBalance'
+          type: array
+      required:
+      - children
+      type: object
+    ContractsFilter:
+      properties:
+        clients:
           $ref: '#/components/schemas/AdvertiserFilter'
-        limit:
-          default: 20
-          description: Количество записей на странице
-          maximum: 100
-          minimum: 1
+        contractors:
+          $ref: '#/components/schemas/AdvertiserFilter'
+        ids:
+          description: Список ID договоров
+          items:
+            type: integer
+          type:
+          - array
+          - 'null'
+        numbers:
+          description: Список номеров договоров
+          items:
+            type: string
+          type:
+          - array
+          - 'null'
+      type: object
+    CreativesFilter:
+      properties:
+        advertisers:
+          description: Список ID рекламодателей
+          items:
+            type: integer
+          type:
+          - array
+          - 'null'
+        campaignIDs:
+          description: Список ID кампаний
+          items:
+            type: integer
+          type:
+          - array
+          - 'null'
+        campaignTypes:
+          description: Список типов кампаний
+          items:
+            $ref: '#/components/schemas/CampaignType'
+          type:
+          - array
+          - 'null'
+        groupIDs:
+          description: Список ID групп
+          items:
+            type: integer
+          type:
+          - array
+          - 'null'
+        ids:
+          description: Список ID креативов
+          items:
+            type: integer
+          type:
+          - array
+          - 'null'
+        managers:
+          description: Список ID менеджеров
+          items:
+            type: integer
+          type:
+          - array
+          - 'null'
+        paymentModels:
+          description: Список моделей оплаты
+          items:
+            $ref: '#/components/schemas/CampaignPaymentModel'
+          type:
+          - array
+          - 'null'
+        statuses:
+          description: Список статусов креативов
+          items:
+            $ref: '#/components/schemas/CreativesStatus'
+          type:
+          - array
+          - 'null'
+        timeFrame:
+          $ref: '#/components/schemas/DateRange'
+      type: object
+    GroupStatistic:
+      description: Статистика группы
+      properties:
+        data:
+          description: Статистика в разбивке по дням
+          items:
+            $ref: '#/components/schemas/StatsData'
+          type: array
+        id:
+          description: ID группы
           type: integer
-        page:
-          default: 1
-          description: Номер страницы
+        name:
+          description: Название группы
+          type: string
+        totalData:
+          $ref: '#/components/schemas/StatsData'
+      required:
+      - id
+      - name
+      - data
+      - totalData
+      type: object
+    V1TransferFundsIn:
+      description: Payload Перевода денег между аккаунтом родителем и дочками неплательщиками
+      properties:
+        accountIdTo:
+          description: accountId на который перевести
+          type: integer
+        amount:
+          description: Сумма перевода в рублях, не меньше 1 рубля
           minimum: 1
           type: integer
       required:
-      - filter
-      - limit
-      - page
+      - accountIdTo
+      - amount
       type: object
+    V1GetGroupsStatisticOut:
+      description: Статистика по группам кампании
+      properties:
+        groups:
+          description: Статистика по группам кампании
+          items:
+            $ref: '#/components/schemas/GroupStatistic'
+          type: array
+      required:
+      - groups
+      type: object
+    V1GetCreativesListOut:
+      properties:
+        creatives:
+          items:
+            $ref: '#/components/schemas/Creative'
+          type: array
+        total:
+          type: integer
+      required:
+      - total
+      - creatives
+      type: object
+    GroupsFilter:
+      properties:
+        advertisers:
+          description: Список ID рекламодателей
+          items:
+            type: integer
+          type:
+          - array
+          - 'null'
+        campaignIDs:
+          description: Список ID кампаний
+          items:
+            type: integer
+          type:
+          - array
+          - 'null'
+        ids:
+          description: Список ID групп
+          items:
+            type: integer
+          type:
+          - array
+          - 'null'
+        managers:
+          description: Список ID менеджеров
+          items:
+            type: integer
+          type:
+          - array
+          - 'null'
+        paces:
+          description: Скорости показов
+          items:
+            $ref: '#/components/schemas/Paces'
+          type:
+          - array
+          - 'null'
+        paymentModels:
+          description: Список моделей оплаты
+          items:
+            $ref: '#/components/schemas/CampaignPaymentModel'
+          type:
+          - array
+          - 'null'
+        statuses:
+          description: Список статусов групп
+          items:
+            $ref: '#/components/schemas/GroupsStatus'
+          type:
+          - array
+          - 'null'
+        timeFrame:
+          $ref: '#/components/schemas/DateRange'
+      type: object
+    V1GetCampaignStatisticIn:
+      description: Request body для запроса статистики по кампании. Максимальный период между dateFrom и dateTo — 100 дней.
+      properties:
+        dateFrom:
+          description: Дата начала периода в формате YYYY-MM-DD
+          format: date
+          type: string
+        dateTo:
+          description: Дата окончания периода в формате YYYY-MM-DD
+          format: date
+          type: string
+      required:
+      - dateFrom
+      - dateTo
+      type: object
+    Account:
+      properties:
+        actualAddress:
+          type: string
+        contact:
+          description: Контактное лицо
+          properties:
+            name:
+              type: string
+            phone:
+              type: string
+          required:
+          - name
+          - phone
+          type: object
+        inn:
+          type: string
+        kpp:
+          type: string
+        legalAddress:
+          type: string
+        longName:
+          type: string
+        manager:
+          description: MSD Менеджер
+          properties:
+            email:
+              type: string
+            name:
+              type: string
+          required:
+          - name
+          - email
+          type:
+          - object
+          - 'null'
+        ogrn:
+          type: string
+        shortName:
+          type: string
+      required:
+      - inn
+      - shortName
+      - longName
+      - ogrn
+      - kpp
+      - legalAddress
+      - actualAddress
+      - contact
+      type: object
+    V1GetAdvertisersListOut:
+      properties:
+        advertisers:
+          items:
+            $ref: '#/components/schemas/Advertiser'
+          type: array
+        total:
+          type: integer
+      required:
+      - total
+      - advertisers
+      type: object
+    V1ChangeBudgetIn:
+      description: Payload для изменения бюджета группы
+      properties:
+        budget:
+          description: Новый бюджет группы в рублях с НДС
+          minimum: 1
+          type: integer
+      required:
+      - budget
+      type: object
+    GroupPriceControl:
+      description: Контроль цены группы
+      enum:
+      - manual
+      - auto
+      type: string
+    V1GetChildAccountsListOut:
+      properties:
+        children:
+          items:
+            $ref: '#/components/schemas/ShortAccountWithContract'
+          type: array
+      required:
+      - children
+      type: object
+    ScheduleType:
+      description: Тип расписания показов
+      enum:
+      - always
+      - weekdays9To20
+      - custom
+      type: string
+    Campaign:
+      properties:
+        accountId:
+          description: ID аккаунта
+          type: integer
+        additionalAgreementID:
+          description: ID дополнительного соглашения к изначальному договору
+          type:
+          - integer
+          - 'null'
+        advertiserId:
+          description: ID рекламодателя
+          type: integer
+        budget:
+          description: Бюджет кампании в рублях с НДС
+          type: integer
+        budgetKopeks:
+          description: Бюджет кампании в копейках с НДС
+          type: integer
+        campaignType:
+          $ref: '#/components/schemas/CampaignType'
+        contractId:
+          description: ID контракта
+          type: integer
+        createdAt:
+          description: Дата создания кампании
+          type: string
+        endDate:
+          description: Дата окончания кампании
+          type:
+          - string
+          - 'null'
+        id:
+          description: ID кампании
+          type: integer
+        managerID:
+          description: ID менеджера, ответственного за кампанию (userID)
+          type: integer
+        name:
+          description: Название кампании
+          type: string
+        paymentModel:
+          $ref: '#/components/schemas/CampaignPaymentModel'
+        performanceAdditionalAgreementID:
+          description: ID доп соглашения к исполнительскому договору
+          type:
+          - integer
+          - 'null'
+        startDate:
+          description: Дата начала кампании
+          type:
+          - string
+          - 'null'
+        status:
+          $ref: '#/components/schemas/CampaignStatus'
+        updatedAt:
+          description: Дата обновления кампании
+          type:
+          - string
+          - 'null'
+        userId:
+          description: ID пользователя создавшего кампанию
+          type: integer
+      type: object
+    CampaignsFilter:
+      properties:
+        additionalAgreementIDs:
+          description: Список ID дополнительных соглашений
+          items:
+            type: integer
+          type:
+          - array
+          - 'null'
+        advertisers:
+          description: Список ID рекламодателей
+          items:
+            type: integer
+          type:
+          - array
+          - 'null'
+        campaignTypes:
+          description: Список типов кампаний
+          items:
+            $ref: '#/components/schemas/CampaignType'
+          type:
+          - array
+          - 'null'
+        contractIDs:
+          description: Список ID договоров
+          items:
+            type: integer
+          type:
+          - array
+          - 'null'
+        createdAt:
+          $ref: '#/components/schemas/DateRange'
+        ids:
+          description: Список ID кампаний
+          items:
+            type: integer
+          type:
+          - array
+          - 'null'
+        managers:
+          description: Список ID менеджеров
+          items:
+            type: integer
+          type:
+          - array
+          - 'null'
+        paymentModels:
+          description: Список моделей оплаты
+          items:
+            $ref: '#/components/schemas/CampaignPaymentModel'
+          type:
+          - array
+          - 'null'
+        statuses:
+          description: Список статусов кампаний
+          items:
+            $ref: '#/components/schemas/CampaignStatus'
+          type:
+          - array
+          - 'null'
+        timeFrame:
+          $ref: '#/components/schemas/DateRange'
+      type: object
+    Paces:
+      description: Скорости показов
+      enum:
+      - asap
+      - even
+      type: string
+    V1CreateAccountIn:
+      description: Payload создания аккаунта
+      properties:
+        actualAddress:
+          description: Фактический адрес. Если не передан, используется legalAddress.
+          type:
+          - string
+          - 'null'
+        contact:
+          description: Контактное лицо
+          properties:
+            name:
+              description: ФИО контактного лица
+              type: string
+            phone:
+              description: Контактный телефон
+              type: string
+          required:
+          - name
+          - phone
+          type: object
+        inn:
+          description: ИНН организации или ИП
+          type: string
+        kpp:
+          description: КПП организации
+          type:
+          - string
+          - 'null'
+        legalAddress:
+          description: Юридический адрес или адрес регистрации
+          type: string
+        legalType:
+          $ref: '#/components/schemas/LegalType'
+        longName:
+          description: Полное наименование организации или ИП
+          type: string
+        ogrn:
+          description: ОГРН или ОГРНИП
+          type: string
+        shortName:
+          description: Краткое название аккаунта
+          type: string
+      required:
+      - inn
+      - shortName
+      - longName
+      - ogrn
+      - legalAddress
+      - legalType
+      - contact
+      type: object
+    BudgetFrequency:
+      description: Частота расходования бюджета
+      enum:
+      - weekly
+      - entirePeriod
+      type: string
+    ShortAccount:
+      properties:
+        id:
+          type: integer
+        shortName:
+          type: string
+      required:
+      - id
+      - shortName
+      type: object
+    CreativesStatus:
+      description: Статус креатива
+      enum:
+      - draft
+      - ready_for_moderation
+      - in_moderation
+      - moderation_failed
+      - erir_registration
+      - active
+      - pausing
+      - paused
+      - unpausing
+      - stopped
+      - finished
+      - archived
+      type: string
+    V1ChangePriceIn:
+      description: Payload для изменения ставки группы
+      properties:
+        price:
+          description: Новая ставка группы в рублях с НДС
+          minimum: 1
+          type: integer
+      required:
+      - price
+      type: object
+    V1GetAccountByIdOut:
+      properties:
+        account:
+          $ref: '#/components/schemas/Account'
+      type: object
+    LegalType:
+      description: Тип ЮЛ
+      enum:
+      - ul
+      - ip
+      type: string
+    FrequencyRule:
+      description: Правило частотного ограничения
+      properties:
+        count:
+          description: Количество показов за указанный период
+          minimum: 0
+          type: integer
+        period:
+          $ref: '#/components/schemas/FrequencyPeriod'
+      required:
+      - count
+      - period
+      type: object
+    V1GetCampaignsListOut:
+      properties:
+        campaigns:
+          items:
+            $ref: '#/components/schemas/Campaign'
+          type: array
+        total:
+          type: integer
+      required:
+      - total
+      - campaigns
+      type: object
+    ActivityScheduleHours:
+      description: Расписание активности на день по часам (0-23)
+      items:
+        type: integer
+      type: array
+    CampaignType:
+      description: Тип кампании
+      enum:
+      - textImage
+      - HTML
+      - video
+      type: string
+    GroupsStatus:
+      description: Статус группы объявлений
+      enum:
+      - draft
+      - in_moderation
+      - moderation_failed
+      - will_launch_soon
+      - active
+      - will_stop_soon
+      - pausing
+      - paused
+      - unpausing
+      - stopped
+      - finished
+      - archived
+      type: string
+    V1CreateNonPayerAccountIn:
+      description: Payload создания аккаунта
+      properties:
+        isSelfAdvertisingEnabled:
+          description: Флаг разрешающий рекламировать родительский аккаунт. Если вам надо рекламировать нового рекламодателя без возможности рекламировать родителя, выставлять - false
+          type:
+          - boolean
+          - 'null'
+        shortName:
+          description: Краткое название дочернего аккаунта, меньше 64 символов
+          type: string
+      required:
+      - shortName
+      - isSelfAdvertisingEnabled
+      type: object
+    AudienceType:
+      description: Тип аудитории таргетинга группы
+      enum:
+      - basic
+      - ready
+      - autotargeting
+      type: string
     CampaignStatus:
       description: Статус кампании
       enum:
@@ -2245,60 +3083,253 @@ components:
       - finished
       - archived
       type: string
-    ContractsFilter:
+    V1GetCampaignsListIn:
+      description: Payload запроса на получение списка кампаний
       properties:
-        clients:
-          $ref: '#/components/schemas/AdvertiserFilter'
-        contractors:
-          $ref: '#/components/schemas/AdvertiserFilter'
-        ids:
-          description: Список ID договоров
-          items:
-            type: integer
-          nullable: true
-          type: array
-        numbers:
-          description: Список номеров договоров
-          items:
-            type: string
-          nullable: true
-          type: array
+        filter:
+          $ref: '#/components/schemas/CampaignsFilter'
+        limit:
+          default: 20
+          description: Количество записей на странице
+          maximum: 100
+          minimum: 1
+          type: integer
+        page:
+          default: 1
+          description: Номер страницы
+          minimum: 1
+          type: integer
+      required:
+      - filter
+      - limit
+      - page
       type: object
-    CreativesStatus:
-      description: Статус креатива
-      enum:
-      - draft
-      - ready_for_moderation
-      - in_moderation
-      - moderation_failed
-      - erir_registration
-      - active
-      - pausing
-      - paused
-      - unpausing
-      - stopped
-      - finished
-      - archived
-      type: string
-    V1GetCampaignStatisticOut:
-      description: Статистика по кампании
+    ShortAccountWithContract:
       properties:
-        campaign:
-          $ref: '#/components/schemas/CampaignStatistic'
+        account:
+          $ref: '#/components/schemas/ShortAccount'
+        contract:
+          $ref: '#/components/schemas/ContractForChildAccount'
+      required:
+      - account
+      type: object
+    V1GetGroupsListIn:
+      description: Payload запроса на получение списка кампаний
+      properties:
+        filter:
+          $ref: '#/components/schemas/GroupsFilter'
+        limit:
+          default: 20
+          description: Количество записей на странице
+          maximum: 100
+          minimum: 1
+          type: integer
+        page:
+          default: 1
+          description: Номер страницы
+          minimum: 1
+          type: integer
+      required:
+      - filter
+      - limit
+      - page
+      type: object
+    Contract:
+      properties:
+        accountID:
+          type: integer
+        cid:
+          type:
+          - string
+          - 'null'
+        client:
+          $ref: '#/components/schemas/Advertiser'
+        contractor:
+          $ref: '#/components/schemas/Advertiser'
+        date:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        id:
+          type: integer
+        isAgentActingForPublisher:
+          type:
+          - boolean
+          - 'null'
+        isCreativeReporter:
+          type:
+          - boolean
+          - 'null'
+        number:
+          type:
+          - string
+          - 'null'
+        object:
+          type:
+          - string
+          - 'null'
+        parentId:
+          type:
+          - integer
+          - 'null'
+        subject:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/ContractType'
+      required:
+      - id
+      - accountID
+      - client
+      - contractor
+      - type
+      type: object
+    Creative:
+      properties:
+        accountID:
+          description: ID аккаунта
+          type: integer
+        advertiserID:
+          description: ID рекламодателя
+          type: integer
+        buttonText:
+          description: Текст на кнопке
+          type:
+          - string
+          - 'null'
+        campaignID:
+          description: ID кампании
+          type: integer
+        campaignType:
+          $ref: '#/components/schemas/CampaignType'
+        description:
+          description: Описание объявления
+          type:
+          - string
+          - 'null'
+        groupID:
+          description: ID группы
+          type: integer
+        id:
+          description: ID креатива
+          type: integer
+        landingID:
+          description: ID посадочной страницы
+          type:
+          - integer
+          - 'null'
+        legalInfo:
+          $ref: '#/components/schemas/LegalInfo'
+        link:
+          description: Целевая ссылка
+          type: string
+        managerID:
+          description: ID менеджера, ответственного за кампанию (userID)
+          type: integer
+        name:
+          description: Название креатива
+          type: string
+        originUrl:
+          description: Оригинальная ссылка для аналитики
+          type:
+          - string
+          - 'null'
+        paymentModel:
+          $ref: '#/components/schemas/CampaignPaymentModel'
+        previewUrl:
+          description: Ссылка на предпросмотр креатива
+          type:
+          - string
+          - 'null'
+        status:
+          $ref: '#/components/schemas/CreativesStatus'
+        title:
+          description: Заголовок объявления
+          type:
+          - string
+          - 'null'
+        userID:
+          description: ID пользователя, создавшего креатив
+          type: integer
+      type: object
+    V1GetCreativesStatisticOut:
+      description: Статистика по креативам кампании
+      properties:
         creatives:
           description: Статистика по креативам кампании
           items:
             $ref: '#/components/schemas/CreativeStatistic'
           type: array
-        groups:
-          description: Статистика по группам кампании
-          items:
-            $ref: '#/components/schemas/GroupStatistic'
-          type: array
       required:
-      - campaign
-      - groups
       - creatives
+      type: object
+    V1GetContractsListIn:
+      description: Payload запроса на получение списка договоров
+      properties:
+        filter:
+          $ref: '#/components/schemas/ContractsFilter'
+        limit:
+          default: 20
+          description: Количество записей на странице
+          maximum: 100
+          minimum: 1
+          type: integer
+        page:
+          default: 1
+          description: Номер страницы
+          minimum: 1
+          type: integer
+      required:
+      - filter
+      - limit
+      - page
+      type: object
+    V1GetCreativesStatisticIn:
+      description: Request body для запроса статистики по креативам кампании. Максимальный период между dateFrom и dateTo — 100 дней.
+      properties:
+        creativeIDs:
+          description: Список ID креативов для получения статистики
+          items:
+            type: integer
+          minItems: 1
+          type: array
+        dateFrom:
+          description: Дата начала периода в формате YYYY-MM-DD
+          format: date
+          type: string
+        dateTo:
+          description: Дата окончания периода в формате YYYY-MM-DD
+          format: date
+          type: string
+      required:
+      - dateFrom
+      - dateTo
+      - creativeIDs
+      type: object
+    V1CreateContractOut:
+      properties:
+        id:
+          type: integer
+      required:
+      - id
+      type: object
+    V1CreateNonPayerAccountOut:
+      properties:
+        accountID:
+          type: integer
+        clientKey:
+          type: string
+        clientSecret:
+          type: string
+      required:
+      - accountID
+      - clientKey
+      - clientSecret
       type: object
     V1GetUsersListByAccountOut:
       properties:
@@ -2312,66 +3343,104 @@ components:
       - total
       - users
       type: object
-    FrequencyRule:
-      description: Правило частотного ограничения
+    ContractForChildAccount:
       properties:
-        count:
-          description: Количество показов за указанный период
-          minimum: 0
+        accountID:
           type: integer
-        period:
-          $ref: '#/components/schemas/FrequencyPeriod'
-      required:
-      - count
-      - period
-      type: object
-    V1GetAdvertisersListOut:
-      properties:
-        advertisers:
-          items:
-            $ref: '#/components/schemas/Advertiser'
-          type: array
-        total:
+        cid:
+          type:
+          - string
+          - 'null'
+        client:
+          $ref: '#/components/schemas/Advertiser'
+        contractor:
+          $ref: '#/components/schemas/Advertiser'
+        date:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        id:
           type: integer
-      required:
-      - total
-      - advertisers
-      type: object
-    V1GetContractsListOut:
+        isAgentActingForPublisher:
+          type:
+          - boolean
+          - 'null'
+        isCreativeReporter:
+          type:
+          - boolean
+          - 'null'
+        number:
+          type:
+          - string
+          - 'null'
+        object:
+          type:
+          - string
+          - 'null'
+        parentId:
+          type:
+          - integer
+          - 'null'
+        subject:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/ContractType'
+      type:
+      - object
+      - 'null'
+    CreteIntermediaryIn:
+      description: Данные исполнителя по договору. Для доп соглашений не передаем. Для договоров обязательно передавать.
       properties:
-        contracts:
-          items:
-            $ref: '#/components/schemas/Contract'
-          type: array
-        total:
-          type: integer
-      required:
-      - total
-      - contracts
-      type: object
-    ShortAccountWithContract:
-      properties:
-        account:
-          $ref: '#/components/schemas/ShortAccount'
-        contract:
-          $ref: '#/components/schemas/ContractForChildAccount'
-      required:
-      - account
-      type: object
+        actualAddress:
+          description: Почтовый адрес
+          type: string
+        inn:
+          description: ИНН ЮЛ/ИП
+          type: string
+        kpp:
+          description: КПП ЮЛ, для ИП не передаем
+          type:
+          - string
+          - 'null'
+        legalAddress:
+          description: Юридически адрес
+          type: string
+        legalType:
+          $ref: '#/components/schemas/LegalType'
+        longName:
+          description: Полное имя ЮЛ/ИП
+          type: string
+        ogrn:
+          description: ОГРНИП для ИП, ОРГН для ЮЛ
+          type: string
+        shortName:
+          description: Короткое имя ЮЛ/ИП
+          type: string
+      type:
+      - object
+      - 'null'
     V1CreateAdvertiserIn:
       description: Payload создания рекламодателя
       properties:
         actualAddress:
           description: 'Фактический адрес. Если не передан, используется legalAddress. Пример корректного адреса: 127015, г. Москва, ул. Лесная, д. 7'
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         inn:
           description: ИНН организации
           type: string
         kpp:
           description: КПП организации
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         legalAddress:
           description: 'Юридический адрес или адрес регистрации. Пример корректного адреса: 127015, г. Москва, ул. Лесная, д. 7'
           type: string
@@ -2397,18 +3466,29 @@ components:
       - legalRole
       - legalType
       type: object
-    V1CreateAccountOut:
+    V1AddUserIn:
+      description: Payload добавления пользователя в аккаунт
       properties:
-        accountID:
+        role:
+          $ref: '#/components/schemas/UserRole'
+        userId:
+          description: ID пользователя авито
           type: integer
-        warnings:
-          description: Предупреждения о частично невыполненных sandbox-операциях. Если массив пустой, аккаунт подготовлен полностью.
-          items:
-            type: string
-          type: array
       required:
-      - accountID
-      - warnings
+      - userId
+      - role
+      type: object
+    V1SetUserRoleIn:
+      description: Payload изменение роли пользователя в аккаунте
+      properties:
+        role:
+          $ref: '#/components/schemas/UserRole'
+        userId:
+          description: ID пользователя авито
+          type: integer
+      required:
+      - userId
+      - role
       type: object
     User:
       properties:
@@ -2424,176 +3504,6 @@ components:
       - id
       - role
       - hasLoggedIn
-      type: object
-    Error:
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-      required:
-      - message
-      - code
-      type: object
-    V1CreateContractOut:
-      properties:
-        id:
-          type: integer
-      required:
-      - id
-      type: object
-    ContractType:
-      description: Тип контракта
-      enum:
-      - service
-      - intermediary
-      - external
-      type: string
-    BudgetFrequency:
-      description: Частота расходования бюджета
-      enum:
-      - weekly
-      - entirePeriod
-      type: string
-    V1GetChildAccountsWithBalancesListOut:
-      properties:
-        children:
-          items:
-            $ref: '#/components/schemas/ShortAccountWithBalance'
-          type: array
-      required:
-      - children
-      type: object
-    GroupFormat:
-      description: Формат группы объявлений
-      enum:
-      - mediaRoot
-      - mediaSellerProfile
-      - mediaPremium
-      - media
-      - native
-      - htmlPremium
-      - html
-      - video
-      type: string
-    V1CreateNonPayerAccountIn:
-      description: Payload создания аккаунта
-      properties:
-        isSelfAdvertisingEnabled:
-          description: Флаг разрешающий рекламировать родительский аккаунт. Если вам надо рекламировать нового рекламодателя без возможности рекламировать родителя, выставлять - false
-          nullable: true
-          type: boolean
-        shortName:
-          description: Краткое название дочернего аккаунта, меньше 64 символов
-          type: string
-      required:
-      - shortName
-      - isSelfAdvertisingEnabled
-      type: object
-    LegalType:
-      description: Тип ЮЛ
-      enum:
-      - ul
-      - ip
-      type: string
-    V1GetCreativesStatisticOut:
-      description: Статистика по креативам кампании
-      properties:
-        creatives:
-          description: Статистика по креативам кампании
-          items:
-            $ref: '#/components/schemas/CreativeStatistic'
-          type: array
-      required:
-      - creatives
-      type: object
-    ContractCounterpartyType:
-      enum:
-      - direct_with_advertiser
-      - advertiser_intermediary
-      type: string
-    CampaignStatistic:
-      description: Статистика кампании
-      properties:
-        campaignType:
-          $ref: '#/components/schemas/CampaignType'
-        data:
-          description: Статистика в разбивке по дням
-          items:
-            $ref: '#/components/schemas/StatsData'
-          type: array
-        id:
-          description: ID кампании
-          type: integer
-        name:
-          description: Название кампании
-          type: string
-        paymentModel:
-          $ref: '#/components/schemas/CampaignPaymentModel'
-        totalData:
-          $ref: '#/components/schemas/StatsData'
-      required:
-      - id
-      - name
-      - paymentModel
-      - campaignType
-      - data
-      - totalData
-      type: object
-    CampaignsFilter:
-      properties:
-        additionalAgreementIDs:
-          description: Список ID дополнительных соглашений
-          items:
-            type: integer
-          nullable: true
-          type: array
-        advertisers:
-          description: Список ID рекламодателей
-          items:
-            type: integer
-          nullable: true
-          type: array
-        campaignTypes:
-          description: Список типов кампаний
-          items:
-            $ref: '#/components/schemas/CampaignType'
-          nullable: true
-          type: array
-        contractIDs:
-          description: Список ID договоров
-          items:
-            type: integer
-          nullable: true
-          type: array
-        createdAt:
-          $ref: '#/components/schemas/DateRange'
-        ids:
-          description: Список ID кампаний
-          items:
-            type: integer
-          nullable: true
-          type: array
-        managers:
-          description: Список ID менеджеров
-          items:
-            type: integer
-          nullable: true
-          type: array
-        paymentModels:
-          description: Список моделей оплаты
-          items:
-            $ref: '#/components/schemas/CampaignPaymentModel'
-          nullable: true
-          type: array
-        statuses:
-          description: Список статусов кампаний
-          items:
-            $ref: '#/components/schemas/CampaignStatus'
-          nullable: true
-          type: array
-        timeFrame:
-          $ref: '#/components/schemas/DateRange'
       type: object
     CreativeStatistic:
       description: Статистика креатива
@@ -2621,463 +3531,6 @@ components:
       - data
       - totalData
       type: object
-    AdvertiserFilter:
-      properties:
-        ids:
-          description: Список ID рекламодателей
-          items:
-            type: integer
-          nullable: true
-          type: array
-        inns:
-          description: Список ИНН рекламодателей
-          items:
-            type: string
-          nullable: true
-          type: array
-        roles:
-          description: Список ролей рекламодателей
-          items:
-            $ref: '#/components/schemas/LegalRole'
-          nullable: true
-          type: array
-      type: object
-    V1GetCreativesListIn:
-      description: Payload запроса на получение списка креативов
-      properties:
-        filter:
-          $ref: '#/components/schemas/CreativesFilter'
-        limit:
-          default: 20
-          description: Количество записей на странице
-          maximum: 100
-          minimum: 1
-          type: integer
-        page:
-          default: 1
-          description: Номер страницы
-          minimum: 1
-          type: integer
-      required:
-      - filter
-      - limit
-      - page
-      type: object
-    V1GetAccountByIdOut:
-      properties:
-        account:
-          $ref: '#/components/schemas/Account'
-      type: object
-    GroupsStatus:
-      description: Статус группы объявлений
-      enum:
-      - draft
-      - in_moderation
-      - moderation_failed
-      - will_launch_soon
-      - active
-      - will_stop_soon
-      - pausing
-      - paused
-      - unpausing
-      - stopped
-      - finished
-      - archived
-      type: string
-    EmptyResponse:
-      type: object
-    V1CreateNonPayerAccountOut:
-      properties:
-        accountID:
-          type: integer
-        clientKey:
-          type: string
-        clientSecret:
-          type: string
-      required:
-      - accountID
-      - clientKey
-      - clientSecret
-      type: object
-    ActivityScheduleHours:
-      description: Расписание активности на день по часам (0-23)
-      items:
-        type: integer
-      type: array
-    ScheduleType:
-      description: Тип расписания показов
-      enum:
-      - always
-      - weekdays9To20
-      - custom
-      type: string
-    V1SetUserRoleIn:
-      description: Payload изменение роли пользователя в аккаунте
-      properties:
-        role:
-          $ref: '#/components/schemas/UserRole'
-        userId:
-          description: ID пользователя авито
-          type: integer
-      required:
-      - userId
-      - role
-      type: object
-    Creative:
-      properties:
-        accountID:
-          description: ID аккаунта
-          type: integer
-        advertiserID:
-          description: ID рекламодателя
-          type: integer
-        buttonText:
-          description: Текст на кнопке
-          nullable: true
-          type: string
-        campaignID:
-          description: ID кампании
-          type: integer
-        campaignType:
-          $ref: '#/components/schemas/CampaignType'
-        description:
-          description: Описание объявления
-          nullable: true
-          type: string
-        groupID:
-          description: ID группы
-          type: integer
-        id:
-          description: ID креатива
-          type: integer
-        landingID:
-          description: ID посадочной страницы
-          nullable: true
-          type: integer
-        legalInfo:
-          $ref: '#/components/schemas/LegalInfo'
-        link:
-          description: Целевая ссылка
-          type: string
-        managerID:
-          description: ID менеджера, ответственного за кампанию (userID)
-          type: integer
-        name:
-          description: Название креатива
-          type: string
-        originUrl:
-          description: Оригинальная ссылка для аналитики
-          nullable: true
-          type: string
-        paymentModel:
-          $ref: '#/components/schemas/CampaignPaymentModel'
-        previewUrl:
-          description: Ссылка на предпросмотр креатива
-          nullable: true
-          type: string
-        status:
-          $ref: '#/components/schemas/CreativesStatus'
-        title:
-          description: Заголовок объявления
-          nullable: true
-          type: string
-        userID:
-          description: ID пользователя, создавшего креатив
-          type: integer
-      type: object
-    V1GetCampaignsListOut:
-      properties:
-        campaigns:
-          items:
-            $ref: '#/components/schemas/Campaign'
-          type: array
-        total:
-          type: integer
-      required:
-      - total
-      - campaigns
-      type: object
-    V1GetCreativesListOut:
-      properties:
-        creatives:
-          items:
-            $ref: '#/components/schemas/Creative'
-          type: array
-        total:
-          type: integer
-      required:
-      - total
-      - creatives
-      type: object
-    V1CreateAccountIn:
-      description: Payload создания аккаунта
-      properties:
-        actualAddress:
-          description: Фактический адрес. Если не передан, используется legalAddress.
-          nullable: true
-          type: string
-        contact:
-          description: Контактное лицо
-          properties:
-            name:
-              description: ФИО контактного лица
-              type: string
-            phone:
-              description: Контактный телефон
-              type: string
-          required:
-          - name
-          - phone
-          type: object
-        inn:
-          description: ИНН организации или ИП
-          type: string
-        kpp:
-          description: КПП организации
-          nullable: true
-          type: string
-        legalAddress:
-          description: Юридический адрес или адрес регистрации
-          type: string
-        legalType:
-          $ref: '#/components/schemas/LegalType'
-        longName:
-          description: Полное наименование организации или ИП
-          type: string
-        ogrn:
-          description: ОГРН или ОГРНИП
-          type: string
-        shortName:
-          description: Краткое название аккаунта
-          type: string
-      required:
-      - inn
-      - shortName
-      - longName
-      - ogrn
-      - legalAddress
-      - legalType
-      - contact
-      type: object
-    Advertiser:
-      properties:
-        accountId:
-          type: integer
-        actualAddress:
-          type: string
-        id:
-          type: integer
-        inn:
-          type: string
-        kpp:
-          type: string
-        legalAddress:
-          type: string
-        legalRole:
-          $ref: '#/components/schemas/LegalRole'
-        legalType:
-          $ref: '#/components/schemas/LegalType'
-        longName:
-          type: string
-        ogrn:
-          type: string
-        shortName:
-          type: string
-      required:
-      - id
-      - shortName
-      - longName
-      - inn
-      - legalRole
-      - ogrn
-      - legalAddress
-      - actualAddress
-      - accountId
-      - legalType
-      type: object
-    StatsData:
-      description: Данные статистики за период
-      properties:
-        clicks:
-          description: Количество кликов
-          type: integer
-        cpc:
-          description: Средняя стоимость CPC
-          format: float
-          type: number
-        cpm:
-          description: Средняя стоимость CPM
-          format: float
-          type: number
-        ctr:
-          description: CTR (Click-Through Rate)
-          format: float
-          type: number
-        q25:
-          description: Доля просмотров видео на 25%
-          format: float
-          nullable: true
-          type: number
-        q50:
-          description: Доля просмотров видео на 50%
-          format: float
-          nullable: true
-          type: number
-        q75:
-          description: Доля просмотров видео на 75%
-          format: float
-          nullable: true
-          type: number
-        spend:
-          description: Потрачено денег в рублях
-          type: integer
-        spendBonus:
-          description: Потрачено бонусов в рублях
-          type: integer
-        spendBonusKopeks:
-          description: Потрачено бонусов в копейках
-          type: integer
-        spendKopeks:
-          description: Потрачено денег в копейках
-          type: integer
-        timestamp:
-          description: Временная метка (гранулярность по дням). Заполняется в data[] и отсутствует в totalData.
-          format: date-time
-          nullable: true
-          type: string
-        videoViews100:
-          description: Количество просмотров видео на 100%
-          nullable: true
-          type: integer
-        videoViews25:
-          description: Количество просмотров видео на 25%
-          nullable: true
-          type: integer
-        videoViews50:
-          description: Количество просмотров видео на 50%
-          nullable: true
-          type: integer
-        videoViews75:
-          description: Количество просмотров видео на 75%
-          nullable: true
-          type: integer
-        views:
-          description: Количество показов
-          type: integer
-        vtr:
-          description: Доля просмотров видео на 100%
-          format: float
-          nullable: true
-          type: number
-      required:
-      - views
-      - clicks
-      - ctr
-      - spend
-      - spendBonus
-      - cpm
-      - cpc
-      type: object
-    V1GetChildAccountsListOut:
-      properties:
-        children:
-          items:
-            $ref: '#/components/schemas/ShortAccountWithContract'
-          type: array
-      required:
-      - children
-      type: object
-    CreteIntermediaryIn:
-      description: Данные исполнителя по договору. Для доп соглашений не передаем. Для договоров обязательно передавать.
-      nullable: true
-      properties:
-        actualAddress:
-          description: Почтовый адрес
-          type: string
-        inn:
-          description: ИНН ЮЛ/ИП
-          type: string
-        kpp:
-          description: КПП ЮЛ, для ИП не передаем
-          nullable: true
-          type: string
-        legalAddress:
-          description: Юридически адрес
-          type: string
-        legalType:
-          $ref: '#/components/schemas/LegalType'
-        longName:
-          description: Полное имя ЮЛ/ИП
-          type: string
-        ogrn:
-          description: ОГРНИП для ИП, ОРГН для ЮЛ
-          type: string
-        shortName:
-          description: Короткое имя ЮЛ/ИП
-          type: string
-      type: object
-    V1ChangePriceIn:
-      description: Payload для изменения ставки группы
-      properties:
-        price:
-          description: Новая ставка группы в рублях с НДС
-          minimum: 1
-          type: integer
-      required:
-      - price
-      type: object
-    V1ChangeBudgetIn:
-      description: Payload для изменения бюджета группы
-      properties:
-        budget:
-          description: Новый бюджет группы в рублях с НДС
-          minimum: 1
-          type: integer
-      required:
-      - budget
-      type: object
-    FrequencyPeriod:
-      description: Период частотного ограничения
-      enum:
-      - no_limit
-      - day
-      - week
-      - month
-      type: string
-    V1TransferFundsIn:
-      description: Payload Перевода денег между аккаунтом родителем и дочками неплательщиками
-      properties:
-        accountIdTo:
-          description: accountId на который перевести
-          type: integer
-        amount:
-          description: Сумма перевода в рублях, не меньше 1 рубля
-          minimum: 1
-          type: integer
-      required:
-      - accountIdTo
-      - amount
-      type: object
-    V1GetAccountBalanceByIdOut:
-      properties:
-        balance:
-          description: Баланс аккаунта  в рублях
-          type: integer
-        balanceKopeks:
-          description: Баланс аккаунта в копейках
-          type: integer
-        bonusBalance:
-          description: Баланс бонусов на аккаунте в рублях
-          type: integer
-        bonusBalanceKopeks:
-          description: Баланс бонусов на аккаунте в копейках
-          type: integer
-      required:
-      - balance
-      - balanceKopeks
-      - bonusBalance
-      - bonusBalanceKopeks
-      type: object
     V1CreateContractIn:
       description: 'Payload запроса на создание договора.
 
@@ -3100,13 +3553,15 @@ components:
           type: integer
         cid:
           description: CID внешнего договора, заполняется только для type = external.
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         date:
           description: Дата в формате YYYY-MM-DD. Можно не передавать только для type = external.
           format: date
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         description:
           $ref: '#/components/schemas/ContractCounterpartyType'
         intermediary:
@@ -3119,14 +3574,16 @@ components:
           type: boolean
         number:
           description: Номер договора. Можно не передавать только для type = external.
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         object:
           $ref: '#/components/schemas/ContractAction'
         parentId:
           description: ID родительского договора для доп. соглашения
-          nullable: true
-          type: integer
+          type:
+          - integer
+          - 'null'
         subject:
           $ref: '#/components/schemas/ContractSubject'
         type:
@@ -3136,113 +3593,117 @@ components:
       - advertiserId
       - type
       type: object
-    V1GetCampaignsListIn:
-      description: Payload запроса на получение списка кампаний
+    V1GetCampaignStatisticOut:
+      description: Статистика по кампании
       properties:
-        filter:
-          $ref: '#/components/schemas/CampaignsFilter'
-        limit:
-          default: 20
-          description: Количество записей на странице
-          maximum: 100
-          minimum: 1
-          type: integer
-        page:
-          default: 1
-          description: Номер страницы
-          minimum: 1
-          type: integer
-      required:
-      - filter
-      - limit
-      - page
-      type: object
-    V1GetGroupsListOut:
-      properties:
-        groups:
+        campaign:
+          $ref: '#/components/schemas/CampaignStatistic'
+        creatives:
+          description: Статистика по креативам кампании
           items:
-            $ref: '#/components/schemas/Group'
+            $ref: '#/components/schemas/CreativeStatistic'
           type: array
-        total:
-          type: integer
+        groups:
+          description: Статистика по группам кампании
+          items:
+            $ref: '#/components/schemas/GroupStatistic'
+          type: array
       required:
-      - total
+      - campaign
       - groups
+      - creatives
       type: object
-    CampaignPaymentModel:
-      description: Модель оплаты кампании
-      enum:
-      - CPM
-      - CPC
-      type: string
-    AudienceType:
-      description: Тип аудитории таргетинга группы
-      enum:
-      - basic
-      - ready
-      - autotargeting
-      type: string
-    GroupPriceControl:
-      description: Контроль цены группы
-      enum:
-      - manual
-      - auto
-      type: string
-    Account:
+    StatsData:
+      description: Данные статистики за период
       properties:
-        actualAddress:
-          type: string
-        contact:
-          description: Контактное лицо
-          properties:
-            name:
-              type: string
-            phone:
-              type: string
-          required:
-          - name
-          - phone
-          type: object
-        inn:
-          type: string
-        kpp:
-          type: string
-        legalAddress:
-          type: string
-        longName:
-          type: string
-        manager:
-          description: MSD Менеджер
-          nullable: true
-          properties:
-            email:
-              type: string
-            name:
-              type: string
-          required:
-          - name
-          - email
-          type: object
-        ogrn:
-          type: string
-        shortName:
-          type: string
-      required:
-      - inn
-      - shortName
-      - longName
-      - ogrn
-      - kpp
-      - legalAddress
-      - actualAddress
-      - contact
-      type: object
-    V1CreateAdvertiserOut:
-      properties:
-        id:
+        clicks:
+          description: Количество кликов
           type: integer
+        cpc:
+          description: Средняя стоимость CPC
+          format: float
+          type: number
+        cpm:
+          description: Средняя стоимость CPM
+          format: float
+          type: number
+        ctr:
+          description: CTR (Click-Through Rate)
+          format: float
+          type: number
+        q25:
+          description: Доля просмотров видео на 25%
+          format: float
+          type:
+          - number
+          - 'null'
+        q50:
+          description: Доля просмотров видео на 50%
+          format: float
+          type:
+          - number
+          - 'null'
+        q75:
+          description: Доля просмотров видео на 75%
+          format: float
+          type:
+          - number
+          - 'null'
+        spend:
+          description: Потрачено денег в рублях
+          type: integer
+        spendBonus:
+          description: Потрачено бонусов в рублях
+          type: integer
+        spendBonusKopeks:
+          description: Потрачено бонусов в копейках
+          type: integer
+        spendKopeks:
+          description: Потрачено денег в копейках
+          type: integer
+        timestamp:
+          description: Временная метка (гранулярность по дням). Заполняется в data[] и отсутствует в totalData.
+          format: date-time
+          type:
+          - string
+          - 'null'
+        videoViews100:
+          description: Количество просмотров видео на 100%
+          type:
+          - integer
+          - 'null'
+        videoViews25:
+          description: Количество просмотров видео на 25%
+          type:
+          - integer
+          - 'null'
+        videoViews50:
+          description: Количество просмотров видео на 50%
+          type:
+          - integer
+          - 'null'
+        videoViews75:
+          description: Количество просмотров видео на 75%
+          type:
+          - integer
+          - 'null'
+        views:
+          description: Количество показов
+          type: integer
+        vtr:
+          description: Доля просмотров видео на 100%
+          format: float
+          type:
+          - number
+          - 'null'
       required:
-      - id
+      - views
+      - clicks
+      - ctr
+      - spend
+      - spendBonus
+      - cpm
+      - cpc
       type: object
     ContractSubject:
       description: Предмет договора
@@ -3253,442 +3714,3 @@ components:
       - representation
       - other
       type: string
-    ShortAccount:
-      properties:
-        id:
-          type: integer
-        shortName:
-          type: string
-      required:
-      - id
-      - shortName
-      type: object
-    Paces:
-      description: Скорости показов
-      enum:
-      - asap
-      - even
-      type: string
-    V1GetGroupsListIn:
-      description: Payload запроса на получение списка кампаний
-      properties:
-        filter:
-          $ref: '#/components/schemas/GroupsFilter'
-        limit:
-          default: 20
-          description: Количество записей на странице
-          maximum: 100
-          minimum: 1
-          type: integer
-        page:
-          default: 1
-          description: Номер страницы
-          minimum: 1
-          type: integer
-      required:
-      - filter
-      - limit
-      - page
-      type: object
-    V1AddUserIn:
-      description: Payload добавления пользователя в аккаунт
-      properties:
-        role:
-          $ref: '#/components/schemas/UserRole'
-        userId:
-          description: ID пользователя авито
-          type: integer
-      required:
-      - userId
-      - role
-      type: object
-    Campaign:
-      properties:
-        accountId:
-          description: ID аккаунта
-          type: integer
-        additionalAgreementID:
-          description: ID дополнительного соглашения к изначальному договору
-          nullable: true
-          type: integer
-        advertiserId:
-          description: ID рекламодателя
-          type: integer
-        budget:
-          description: Бюджет кампании в рублях с НДС
-          type: integer
-        budgetKopeks:
-          description: Бюджет кампании в копейках с НДС
-          type: integer
-        campaignType:
-          $ref: '#/components/schemas/CampaignType'
-        contractId:
-          description: ID контракта
-          type: integer
-        createdAt:
-          description: Дата создания кампании
-          type: string
-        endDate:
-          description: Дата окончания кампании
-          nullable: true
-          type: string
-        id:
-          description: ID кампании
-          type: integer
-        managerID:
-          description: ID менеджера, ответственного за кампанию (userID)
-          type: integer
-        name:
-          description: Название кампании
-          type: string
-        paymentModel:
-          $ref: '#/components/schemas/CampaignPaymentModel'
-        performanceAdditionalAgreementID:
-          description: ID доп соглашения к исполнительскому договору
-          nullable: true
-          type: integer
-        startDate:
-          description: Дата начала кампании
-          nullable: true
-          type: string
-        status:
-          $ref: '#/components/schemas/CampaignStatus'
-        updatedAt:
-          description: Дата обновления кампании
-          nullable: true
-          type: string
-        userId:
-          description: ID пользователя создавшего кампанию
-          type: integer
-      type: object
-    UserRole:
-      description: Роль пользователя в рекламном кабинете
-      enum:
-      - admin
-      - viewer
-      type: string
-    ContractAction:
-      description: Описание действия договора
-      enum:
-      - distribution
-      - conclude
-      - commercial
-      - other
-      type: string
-    LegalRole:
-      description: Роль ЮЛ
-      enum:
-      - rd
-      - ra
-      - rr
-      type: string
-    V1TransferBonusIn:
-      description: Payload Перевода денег между аккаунтом родителем и дочками неплательщиками
-      properties:
-        accountIdTo:
-          description: accountId на который перевести
-          type: integer
-        amount:
-          description: Сумма бонусов, не меньше 1 бонуса
-          minimum: 1
-          type: integer
-      required:
-      - accountIdTo
-      - amount
-      type: object
-    LegalInfo:
-      properties:
-        ageRestriction:
-          description: Возрастное ограничение
-          nullable: true
-          type: integer
-        description:
-          description: Юридическое описание
-          nullable: true
-          type: string
-        kktu:
-          description: ККТУ
-          type: string
-        notes:
-          description: Примечания
-          nullable: true
-          type: string
-      type: object
-    CreativesFilter:
-      properties:
-        advertisers:
-          description: Список ID рекламодателей
-          items:
-            type: integer
-          nullable: true
-          type: array
-        campaignIDs:
-          description: Список ID кампаний
-          items:
-            type: integer
-          nullable: true
-          type: array
-        campaignTypes:
-          description: Список типов кампаний
-          items:
-            $ref: '#/components/schemas/CampaignType'
-          nullable: true
-          type: array
-        groupIDs:
-          description: Список ID групп
-          items:
-            type: integer
-          nullable: true
-          type: array
-        ids:
-          description: Список ID креативов
-          items:
-            type: integer
-          nullable: true
-          type: array
-        managers:
-          description: Список ID менеджеров
-          items:
-            type: integer
-          nullable: true
-          type: array
-        paymentModels:
-          description: Список моделей оплаты
-          items:
-            $ref: '#/components/schemas/CampaignPaymentModel'
-          nullable: true
-          type: array
-        statuses:
-          description: Список статусов креативов
-          items:
-            $ref: '#/components/schemas/CreativesStatus'
-          nullable: true
-          type: array
-        timeFrame:
-          $ref: '#/components/schemas/DateRange'
-      type: object
-    ContractForChildAccount:
-      nullable: true
-      properties:
-        accountID:
-          type: integer
-        cid:
-          nullable: true
-          type: string
-        client:
-          $ref: '#/components/schemas/Advertiser'
-        contractor:
-          $ref: '#/components/schemas/Advertiser'
-        date:
-          nullable: true
-          type: string
-        description:
-          nullable: true
-          type: string
-        id:
-          type: integer
-        isAgentActingForPublisher:
-          nullable: true
-          type: boolean
-        isCreativeReporter:
-          nullable: true
-          type: boolean
-        number:
-          nullable: true
-          type: string
-        object:
-          nullable: true
-          type: string
-        parentId:
-          nullable: true
-          type: integer
-        subject:
-          nullable: true
-          type: string
-        type:
-          $ref: '#/components/schemas/ContractType'
-      type: object
-    Contract:
-      properties:
-        accountID:
-          type: integer
-        cid:
-          nullable: true
-          type: string
-        client:
-          $ref: '#/components/schemas/Advertiser'
-        contractor:
-          $ref: '#/components/schemas/Advertiser'
-        date:
-          nullable: true
-          type: string
-        description:
-          nullable: true
-          type: string
-        id:
-          type: integer
-        isAgentActingForPublisher:
-          nullable: true
-          type: boolean
-        isCreativeReporter:
-          nullable: true
-          type: boolean
-        number:
-          nullable: true
-          type: string
-        object:
-          nullable: true
-          type: string
-        parentId:
-          nullable: true
-          type: integer
-        subject:
-          nullable: true
-          type: string
-        type:
-          $ref: '#/components/schemas/ContractType'
-      required:
-      - id
-      - accountID
-      - client
-      - contractor
-      - type
-      type: object
-    V1GetCreativesStatisticIn:
-      description: Request body для запроса статистики по креативам кампании. Максимальный период между dateFrom и dateTo — 100 дней.
-      properties:
-        creativeIDs:
-          description: Список ID креативов для получения статистики
-          items:
-            type: integer
-          minItems: 1
-          type: array
-        dateFrom:
-          description: Дата начала периода в формате YYYY-MM-DD
-          format: date
-          type: string
-        dateTo:
-          description: Дата окончания периода в формате YYYY-MM-DD
-          format: date
-          type: string
-      required:
-      - dateFrom
-      - dateTo
-      - creativeIDs
-      type: object
-    V1GetGroupsStatisticOut:
-      description: Статистика по группам кампании
-      properties:
-        groups:
-          description: Статистика по группам кампании
-          items:
-            $ref: '#/components/schemas/GroupStatistic'
-          type: array
-      required:
-      - groups
-      type: object
-    ShortAccountWithBalance:
-      properties:
-        account:
-          $ref: '#/components/schemas/ShortAccount'
-        balance:
-          $ref: '#/components/schemas/V1GetAccountBalanceByIdOut'
-      required:
-      - account
-      - balance
-      type: object
-    V1GetGroupsStatisticIn:
-      description: Request body для запроса статистики по группам кампании. Максимальный период между dateFrom и dateTo — 100 дней.
-      properties:
-        dateFrom:
-          description: Дата начала периода в формате YYYY-MM-DD
-          format: date
-          type: string
-        dateTo:
-          description: Дата окончания периода в формате YYYY-MM-DD
-          format: date
-          type: string
-        groupIDs:
-          description: Список ID групп для получения статистики
-          items:
-            type: integer
-          minItems: 1
-          type: array
-      required:
-      - dateFrom
-      - dateTo
-      - groupIDs
-      type: object
-    V1GetContractsListIn:
-      description: Payload запроса на получение списка договоров
-      properties:
-        filter:
-          $ref: '#/components/schemas/ContractsFilter'
-        limit:
-          default: 20
-          description: Количество записей на странице
-          maximum: 100
-          minimum: 1
-          type: integer
-        page:
-          default: 1
-          description: Номер страницы
-          minimum: 1
-          type: integer
-      required:
-      - filter
-      - limit
-      - page
-      type: object
-    GroupStatistic:
-      description: Статистика группы
-      properties:
-        data:
-          description: Статистика в разбивке по дням
-          items:
-            $ref: '#/components/schemas/StatsData'
-          type: array
-        id:
-          description: ID группы
-          type: integer
-        name:
-          description: Название группы
-          type: string
-        totalData:
-          $ref: '#/components/schemas/StatsData'
-      required:
-      - id
-      - name
-      - data
-      - totalData
-      type: object
-    DateRange:
-      description: Диапазон дат
-      nullable: true
-      properties:
-        from:
-          description: Дата начала в формате YYYY-MM-DD
-          format: date
-          type: string
-        to:
-          description: Дата окончания в формате YYYY-MM-DD
-          format: date
-          type: string
-      type: object
-  securitySchemes:
-    AuthorizationCode:
-      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
-      flows:
-        authorizationCode:
-          authorizationUrl: https://avito.ru/oauth
-          scopes:
-            ah:access: Взаимодействие с иерархией аккаунтов
-          tokenUrl: https://api.avito.ru/token
-      type: oauth2
-    ClientCredentials:
-      description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
-      flows:
-        clientCredentials:
-          scopes: {}
-          tokenUrl: https://api.avito.ru/token
-      type: oauth2

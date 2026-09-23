@@ -1,13 +1,11 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: supportautoload@avito.ru
   description: 'API для взаимодействия с иерархией аккаунтов в Авито
 
-    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
-
-    '
-  title: Иерархия Аккаунтов Access LinkItemsV1 API
+    **Авито API для бизнеса предоставляется согласно Условиям использования.**'
+  title: Иерархия Аккаунтов Link Items V1 API
   version: '1'
 servers:
 - url: https://api.avito.ru/
@@ -20,9 +18,7 @@ paths:
     - $ref: '#/components/parameters/X-Oauth-Scopes'
     - $ref: '#/components/parameters/X-Oauth-Flow'
     post:
-      description: 'Для взаимодействия с иерархией аккаунтов необходимо приобрести тариф в [личном кабинете](https://www.avito.ru/paid-services/listing-fees).
-
-        '
+      description: Для взаимодействия с иерархией аккаунтов необходимо приобрести тариф в личном кабинете.
       operationId: linkItemsV1
       requestBody:
         content:
@@ -145,10 +141,33 @@ paths:
       - AuthorizationCode:
         - ah:access
       - ClientCredentials: []
-      summary: Прикрепление сотрудника иерархии к объявлениям, перезакрепление объявлений между сотрудниками иерархии
+      summary: Прикрепление сотрудника иерархии к объявлениям, перезакрепление объявлений…
       tags:
       - LinkItemsV1
 components:
+  parameters:
+    X-Oauth-Flow:
+      description: Выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)
+      example: authorization_code
+      in: header
+      name: X-Oauth-Flow
+      schema:
+        type: string
+    X-Oauth-Scopes:
+      description: Список зон доступа, полученных приложением
+      example: ah:access
+      in: header
+      name: X-Oauth-Scopes
+      schema:
+        type: string
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
   schemas:
     LinkItems:
       properties:
@@ -172,29 +191,6 @@ components:
       - itemIds
       - employeeId
       type: object
-  parameters:
-    authHeader:
-      description: Токен для авторизации
-      in: header
-      name: Authorization
-      required: true
-      schema:
-        example: Bearer ACCESS_TOKEN
-        type: string
-    X-Oauth-Scopes:
-      description: Список зон доступа, полученных приложением
-      example: ah:access
-      in: header
-      name: X-Oauth-Scopes
-      schema:
-        type: string
-    X-Oauth-Flow:
-      description: Выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)
-      example: authorization_code
-      in: header
-      name: X-Oauth-Flow
-      schema:
-        type: string
   securitySchemes:
     AuthorizationCode:
       description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)

@@ -1,13 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  contact:
-    email: supportautoload@avito.ru
-  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+  description: 'Методы для работы с настройками цены целевого действия.
 
-    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
 
-    '
-  title: Иерархия Аккаунтов Access Cpxpromo API
+    **Авито API для бизнеса предоставляется согласно Условиям использования.**'
+  title: Настройка цены целевого действия Cpxpromo API
   version: '1'
 servers:
 - url: https://api.avito.ru/
@@ -18,9 +15,7 @@ paths:
     get:
       description: 'Метод позволяет получить детализированную информацию о действующих и доступных ценах целевого действия (в копейках), бюджетах (в копейках) и преимуществах перед конкурентами.
 
-        Максимальное количество запросов в минуту - 20
-
-        '
+        Максимальное количество запросов в минуту - 20'
       operationId: getBids
       parameters:
       - $ref: '#/components/parameters/authHeader'
@@ -57,7 +52,7 @@ paths:
       - AuthorizationCode:
         - cpxpromo:read
       - ClientCredentials: []
-      summary: Получение детализированной информации о действующих и доступных ценах за целевые действия и бюджетах
+      summary: Получение детализированной информации о действующих и доступных ценах за…
       x-rate-limiter:
         default: 20
       tags:
@@ -68,9 +63,7 @@ paths:
 
         Максимальное количество передаваемых объявлений - 200.
 
-        Максимальное количество запросов в минуту - 400.
-
-        '
+        Максимальное количество запросов в минуту - 400.'
       operationId: getPromotionsByItemIds
       parameters:
       - $ref: '#/components/parameters/authHeader'
@@ -115,7 +108,9 @@ paths:
       - Cpxpromo
   /cpxpromo/1/remove:
     post:
-      description: "Метод позволяет остановить продвижение и переключиться на цены из прайс-листа. \nМаксимальное количество запросов в минуту - 300\n"
+      description: 'Метод позволяет остановить продвижение и переключиться на цены из прайс-листа.
+
+        Максимальное количество запросов в минуту - 300'
       operationId: removePromotion
       parameters:
       - $ref: '#/components/parameters/authHeader'
@@ -174,9 +169,7 @@ paths:
         Автоматическое продвижение пока что нельзя запустить в категории «Транспорт»
 
 
-        Максимальное количество запросов в минуту - 10.
-
-        '
+        Максимальное количество запросов в минуту - 10.'
       operationId: saveAutoBid
       parameters:
       - $ref: '#/components/parameters/authHeader'
@@ -223,9 +216,7 @@ paths:
         Цена целевого действия должна быть больше минимальной цены (посмотреть минимальную цену можно в ручке получения получения детализированной информации о действующих и доступных ценах за целевые действия и бюджетах). Лимит трат указывать необязательно.
 
 
-        Максимальное количество запросов в минуту - 20.
-
-        '
+        Максимальное количество запросов в минуту - 20.'
       operationId: saveManualBid
       parameters:
       - $ref: '#/components/parameters/authHeader'
@@ -266,41 +257,53 @@ paths:
       - Cpxpromo
 components:
   schemas:
-    getPromotionsByItemIdsIn:
+    budget:
       properties:
-        itemIDs:
+        budgets:
           items:
-            description: Идентификатор объявления
-            example: 1
-            type: integer
+            $ref: '#/components/schemas/budgetValue'
           maxItems: 200
           minItems: 1
           type: array
+        maxLimitPenny:
+          description: Максимальный лимит (в копейках)
+          type: integer
+        minLimitPenny:
+          description: Минимальный лимит (в копейках)
+          type: integer
+        recBudgetPenny:
+          description: Рекомендованный лимит (в копейках)
+          type: integer
       required:
-      - itemIDs
+      - budgets
+      - minLimitPenny
+      - maxLimitPenny
+      - recBudgetPenny
       type: object
-    tooManyRequestsError:
+    ManualBid:
       properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 429
-              format: int32
-              type: integer
-          required:
-          - code
-          type: object
-      type: object
-    error:
-      additionalProperties: false
-      properties:
-        message:
-          description: Текст ошибки
-          example: Что-то пошло не так
-          type: string
+        actionTypeID:
+          description: Тип события (1 - звонок | 5 - пакет кликов | 7 - мессенджер, передача контакта в чате)
+          example: 5
+          type: integer
+        bidPenny:
+          description: Текущая цена за целевое действие в копейках
+          example: 1400
+          type: integer
+        itemID:
+          description: Идентификатор объявления
+          example: 123456789
+          type: integer
+        limitPenny:
+          description: Дневной лимит в копейках
+          example: 192400
+          type:
+          - integer
+          - 'null'
       required:
-      - message
+      - itemID
+      - bidPenny
+      - actionTypeID
       type: object
     getPromotionsByItemIdsOut:
       properties:
@@ -327,6 +330,59 @@ components:
       required:
       - items
       type: object
+    RemovePromotion:
+      properties:
+        itemID:
+          description: Идентификатор объявления
+          example: 123456789
+          type: integer
+      required:
+      - itemID
+      type: object
+    manualPromotion:
+      properties:
+        bidPenny:
+          description: Текущая цена за целевое действие в копейках
+          type: integer
+        limitPenny:
+          description: Дневной лимит в копейках
+          type:
+          - integer
+          - 'null'
+      required:
+      - bidPenny
+      type:
+      - object
+      - 'null'
+    getBidsOut:
+      properties:
+        actionTypeID:
+          description: Тип события (1 - звонок | 5 - пакет кликов | 7 - мессенджер, передача контакта в чате)
+          type: integer
+        auto:
+          $ref: '#/components/schemas/auto'
+        manual:
+          $ref: '#/components/schemas/manual'
+        selectedType:
+          description: Выбранный тип продвижения ("manual" - ручное продвижение | "auto" - автоматическое продвижение)
+          type: string
+      required:
+      - actionTypeID
+      - selectedType
+      type: object
+    tooManyRequestsError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 429
+              format: int32
+              type: integer
+          required:
+          - code
+          type: object
+      type: object
     AutoBid:
       properties:
         actionTypeID:
@@ -351,40 +407,28 @@ components:
       - budgetType
       - actionTypeID
       type: object
-    budget:
+    error:
+      additionalProperties: false
       properties:
-        budgets:
-          items:
-            $ref: '#/components/schemas/budgetValue'
-          maxItems: 200
-          minItems: 1
-          type: array
-        maxLimitPenny:
-          description: Максимальный лимит (в копейках)
-          type: integer
-        minLimitPenny:
-          description: Минимальный лимит (в копейках)
-          type: integer
-        recBudgetPenny:
-          description: Рекомендованный лимит (в копейках)
-          type: integer
+        message:
+          description: Текст ошибки
+          example: Что-то пошло не так
+          type: string
       required:
-      - budgets
-      - minLimitPenny
-      - maxLimitPenny
-      - recBudgetPenny
+      - message
       type: object
     auto:
-      nullable: true
       properties:
         budgetPenny:
           description: Текущий бюджет (в копейках)
-          nullable: true
-          type: integer
+          type:
+          - integer
+          - 'null'
         budgetType:
           description: Тип бюджета ("1d" - дневной | "7d" - недельный | "30d" - месячный)
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         dailyBudget:
           $ref: '#/components/schemas/budget'
         maxBudgetPenny:
@@ -403,9 +447,10 @@ components:
       - dailyBudget
       - weeklyBudget
       - monthlyBudget
-      type: object
+      type:
+      - object
+      - 'null'
     autoPromotion:
-      nullable: true
       properties:
         budgetPenny:
           description: Текущий бюджет в копейках
@@ -416,38 +461,36 @@ components:
       required:
       - budgetPenny
       - budgetType
-      type: object
-    ManualBid:
+      type:
+      - object
+      - 'null'
+    bid:
       properties:
-        actionTypeID:
-          description: Тип события (1 - звонок | 5 - пакет кликов | 7 - мессенджер, передача контакта в чате)
-          example: 5
+        compare:
+          description: Количество процентных пунктов. (На сколько выше в сравнении с конкурентами)
           type: integer
-        bidPenny:
-          description: Текущая цена за целевое действие в копейках
-          example: 1400
+        maxForecast:
+          description: Максимальное кол-во ЦД за цену ЦД
           type: integer
-        itemID:
-          description: Идентификатор объявления
-          example: 123456789
+        minForecast:
+          description: Минимальное кол-во ЦД за цену ЦД
           type: integer
-        limitPenny:
-          description: Дневной лимит в копейках
-          example: 192400
-          nullable: true
+        valuePenny:
+          description: Цена за целевое действие (в копейках)
           type: integer
       required:
-      - itemID
-      - bidPenny
-      - actionTypeID
+      - valuePenny
+      - minForecast
+      - maxForecast
+      - compare
       type: object
     manual:
-      nullable: true
       properties:
         bidPenny:
           description: Текущая цена за целевое действие (в копейках)
-          nullable: true
-          type: integer
+          type:
+          - integer
+          - 'null'
         bids:
           items:
             $ref: '#/components/schemas/bid'
@@ -456,8 +499,9 @@ components:
           type: array
         limitPenny:
           description: Дневной лимит (в копейках)
-          nullable: true
-          type: integer
+          type:
+          - integer
+          - 'null'
         maxBidPenny:
           description: Максимальная цена за целевое действие (в копейках)
           type: integer
@@ -480,20 +524,9 @@ components:
       - minLimitPenny
       - maxLimitPenny
       - bids
-      type: object
-    manualPromotion:
-      nullable: true
-      properties:
-        bidPenny:
-          description: Текущая цена за целевое действие в копейках
-          type: integer
-        limitPenny:
-          description: Дневной лимит в копейках
-          nullable: true
-          type: integer
-      required:
-      - bidPenny
-      type: object
+      type:
+      - object
+      - 'null'
     budgetValue:
       properties:
         compare:
@@ -514,81 +547,19 @@ components:
       - maxForecast
       - compare
       type: object
-    bid:
+    getPromotionsByItemIdsIn:
       properties:
-        compare:
-          description: Количество процентных пунктов. (На сколько выше в сравнении с конкурентами)
-          type: integer
-        maxForecast:
-          description: Максимальное кол-во ЦД за цену ЦД
-          type: integer
-        minForecast:
-          description: Минимальное кол-во ЦД за цену ЦД
-          type: integer
-        valuePenny:
-          description: Цена за целевое действие (в копейках)
-          type: integer
+        itemIDs:
+          items:
+            description: Идентификатор объявления
+            example: 1
+            type: integer
+          maxItems: 200
+          minItems: 1
+          type: array
       required:
-      - valuePenny
-      - minForecast
-      - maxForecast
-      - compare
+      - itemIDs
       type: object
-    getBidsOut:
-      properties:
-        actionTypeID:
-          description: Тип события (1 - звонок | 5 - пакет кликов | 7 - мессенджер, передача контакта в чате)
-          type: integer
-        auto:
-          $ref: '#/components/schemas/auto'
-        manual:
-          $ref: '#/components/schemas/manual'
-        selectedType:
-          description: Выбранный тип продвижения ("manual" - ручное продвижение | "auto" - автоматическое продвижение)
-          type: string
-      required:
-      - actionTypeID
-      - selectedType
-      type: object
-    RemovePromotion:
-      properties:
-        itemID:
-          description: Идентификатор объявления
-          example: 123456789
-          type: integer
-      required:
-      - itemID
-      type: object
-  responses:
-    unauthorized:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Unauthorized
-    badRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Bad request
-    internalError:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Internal Error
-  headers:
-    X-RateLimit-Limit:
-      description: Количество запросов в минуту
-      schema:
-        format: int32
-        type: integer
-    X-RateLimit-Remaining:
-      description: Доступное количество запросов в текущем временном окне
-      schema:
-        format: int32
-        type: integer
   parameters:
     authHeader:
       description: Токен для авторизации
@@ -598,14 +569,45 @@ components:
       schema:
         example: Bearer ACCESS_TOKEN
         type: string
+  responses:
+    unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Unauthorized
+    internalError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Internal Error
+    badRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Bad request
+  headers:
+    X-RateLimit-Remaining:
+      description: Доступное количество запросов в текущем временном окне
+      schema:
+        format: int32
+        type: integer
+    X-RateLimit-Limit:
+      description: Количество запросов в минуту
+      schema:
+        format: int32
+        type: integer
   securitySchemes:
     AuthorizationCode:
-      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](#tag/ApplicationAccess)
       flows:
         authorizationCode:
           authorizationUrl: https://avito.ru/oauth
           scopes:
-            ah:access: Взаимодействие с иерархией аккаунтов
+            cpxpromo:edit: Редактирование цен за целевые действия
+            cpxpromo:read: Получение цен за целевые действия
           tokenUrl: https://api.avito.ru/token
       type: oauth2
     ClientCredentials:

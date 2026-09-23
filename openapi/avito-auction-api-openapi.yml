@@ -1,13 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  contact:
-    email: supportautoload@avito.ru
-  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+  description: 'Методы для работы с сервисом CPA-аукционов.
 
-    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
 
-    '
-  title: Иерархия Аккаунтов Access Auction API
+    **Авито API для бизнеса предоставляется согласно Условиям использования.**'
+  title: CPA-аукцион Auction API
   version: '1'
 servers:
 - url: https://api.avito.ru/
@@ -18,9 +15,7 @@ paths:
     get:
       description: 'Метод позволяет получать доступные ставки (ставка указана в копейках), а также показывает действующую ставку и время ее действия (если время действия не указано значит ставка действует бессрочно)по юзеру.
 
-        Максимальное количество запросов в минуту - 200.
-
-        '
+        Максимальное количество запросов в минуту - 200.'
       operationId: getUserBids
       parameters:
       - $ref: '#/components/parameters/authHeader'
@@ -112,7 +107,11 @@ paths:
       tags:
       - Auction
     post:
-      description: "Метод позволяет сохранить для объявлений ставку (ставка указана в копейках) и время ее действия. Доступные ставки можно получить с помощью метода getUserBids \nМаксимальное число идентификаторов объявления в запросе = 200.\nМаксимальное количество запросов в минуту - 200.\n"
+      description: 'Метод позволяет сохранить для объявлений ставку (ставка указана в копейках) и время ее действия. Доступные ставки можно получить с помощью метода getUserBids
+
+        Максимальное число идентификаторов объявления в запросе = 200.
+
+        Максимальное количество запросов в минуту - 200.'
       operationId: saveItemBids
       parameters:
       - $ref: '#/components/parameters/authHeader'
@@ -128,8 +127,9 @@ paths:
                       expirationTime:
                         description: Время окончания действия ставки в формате RFC3339 (2022-06-29T12:34:34+03:00). Отсутствие поля либо null означает бесконечно действующую ставку
                         example: '2023-06-29T12:34:34+03:00'
-                        nullable: true
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                       itemID:
                         description: Идентификатор объявления
                         example: 123456789
@@ -178,6 +178,12 @@ paths:
       - Auction
 components:
   responses:
+    unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Unauthorized
     internalError:
       content:
         application/json:
@@ -190,12 +196,6 @@ components:
           schema:
             $ref: '#/components/schemas/error'
       description: Bad request
-    unauthorized:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Unauthorized
   headers:
     X-RateLimit-Limit:
       description: Количество запросов в минуту
@@ -208,16 +208,6 @@ components:
         format: int32
         type: integer
   schemas:
-    error:
-      additionalProperties: false
-      properties:
-        message:
-          description: Текст ошибки
-          example: Что-то пошло не так
-          type: string
-      required:
-      - message
-      type: object
     tooManyRequestsError:
       properties:
         error:
@@ -231,6 +221,16 @@ components:
           - code
           type: object
       type: object
+    error:
+      additionalProperties: false
+      properties:
+        message:
+          description: Текст ошибки
+          example: Что-то пошло не так
+          type: string
+      required:
+      - message
+      type: object
   parameters:
     authHeader:
       description: Токен для авторизации
@@ -242,12 +242,12 @@ components:
         type: string
   securitySchemes:
     AuthorizationCode:
-      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](#tag/ApplicationAccess)
       flows:
         authorizationCode:
           authorizationUrl: https://avito.ru/oauth
           scopes:
-            ah:access: Взаимодействие с иерархией аккаунтов
+            cpa-auction:bids: Управление ставками
           tokenUrl: https://api.avito.ru/token
       type: oauth2
     ClientCredentials:

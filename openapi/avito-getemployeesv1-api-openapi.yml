@@ -1,13 +1,11 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: supportautoload@avito.ru
   description: 'API для взаимодействия с иерархией аккаунтов в Авито
 
-    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
-
-    '
-  title: Иерархия Аккаунтов Access GetEmployeesV1 API
+    **Авито API для бизнеса предоставляется согласно Условиям использования.**'
+  title: Иерархия Аккаунтов Get Employees V1 API
   version: '1'
 servers:
 - url: https://api.avito.ru/
@@ -22,9 +20,7 @@ paths:
     - $ref: '#/components/parameters/XIsEmployee'
     - $ref: '#/components/parameters/XEmployeeOf'
     get:
-      description: 'Для взаимодействия с иерархией аккаунтов необходимо приобрести тариф в [личном кабинете](https://www.avito.ru/paid-services/listing-fees).
-
-        '
+      description: Для взаимодействия с иерархией аккаунтов необходимо приобрести тариф в личном кабинете.
       operationId: getEmployeesV1
       responses:
         '200':
@@ -102,16 +98,6 @@ paths:
       - GetEmployeesV1
 components:
   parameters:
-    XIsEmployee:
-      deprecated: true
-      description: 'Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании.
-
-        '
-      in: header
-      name: X-Is-Employee
-      schema:
-        nullable: true
-        type: boolean
     X-Oauth-Scopes:
       description: Список зон доступа, полученных приложением
       example: ah:access
@@ -119,14 +105,6 @@ components:
       name: X-Oauth-Scopes
       schema:
         type: string
-    XEmployeeOf:
-      description: Идентификатор компании, от имени которой работает сотрудник.
-      in: header
-      name: X-Employee-Of
-      schema:
-        minimum: 1
-        nullable: true
-        type: integer
     authHeader:
       description: Токен для авторизации
       in: header
@@ -135,6 +113,17 @@ components:
       schema:
         example: Bearer ACCESS_TOKEN
         type: string
+    XIsEmployee:
+      deprecated: true
+      description: 'Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании.
+
+        '
+      in: header
+      name: X-Is-Employee
+      schema:
+        type:
+        - boolean
+        - 'null'
     X-Oauth-Flow:
       description: Выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)
       example: authorization_code
@@ -142,6 +131,15 @@ components:
       name: X-Oauth-Flow
       schema:
         type: string
+    XEmployeeOf:
+      description: Идентификатор компании, от имени которой работает сотрудник.
+      in: header
+      name: X-Employee-Of
+      schema:
+        minimum: 1
+        type:
+        - integer
+        - 'null'
   schemas:
     GetEmployeesResult:
       description: Данные сотрудников иерархии для компании
@@ -150,8 +148,9 @@ components:
           email:
             description: Email сотрудника иерархии
             example: aristarh@example.com
-            nullable: true
-            type: string
+            type:
+            - string
+            - 'null'
           employeeId:
             description: Идентификатор сотрудника иерархии
             example: 10800
@@ -163,8 +162,9 @@ components:
           name:
             description: Имя сотрудника иерархии в компании
             example: Аристарх Евгеньевич
-            nullable: true
-            type: string
+            type:
+            - string
+            - 'null'
           phones:
             description: номера телефонов
             items:

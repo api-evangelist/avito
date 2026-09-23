@@ -1,13 +1,11 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: supportautoload@avito.ru
   description: 'API для взаимодействия с иерархией аккаунтов в Авито
 
-    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
-
-    '
-  title: Иерархия Аккаунтов Access GetAhInfoV1 API
+    **Авито API для бизнеса предоставляется согласно Условиям использования.**'
+  title: Иерархия Аккаунтов Get Ah Info V1 API
   version: '1'
 servers:
 - url: https://api.avito.ru/
@@ -36,9 +34,7 @@ paths:
       schema:
         type: string
     get:
-      description: 'Ручка для получения информации по ИА для пользователя. Если запрос делается от имени сотрудника, то будет возвращён список компаний, которым он принадлежит.
-
-        '
+      description: Ручка для получения информации по ИА для пользователя. Если запрос делается от имени сотрудника, то будет возвращён список компаний, которым он принадлежит.
       operationId: getAhInfoV1
       responses:
         '200':
@@ -60,12 +56,14 @@ paths:
                       properties:
                         avitoCompanyId:
                           description: Идентификатор компании
-                          nullable: true
-                          type: integer
+                          type:
+                          - integer
+                          - 'null'
                         employeeId:
                           description: Идентификатор сотрудника
-                          nullable: true
-                          type: integer
+                          type:
+                          - integer
+                          - 'null'
                         isChief:
                           description: Является ли пользователь руководителем
                           type: boolean

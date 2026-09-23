@@ -1,13 +1,13 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: supportautoload@avito.ru
-  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+  description: 'Методы API для партнеров для работы с API Логистики.
 
-    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+    **Avito API предоставляется согласно Условиям использования.**
 
-    '
-  title: Иерархия Аккаунтов Access ParcelProcessing API
+    -->'
+  title: Доставка Parcel Processing API
   version: '1'
 servers:
 - url: https://api.avito.ru/
@@ -23,9 +23,7 @@ paths:
       description: 'Метод реализуется на стороне службы доставки.
 
 
-        Описание механики работы и дополнительные требования см. [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/sozdanie_posylki).
-
-        '
+        Описание механики работы и дополнительные требования см. здесь.'
       operationId: createParcel
       requestBody:
         content:
@@ -56,9 +54,7 @@ paths:
       description: 'Метод должен быть имплементирован на стороне службы доставки.
 
 
-        Описание механики работы и дополнительные требования см. [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/otmena_posylki).
-
-        '
+        Описание механики работы и дополнительные требования см. здесь.'
       operationId: cancelParcel
       requestBody:
         content:
@@ -84,24 +80,22 @@ paths:
     parameters:
     - $ref: '#/components/parameters/authHeader'
     post:
-      description: 'Метод для проверки службой доставки кода подтверждения, который пользователь показал на пункте выдачи заказа.<br />
+      description: 'Метод для проверки службой доставки кода подтверждения, который пользователь показал на пункте выдачи заказа.
 
 
         ### Статус проверки кода
 
-        | status      |       Значение                                |
+        | status | Значение |
 
         |-------------|-----------------------------------------------|
 
-        |   success   | Код верный.                                   |
+        | success | Код верный. |
 
-        |   fail      | Код неверный.                                 |
+        | fail | Код неверный. |
 
-        |   expired   | Код подтверждения устарел.                    |
+        | expired | Код подтверждения устарел. |
 
-        |   attempts  | Превышено максимальное количество попыток.    |
-
-        '
+        | attempts | Превышено максимальное количество попыток. |'
       operationId: checkConfirmationCode
       requestBody:
         content:
@@ -131,40 +125,40 @@ paths:
     parameters:
     - $ref: '#/components/parameters/authHeader'
     post:
-      description: 'Метод используется для отправки в Avito параметров, относящихся к доставке посылки. <br />
+      description: 'Метод используется для отправки в Avito параметров, относящихся к доставке посылки.
 
-        В случае повторной передачи параметров, данные будут перезаписаны. <br />
 
-        Важно передавать актуальные данные. Например, если конечная стоимость доставки заказа изменилась, нужно отправить ее заново. <br />
+        В случае повторной передачи параметров, данные будут перезаписаны.
+
+
+        Важно передавать актуальные данные. Например, если конечная стоимость доставки заказа изменилась, нужно отправить ее заново.
 
 
         ### Описание ошибок
 
-        | http code |   error code         |       error message                               |
+        | http code | error code | error message |
 
         |-----------|----------------------|---------------------------------------------------|
 
-        |    200    |   ORDER_ID_INVALID   | Could not found order by id and provider name     |
+        | 200 | ORDER_ID_INVALID | Could not found order by id and provider name |
 
-        |    200    |   ORDER_ID_INVALID   | Incorrect order id                                |
+        | 200 | ORDER_ID_INVALID | Incorrect order id |
 
-        |    200    |   PROPERTIES_INVALID | Failed to get properties from request             |
+        | 200 | PROPERTIES_INVALID | Failed to get properties from request |
 
-        |    200    |   PROPERTIES_INVALID | Empty body                                        |
+        | 200 | PROPERTIES_INVALID | Empty body |
 
-        |    200    |   PROPERTIES_INVALID | Dimensions array must have 3 element              |
+        | 200 | PROPERTIES_INVALID | Dimensions array must have 3 element |
 
-        |    200    |   PROPERTIES_INVALID | Dimension must be greater than 0                  |
+        | 200 | PROPERTIES_INVALID | Dimension must be greater than 0 |
 
-        |    200    |   PROPERTIES_INVALID | Weight must be greater than 0                     |
+        | 200 | PROPERTIES_INVALID | Weight must be greater than 0 |
 
-        |    200    |   PROPERTIES_INVALID | Delivery cost must be positive integer number     |
+        | 200 | PROPERTIES_INVALID | Delivery cost must be positive integer number |
 
-        |    200    |   PROPERTIES_INVALID | Forbidden terminal change in current order status |
+        | 200 | PROPERTIES_INVALID | Forbidden terminal change in current order status |
 
-        |    200    |   PROPERTIES_INVALID | Both terminals cannot be changed                  |
-
-        '
+        | 200 | PROPERTIES_INVALID | Both terminals cannot be changed |'
       operationId: setOrderProperties
       requestBody:
         content:
@@ -194,7 +188,45 @@ paths:
     parameters:
     - $ref: '#/components/parameters/authHeader'
     post:
-      description: "### Фактический ПВЗ приема\nФактический ПВЗ приема посылки посылки нужен Avito для работы как с [агентскими](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/agentskie_vozvraty), так и с [клиентскими](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/klientskie_vozvraty) возвратами. \nЕсли получатель посылки откажется от её получения \"на месте\", то Avito понадобится показать ПВЗ возврата\nотправителю, а этим ПВЗ будет фактический ПВЗ приема. Если же посылку нужно будет вернуть отправителю через клиентский \nвозврат, то для создания отдельной возвратной посылки Avito критически важно знать тот же фактический ПВЗ приема.<br/>\n\nПрисылайте адрес в момент приема посылки от отправителя или чуть позже, если нет возможности это делать сразу.<br/>\n\n### Фактический адрес возврата\nПВЗ, из которого забрали возврат.<br/>\n\n### Про повторные запросы\nВ случае повторной передачи новые данные будут записаны.<br/>\n\n### Описание ошибок\n| http code |   error code           |       error message                           |\n|-----------|------------------------|-----------------------------------------------|\n|    200    |   ORDER_ID_INVALID     | Could not found order by id and provider name |\n|    200    |   ORDER_ID_INVALID     | Incorrect order id                            |\n|    200    |   REAL_ADDRESS_INVALID | Failed to get real address from request       |\n|    200    |   REAL_ADDRESS_INVALID | Incorrect terminal type                       |\n|    200    |   REAL_ADDRESS_INVALID | Incorrect terminal number                     |\n"
+      description: '### Фактический ПВЗ приема
+
+        Фактический ПВЗ приема посылки посылки нужен Avito для работы как с агентскими, так и с клиентскими возвратами.
+
+        Если получатель посылки откажется от её получения "на месте", то Avito понадобится показать ПВЗ возврата
+
+        отправителю, а этим ПВЗ будет фактический ПВЗ приема. Если же посылку нужно будет вернуть отправителю через клиентский
+
+        возврат, то для создания отдельной возвратной посылки Avito критически важно знать тот же фактический ПВЗ приема.
+
+
+        Присылайте адрес в момент приема посылки от отправителя или чуть позже, если нет возможности это делать сразу.
+
+
+        ### Фактический адрес возврата
+
+        ПВЗ, из которого забрали возврат.
+
+
+        ### Про повторные запросы
+
+        В случае повторной передачи новые данные будут записаны.
+
+
+        ### Описание ошибок
+
+        | http code | error code | error message |
+
+        |-----------|------------------------|-----------------------------------------------|
+
+        | 200 | ORDER_ID_INVALID | Could not found order by id and provider name |
+
+        | 200 | ORDER_ID_INVALID | Incorrect order id |
+
+        | 200 | REAL_ADDRESS_INVALID | Failed to get real address from request |
+
+        | 200 | REAL_ADDRESS_INVALID | Incorrect terminal type |
+
+        | 200 | REAL_ADDRESS_INVALID | Incorrect terminal number |'
       operationId: setOrderRealAddress
       requestBody:
         content:
@@ -224,17 +256,13 @@ paths:
     parameters:
     - $ref: '#/components/parameters/authHeader'
     post:
-      description: '
-
-        Метод для передачи информации по трекингу посылки от службы доставки в Avito.
+      description: 'Метод для передачи информации по трекингу посылки от службы доставки в Avito.
 
 
-        Механика работы и прочие важные моменты описаны в [разделе](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/treking).
+        Механика работы и прочие важные моменты описаны в разделе.
 
 
-        Обязательно ознакомьтесь и реализуйте [политику повторов запросов](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/politika_povtorov_v_trekinge).
-
-        '
+        Обязательно ознакомьтесь и реализуйте политику повторов запросов.'
       operationId: tracking
       requestBody:
         content:
@@ -267,9 +295,7 @@ paths:
       description: 'Метод должен быть имплементирован на стороне службы доставки.
 
 
-        Описание механики работы и дополнительные требования см. [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/zapret_priema_posylki).
-
-        '
+        Описание механики работы и дополнительные требования см. здесь.'
       operationId: prohibitOrderAcceptance
       requestBody:
         content:
@@ -295,27 +321,27 @@ paths:
     parameters:
     - $ref: '#/components/parameters/authHeader'
     post:
-      description: 'Описание механики изменения посылок [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/izmenenie_svoystv_posylok).
+      description: 'Описание механики изменения посылок здесь.
 
 
-        Метод для передачи результата исполнения заявки, созданной с помощью метода [/changeParcels](#operation/ChangeParcels).
+        Метод для передачи результата исполнения заявки, созданной с помощью метода /changeParcels.
 
 
         ### Описание ошибок
 
-        | http code |   error code         |       причина ошибки                                                                                                                                                 |
+        | http code | error code | причина ошибки |
 
         |-----------|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 
-        |    200    | ID_INVALID           | “id” заявки невалидный.                                                                                                                                              |
+        | 200 | ID_INVALID | “id” заявки невалидный. |
 
-        |    200    | NOT_FOUND            | заявка с “id” не найдена.                                                                                                                                            |
+        | 200 | NOT_FOUND | заявка с “id” не найдена. |
 
-        |    200    | STATUS_INVALID       | заявка не может быть переведена в статус указанный в запросе.                                                                                                        |
+        | 200 | STATUS_INVALID | заявка не может быть переведена в статус указанный в запросе. |
 
-        |    200    | FAILED_REASON_MISSES | отсутствует причина, по которой заявка не может быть исполнена. Данный код ошибки будет возвращен при статусе заявки declined и отсутствующем или пустом поле reason.|
+        | 200 | FAILED_REASON_MISSES | отсутствует причина, по которой заявка не может быть исполнена. Данный код ошибки будет возвращен при статусе заявки declined и отсутствующем или пустом поле reason.|
 
-        |    200    | PARCEL_CLOSED        | посылка, связанная с заявкой, уже неактивная (была получена, утеряна или ушла на возвратное движение).                                              |
+        | 200 | PARCEL_CLOSED | посылка, связанная с заявкой, уже неактивная (была получена, утеряна или ушла на возвратное движение). |
 
 
         ### Порядок повторных попыток
@@ -332,36 +358,33 @@ paths:
         - HTTP 500: означает недоступность API, необходим повтор.
 
 
-
         ### Возможные причины для отклонения заявки и коды приведены в таблице
 
 
-        | Тип заявки               |   reason code                   |       Описание                                                             |
+        | Тип заявки | reason code | Описание |
 
         |--------------------------|---------------------------------|----------------------------------------------------------------------------|
 
-        | prohibitParcelAcceptance | already_received                | Посылка уже была принята от продавца и запрет её приёма невозможен.        |
+        | prohibitParcelAcceptance | already_received | Посылка уже была принята от продавца и запрет её приёма невозможен. |
 
-        | prohibitParcelAcceptance | parcel_not_found                | Посылка не найдена.                                                        |
+        | prohibitParcelAcceptance | parcel_not_found | Посылка не найдена. |
 
-        | prohibitParcelReceive    | already_received                | Посылка уже была вручена покупателю и запрет выдачи невозможен.            |
+        | prohibitParcelReceive | already_received | Посылка уже была вручена покупателю и запрет выдачи невозможен. |
 
-        | prohibitParcelReceive    | parcel_not_found                | Посылка не найдена.                                                        |
+        | prohibitParcelReceive | parcel_not_found | Посылка не найдена. |
 
-        | extendParcelStorage      | storage_period_already_exceeded | Продление срока хранения для посылки уже выполнялось.                      |
+        | extendParcelStorage | storage_period_already_exceeded | Продление срока хранения для посылки уже выполнялось. |
 
-        | extendParcelStorage      | invalid_parcel_status           | Продление срока хранения невозможно в текущем состоянии (статусе посылки). |
+        | extendParcelStorage | invalid_parcel_status | Продление срока хранения невозможно в текущем состоянии (статусе посылки). |
 
-        | extendParcelStorage      | parcel_not_found                | Посылка не найдена.                                                        |
+        | extendParcelStorage | parcel_not_found | Посылка не найдена. |
 
-        | любой                    | текст в свободной форме         | Причина отклонения, которая отличается от стандартизированных              |
+        | любой | текст в свободной форме | Причина отклонения, которая отличается от стандартизированных |
 
 
         Для описанных сценариев важно использовать стандартизированные причины для отклонения заявки. Это может влиять на политику ретраев и другие внутренние процессы внутри Avito.
 
-        Список стандартных причин может расширяться в будущем в зависимости от статистики использования и возникающих корнер-кейсов.
-
-        '
+        Список стандартных причин может расширяться в будущем в зависимости от статистики использования и возникающих корнер-кейсов.'
       operationId: ChangeParcelResult
       requestBody:
         content:
@@ -390,12 +413,10 @@ paths:
     parameters:
     - $ref: '#/components/parameters/authHeader'
     post:
-      description: 'Описание механики изменения посылок [здесь](https://developers.avito.ru/api-catalog/delivery-sandbox/documentation#info/izmenenie_svoystv_posylok).
+      description: 'Описание механики изменения посылок здесь.
 
 
-        Метод реализуется на стороне службы доставки. Предназначен для обновления различных свойств посылок по инициативе Avito.
-
-        '
+        Метод реализуется на стороне службы доставки. Предназначен для обновления различных свойств посылок по инициативе Avito.'
       operationId: ChangeParcels
       requestBody:
         content:
@@ -422,47 +443,25 @@ paths:
       - ParcelProcessing
 components:
   schemas:
-    CreateParcelClientDeliverySecondPartyLogist:
-      description: Информация o магистральном перевозчике. Актуально для кросс-доставки.
+    CreateParcelClientDeliveryTerminal:
+      description: 'Актуально, если доставка будет осуществляться из / в пункт выдачи заказов.
+
+        '
       properties:
+        accuracy:
+          $ref: '#/components/schemas/CreateParcelPropertyAccuracy'
+        id:
+          description: Идентификатор ПВЗ по версии службы доставки владельца.
+          example: '123'
+          type: string
         provider:
-          description: Код службы доставки.
+          description: Идентификатор службы доставки владельца ПВЗ.
+          example: exmail
           type: string
       required:
       - provider
-    ChangeParcelsResponse:
-      properties:
-        data:
-          $ref: '#/components/schemas/ChangeParcelsData'
-        error:
-          $ref: '#/components/schemas/ChangeParcelsError'
-    CheckConfirmationCodeRequest:
-      properties:
-        confirmCode:
-          type: string
-        parcelID:
-          type: string
-      required:
-      - parcelID
-      - confirmCode
-      type: object
-    prohibitOrderAcceptanceRequest:
-      properties:
-        orderId:
-          $ref: '#/components/schemas/Delivery-orderId-string'
-      required:
-      - orderId
-      type: object
-    DeliverySetOrderPropertiesRequest:
-      properties:
-        orderId:
-          $ref: '#/components/schemas/Delivery-orderId-string'
-        properties:
-          $ref: '#/components/schemas/Delivery-params'
-      required:
-      - orderId
-      - properties
-      type: object
+      - id
+      - accuracy
     CreateParcelClient:
       description: 'Описание отправителя / получателя.
 
@@ -523,35 +522,65 @@ components:
       - email
       - name
       - delivery
-    CreateParcelItemDimensions:
+    CreateParcelOptionsReturnPolicy:
       properties:
-        accuracy:
-          $ref: '#/components/schemas/CreateParcelPropertyAccuracy'
-        values:
-          description: 'Габариты в сантиметрах.
-
-
-            В порядке: длина, высота, ширина.
+        action:
+          description: 'Какое действие выполнить в случае возврата посылки.
 
             '
-          example:
-          - 20
-          - 20
-          - 20
-          items:
-            maximum: 200
-            minimum: 1
-            type: integer
-          maxLength: 3
-          minLength: 3
-          type: array
+          enum:
+          - DISABLED
+          - DESTROY
+          - RETURN_TO_DEPARTURE_POINT
+          - RETURN_TO_RECEIVER
+          - MOVE_TO_ON_DEMAND_STORAGE
+          example: DESTROY
+          type: string
+        after:
+          description: 'Через какое время выполнить действие `action`.
+
+
+            Отсутствие поля означает, что выполнить нужно сразу.
+
+            '
+          properties:
+            unit:
+              description: Единица интервала.
+              enum:
+              - DAY
+              example: DAY
+              type: string
+            value:
+              description: Через сколько `unit` выполнить действие `action`.
+              example: 14
+              minimum: 1
+              type: integer
+          required:
+          - unit
+          - value
+          type: object
       required:
-      - accuracy
-      - values
-    Delivery-eventDateTime:
-      description: Дата и время события в UTC
+      - action
+    Delivery-toughWrap:
+      description: 'При передачи признака важно учитывать, что он необязательный. <br />
+
+        Это означает, что не смотря на тип boolean у признака может быть 3 значения (`null`, `true`, `false`) <br />
+
+        т.е. для отправки признака отсутствия обрешетки недостаточно передать `null`, нужно явно передавать `false`.
+
+        '
+      title: Признак наличия жёсткой упаковки или обрешетки для посылки
+      type:
+      - boolean
+      - 'null'
+    Delivery-returnControlDate:
+      description: 'Контрольная дата доставки для возвратного потока в UTC. <br />
+
+        Используется для посылок в статусе `IN_TRANSIT_RETURN`
+
+        '
       example: '1985-04-12T23:20:50.52Z'
-      title: Дата и время в формате rfc3339 в UTC
+      title: Контрольная дата доставки для возвратного потока rfc3339 в UTC
       type: string
     CreateParcelOptions:
       properties:
@@ -582,6 +611,74 @@ components:
           - X_DELIVERY_LAST_LEG
           - RETURN
           type: array
+    cancelParcelRequest:
+      properties:
+        actor:
+          description: Кто отменяет посылку
+          enum:
+          - receiver
+          type: string
+        parcelID:
+          $ref: '#/components/schemas/Delivery-orderId-string'
+      required:
+      - parcelID
+      - actor
+      type: object
+    CreateParcelPropertyAccuracy:
+      description: 'Точность габаритов.
+
+
+        На текущий момент точность габаритов всегда `APPROXIMATE`.
+
+        '
+      enum:
+      - EXACT
+      - APPROXIMATE
+      example: APPROXIMATE
+      type: string
+    DeliverySetOrderPropertiesRequest:
+      properties:
+        orderId:
+          $ref: '#/components/schemas/Delivery-orderId-string'
+        properties:
+          $ref: '#/components/schemas/Delivery-params'
+      required:
+      - orderId
+      - properties
+      type: object
+    prohibitOrderAcceptanceReply:
+      properties:
+        data:
+          properties:
+            status:
+              description: статус запрета приёма заказа
+              enum:
+              - OK
+              type: string
+          type:
+          - object
+          - 'null'
+        error:
+          $ref: '#/components/schemas/DeliveryError'
+      type: object
+    DeliveryError:
+      properties:
+        code:
+          description: код ошибки
+          example: fail
+          title: код ошибки
+          type: string
+        message:
+          description: Человекопонятное описание ошибки
+          example: something went wrong
+          title: описание ошибки
+          type: string
+      required:
+      - code
+      - message
+      type:
+      - object
+      - 'null'
     DeliveryTrackingRequest:
       properties:
         avitoEventType:
@@ -654,25 +751,53 @@ components:
       - date
       - location
       type: object
-    CreateParcelClientDeliveryTerminal:
-      description: 'Актуально, если доставка будет осуществляться из / в пункт выдачи заказов.
+    Delivery-weight:
+      description: Вес в граммах
+      example: 1000
+      maximum: 50000
+      minimum: 0
+      title: Вес
+    CreateParcelError:
+      description: 'Ошибка создания посылки.
+
+
+        Поле присутствует, если запрос не был успешно обработан. Если запрос был успешно обработан, то поле отсутствует.
 
         '
       properties:
-        accuracy:
-          $ref: '#/components/schemas/CreateParcelPropertyAccuracy'
-        id:
-          description: Идентификатор ПВЗ по версии службы доставки владельца.
-          example: '123'
+        code:
+          description: "Код ошибки.\n\n- `VALIDATION_ERROR` – ошибка валидации данных (например, длина передаваемого поля превышает допустимые лимиты, или какое-то поле отсутствует). \nВ поле `error.message` должно содержаться пояснение, какое поле не прошло валидацию.\n- `UNSUPPORTED_PARAM_ERROR` – в запросе получен неподдерживаемый параметр. В поле `error.message` должно содержаться пояснение, какое поле не поддерживается.\n- `TERMINAL_UNAVAILABLE` – терминал, указанный в запросе, недоступен для создания посылки. В поле `error.message` должно содержаться пояснение причины недоступности терминала.\n- `SORTING_CENTER_UNAVAILABLE` – сортировочный центр, указанный в запросе, недоступен для создания посылки. В поле error.message должно содержаться пояснение причины недоступности сортировочного центра.\n\nВсе перечисленные ошибки – \"терминальные\". \nПри получении этих ошибок Avito не будет выполнять повторные запросы, т.к. повтор приведет к тому же результату.\n\nСписок в дальнейшем может пополняться.\n"
+          enum:
+          - VALIDATION_ERROR
+          - UNSUPPORTED_PARAM_ERROR
+          - TERMINAL_UNAVAILABLE
+          - SORTING_CENTER_UNAVAILABLE
+          example: VALIDATION_ERROR
           type: string
-        provider:
-          description: Идентификатор службы доставки владельца ПВЗ.
-          example: exmail
+        message:
+          description: Текстовое описание ошибки
+          example: Текст ошибки
           type: string
       required:
-      - provider
-      - id
-      - accuracy
+      - code
+      - message
+      type: object
+    ChangeParcelsData:
+      description: 'Тело ответа.
+
+        Поле присутствует, если запрос был успешно обработан. Если случилась ошибка, то поле отсутствует.
+
+        '
+      properties:
+        status:
+          description: По полю статус со значением ok понимаем, что заявка успешно принята в работу.
+          enum:
+          - ok
+          example: ok
+          type: string
+      required:
+      - status
+      type: object
     Delivery-terms:
       properties:
         cost:
@@ -689,48 +814,345 @@ components:
           $ref: '#/components/schemas/Delivery-toughWrap'
       title: Условия доставки
       type: object
-    Delivery-directControlDate:
-      description: 'Контрольная дата доставки для прямого потока в UTC. <br />
-
-        Используется для посылок в статусе `IN_TRANSIT`
-
-        '
-      example: '1985-04-12T23:20:50.52Z'
-      title: Контрольная дата доставки для прямого потока rfc3339 в UTC
-      type: string
-    CreateParcelPackage:
-      properties:
-        dimensions:
-          $ref: '#/components/schemas/CreateParcelItemDimensions'
-        weight:
-          $ref: '#/components/schemas/CreateParcelItemWeight'
-      required:
-      - dimensions
-      - weight
-    CheckConfirmationCodeReply:
+    cancelParcelReply:
       properties:
         data:
           properties:
             status:
+              description: статус отмены посылки
               enum:
-              - success
-              - fail
-              - expired
-              - attempts
+              - OK
               type: string
-          type: object
+          type:
+          - object
+          - 'null'
+        error:
+          $ref: '#/components/schemas/DeliveryError'
       type: object
-    Delivery-toughWrap:
-      description: 'При передачи признака важно учитывать, что он необязательный. <br />
+    Cost:
+      description: Стоимость в копейках
+      example: 15000
+      minimum: 0
+      title: Стоимость
+      type: integer
+    DeliveryError4XX:
+      properties:
+        message:
+          description: Человекопонятное описание ошибки
+          example: something went wrong
+          title: Описание ошибки
+          type: string
+        status:
+          description: false – в случае возникновения ошибки
+          example: false
+          title: статус
+          type: boolean
+      required:
+      - code
+      - message
+      type:
+      - object
+      - 'null'
+    CreateParcelItemImagesUrls:
+      properties:
+        list:
+          description: 'Список URL-ов фотографий.
 
-        Это означает, что не смотря на тип boolean у признака может быть 3 значения (`null`, `true`, `false`) <br />
+            '
+          example:
+          - //24.img.avito.st/image/1/1.pUbrSba6Ca_d4MuqrTPvNzbqD6tfagFtWuoNp1_iCw.kszrqWjK0pNKI4ayaT821U-Ln2lzT8lSuqNt7pqedno
+          - //19.img.avito.st/image/1/1.rlbjCLa6Ar_VocC6s3LkJz6rBLtXKwp9UqsGt1ejAA.C4io31wn3Rjlc7SJGgeIVyxzC9LnoQUkGwmyaQ67-qs
+          - //90.img.avito.st/image/1/1.Z0Dh2ba6y6nXcAmso6AtMTx6za1V-sNrUHrPoVVyyQ.T1yZ87ZDiUSrUQNTYJkDbXub3lHC9_XBFtc8D1jOt7c
+          - //76.img.avito.st/image/1/1.QTUceba67dwq0C_ZEngLRMHa69ioWuUerdrp1KjS7w.JABYB8SsN5W6u5Y6WR49R8kKzr5IsGxF5HTjQPnygYQ
+          - //85.img.avito.st/image/1/1.eITjzra61G3VZxZon88y9T5t0mlX7dyvUm3QZVdl1g.aQyF5iZccldCZ5p9qtb-DZZobnPzdCSanQJmdHXQvdc
+          items:
+            type: string
+          type: array
+        listing:
+          description: 'URL основной фотографии.
 
-        т.е. для отправки признака отсутствия обрешетки недостаточно передать `null`, нужно явно передавать `false`.
+            '
+          example: //24.img.avito.st/image/1/1.pUbrSba6Ca_d4MuqrTPvNzbqD6tfagFtWuoNp1_iCw.kszrqWjK0pNKI4ayaT821U-Ln2lzT8lSuqNt7pqedno
+          type: string
+      required:
+      - listing
+      - list
+    ChangeParcelsRequest:
+      properties:
+        applications:
+          items:
+            $ref: '#/components/schemas/ChangeParcelsApplication'
+          type: array
+        type:
+          description: 'Тип заявки.
+
+
+            Заявки могут быть следующих типов:
+
+            - `changeReceiver` - обновить данные о получателе посылки.
+
+            - `extendParcelStorage` - продлить срок хранения посылки.
+
+            - `prohibitParcelReceive` - запретить выдачу посылки на ПВЗ вручения.
+
+            - `prohibitParcelAcceptance` - запретить прием посылки на ПВЗ отправки (в разработке).
+
+            - `changeReceiverTerminalOnConfirmed` - обновить ПВЗ вручения.
+
+            '
+          enum:
+          - changeReceiver
+          - extendParcelStorage
+          - prohibitParcelReceive
+          - prohibitParcelAcceptance
+          - changeReceiverTerminalOnConfirmed
+          example: changeReceiver
+          type: string
+      required:
+      - type
+      - applications
+      type: object
+    Delivery-senderReceiveTerminalCode:
+      description: 'Терминал отправителя, в который едет возврат. <br />
+
+        Используется для посылок в статусах `IN_TRANSIT_RETURN` и `ON_DELIVERY_RETURN` в случае смены терминала. <br />
+
+        Рекомендуется не передавать данный параметр совместно с остальными.
 
         '
-      nullable: true
-      title: Признак наличия жёсткой упаковки или обрешетки для посылки
-      type: boolean
+      example: 5001
+      title: Терминал отправителя, в который едет возврат.
+      type:
+      - string
+      - 'null'
+    ChangeParcelsTerminal:
+      description: 'Данные нового пункта получателя посылки.
+
+        '
+      properties:
+        id:
+          description: 'Внешний идентификатор ПВЗ.
+
+            '
+          example: '123'
+          type: string
+      required:
+      - id
+    CreateParcelPayment:
+      properties:
+        delivery:
+          properties:
+            costWithoutVat:
+              description: Стоимость в копейках без НДС.
+              example: 10000
+              minimum: 0
+              type: integer
+            status:
+              $ref: '#/components/schemas/CreateParcelPaymentStatus'
+          required:
+          - status
+          - costWithoutVat
+          type: object
+        items:
+          properties:
+            cost:
+              description: Стоимость в копейках.
+              example: 10000
+              minimum: 0
+              type: integer
+            status:
+              $ref: '#/components/schemas/CreateParcelPaymentStatus'
+          required:
+          - status
+          - cost
+          type: object
+      required:
+      - items
+      - delivery
+    CreateParcelItemBreadcrumb:
+      properties:
+        name:
+          description: Название категории
+          example: Спорт и отдых
+          maxLength: 255
+          type: string
+      required:
+      - name
+    CreateParcelItemWeight:
+      properties:
+        accuracy:
+          $ref: '#/components/schemas/CreateParcelPropertyAccuracy'
+        value:
+          description: Вес в граммах.
+          maximum: 50000
+          minimum: 1
+          type: integer
+      required:
+      - accuracy
+      - values
+    ChangeParcelsResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/ChangeParcelsData'
+        error:
+          $ref: '#/components/schemas/ChangeParcelsError'
+    Delivery-eventDateTime:
+      description: Дата и время события в UTC
+      example: '1985-04-12T23:20:50.52Z'
+      title: Дата и время в формате rfc3339 в UTC
+      type: string
+    ChangeParcelsError:
+      description: 'Ошибка регистрации заявки на изменение посылок.
+
+        Поле присутствует, если запрос не был успешно обработан. Если запрос был успешно обработан, то поле отсутствует.
+
+        '
+      properties:
+        code:
+          description: "Код ошибки. <br />\n<ol>\n  <li><code>VALIDATION_ERROR</code> – ошибка валидации входящих параметров. Например:<ul>\n    <li>Длина передаваемого поля превышает допустимые лимиты.</li>\n    <li>В запросе отсутствует поле, обязательное для данного типа (<code>type</code>) заявки.\n  В поле <code>error.message</code> должно содержаться пояснение, какое поле не прошло валидацию. </li>\n  </ul></li>\n  <li><code>UNSUPPORTED_PARAM_ERROR</code> – в запросе получен неподдерживаемый параметр. Например:<ul>\n    <li>В запросе передан тип (<code>type</code>) заявки, который не реализован на стороне СД.</li>\n    <li>Запрос содержит заполненные поля, которые не соответствую типу (<code>type</code>) заявки. Например для заявки с <code>type=extendParcelStorage</code> передано заполненное поле <code>receiver.phones</code>\nВ поле <code>error.message</code> должно содержаться пояснение, какое поле не поддерживается.</li>\n  </ul></li>\n<br />\n<br />\n<b>Важно!</b> Перечисленные выше ошибки можно использовать только для проверки корректности входящего контракта и запрещено использовать для проверки бизнес-логики сценария.<br />\nВсе возникающие ошибки бизнес-логики, которые могут возникнуть в процессе исполнения заявки, должны передаваться в поле <code>reason</code> запроса <code>changeParcelResult</code> <br />\nПримеры ошибок бизнес-логики:<br />\n<ol>\n  <li>На стороне СД не найдена посылка по переданному `parcelID`.</li>\n  <li>Посылка, для которой необходимо выполнить заявку запрета приема в ПВЗ отправки (<code>prohibitParcelAcceptance</code>), уже принята в ПВЗ отправки.</li>\n  <li>Посылка, для которой необходимо продлить срок хранения посылки (<code>extendParcelStorage</code>), уже истек срок хранения и она отправлена на возврат.</li>\n  <li>Посылка, для которой необходимо запретить выдачу в ПВЗ вручения (<code>prohibitParcelReceive</code>) уже вручена получателю.</li>\n</ol>\n\nВсе перечисленные ошибки – \"терминальные\".\nПри получении этих ошибок Avito не будет выполнять повторные запросы, т.к. повтор приведет к тому же результату.\nСписок в дальнейшем может пополняться.\n"
+          enum:
+          - VALIDATION_ERROR
+          - UNSUPPORTED_PARAM_ERROR
+          example: VALIDATION_ERROR
+          type: string
+        message:
+          description: 'Человекочитаемые детали произошедшей ошибки.
+
+            Поле будет использоваться живыми людьми для диагностирования проблемы.
+
+            '
+          example: applications[0].parcelID field is required
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    DeliverySetStatusDetails:
+      description: <br /> Детализация ответа.<br /> <br /> Возвращается только со статусом `forbidden`. По детализации можно понять, почему выполнение перехода запрещено.
+      properties:
+        from:
+          description: Текущий статус.
+          example: IN_TRANSIT
+          type: string
+      required:
+      - from
+      title: Детализация ответа.
+      type:
+      - object
+      - 'null'
+    ChangeParcelResultRequest:
+      properties:
+        id:
+          description: Идентификатор заявки на изменение посылки
+          type: string
+        options:
+          properties:
+            storageExtendedTo:
+              allOf:
+              - $ref: '#/components/schemas/DateWithTz'
+              description: Дата и время до которого продлено хранение (RFC3339). В случае отсутствия в системе информации о времени до которого возможно продления можно использовать константу `23:59:59 в московском часовом поясе`.
+          type:
+          - object
+          - 'null'
+        reason:
+          description: 'Причина отклонения заявки (заполняется в случае отклонения).
+
+            '
+          type: string
+        status:
+          description: Статус обработки заявки
+          enum:
+          - approved
+          - declined
+          type: string
+      required:
+      - id
+      - status
+      type: object
+    CreateParcelRequest:
+      properties:
+        barcodes:
+          description: 'Штрихкоды посылки.
+
+            '
+          example:
+          - '1000001389165'
+          - '80511176616217'
+          items:
+            type: string
+          type: array
+        directOrderID:
+          description: 'Идентификатор прямого заказа Avito.
+
+            '
+          example: '38108624273277775'
+          type: string
+        items:
+          description: 'Список товаров, которые поедут в посылке.
+
+
+            Содержит полное описание каждого отдельно взятого товара.
+
+            '
+          items:
+            $ref: '#/components/schemas/CreateParcelItem'
+          type: array
+        options:
+          $ref: '#/components/schemas/CreateParcelOptions'
+        orderID:
+          description: 'Идентификатор заказа Avito.
+
+            '
+          example: '38108624273277776'
+          type: string
+        package:
+          $ref: '#/components/schemas/CreateParcelPackage'
+        parcelID:
+          description: 'Идентификатор посылки Avito.
+
+            '
+          example: P00012345
+          type: string
+        payment:
+          $ref: '#/components/schemas/CreateParcelPayment'
+        receiver:
+          $ref: '#/components/schemas/CreateParcelClient'
+        sender:
+          $ref: '#/components/schemas/CreateParcelClient'
+      required:
+      - orderID
+      - parcelID
+      - items
+      - sender
+      - receiver
+      - payment
+    CreateParcelResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/CreateParcelData'
+        error:
+          $ref: '#/components/schemas/CreateParcelError'
+    CreateParcelClientDeliveryCourier:
+      description: 'Актуально, если забор/доставка будет осуществляться курьером.
+
+        '
+      properties:
+        address:
+          $ref: '#/components/schemas/CreateParcelClientDeliveryCourierAddress'
+        dateTimeInterval:
+          $ref: '#/components/schemas/CreateParcelClientDeliveryCourierDateTimeInterval'
+        options:
+          $ref: '#/components/schemas/CreateParcelClientDeliveryCourierOptions'
+        pickupContact:
+          $ref: '#/components/schemas/CreateParcelClientDeliveryCourierPickupContact'
+        provider:
+          description: Cлужба доставки, которая будет осуществлять курьерскую доставку.
+          example: pecom-t2d
+          type: string
+      required:
+      - provider
+      - address
+      - dateTimeInterval
     CreateParcelClientDeliveryCourierDateTimeInterval:
       description: Интервал для курьерской доставки.
       properties:
@@ -747,6 +1169,296 @@ components:
       required:
       - start
       - end
+    ChangeParcelResultReply:
+      properties:
+        data:
+          type:
+          - object
+          - 'null'
+        error:
+          properties:
+            code:
+              enum:
+              - ID_INVALID
+              - NOT_FOUND
+              - STATUS_INVALID
+              - FAILED_REASON_MISSES
+              - PARCEL_CLOSED
+              type: string
+            message:
+              type: string
+          required:
+          - code
+          - message
+          type:
+          - object
+          - 'null'
+      type: object
+    Delivery-params:
+      properties:
+        delivery:
+          $ref: '#/components/schemas/Delivery-terms'
+        dimensions:
+          $ref: '#/components/schemas/Delivery-dimensions'
+        weight:
+          $ref: '#/components/schemas/Delivery-weight'
+      title: Параметры доставки
+      type: object
+    CheckConfirmationCodeReply:
+      properties:
+        data:
+          properties:
+            status:
+              enum:
+              - success
+              - fail
+              - expired
+              - attempts
+              type: string
+          type: object
+      type: object
+    CreateParcelClientDeliverySortingCenter:
+      description: 'Актуально, если доставка будет осуществлять из / в сортировочный центр.
+
+        '
+      properties:
+        accuracy:
+          $ref: '#/components/schemas/CreateParcelPropertyAccuracy'
+        id:
+          description: Идентификатор сортировочного центра по версии службы доставки владельца.
+          example: '123'
+          type: string
+        provider:
+          description: Идентификатор службы доставки владельца сортировочного центра.
+          example: exmail
+          type: string
+      required:
+      - provider
+      - id
+      - accuracy
+    ChangeParcelsClient:
+      description: 'Содержит информацию для обновления данных о клиенте.
+
+        '
+      properties:
+        name:
+          description: 'ФИО нового получателя посылки.
+
+            '
+          example: Иванов Иван Иванович
+          maxLength: 255
+          type: string
+        phones:
+          description: "Список номеров телефонов нового получателя. \nЕсли на стороне СД нет поддержки работы с несколькими номерами телефонов, то необходимо использовать первый из списка и считать его основным контактом.\n\nФормат номеров телефона не регламентирован.\n"
+          example:
+          - '88005553535'
+          - '79999999999'
+          - '+79859991234'
+          items:
+            minLength: 1
+            type: string
+          type: array
+        terminal:
+          $ref: '#/components/schemas/ChangeParcelsTerminal'
+      required:
+      - name
+      - phones
+    DeliverySetOrderPropertiesReply:
+      properties:
+        data:
+          properties:
+            status:
+              description: <br /> `success` - свойства успешно сохранены <br /> `duplicate` - свойства заказа были переданы ранее и текущий запрос был проигнорирован <br />
+              enum:
+              - success
+              - duplicate
+              title: статус сохранения свойств заказа
+          type:
+          - object
+          - 'null'
+        error:
+          $ref: '#/components/schemas/DeliveryError'
+      type: object
+    CreateParcelClientDeliveryCourierPickupContact:
+      description: 'Контактное лицо для забора посылки курьером. Заполняется для отправителя в сценарии Дверь-Терминал.
+
+        Может отличаться от имени отправителя (например, если отправитель – юридическое лицо).
+
+        '
+      properties:
+        name:
+          description: ФИО контактного лица для забора посылки.
+          example: Иванов Иван Иванович
+          type: string
+        phone:
+          description: Телефон контактного лица для забора посылки.
+          example: '+79999999999'
+          type: string
+      required:
+      - name
+      - phone
+    CreateParcelPaymentStatus:
+      description: 'Статус оплаты.
+
+        '
+      enum:
+      - PAID
+      - ON_DELIVERY
+      example: PAID
+      type: string
+    Delivery-receiverTerminalCode:
+      description: 'Терминал получателя посылки. <br />
+
+        Используется для посылок в статусах `IN_TRANSIT` и `ON_DELIVERY` в случае смены терминала. <br />
+
+        Рекомендуется не передавать данный параметр совместно с остальными.
+
+        '
+      example: 5000
+      title: Терминал получателя посылки
+      type:
+      - string
+      - 'null'
+    CreateParcelClientDeliverySecondPartyLogist:
+      description: Информация o магистральном перевозчике. Актуально для кросс-доставки.
+      properties:
+        provider:
+          description: Код службы доставки.
+          type: string
+      required:
+      - provider
+    CreateParcelClientDelivery:
+      properties:
+        completenessAndIntegrity:
+          description: 'Где осуществляется проверка целостности и комплектности вложений посылки.
+
+            '
+          example:
+          - DIRECT_FLOW
+          - RETURN_FLOW
+          items:
+            enum:
+            - DIRECT_FLOW
+            - RETURN_FLOW
+            type: string
+          type: array
+        courier:
+          $ref: '#/components/schemas/CreateParcelClientDeliveryCourier'
+        secondPartyLogist:
+          $ref: '#/components/schemas/CreateParcelClientDeliverySecondPartyLogist'
+        sortingCenter:
+          $ref: '#/components/schemas/CreateParcelClientDeliverySortingCenter'
+        terminal:
+          $ref: '#/components/schemas/CreateParcelClientDeliveryTerminal'
+        type:
+          description: 'Тип доставки.
+
+
+            - `TERMINAL` – в пункт выдачи заказов.
+
+            - `SORTING_CENTER` – в сортировочный центр (для кросс-доставки).
+
+            - `COURIER` - доставка курьером.
+
+            '
+          enum:
+          - TERMINAL
+          - SORTING_CENTER
+          - COURIER
+          example: TERMINAL
+          type: string
+      required:
+      - type
+    DeliverySetStatusReply:
+      properties:
+        data:
+          properties:
+            details:
+              $ref: '#/components/schemas/DeliverySetStatusDetails'
+            status:
+              description: <br /> `success` - статус успешно добавлен <br /> `forbidden` - переход из текущего статуса в передавемый запрещен <br />
+              enum:
+              - success
+              - forbidden
+              title: статус сохранения статуса
+          type:
+          - object
+          - 'null'
+        error:
+          $ref: '#/components/schemas/DeliveryError'
+      type: object
+    CreateParcelClientDeliveryCourierAddress:
+      description: Адрес пользователя
+      properties:
+        addressRow:
+          description: Адрес, выбранный пользователем.
+          example: Москва, ул. Лесная, 20с2
+          type: string
+        coordinates:
+          $ref: '#/components/schemas/CreateParcelClientDeliveryCourierCoordinates'
+        details:
+          $ref: '#/components/schemas/CreateParcelClientDeliveryCourierAddressDetails'
+      required:
+      - addressRow
+      - coordinates
+      - details
+    CreateParcelClientDeliveryCourierAddressDetails:
+      description: 'Детали адреса курьерской доставки.
+
+        '
+      properties:
+        flat:
+          description: Номер квартиры.
+          example: '23'
+          type: string
+        floor:
+          description: Номер этажа.
+          example: '4'
+          type: string
+        house:
+          description: Номер дома, корпуса, строения пользователя.
+          example: 20с2
+          type: string
+        porch:
+          description: Номер подъезда.
+          example: '2'
+          type: string
+      required:
+      - house
+    CreateParcelData:
+      description: 'Тело ответа.
+
+
+        Поле присутствует, если запрос был успешно обработан. Если случилась ошибка, то поле отсутствует.
+
+        '
+      properties:
+        barcodes:
+          description: 'Штрихкоды посылки.
+
+
+            Штрихкоды обязательны к возврату в случае кросс-доставки.
+
+            '
+          example:
+          - '1000001389165'
+          - '1000001389166'
+          items:
+            type: string
+          minLength: 1
+          type: array
+        dispatchNumber:
+          description: Идентификатор посылки по версии службы доставки.
+          example: 00000138916
+          type: string
+        trackingNumber:
+          description: Трек-номер посылки по версии службы доставки.
+          example: 00000138916
+          type: string
+      required:
+      - dispatchNumber
+      - trackingNumber
+      type: object
     CreateParcelItem:
       properties:
         breadcrumbs:
@@ -854,63 +1566,15 @@ components:
       - title
       - cost
       - quantity
-    CreateParcelPropertyAccuracy:
-      description: 'Точность габаритов.
+    Delivery-directControlDate:
+      description: 'Контрольная дата доставки для прямого потока в UTC. <br />
 
-
-        На текущий момент точность габаритов всегда `APPROXIMATE`.
-
-        '
-      enum:
-      - EXACT
-      - APPROXIMATE
-      example: APPROXIMATE
-      type: string
-    CreateParcelResponse:
-      properties:
-        data:
-          $ref: '#/components/schemas/CreateParcelData'
-        error:
-          $ref: '#/components/schemas/CreateParcelError'
-    DeliverySetOrderPropertiesReply:
-      properties:
-        data:
-          nullable: true
-          properties:
-            status:
-              description: <br /> `success` - свойства успешно сохранены <br /> `duplicate` - свойства заказа были переданы ранее и текущий запрос был проигнорирован <br />
-              enum:
-              - success
-              - duplicate
-              title: статус сохранения свойств заказа
-          type: object
-        error:
-          $ref: '#/components/schemas/DeliveryError'
-      type: object
-    Delivery-returnControlDate:
-      description: 'Контрольная дата доставки для возвратного потока в UTC. <br />
-
-        Используется для посылок в статусе `IN_TRANSIT_RETURN`
+        Используется для посылок в статусе `IN_TRANSIT`
 
         '
       example: '1985-04-12T23:20:50.52Z'
-      title: Контрольная дата доставки для возвратного потока rfc3339 в UTC
+      title: Контрольная дата доставки для прямого потока rfc3339 в UTC
       type: string
-    CreateParcelPaymentStatus:
-      description: 'Статус оплаты.
-
-        '
-      enum:
-      - PAID
-      - ON_DELIVERY
-      example: PAID
-      type: string
-    Cost:
-      description: Стоимость в копейках
-      example: 15000
-      minimum: 0
-      title: Стоимость
-      type: integer
     CreateParcelClientDeliveryCourierOptions:
       description: Опции курьерской доставки.
       properties:
@@ -954,323 +1618,48 @@ components:
       - deliveryType
       - deliveryConfirmationType
       - elevatorAvailable
-    ChangeParcelResultRequest:
+    CheckConfirmationCodeRequest:
       properties:
-        id:
-          description: Идентификатор заявки на изменение посылки
-          type: string
-        options:
-          nullable: true
-          properties:
-            storageExtendedTo:
-              allOf:
-              - $ref: '#/components/schemas/DateWithTz'
-              description: Дата и время до которого продлено хранение (RFC3339). В случае отсутствия в системе информации о времени до которого возможно продления можно использовать константу `23:59:59 в московском часовом поясе`.
-          type: object
-        reason:
-          description: 'Причина отклонения заявки (заполняется в случае отклонения).
-
-            '
-          type: string
-        status:
-          description: Статус обработки заявки
-          enum:
-          - approved
-          - declined
-          type: string
-      required:
-      - id
-      - status
-      type: object
-    ChangeParcelResultReply:
-      properties:
-        data:
-          nullable: true
-          type: object
-        error:
-          nullable: true
-          properties:
-            code:
-              enum:
-              - ID_INVALID
-              - NOT_FOUND
-              - STATUS_INVALID
-              - FAILED_REASON_MISSES
-              - PARCEL_CLOSED
-              type: string
-            message:
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    DeliveryError4XX:
-      nullable: true
-      properties:
-        message:
-          description: Человекопонятное описание ошибки
-          example: something went wrong
-          title: Описание ошибки
-          type: string
-        status:
-          description: false – в случае возникновения ошибки
-          example: false
-          title: статус
-          type: boolean
-      required:
-      - code
-      - message
-      type: object
-    ChangeParcelsApplication:
-      description: 'Описание посылки, свойства которой необходимо изменить.
-
-        '
-      properties:
-        id:
-          description: 'Идентификатор заявки Avito
-
-
-            Идентификатор заявки - уникальный идентификатор заявки на изменение данных о посылке в формате uuid, который должен быть передан в обратном запросе с результатом исполнения заявки.
-
-            '
-          example: 6aad1860-23e0-4e4d-97d7-eff526127b51
+        confirmCode:
           type: string
         parcelID:
-          description: 'Идентификатор, использованный при регистрации посылки в службе доставки.
-
-            '
-          example: P000123
           type: string
-        receiver:
-          $ref: '#/components/schemas/ChangeParcelsClient'
       required:
-      - id
       - parcelID
-    DeliverySetStatusDetails:
-      description: <br /> Детализация ответа.<br /> <br /> Возвращается только со статусом `forbidden`. По детализации можно понять, почему выполнение перехода запрещено.
-      nullable: true
-      properties:
-        from:
-          description: Текущий статус.
-          example: IN_TRANSIT
-          type: string
-      required:
-      - from
-      title: Детализация ответа.
+      - confirmCode
       type: object
-    ChangeParcelsRequest:
-      properties:
-        applications:
-          items:
-            $ref: '#/components/schemas/ChangeParcelsApplication'
-          type: array
-        type:
-          description: 'Тип заявки.
+    Delivery-dimensions:
+      description: 'Габариты в сантиметрах. В порядке длина(length), высота(height), ширина(width). <br />
 
-
-            Заявки могут быть следующих типов:
-
-            - `changeReceiver` - обновить данные о получателе посылки.
-
-            - `extendParcelStorage` - продлить срок хранения посылки.
-
-            - `prohibitParcelReceive` - запретить выдачу посылки на ПВЗ вручения.
-
-            - `prohibitParcelAcceptance` - запретить прием посылки на ПВЗ отправки (в разработке).
-
-            - `changeReceiverTerminalOnConfirmed` - обновить ПВЗ вручения.
-
-            '
-          enum:
-          - changeReceiver
-          - extendParcelStorage
-          - prohibitParcelReceive
-          - prohibitParcelAcceptance
-          - changeReceiverTerminalOnConfirmed
-          example: changeReceiver
-          type: string
-      required:
-      - type
-      - applications
-      type: object
-    CreateParcelClientDeliverySortingCenter:
-      description: 'Актуально, если доставка будет осуществлять из / в сортировочный центр.
+        В случае если для отправления не имеет значения можно ли его вращать - нужно отсортировать от большего к меньшему
 
         '
+      example:
+      - 200
+      - 50
+      - 30
+      items:
+        maximum: 200
+        minimum: 0
+        type: integer
+      title: Габариты
+      type: array
+    prohibitOrderAcceptanceRequest:
       properties:
-        accuracy:
-          $ref: '#/components/schemas/CreateParcelPropertyAccuracy'
-        id:
-          description: Идентификатор сортировочного центра по версии службы доставки владельца.
-          example: '123'
-          type: string
-        provider:
-          description: Идентификатор службы доставки владельца сортировочного центра.
-          example: exmail
-          type: string
+        orderId:
+          $ref: '#/components/schemas/Delivery-orderId-string'
       required:
-      - provider
-      - id
-      - accuracy
-    ChangeParcelsTerminal:
-      description: 'Данные нового пункта получателя посылки.
-
-        '
-      nullable: true
-      properties:
-        id:
-          description: 'Внешний идентификатор ПВЗ.
-
-            '
-          example: '123'
-          type: string
-      required:
-      - id
-    ChangeParcelsData:
-      description: 'Тело ответа.
-
-        Поле присутствует, если запрос был успешно обработан. Если случилась ошибка, то поле отсутствует.
-
-        '
-      properties:
-        status:
-          description: По полю статус со значением ok понимаем, что заявка успешно принята в работу.
-          enum:
-          - ok
-          example: ok
-          type: string
-      required:
-      - status
+      - orderId
       type: object
-    Delivery-receiverTerminalCode:
-      description: 'Терминал получателя посылки. <br />
-
-        Используется для посылок в статусах `IN_TRANSIT` и `ON_DELIVERY` в случае смены терминала. <br />
-
-        Рекомендуется не передавать данный параметр совместно с остальными.
-
-        '
-      example: 5000
-      nullable: true
-      title: Терминал получателя посылки
-      type: string
-    CreateParcelItemBreadcrumb:
+    CreateParcelPackage:
       properties:
-        name:
-          description: Название категории
-          example: Спорт и отдых
-          maxLength: 255
-          type: string
+        dimensions:
+          $ref: '#/components/schemas/CreateParcelItemDimensions'
+        weight:
+          $ref: '#/components/schemas/CreateParcelItemWeight'
       required:
-      - name
-    CreateParcelClientDeliveryCourierCoordinates:
-      description: Координаты пользователя
-      properties:
-        latitude:
-          description: Географическая широта, в градусах.
-          example: 55.779003
-          maximum: 90
-          minimum: -90
-          type: number
-        longitude:
-          description: Географическая долгота, в градусах.
-          example: 37.591746
-          maximum: 180
-          minimum: -180
-          type: number
-      required:
-      - latitude
-      - longitude
-    CreateParcelClientDeliveryCourierAddress:
-      description: Адрес пользователя
-      properties:
-        addressRow:
-          description: Адрес, выбранный пользователем.
-          example: Москва, ул. Лесная, 20с2
-          type: string
-        coordinates:
-          $ref: '#/components/schemas/CreateParcelClientDeliveryCourierCoordinates'
-        details:
-          $ref: '#/components/schemas/CreateParcelClientDeliveryCourierAddressDetails'
-      required:
-      - addressRow
-      - coordinates
-      - details
-    CreateParcelRequest:
-      properties:
-        barcodes:
-          description: 'Штрихкоды посылки.
-
-            '
-          example:
-          - '1000001389165'
-          - '80511176616217'
-          items:
-            type: string
-          type: array
-        directOrderID:
-          description: 'Идентификатор прямого заказа Avito.
-
-            '
-          example: '38108624273277775'
-          type: string
-        items:
-          description: 'Список товаров, которые поедут в посылке.
-
-
-            Содержит полное описание каждого отдельно взятого товара.
-
-            '
-          items:
-            $ref: '#/components/schemas/CreateParcelItem'
-          type: array
-        options:
-          $ref: '#/components/schemas/CreateParcelOptions'
-        orderID:
-          description: 'Идентификатор заказа Avito.
-
-            '
-          example: '38108624273277776'
-          type: string
-        package:
-          $ref: '#/components/schemas/CreateParcelPackage'
-        parcelID:
-          description: 'Идентификатор посылки Avito.
-
-            '
-          example: P00012345
-          type: string
-        payment:
-          $ref: '#/components/schemas/CreateParcelPayment'
-        receiver:
-          $ref: '#/components/schemas/CreateParcelClient'
-        sender:
-          $ref: '#/components/schemas/CreateParcelClient'
-      required:
-      - orderID
-      - parcelID
-      - items
-      - sender
-      - receiver
-      - payment
-    DeliverySetStatusReply:
-      properties:
-        data:
-          nullable: true
-          properties:
-            details:
-              $ref: '#/components/schemas/DeliverySetStatusDetails'
-            status:
-              description: <br /> `success` - статус успешно добавлен <br /> `forbidden` - переход из текущего статуса в передавемый запрещен <br />
-              enum:
-              - success
-              - forbidden
-              title: статус сохранения статуса
-          type: object
-        error:
-          $ref: '#/components/schemas/DeliveryError'
-      type: object
+      - dimensions
+      - weight
     DeliverySetRealAddressRequest:
       properties:
         address:
@@ -1304,105 +1693,31 @@ components:
       - orderId
       - address
       type: object
-    ChangeParcelsClient:
-      description: 'Содержит информацию для обновления данных о клиенте.
+    ChangeParcelsApplication:
+      description: 'Описание посылки, свойства которой необходимо изменить.
 
         '
-      nullable: true
       properties:
-        name:
-          description: 'ФИО нового получателя посылки.
+        id:
+          description: 'Идентификатор заявки Avito
+
+
+            Идентификатор заявки - уникальный идентификатор заявки на изменение данных о посылке в формате uuid, который должен быть передан в обратном запросе с результатом исполнения заявки.
 
             '
-          example: Иванов Иван Иванович
-          maxLength: 255
+          example: 6aad1860-23e0-4e4d-97d7-eff526127b51
           type: string
-        phones:
-          description: "Список номеров телефонов нового получателя. \nЕсли на стороне СД нет поддержки работы с несколькими номерами телефонов, то необходимо использовать первый из списка и считать его основным контактом.\n\nФормат номеров телефона не регламентирован.\n"
-          example:
-          - '88005553535'
-          - '79999999999'
-          - '+79859991234'
-          items:
-            minLength: 1
-            type: string
-          type: array
-        terminal:
-          $ref: '#/components/schemas/ChangeParcelsTerminal'
-      required:
-      - name
-      - phones
-    Delivery-dimensions:
-      description: 'Габариты в сантиметрах. В порядке длина(length), высота(height), ширина(width). <br />
+        parcelID:
+          description: 'Идентификатор, использованный при регистрации посылки в службе доставки.
 
-        В случае если для отправления не имеет значения можно ли его вращать - нужно отсортировать от большего к меньшему
-
-        '
-      example:
-      - 200
-      - 50
-      - 30
-      items:
-        maximum: 200
-        minimum: 0
-        type: integer
-      title: Габариты
-      type: array
-    Delivery-params:
-      properties:
-        delivery:
-          $ref: '#/components/schemas/Delivery-terms'
-        dimensions:
-          $ref: '#/components/schemas/Delivery-dimensions'
-        weight:
-          $ref: '#/components/schemas/Delivery-weight'
-      title: Параметры доставки
-      type: object
-    cancelParcelReply:
-      properties:
-        data:
-          nullable: true
-          properties:
-            status:
-              description: статус отмены посылки
-              enum:
-              - OK
-              type: string
-          type: object
-        error:
-          $ref: '#/components/schemas/DeliveryError'
-      type: object
-    DeliveryError:
-      nullable: true
-      properties:
-        code:
-          description: код ошибки
-          example: fail
-          title: код ошибки
+            '
+          example: P000123
           type: string
-        message:
-          description: Человекопонятное описание ошибки
-          example: something went wrong
-          title: описание ошибки
-          type: string
+        receiver:
+          $ref: '#/components/schemas/ChangeParcelsClient'
       required:
-      - code
-      - message
-      type: object
-    prohibitOrderAcceptanceReply:
-      properties:
-        data:
-          nullable: true
-          properties:
-            status:
-              description: статус запрета приёма заказа
-              enum:
-              - OK
-              type: string
-          type: object
-        error:
-          $ref: '#/components/schemas/DeliveryError'
-      type: object
+      - id
+      - parcelID
     Delivery-orderId-string:
       description: 'Генерируется на стороне Avito и передается в службу доставки в методах создания посылки.
 
@@ -1415,335 +1730,52 @@ components:
       example: P00012345
       title: ID Авито
       type: string
-    CreateParcelClientDeliveryCourier:
-      description: 'Актуально, если забор/доставка будет осуществляться курьером.
-
-        '
-      properties:
-        address:
-          $ref: '#/components/schemas/CreateParcelClientDeliveryCourierAddress'
-        dateTimeInterval:
-          $ref: '#/components/schemas/CreateParcelClientDeliveryCourierDateTimeInterval'
-        options:
-          $ref: '#/components/schemas/CreateParcelClientDeliveryCourierOptions'
-        pickupContact:
-          $ref: '#/components/schemas/CreateParcelClientDeliveryCourierPickupContact'
-        provider:
-          description: Cлужба доставки, которая будет осуществлять курьерскую доставку.
-          example: pecom-t2d
-          type: string
-      required:
-      - provider
-      - address
-      - dateTimeInterval
-    CreateParcelItemImagesUrls:
-      properties:
-        list:
-          description: 'Список URL-ов фотографий.
-
-            '
-          example:
-          - //24.img.avito.st/image/1/1.pUbrSba6Ca_d4MuqrTPvNzbqD6tfagFtWuoNp1_iCw.kszrqWjK0pNKI4ayaT821U-Ln2lzT8lSuqNt7pqedno
-          - //19.img.avito.st/image/1/1.rlbjCLa6Ar_VocC6s3LkJz6rBLtXKwp9UqsGt1ejAA.C4io31wn3Rjlc7SJGgeIVyxzC9LnoQUkGwmyaQ67-qs
-          - //90.img.avito.st/image/1/1.Z0Dh2ba6y6nXcAmso6AtMTx6za1V-sNrUHrPoVVyyQ.T1yZ87ZDiUSrUQNTYJkDbXub3lHC9_XBFtc8D1jOt7c
-          - //76.img.avito.st/image/1/1.QTUceba67dwq0C_ZEngLRMHa69ioWuUerdrp1KjS7w.JABYB8SsN5W6u5Y6WR49R8kKzr5IsGxF5HTjQPnygYQ
-          - //85.img.avito.st/image/1/1.eITjzra61G3VZxZon88y9T5t0mlX7dyvUm3QZVdl1g.aQyF5iZccldCZ5p9qtb-DZZobnPzdCSanQJmdHXQvdc
-          items:
-            type: string
-          type: array
-        listing:
-          description: 'URL основной фотографии.
-
-            '
-          example: //24.img.avito.st/image/1/1.pUbrSba6Ca_d4MuqrTPvNzbqD6tfagFtWuoNp1_iCw.kszrqWjK0pNKI4ayaT821U-Ln2lzT8lSuqNt7pqedno
-          type: string
-      required:
-      - listing
-      - list
-    DateWithTz:
-      example: '2023-09-20T10:00:00.52Z'
-      type: string
-    Delivery-senderReceiveTerminalCode:
-      description: 'Терминал отправителя, в который едет возврат. <br />
-
-        Используется для посылок в статусах `IN_TRANSIT_RETURN` и `ON_DELIVERY_RETURN` в случае смены терминала. <br />
-
-        Рекомендуется не передавать данный параметр совместно с остальными.
-
-        '
-      example: 5001
-      nullable: true
-      title: Терминал отправителя, в который едет возврат.
-      type: string
-    CreateParcelOptionsReturnPolicy:
-      properties:
-        action:
-          description: 'Какое действие выполнить в случае возврата посылки.
-
-            '
-          enum:
-          - DISABLED
-          - DESTROY
-          - RETURN_TO_DEPARTURE_POINT
-          - RETURN_TO_RECEIVER
-          - MOVE_TO_ON_DEMAND_STORAGE
-          example: DESTROY
-          type: string
-        after:
-          description: 'Через какое время выполнить действие `action`.
-
-
-            Отсутствие поля означает, что выполнить нужно сразу.
-
-            '
-          properties:
-            unit:
-              description: Единица интервала.
-              enum:
-              - DAY
-              example: DAY
-              type: string
-            value:
-              description: Через сколько `unit` выполнить действие `action`.
-              example: 14
-              minimum: 1
-              type: integer
-          required:
-          - unit
-          - value
-          type: object
-      required:
-      - action
-    CreateParcelError:
-      description: 'Ошибка создания посылки.
-
-
-        Поле присутствует, если запрос не был успешно обработан. Если запрос был успешно обработан, то поле отсутствует.
-
-        '
-      properties:
-        code:
-          description: "Код ошибки.\n\n- `VALIDATION_ERROR` – ошибка валидации данных (например, длина передаваемого поля превышает допустимые лимиты, или какое-то поле отсутствует). \nВ поле `error.message` должно содержаться пояснение, какое поле не прошло валидацию.\n- `UNSUPPORTED_PARAM_ERROR` – в запросе получен неподдерживаемый параметр. В поле `error.message` должно содержаться пояснение, какое поле не поддерживается.\n- `TERMINAL_UNAVAILABLE` – терминал, указанный в запросе, недоступен для создания посылки. В поле `error.message` должно содержаться пояснение причины недоступности терминала.\n- `SORTING_CENTER_UNAVAILABLE` – сортировочный центр, указанный в запросе, недоступен для создания посылки. В поле error.message должно содержаться пояснение причины недоступности сортировочного центра.\n\nВсе перечисленные ошибки – \"терминальные\". \nПри получении этих ошибок Avito не будет выполнять повторные запросы, т.к. повтор приведет к тому же результату.\n\nСписок в дальнейшем может пополняться.\n"
-          enum:
-          - VALIDATION_ERROR
-          - UNSUPPORTED_PARAM_ERROR
-          - TERMINAL_UNAVAILABLE
-          - SORTING_CENTER_UNAVAILABLE
-          example: VALIDATION_ERROR
-          type: string
-        message:
-          description: Текстовое описание ошибки
-          example: Текст ошибки
-          type: string
-      required:
-      - code
-      - message
-      type: object
-    CreateParcelClientDeliveryCourierPickupContact:
-      description: 'Контактное лицо для забора посылки курьером. Заполняется для отправителя в сценарии Дверь-Терминал.
-
-        Может отличаться от имени отправителя (например, если отправитель – юридическое лицо).
-
-        '
-      properties:
-        name:
-          description: ФИО контактного лица для забора посылки.
-          example: Иванов Иван Иванович
-          type: string
-        phone:
-          description: Телефон контактного лица для забора посылки.
-          example: '+79999999999'
-          type: string
-      required:
-      - name
-      - phone
-    ChangeParcelsError:
-      description: 'Ошибка регистрации заявки на изменение посылок.
-
-        Поле присутствует, если запрос не был успешно обработан. Если запрос был успешно обработан, то поле отсутствует.
-
-        '
-      properties:
-        code:
-          description: "Код ошибки. <br />\n<ol>\n  <li><code>VALIDATION_ERROR</code> – ошибка валидации входящих параметров. Например:<ul>\n    <li>Длина передаваемого поля превышает допустимые лимиты.</li>\n    <li>В запросе отсутствует поле, обязательное для данного типа (<code>type</code>) заявки.\n  В поле <code>error.message</code> должно содержаться пояснение, какое поле не прошло валидацию. </li>\n  </ul></li>\n  <li><code>UNSUPPORTED_PARAM_ERROR</code> – в запросе получен неподдерживаемый параметр. Например:<ul>\n    <li>В запросе передан тип (<code>type</code>) заявки, который не реализован на стороне СД.</li>\n    <li>Запрос содержит заполненные поля, которые не соответствую типу (<code>type</code>) заявки. Например для заявки с <code>type=extendParcelStorage</code> передано заполненное поле <code>receiver.phones</code>\nВ поле <code>error.message</code> должно содержаться пояснение, какое поле не поддерживается.</li>\n  </ul></li>\n<br />\n<br />\n<b>Важно!</b> Перечисленные выше ошибки можно использовать только для проверки корректности входящего контракта и запрещено использовать для проверки бизнес-логики сценария.<br />\nВсе возникающие ошибки бизнес-логики, которые могут возникнуть в процессе исполнения заявки, должны передаваться в поле <code>reason</code> запроса <code>changeParcelResult</code> <br />\nПримеры ошибок бизнес-логики:<br />\n<ol>\n  <li>На стороне СД не найдена посылка по переданному `parcelID`.</li>\n  <li>Посылка, для которой необходимо выполнить заявку запрета приема в ПВЗ отправки (<code>prohibitParcelAcceptance</code>), уже принята в ПВЗ отправки.</li>\n  <li>Посылка, для которой необходимо продлить срок хранения посылки (<code>extendParcelStorage</code>), уже истек срок хранения и она отправлена на возврат.</li>\n  <li>Посылка, для которой необходимо запретить выдачу в ПВЗ вручения (<code>prohibitParcelReceive</code>) уже вручена получателю.</li>\n</ol>\n\nВсе перечисленные ошибки – \"терминальные\".\nПри получении этих ошибок Avito не будет выполнять повторные запросы, т.к. повтор приведет к тому же результату.\nСписок в дальнейшем может пополняться.\n"
-          enum:
-          - VALIDATION_ERROR
-          - UNSUPPORTED_PARAM_ERROR
-          example: VALIDATION_ERROR
-          type: string
-        message:
-          description: 'Человекочитаемые детали произошедшей ошибки.
-
-            Поле будет использоваться живыми людьми для диагностирования проблемы.
-
-            '
-          example: applications[0].parcelID field is required
-          type: string
-      required:
-      - code
-      - message
-      type: object
-    CreateParcelItemWeight:
+    CreateParcelItemDimensions:
       properties:
         accuracy:
           $ref: '#/components/schemas/CreateParcelPropertyAccuracy'
-        value:
-          description: Вес в граммах.
-          maximum: 50000
-          minimum: 1
-          type: integer
+        values:
+          description: 'Габариты в сантиметрах.
+
+
+            В порядке: длина, высота, ширина.
+
+            '
+          example:
+          - 20
+          - 20
+          - 20
+          items:
+            maximum: 200
+            minimum: 1
+            type: integer
+          maxLength: 3
+          minLength: 3
+          type: array
       required:
       - accuracy
       - values
-    CreateParcelClientDeliveryCourierAddressDetails:
-      description: 'Детали адреса курьерской доставки.
-
-        '
+    CreateParcelClientDeliveryCourierCoordinates:
+      description: Координаты пользователя
       properties:
-        flat:
-          description: Номер квартиры.
-          example: '23'
-          type: string
-        floor:
-          description: Номер этажа.
-          example: '4'
-          type: string
-        house:
-          description: Номер дома, корпуса, строения пользователя.
-          example: 20с2
-          type: string
-        porch:
-          description: Номер подъезда.
-          example: '2'
-          type: string
+        latitude:
+          description: Географическая широта, в градусах.
+          example: 55.779003
+          maximum: 90
+          minimum: -90
+          type: number
+        longitude:
+          description: Географическая долгота, в градусах.
+          example: 37.591746
+          maximum: 180
+          minimum: -180
+          type: number
       required:
-      - house
-    Delivery-weight:
-      description: Вес в граммах
-      example: 1000
-      maximum: 50000
-      minimum: 0
-      title: Вес
-    CreateParcelData:
-      description: 'Тело ответа.
-
-
-        Поле присутствует, если запрос был успешно обработан. Если случилась ошибка, то поле отсутствует.
-
-        '
-      properties:
-        barcodes:
-          description: 'Штрихкоды посылки.
-
-
-            Штрихкоды обязательны к возврату в случае кросс-доставки.
-
-            '
-          example:
-          - '1000001389165'
-          - '1000001389166'
-          items:
-            type: string
-          minLength: 1
-          type: array
-        dispatchNumber:
-          description: Идентификатор посылки по версии службы доставки.
-          example: 00000138916
-          type: string
-        trackingNumber:
-          description: Трек-номер посылки по версии службы доставки.
-          example: 00000138916
-          type: string
-      required:
-      - dispatchNumber
-      - trackingNumber
-      type: object
-    cancelParcelRequest:
-      properties:
-        actor:
-          description: Кто отменяет посылку
-          enum:
-          - receiver
-          type: string
-        parcelID:
-          $ref: '#/components/schemas/Delivery-orderId-string'
-      required:
-      - parcelID
-      - actor
-      type: object
-    CreateParcelClientDelivery:
-      properties:
-        completenessAndIntegrity:
-          description: 'Где осуществляется проверка целостности и комплектности вложений посылки.
-
-            '
-          example:
-          - DIRECT_FLOW
-          - RETURN_FLOW
-          items:
-            enum:
-            - DIRECT_FLOW
-            - RETURN_FLOW
-            type: string
-          type: array
-        courier:
-          $ref: '#/components/schemas/CreateParcelClientDeliveryCourier'
-        secondPartyLogist:
-          $ref: '#/components/schemas/CreateParcelClientDeliverySecondPartyLogist'
-        sortingCenter:
-          $ref: '#/components/schemas/CreateParcelClientDeliverySortingCenter'
-        terminal:
-          $ref: '#/components/schemas/CreateParcelClientDeliveryTerminal'
-        type:
-          description: 'Тип доставки.
-
-
-            - `TERMINAL` – в пункт выдачи заказов.
-
-            - `SORTING_CENTER` – в сортировочный центр (для кросс-доставки).
-
-            - `COURIER` - доставка курьером.
-
-            '
-          enum:
-          - TERMINAL
-          - SORTING_CENTER
-          - COURIER
-          example: TERMINAL
-          type: string
-      required:
-      - type
-    CreateParcelPayment:
-      properties:
-        delivery:
-          properties:
-            costWithoutVat:
-              description: Стоимость в копейках без НДС.
-              example: 10000
-              minimum: 0
-              type: integer
-            status:
-              $ref: '#/components/schemas/CreateParcelPaymentStatus'
-          required:
-          - status
-          - costWithoutVat
-          type: object
-        items:
-          properties:
-            cost:
-              description: Стоимость в копейках.
-              example: 10000
-              minimum: 0
-              type: integer
-            status:
-              $ref: '#/components/schemas/CreateParcelPaymentStatus'
-          required:
-          - status
-          - cost
-          type: object
-      required:
-      - items
-      - delivery
+      - latitude
+      - longitude
+    DateWithTz:
+      example: '2023-09-20T10:00:00.52Z'
+      type: string
   parameters:
     authHeader:
       description: Токен для авторизации
@@ -1752,15 +1784,6 @@ components:
       name: Authorization
       required: true
   responses:
-    DeliveryUnauthorized:
-      content:
-        application/json:
-          schema:
-            properties:
-              error:
-                $ref: '#/components/schemas/DeliveryError4XX'
-            type: object
-      description: Ошибка аутентификации. Например, некорректный токен.
     DeliveryForbidden:
       content:
         application/json:
@@ -1779,6 +1802,15 @@ components:
                 $ref: '#/components/schemas/DeliveryError'
             type: object
       description: internal server error
+    DeliveryUnauthorized:
+      content:
+        application/json:
+          schema:
+            properties:
+              error:
+                $ref: '#/components/schemas/DeliveryError4XX'
+            type: object
+      description: Ошибка аутентификации. Например, некорректный токен.
   securitySchemes:
     AuthorizationCode:
       description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
@@ -1786,7 +1818,20 @@ components:
         authorizationCode:
           authorizationUrl: https://avito.ru/oauth
           scopes:
-            ah:access: Взаимодействие с иерархией аккаунтов
+            autoload:reports: Получение отчетов Автозагрузки
+            items:apply_vas: Применение дополнительных услуг
+            items:info: Получение информации об объявлениях
+            job:applications: Получение информации об откликах на вакансии
+            job:cv: Получение информации резюме
+            job:write: Изменение объявлений вертикали Работа
+            messenger:read: Чтение сообщений в мессенджере Авито
+            messenger:write: Модифицирование сообщений в мессенджере Авито
+            short_term_rent:read: Получение информации об объявлениях краткосрочной аренды
+            short_term_rent:write: Изменение объявлений краткосрочной аренды
+            stats:read: Получение статистики объявлений
+            user:read: Получение информации о пользователе
+            user_balance:read: Получение баланса пользователя
+            user_operations:read: Получение истории операций пользователя
           tokenUrl: https://api.avito.ru/token
       type: oauth2
     ClientCredentials:

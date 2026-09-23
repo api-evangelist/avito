@@ -1,14 +1,11 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  contact:
-    email: supportautoload@avito.ru
-  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+  description: 'Методы для работы с остатками в объявлении.
 
-    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
 
-    '
-  title: Иерархия Аккаунтов Access Stock Management API
-  version: '1'
+    **Авито API для бизнеса предоставляется согласно Условиям использования.**'
+  title: Управление остатками Stock Management API
+  version: 1.0.0
 servers:
 - url: https://api.avito.ru/
 tags:
@@ -35,9 +32,7 @@ paths:
 
         - `quantity` - доступное количество товара (количество с подачи или редактирования минус бронь)
 
-        - `isOutOfStock` - признак того, что у объявления закончилось доступное кол-во товара
-
-        '
+        - `isOutOfStock` - признак того, что у объявления закончилось доступное кол-во товара'
       parameters:
       - $ref: '#/components/parameters/authHeader'
       requestBody:
@@ -81,6 +76,8 @@ paths:
         default: 100
       tags:
       - Stock Management
+      operationId: postStockManagement1Info
+      x-operation-id-source: derived
   /stock-management/1/stocks:
     put:
       description: 'Максимальное количество элементов в одном запросе - 200
@@ -97,9 +94,7 @@ paths:
 
         - `external_id` – идентификатор объявления во внешней системе, для которого мы обновляем остатки.
 
-        - `success` – флаг, успешно ли прошло обновление остатка для объявления.
-
-        '
+        - `success` – флаг, успешно ли прошло обновление остатка для объявления.'
       parameters:
       - $ref: '#/components/parameters/authHeader'
       requestBody:
@@ -160,8 +155,22 @@ paths:
         default: 100
       tags:
       - Stock Management
+      operationId: putStockManagement1Stocks
+      x-operation-id-source: derived
 components:
   responses:
+    unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/unauthError'
+      description: Unauthorized
+    tooManyRequests:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorMessage'
+      description: Too Many Requests
     internalError:
       content:
         application/json:
@@ -174,18 +183,6 @@ components:
           schema:
             $ref: '#/components/schemas/errorMessage'
       description: Bad request
-    tooManyRequests:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/errorMessage'
-      description: Too Many Requests
-    unauthorized:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/unauthError'
-      description: Unauthorized
   schemas:
     errorMessage:
       additionalProperties: false
@@ -212,8 +209,9 @@ components:
               external_id:
                 description: Идентификатор объявления во внешней системе
                 example: AB123456
-                nullable: true
-                type: string
+                type:
+                - string
+                - 'null'
               item_id:
                 description: Идентификатор объявления на сайте
                 example: 123321
@@ -228,16 +226,6 @@ components:
             - success
             type: object
           type: array
-      type: object
-    unauthError:
-      additionalProperties: false
-      properties:
-        message:
-          description: Сообщение о том, что пользователь не авторизован. Если текст ошибки "Unsupported flow for endpoint", значит в авторизационном заголовке "X-Oauth-Flow" не передан "authorization_code"
-          example: Unsupported flow for endpoint
-          type: string
-      required:
-      - message
       type: object
     stocksInfoResult:
       properties:
@@ -276,6 +264,16 @@ components:
             type: object
           type: array
       type: object
+    unauthError:
+      additionalProperties: false
+      properties:
+        message:
+          description: Сообщение о том, что пользователь не авторизован. Если текст ошибки "Unsupported flow for endpoint", значит в авторизационном заголовке "X-Oauth-Flow" не передан "authorization_code"
+          example: Unsupported flow for endpoint
+          type: string
+      required:
+      - message
+      type: object
   parameters:
     authHeader:
       description: Токен для авторизации
@@ -287,12 +285,11 @@ components:
         type: string
   securitySchemes:
     AuthorizationCode:
-      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](#tag/ApplicationAccess)
       flows:
         authorizationCode:
           authorizationUrl: https://avito.ru/oauth
-          scopes:
-            ah:access: Взаимодействие с иерархией аккаунтов
+          scopes: null
           tokenUrl: https://api.avito.ru/token
       type: oauth2
     ClientCredentials:

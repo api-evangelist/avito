@@ -1,20 +1,18 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: supportautoload@avito.ru
-  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+  description: 'API для работы с тарифами в категории транспорт
 
-    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+    **Авито API для бизнеса предоставляется согласно Условиям использования.**
 
-    '
-  title: Иерархия Аккаунтов Access Tariff API
+    -->'
+  title: Тарифы Tariff API
   version: '1'
 servers:
 - url: https://api.avito.ru/
 tags:
-- description: 'API для работы с Тарифами
-
-    '
+- description: API для работы с Тарифами
   name: Tariff
   x-displayName: Tariff
 paths:
@@ -25,9 +23,7 @@ paths:
       description: 'Получение информации по тарифу.
 
 
-        **Внимание:** информация доступна только для тарифов в категории "Транспорт". **Тариф должен быть не "СРА"**
-
-        '
+        **Внимание:** информация доступна только для тарифов в категории "Транспорт". **Тариф должен быть не "СРА"**'
       operationId: getTariffInfo
       responses:
         '200':
@@ -110,6 +106,42 @@ paths:
       - Tariff
 components:
   schemas:
+    authError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 401
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Unauthorized
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    serviceError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 500
+              format: int32
+              type: integer
+            message:
+              description: Описание ошибки
+              example: Error while processing request. Please, contact support
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
     TariffContractPackage:
       properties:
         categories:
@@ -166,6 +198,32 @@ components:
           description: Размер пакета
           type: integer
       type: object
+    notFoundError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 404
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Not found
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    TariffInfo:
+      description: Информация по текущему и запланированному контракту
+      properties:
+        current:
+          $ref: '#/components/schemas/TariffContract'
+        scheduled:
+          $ref: '#/components/schemas/TariffContract'
+      type: object
     TariffContract:
       properties:
         bonus:
@@ -202,68 +260,6 @@ components:
           description: Дата и время начала в формате Unix time
           example: 1613997821
           type: integer
-    serviceError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 500
-              format: int32
-              type: integer
-            message:
-              description: Описание ошибки
-              example: Error while processing request. Please, contact support
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    TariffInfo:
-      description: Информация по текущему и запланированному контракту
-      properties:
-        current:
-          $ref: '#/components/schemas/TariffContract'
-        scheduled:
-          $ref: '#/components/schemas/TariffContract'
-      type: object
-    authError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 401
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Unauthorized
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    notFoundError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 404
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Not found
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
   parameters:
     authHeader:
       description: Токен для авторизации
@@ -280,7 +276,20 @@ components:
         authorizationCode:
           authorizationUrl: https://avito.ru/oauth
           scopes:
-            ah:access: Взаимодействие с иерархией аккаунтов
+            autoload:reports: Получение отчетов Автозагрузки
+            items:apply_vas: Применение дополнительных услуг
+            items:info: Получение информации об объявлениях
+            job:applications: Получение информации об откликах на вакансии
+            job:cv: Получение информации резюме
+            job:write: Изменение объявлений вертикали Работа
+            messenger:read: Чтение сообщений в мессенджере Авито
+            messenger:write: Модифицирование сообщений в мессенджере Авито
+            short_term_rent:read: Получение информации об объявлениях краткосрочной аренды
+            short_term_rent:write: Изменение объявлений краткосрочной аренды
+            stats:read: Получение статистики объявлений
+            user:read: Получение информации о пользователе
+            user_balance:read: Получение баланса пользователя
+            user_operations:read: Получение истории операций пользователя
           tokenUrl: https://api.avito.ru/token
       type: oauth2
     ClientCredentials:

@@ -1,13 +1,9 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  contact:
-    email: supportautoload@avito.ru
-  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+  description: 'Методы для работы с сервисом колл-трекинга
 
-    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
-
-    '
-  title: Иерархия Аккаунтов Access Calltracking API
+    **Авито API для бизнеса предоставляется согласно Условиям использования.**'
+  title: '[КТ] Calltracking API'
   version: '1'
 servers:
 - url: https://api.avito.ru/
@@ -63,8 +59,9 @@ paths:
                   description: Время до которого нужно искать заонки по callTime (строка в формате RFC3339). Если не указано, используется dateTimeFrom + 1 месяц. Максимально возможное значение - dateTimeFrom + 3 месяца.
                   example: '2021-03-02T23:59:59Z'
                   format: RFC3339
-                  nullable: true
-                  type: string
+                  type:
+                  - string
+                  - 'null'
                 limit:
                   description: Размер выборки
                   maximum: 100
@@ -101,9 +98,7 @@ paths:
         Мы гарантируем, что записи звонка доступны для получения в течение 3х месяцев после завершения звонка.
 
 
-        Записи звонка становятся доступны в данном API с некоторой задержкой после окончания звонка. Обычно эта задержка составляет до 30 минут.
-
-        '
+        Записи звонка становятся доступны в данном API с некоторой задержкой после окончания звонка. Обычно эта задержка составляет до 30 минут.'
       operationId: get_record_by_call_id
       parameters:
       - description: Идентификатор звонка
@@ -169,7 +164,42 @@ paths:
       tags:
       - Calltracking
 components:
+  responses:
+    GetCallById:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetCallByIdResponse'
+      description: Успешный ответ
+    GetCalls:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetCallsResponse'
+      description: Успешный ответ или сообщение об ошибке
   schemas:
+    GetCallsResponse:
+      properties:
+        calls:
+          items:
+            $ref: '#/components/schemas/Call'
+          type: array
+        error:
+          $ref: '#/components/schemas/Error'
+      required:
+      - calls
+      - error
+      type: object
+    GetCallByIdResponse:
+      properties:
+        call:
+          $ref: '#/components/schemas/Call'
+        error:
+          $ref: '#/components/schemas/Error'
+      required:
+      - call
+      - error
+      type: object
     Call:
       description: модель звонка
       properties:
@@ -185,8 +215,9 @@ components:
           type: string
         itemId:
           description: ID объявления, по которому совершался звонок. Проставляется только если звонок был на номера Динамического КТ.
-          nullable: true
-          type: integer
+          type:
+          - integer
+          - 'null'
         sellerPhone:
           description: Номер телефона продавца
           type: string
@@ -207,16 +238,6 @@ components:
       - buyerPhone
       - sellerPhone
       - virtualPhone
-      type: object
-    GetCallByIdResponse:
-      properties:
-        call:
-          $ref: '#/components/schemas/Call'
-        error:
-          $ref: '#/components/schemas/Error'
-      required:
-      - call
-      - error
       type: object
     Error:
       properties:
@@ -259,41 +280,7 @@ components:
       - code
       - message
       type: object
-    GetCallsResponse:
-      properties:
-        calls:
-          items:
-            $ref: '#/components/schemas/Call'
-          type: array
-        error:
-          $ref: '#/components/schemas/Error'
-      required:
-      - calls
-      - error
-      type: object
-  responses:
-    GetCallById:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GetCallByIdResponse'
-      description: Успешный ответ
-    GetCalls:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GetCallsResponse'
-      description: Успешный ответ или сообщение об ошибке
   securitySchemes:
-    AuthorizationCode:
-      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
-      flows:
-        authorizationCode:
-          authorizationUrl: https://avito.ru/oauth
-          scopes:
-            ah:access: Взаимодействие с иерархией аккаунтов
-          tokenUrl: https://api.avito.ru/token
-      type: oauth2
     ClientCredentials:
       description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
       flows:

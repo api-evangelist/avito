@@ -1,13 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  contact:
-    email: supportautoload@avito.ru
-  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+  description: 'Методы для работы с сервисом TrxPromo.
 
-    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
 
-    '
-  title: Иерархия Аккаунтов Access Trx Promo API
+    **Авито API для бизнеса предоставляется согласно Условиям использования.**'
+  title: TrxPromo Trx Promo API
   version: '1'
 servers:
 - url: https://api.avito.ru/
@@ -19,13 +16,13 @@ paths:
       description: 'Запуск продвижения. Этот метод применяет настройки продвижения к вашим объявлениям.
 
 
-        Укажите плату за продвижение: от 1 до 15%.  Ещё выберите даты продвижения: все свободные или период.
+        Укажите плату за продвижение: от 1 до 15%. Ещё выберите даты продвижения: все свободные или период.
 
 
-        Плата за продвижение прибавится к базовой комиссии — получится общая комиссия. А базовая комиссия будет [зависеть от мгновенного бронирования](https://www.avito.ru/realestate/kratkosrochnaya_arenda/test_commission/)
+        Плата за продвижение прибавится к базовой комиссии — получится общая комиссия. А базовая комиссия будет зависеть от мгновенного бронирования
 
 
-        Например, если выбрали плату за продвижение 2%, то в поле commission  напишите «200».
+        Например, если выбрали плату за продвижение 2%, то в поле commission напишите «200».
 
 
         В ответе вы получите детальную информацию по каждому объявлению. Если продвижение не запустится, вы увидите ошибки:
@@ -34,9 +31,7 @@ paths:
         1001 — ошибка валидации параметров
 
 
-        1002 — вам недоступно продвижение за комиссию
-
-        '
+        1002 — вам недоступно продвижение за комиссию'
       operationId: api_trx_promo_open_api_apply
       parameters:
       - $ref: '#/components/parameters/OAuthScopes'
@@ -83,9 +78,7 @@ paths:
         1001 — ошибка валидации параметров
 
 
-        1002 — вам недоступно продвижение за комиссию
-
-        '
+        1002 — вам недоступно продвижение за комиссию'
       operationId: api_trx_promo_open_api_cancel
       parameters:
       - $ref: '#/components/parameters/OAuthScopes'
@@ -137,9 +130,7 @@ paths:
         В ответе вы получите детальную информацию по каждому объявлению. Коды ошибок:
 
 
-        1001 — ошибка валидации параметров
-
-        '
+        1001 — ошибка валидации параметров'
       operationId: api_trx_promo_open_api_commissions
       parameters:
       - $ref: '#/components/parameters/OAuthScopes'
@@ -184,7 +175,209 @@ paths:
       tags:
       - Trx Promo
 components:
+  responses:
+    errorV3BadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/apiV3error400'
+      description: BadRequest
+    errorV3InternalError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/apiV3error500'
+      description: InternalError
+    errorV3Forbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/apiV3error403'
+      description: Forbidden
+    errorV3Unauthenticated:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/apiV3error401'
+      description: Unauthenticated
+  parameters:
+    OAuthScopes:
+      description: Список зон доступа
+      in: header
+      name: x-oauth-scopes
+      schema:
+        type: string
+    OAuthFlow:
+      description: Выбранный флоу авторизации по протоколу OAuth 2.0
+      in: header
+      name: x-oauth-flow
+      required: true
+      schema:
+        type: string
+    OAuthAuthenticatedUserId:
+      description: Avito-ID пользователя
+      in: header
+      name: x-authenticated-userid
+      required: true
+      schema:
+        type: string
   schemas:
+    apiV3error500:
+      additionalProperties: false
+      properties:
+        internal-error:
+          additionalProperties: false
+          properties:
+            message:
+              type: string
+          required:
+          - message
+          type: object
+      required:
+      - internal-error
+      title: InternalErrorResponse
+      type: object
+    apiV3error403:
+      additionalProperties: false
+      properties:
+        forbidden:
+          additionalProperties: false
+          properties:
+            message:
+              type: string
+          required:
+          - message
+          type: object
+      required:
+      - forbidden
+      title: ForbiddenResponse
+      type: object
+    CancelResponse:
+      additionalProperties: false
+      properties:
+        success:
+          additionalProperties: false
+          properties:
+            result:
+              items:
+                properties:
+                  error:
+                    properties:
+                      code:
+                        enum:
+                        - 1001
+                        - 1002
+                        type: integer
+                      message:
+                        type: string
+                    required:
+                    - code
+                    - message
+                    type: object
+                  itemID:
+                    type: integer
+                  success:
+                    type: boolean
+                required:
+                - itemID
+                - success
+                type: object
+              type: array
+          required:
+          - result
+          type: object
+      required:
+      - success
+      title: okResponse
+      type: object
+    ApplyResponse:
+      additionalProperties: false
+      properties:
+        success:
+          additionalProperties: false
+          properties:
+            result:
+              items:
+                properties:
+                  error:
+                    properties:
+                      code:
+                        enum:
+                        - 1001
+                        - 1002
+                        type: integer
+                      message:
+                        type: string
+                    required:
+                    - code
+                    - message
+                    type: object
+                  itemID:
+                    type: integer
+                  success:
+                    type: boolean
+                  validCommissionRange:
+                    properties:
+                      step:
+                        description: Шаг изменения комиссии в сотых долях 100 - 1%
+                        example: 100
+                        type: integer
+                      valueMax:
+                        description: Максимальный размер комиссии в сотых долях 100 - 1%
+                        example: 1500
+                        type: integer
+                      valueMin:
+                        description: Минимальный размер комиссии в сотых долях 100 - 1%
+                        example: 100
+                        type: integer
+                    required:
+                    - valueMin
+                    - valueMax
+                    - step
+                    type: object
+                required:
+                - itemID
+                - success
+                type: object
+              type: array
+          required:
+          - result
+          type: object
+      required:
+      - success
+      title: okResponse
+      type: object
+    ApplyReq:
+      additionalProperties: false
+      properties:
+        items:
+          items:
+            additionalProperties: false
+            properties:
+              commission:
+                description: Комиссия за продвижение в сотых долях 1500 - 15%
+                example: 1500
+                type: integer
+              dateFrom:
+                description: Дата начала продвижения
+                example: '2024-12-01'
+                type: string
+              dateTo:
+                description: Дата окончания продвижения
+                example: '2024-12-31'
+                type: string
+              itemID:
+                type: integer
+            required:
+            - itemID
+            - commission
+            - dateFrom
+            type: object
+          type: array
+      required:
+      - items
+      title: requestBody
+      type: object
     apiV3error400:
       additionalProperties: false
       properties:
@@ -199,6 +392,21 @@ components:
       required:
       - bad-request
       title: BadRequestResponse
+      type: object
+    apiV3error401:
+      additionalProperties: false
+      properties:
+        unauthenticated:
+          additionalProperties: false
+          properties:
+            message:
+              type: string
+          required:
+          - message
+          type: object
+      required:
+      - unauthenticated
+      title: UnauthenticatedResponse
       type: object
     CommissionResponse:
       additionalProperties: false
@@ -259,231 +467,16 @@ components:
       - success
       title: okResponse
       type: object
-    ApplyReq:
-      additionalProperties: false
-      properties:
-        items:
-          items:
-            additionalProperties: false
-            properties:
-              commission:
-                description: Комиссия за продвижение в сотых долях 1500 - 15%
-                example: 1500
-                type: integer
-              dateFrom:
-                description: Дата начала продвижения
-                example: '2024-12-01'
-                type: string
-              dateTo:
-                description: Дата окончания продвижения
-                example: '2024-12-31'
-                type: string
-              itemID:
-                type: integer
-            required:
-            - itemID
-            - commission
-            - dateFrom
-            type: object
-          type: array
-      required:
-      - items
-      title: requestBody
-      type: object
-    apiV3error401:
-      additionalProperties: false
-      properties:
-        unauthenticated:
-          additionalProperties: false
-          properties:
-            message:
-              type: string
-          required:
-          - message
-          type: object
-      required:
-      - unauthenticated
-      title: UnauthenticatedResponse
-      type: object
-    apiV3error500:
-      additionalProperties: false
-      properties:
-        internal-error:
-          additionalProperties: false
-          properties:
-            message:
-              type: string
-          required:
-          - message
-          type: object
-      required:
-      - internal-error
-      title: InternalErrorResponse
-      type: object
-    ApplyResponse:
-      additionalProperties: false
-      properties:
-        success:
-          additionalProperties: false
-          properties:
-            result:
-              items:
-                properties:
-                  error:
-                    properties:
-                      code:
-                        enum:
-                        - 1001
-                        - 1002
-                        type: integer
-                      message:
-                        type: string
-                    required:
-                    - code
-                    - message
-                    type: object
-                  itemID:
-                    type: integer
-                  success:
-                    type: boolean
-                  validCommissionRange:
-                    properties:
-                      step:
-                        description: Шаг изменения комиссии в сотых долях 100 - 1%
-                        example: 100
-                        type: integer
-                      valueMax:
-                        description: Максимальный размер комиссии в сотых долях 100 - 1%
-                        example: 1500
-                        type: integer
-                      valueMin:
-                        description: Минимальный размер комиссии в сотых долях 100 - 1%
-                        example: 100
-                        type: integer
-                    required:
-                    - valueMin
-                    - valueMax
-                    - step
-                    type: object
-                required:
-                - itemID
-                - success
-                type: object
-              type: array
-          required:
-          - result
-          type: object
-      required:
-      - success
-      title: okResponse
-      type: object
-    apiV3error403:
-      additionalProperties: false
-      properties:
-        forbidden:
-          additionalProperties: false
-          properties:
-            message:
-              type: string
-          required:
-          - message
-          type: object
-      required:
-      - forbidden
-      title: ForbiddenResponse
-      type: object
-    CancelResponse:
-      additionalProperties: false
-      properties:
-        success:
-          additionalProperties: false
-          properties:
-            result:
-              items:
-                properties:
-                  error:
-                    properties:
-                      code:
-                        enum:
-                        - 1001
-                        - 1002
-                        type: integer
-                      message:
-                        type: string
-                    required:
-                    - code
-                    - message
-                    type: object
-                  itemID:
-                    type: integer
-                  success:
-                    type: boolean
-                required:
-                - itemID
-                - success
-                type: object
-              type: array
-          required:
-          - result
-          type: object
-      required:
-      - success
-      title: okResponse
-      type: object
-  responses:
-    errorV3InternalError:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/apiV3error500'
-      description: InternalError
-    errorV3Unauthenticated:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/apiV3error401'
-      description: Unauthenticated
-    errorV3BadRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/apiV3error400'
-      description: BadRequest
-    errorV3Forbidden:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/apiV3error403'
-      description: Forbidden
-  parameters:
-    OAuthScopes:
-      description: Список зон доступа
-      in: header
-      name: x-oauth-scopes
-      schema:
-        type: string
-    OAuthAuthenticatedUserId:
-      description: Avito-ID пользователя
-      in: header
-      name: x-authenticated-userid
-      required: true
-      schema:
-        type: string
-    OAuthFlow:
-      description: Выбранный флоу авторизации по протоколу OAuth 2.0
-      in: header
-      name: x-oauth-flow
-      required: true
-      schema:
-        type: string
   securitySchemes:
     AuthorizationCode:
-      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
+      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](#tag/ApplicationAccess)
       flows:
         authorizationCode:
           authorizationUrl: https://avito.ru/oauth
           scopes:
-            ah:access: Взаимодействие с иерархией аккаунтов
+            trx:apply: применение продвижения за комиссию
+            trx:cancel: отмена продвижения за комиссию
+            trx:commission: получение настроек продвижения за комиссию
           tokenUrl: https://api.avito.ru/token
       type: oauth2
     ClientCredentials:

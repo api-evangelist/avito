@@ -1,41 +1,20 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: supportautoload@avito.ru
-  description: 'API для взаимодействия с иерархией аккаунтов в Авито
+  description: 'Методы для работы с сервисом CPA
 
-    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
+    **Авито API для бизнеса предоставляется согласно Условиям использования.**
 
-    '
-  title: Иерархия Аккаунтов Access Cpa API
+    -->'
+  title: Авито Cpa API
   version: '1'
 servers:
 - url: https://api.avito.ru/
 tags:
 - description: '# Методы для работы с сервисом CPA
 
-    Описание API произведено в формате [**Swagger 3.0**](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md).
-
-    Вы можете использовать данный файл для ознакомления с методами API, а также для генерации базового кода для работы с API на удобном для вас языке программирования с помощью утилиты
-
-    [**Swagger Codegen**](https://swagger.io/swagger-codegen/) или online сервиса [**Swagger Editor**](https://editor.swagger.io/).
-
-
-    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
-
-    По всем вопросам работы с API необходимо обращаться в Службу Поддержки профессиональных инструментов:
-
-
-    <li>телефон: <b>+7 495 777-10-66</b></li>
-
-    <li>email: <a href="mailto:supportautoload@avito.ru">supportautoload@avito.ru</a></li>
-
-
-    # Типы авторизации
-
-    Для использования данного API запрос должен быть авторизован. В данный момент API Авито использует следующие механизмы авторизации. <!-- ReDoc-Inject: <security-definitions> -->
-
-    '
+    Описание API произведено в формате **Swagger 3.0**.'
   name: Cpa
   x-displayName: API CPA Авито
 paths:
@@ -103,7 +82,9 @@ paths:
     - $ref: '#/components/parameters/sourceHeader'
     post:
       deprecated: true
-      description: __Используйте endpoint [balanceInfoV3](https://developers.avito.ru/api-catalog/cpa/documentation#operation/balanceInfoV3)__<br> Получение информации о балансе пользователя (баланс, долг, аванс текущего месяца) в копейках. Максимальное количество запросов в минуту - 1.
+      description: '__Используйте endpoint balanceInfoV3__
+
+        Получение информации о балансе пользователя (баланс, долг, аванс текущего месяца) в копейках. Максимальное количество запросов в минуту - 1.'
       operationId: balanceInfoV2
       requestBody:
         content:
@@ -194,65 +175,6 @@ paths:
       - Cpa
 components:
   schemas:
-    OpenAPIPhonesInfoFromChatsOut:
-      properties:
-        date:
-          description: Время отправки сообщения
-          format: string
-          type: string
-        group:
-          description: Прайсинговая группа объявления
-          type: string
-        id:
-          description: ID ЦД
-          type: integer
-        phone_number:
-          description: Номер телефона из сообщения
-          nullable: true
-          type: string
-        pricePenny:
-          description: Цена ЦД в копейках
-          type: integer
-        url:
-          description: URL до картинки с превью
-          type: string
-      required:
-      - id
-      - date
-      - pricePenny
-      - group
-      - url
-      type: object
-    OpenApiError:
-      properties:
-        result:
-          properties:
-            error:
-              properties:
-                code:
-                  example: 1001
-                  title: Код ошибки
-                  type: integer
-                message:
-                  example: Ошибка валидации запроса
-                  title: Текст ошибки
-                  type: string
-                payload:
-                  properties:
-                    error:
-                      example: invalid character  looking for beginning of object key string
-                      type: string
-                  type: object
-              required:
-              - code
-              - message
-              type: object
-          required:
-          - error
-          type: object
-      required:
-      - result
-      type: object
     CpaError:
       properties:
         code:
@@ -278,19 +200,6 @@ components:
           description: Текст ошибки
           example: ЦД недоступно для обжалования
           type: string
-      type: object
-    tooManyRequestsError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 429
-              format: int32
-              type: integer
-          required:
-          - code
-          type: object
       type: object
     CpaErrorChat:
       properties:
@@ -329,6 +238,49 @@ components:
       required:
       - result
       type: object
+    tooManyRequestsError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 429
+              format: int32
+              type: integer
+          required:
+          - code
+          type: object
+      type: object
+    OpenApiError:
+      properties:
+        result:
+          properties:
+            error:
+              properties:
+                code:
+                  example: 1001
+                  title: Код ошибки
+                  type: integer
+                message:
+                  example: Ошибка валидации запроса
+                  title: Текст ошибки
+                  type: string
+                payload:
+                  properties:
+                    error:
+                      example: invalid character  looking for beginning of object key string
+                      type: string
+                  type: object
+              required:
+              - code
+              - message
+              type: object
+          required:
+          - error
+          type: object
+      required:
+      - result
+      type: object
     OpenAPIPhonesInfoFromChatsIn:
       properties:
         dateTimeFrom:
@@ -343,48 +295,67 @@ components:
       - offset
       - limit
       type: object
-  headers:
-    X-RateLimit-Limit:
-      description: Количество запросов в минуту
-      schema:
-        format: int32
-        type: integer
-    X-RateLimit-Remaining:
-      description: Доступное количество запросов в текущем временном окне
-      schema:
-        format: int32
-        type: integer
+    OpenAPIPhonesInfoFromChatsOut:
+      properties:
+        date:
+          description: Время отправки сообщения
+          format: string
+          type: string
+        group:
+          description: Прайсинговая группа объявления
+          type: string
+        id:
+          description: ID ЦД
+          type: integer
+        phone_number:
+          description: Номер телефона из сообщения
+          type:
+          - string
+          - 'null'
+        pricePenny:
+          description: Цена ЦД в копейках
+          type: integer
+        url:
+          description: URL до картинки с превью
+          type: string
+      required:
+      - id
+      - date
+      - pricePenny
+      - group
+      - url
+      type: object
   responses:
-    '500':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InternalError'
-      description: Internal Error
-    '404':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CpaError'
-      description: Not Found
-    '400':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/OpenApiError'
-      description: Bad Request
     '401':
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/CpaError'
       description: Unauthorized
+    '404':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CpaError'
+      description: Not Found
+    '500':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InternalError'
+      description: Internal Error
     '403':
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/CpaErrorChat'
       description: Forbidden
+    '400':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OpenApiError'
+      description: Bad Request
   parameters:
     authHeader:
       description: Токен для авторизации
@@ -402,6 +373,17 @@ components:
       schema:
         example: someName
         type: string
+  headers:
+    X-RateLimit-Limit:
+      description: Количество запросов в минуту
+      schema:
+        format: int32
+        type: integer
+    X-RateLimit-Remaining:
+      description: Доступное количество запросов в текущем временном окне
+      schema:
+        format: int32
+        type: integer
   securitySchemes:
     AuthorizationCode:
       description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
@@ -409,7 +391,20 @@ components:
         authorizationCode:
           authorizationUrl: https://avito.ru/oauth
           scopes:
-            ah:access: Взаимодействие с иерархией аккаунтов
+            autoload:reports: Получение отчетов Автозагрузки
+            items:apply_vas: Применение дополнительных услуг
+            items:info: Получение информации об объявлениях
+            job:applications: Получение информации об откликах на вакансии
+            job:cv: Получение информации резюме
+            job:write: Изменение объявлений вертикали Работа
+            messenger:read: Чтение сообщений в мессенджере Авито
+            messenger:write: Модифицирование сообщений в мессенджере Авито
+            short_term_rent:read: Получение информации об объявлениях краткосрочной аренды
+            short_term_rent:write: Изменение объявлений краткосрочной аренды
+            stats:read: Получение статистики объявлений
+            user:read: Получение информации о пользователе
+            user_balance:read: Получение баланса пользователя
+            user_operations:read: Получение истории операций пользователя
           tokenUrl: https://api.avito.ru/token
       type: oauth2
     ClientCredentials:

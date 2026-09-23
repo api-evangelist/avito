@@ -1,18 +1,14 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
-    email: supportautoload@avito.ru
-  description: 'API для взаимодействия с иерархией аккаунтов в Авито
-
-    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
-
-    '
-  title: Иерархия Аккаунтов Access ReferenceData API
+    email: partner@autoteka.ru
+  title: Автотека Reference Data API
   version: '1'
+  x-codegen-version: v2
 servers:
-- url: https://api.avito.ru/
+- url: https://pro.autoteka.ru/
 tags:
-- name: ReferenceData
+- name: Reference Data
   x-displayName: Справочные данные
   x-subdivName: Справочные данные
 paths:
@@ -20,9 +16,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/authHeader'
     get:
-      description: 'Возвращает остаток отчётов в текущем пакете пользователя
-
-        '
+      description: Возвращает остаток отчётов в текущем пакете пользователя
       operationId: getActivePackage
       responses:
         '200':
@@ -45,11 +39,9 @@ paths:
           description: Информация об ошибке
       security:
       - ClientCredentials: []
-      summary: 'Запрос остатка отчётов пользователя
-
-        '
+      summary: Запрос остатка отчётов пользователя
       tags:
-      - ReferenceData
+      - Reference Data
   /autoteka/v1/reports/list/:
     parameters:
     - $ref: '#/components/parameters/authHeader'
@@ -58,8 +50,9 @@ paths:
       name: lastReportId
       schema:
         minimum: 1
-        nullable: true
-        type: integer
+        type:
+        - integer
+        - 'null'
     - description: Количество отчетов в результате
       in: query
       name: limit
@@ -67,18 +60,18 @@ paths:
         description: По умолчанию 20
         maximum: 500
         minimum: 1
-        nullable: true
-        type: integer
+        type:
+        - integer
+        - 'null'
     - description: Фильтр по VIN или номеру кузова
       in: query
       name: vin
       schema:
-        nullable: true
-        type: string
+        type:
+        - string
+        - 'null'
     get:
-      description: 'Получение списка запрошенных ранее отчетов [запроса на создание отчета](#operation/postReport)
-
-        '
+      description: Получение списка запрошенных ранее отчетов запроса на создание отчета
       operationId: getReportList
       responses:
         '200':
@@ -101,19 +94,12 @@ paths:
           description: Информация об ошибке
       security:
       - ClientCredentials: []
-      summary: 'Получение списка отчётов
-
-        '
+      summary: Получение списка отчётов
       tags:
-      - ReferenceData
+      - Reference Data
       x-trailing-slash: true
 components:
   schemas:
-    GetActivePackageResponseDataAutoteka:
-      properties:
-        package:
-          $ref: '#/components/schemas/PackageAutoteka'
-      type: object
     ReportItem_autoteka:
       properties:
         createdAt:
@@ -134,29 +120,6 @@ components:
       - createdAt
       - reportId
       type: object
-    internalError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 500
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Service is temporary unavailable
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    GetActivePackageResponseBodyAutoteka:
-      properties:
-        result:
-          $ref: '#/components/schemas/GetActivePackageResponseDataAutoteka'
-      type: object
     validatingError:
       properties:
         error:
@@ -175,27 +138,23 @@ components:
           - message
           type: object
       type: object
-    GetReportsListResponseDataAutoteka:
+    GetActivePackageResponseBodyAutoteka:
       properties:
         result:
-          items:
-            $ref: '#/components/schemas/ReportItem_autoteka'
-          type: array
-      required:
-      - result
+          $ref: '#/components/schemas/GetActivePackageResponseDataAutoteka'
       type: object
-    forbiddenError:
+    internalError:
       properties:
         error:
           properties:
             code:
               description: Код ошибки
-              example: 403
+              example: 500
               format: int32
               type: integer
             message:
               description: Сообщение об ошибке
-              example: Forbidden
+              example: Service is temporary unavailable
               type: string
           required:
           - code
@@ -228,6 +187,38 @@ components:
       - reportsCnt
       - reportsCntRemain
       type: object
+    GetReportsListResponseDataAutoteka:
+      properties:
+        result:
+          items:
+            $ref: '#/components/schemas/ReportItem_autoteka'
+          type: array
+      required:
+      - result
+      type: object
+    forbiddenError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 403
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Forbidden
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    GetActivePackageResponseDataAutoteka:
+      properties:
+        package:
+          $ref: '#/components/schemas/PackageAutoteka'
+      type: object
   parameters:
     authHeader:
       description: Токен для авторизации
@@ -237,19 +228,13 @@ components:
       schema:
         type: string
   securitySchemes:
-    AuthorizationCode:
-      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
-      flows:
-        authorizationCode:
-          authorizationUrl: https://avito.ru/oauth
-          scopes:
-            ah:access: Взаимодействие с иерархией аккаунтов
-          tokenUrl: https://api.avito.ru/token
-      type: oauth2
     ClientCredentials:
       description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
       flows:
         clientCredentials:
           scopes: {}
-          tokenUrl: https://api.avito.ru/token
+          tokenUrl: https://pro.autoteka.ru/token
       type: oauth2
+x-gateway:
+  exportTo:
+  - gateway: open-api-gateway

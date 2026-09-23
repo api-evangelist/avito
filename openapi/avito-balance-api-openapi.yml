@@ -1,14 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  contact:
-    email: supportautoload@avito.ru
-  description: 'API для взаимодействия с иерархией аккаунтов в Авито
-
-    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
-
-    '
-  title: Иерархия Аккаунтов Access balance API
-  version: '1'
+  description: API для агентств Авито Promo
+  title: Авито Promo Balance API
+  version: 1.0.0
 servers:
 - url: https://api.avito.ru/
 tags:
@@ -23,10 +17,8 @@ tags:
     API Авито Promo использует следующие механизмы авторизации:
 
 
-    <!-- ReDoc-Inject: <security-definitions> -->
-
-    '
-  name: balance
+    -->'
+  name: Balance
   x-displayName: Баланс агентства
 paths:
   /api/1/agency/finances/balance:
@@ -42,9 +34,7 @@ paths:
 
         - `full` — сумма полного баланса средств агентства в копейках.
 
-        - `pending` — сумма баланса средств агентства, находящихся «в обработке», в копейках.
-
-        '
+        - `pending` — сумма баланса средств агентства, находящихся «в обработке», в копейках.'
       operationId: agencyFinancesBalance
       parameters:
       - $ref: '#/components/parameters/authHeader'
@@ -78,10 +68,61 @@ paths:
       - ClientCredentials: []
       summary: Получение баланса агентства
       tags:
-      - balance
+      - Balance
   /api/1/agency/finances/transactionsHistory:
     post:
-      description: "Данный метод позволяет получить список всех операций с балансом средств агентства.\n\n### Параметры тела запроса\n\n- `dateFrom` — дата в формате RFC3339, с которой требуется получить операции с балансом.\n- `dateTo` — дата в формате RFC3339, по которую требуется получить операции с балансом.\n- `limit` — инструмент пагинации, ограничивает количество операций в ответе (максимум 1000).\n- `offset` — инструмент пагинации, выполняет смещение, с которого начинается выборка операций.\n\n### Успешный ответ\n\nМетод возвращает назад список транзакций `result.items` — операции с балансом средств агентства.\n\n#### Транзакция\n\nТранзакция содержит в себе следующую информацию:\n\n- `transactionId` — идентификатор транзакции.\n- `operationDateTime` — дата и время проведения транзакции.\n- `amount` — сумма транзакции в копейках.\n- `status` — статус транзакции.\n- `clientId` — идентификатор клиента, которому был совершён перевод.\n  Если не указан, значит, транзакция является пополнением баланса агентства.\n\n#### Статус транзакции\n\n- `success` — транзакция успешно завершена.\n- `pending` — транзакция в обработке.\n- `failed` — при обработке транзакции произошла ошибка.\n- `blocked` — попытка провести транзакцию за 2 дня до окончания отчётного периода.\n  Такие транзакции не выполняются.\n"
+      description: 'Данный метод позволяет получить список всех операций с балансом средств агентства.
+
+
+        ### Параметры тела запроса
+
+
+        - `dateFrom` — дата в формате RFC3339, с которой требуется получить операции с балансом.
+
+        - `dateTo` — дата в формате RFC3339, по которую требуется получить операции с балансом.
+
+        - `limit` — инструмент пагинации, ограничивает количество операций в ответе (максимум 1000).
+
+        - `offset` — инструмент пагинации, выполняет смещение, с которого начинается выборка операций.
+
+
+        ### Успешный ответ
+
+
+        Метод возвращает назад список транзакций `result.items` — операции с балансом средств агентства.
+
+
+        #### Транзакция
+
+
+        Транзакция содержит в себе следующую информацию:
+
+
+        - `transactionId` — идентификатор транзакции.
+
+        - `operationDateTime` — дата и время проведения транзакции.
+
+        - `amount` — сумма транзакции в копейках.
+
+        - `status` — статус транзакции.
+
+        - `clientId` — идентификатор клиента, которому был совершён перевод.
+
+        Если не указан, значит, транзакция является пополнением баланса агентства.
+
+
+        #### Статус транзакции
+
+
+        - `success` — транзакция успешно завершена.
+
+        - `pending` — транзакция в обработке.
+
+        - `failed` — при обработке транзакции произошла ошибка.
+
+        - `blocked` — попытка провести транзакцию за 2 дня до окончания отчётного периода.
+
+        Такие транзакции не выполняются.'
       operationId: agencyFinancesTransactionsHistory
       parameters:
       - $ref: '#/components/parameters/authHeader'
@@ -162,55 +203,9 @@ paths:
       - ClientCredentials: []
       summary: Получение всех операций с балансом агентства
       tags:
-      - balance
+      - Balance
 components:
-  responses:
-    defaultTooManyRequests:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Превышено количество запросов
-    defaultUnauthorized:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Требуется авторизация
-    defaultForbidden:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Действие запрещено
-    defaultBadRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Неверный запрос
-    defaultInternalServerError:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Ошибка сервера
   schemas:
-    errorMessage:
-      description: Сообщение об ошибке
-      example: Ошибка
-      type: string
-    dateTime:
-      description: Дата в формате RFC3339
-      example: '2025-05-02T11:00:00+03:00'
-      format: date-time
-      type: string
-    limit:
-      description: Ограничение количества сущностей в выборке
-      example: 100
-      maximum: 1000
-      minimum: 1
-      type: integer
     defaultErrorResponse:
       additionalProperties: false
       properties:
@@ -231,25 +226,71 @@ components:
       required:
       - error
       type: object
+    errorMessage:
+      description: Сообщение об ошибке
+      example: Ошибка
+      type: string
+    dateTime:
+      description: Дата в формате RFC3339
+      example: '2025-05-02T11:00:00+03:00'
+      format: date-time
+      type: string
+    limit:
+      description: Ограничение количества сущностей в выборке
+      example: 100
+      maximum: 1000
+      minimum: 1
+      type: integer
     transactionId:
       description: Идентификатор транзакции
       example: b52717c26fbc027acc34f165490fd4fdf404f3aa
       minLength: 1
       type: string
-    offset:
-      description: Смещение, с которого начинается выборка
-      example: 10
-      minimum: 0
+    amountKopecks:
+      description: Сумма в копейках
+      example: 100000
       type: integer
     id:
       description: Идентификатор
       example: 123456
       minimum: 1
       type: integer
-    amountKopecks:
-      description: Сумма в копейках
-      example: 100000
+    offset:
+      description: Смещение, с которого начинается выборка
+      example: 10
+      minimum: 0
       type: integer
+  responses:
+    defaultUnauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Требуется авторизация
+    defaultInternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Ошибка сервера
+    defaultTooManyRequests:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Превышено количество запросов
+    defaultForbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Действие запрещено
+    defaultBadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Неверный запрос
   parameters:
     authHeader:
       description: Токен для авторизации
@@ -260,17 +301,10 @@ components:
         example: Bearer ACCESS_TOKEN
         type: string
   securitySchemes:
-    AuthorizationCode:
-      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
-      flows:
-        authorizationCode:
-          authorizationUrl: https://avito.ru/oauth
-          scopes:
-            ah:access: Взаимодействие с иерархией аккаунтов
-          tokenUrl: https://api.avito.ru/token
-      type: oauth2
     ClientCredentials:
-      description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
+      description: 'Используйте OAuth2 с механизмом `client_credentials` для доступа к возможностям учётной записи агентства. [Подробнее](#tag/Access)
+
+        '
       flows:
         clientCredentials:
           scopes: {}

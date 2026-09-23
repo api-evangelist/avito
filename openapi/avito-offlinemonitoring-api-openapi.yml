@@ -1,16 +1,12 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
-    email: supportautoload@avito.ru
-  description: 'API для взаимодействия с иерархией аккаунтов в Авито
-
-    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
-
-    '
-  title: Иерархия Аккаунтов Access OfflineMonitoring API
+    email: partner@autoteka.ru
+  title: Автотека Offline Monitoring API
   version: '1'
+  x-codegen-version: v2
 servers:
-- url: https://api.avito.ru/
+- url: https://pro.autoteka.ru/
 tags:
 - name: OfflineMonitoring
   x-displayName: Оффлайн мониторинг
@@ -22,9 +18,7 @@ paths:
     post:
       description: 'Метод для добавления идентификаторов (vin/frame) на мониторинг.
 
-        Чтобы подключить эту возможность, обратитесь к менеджеру Автотеки.
-
-        '
+        Чтобы подключить эту возможность, обратитесь к менеджеру Автотеки.'
       operationId: monitoringBucketAdd
       requestBody:
         content:
@@ -58,18 +52,14 @@ paths:
           description: Информация об ошибке
       security:
       - ClientCredentials: []
-      summary: 'Добавить идентификаторы (vin/frame) на мониторинг
-
-        '
+      summary: Добавить идентификаторы (vin/frame) на мониторинг
       tags:
       - OfflineMonitoring
   /autoteka/v1/monitoring/bucket/delete:
     parameters:
     - $ref: '#/components/parameters/authHeader'
     post:
-      description: 'Метод для очистки списка мониторинга
-
-        '
+      description: Метод для очистки списка мониторинга
       operationId: monitoringBucketDelete
       responses:
         '200':
@@ -92,18 +82,14 @@ paths:
           description: Информация об ошибке
       security:
       - ClientCredentials: []
-      summary: 'Полная очистка списка мониторинга
-
-        '
+      summary: Полная очистка списка мониторинга
       tags:
       - OfflineMonitoring
   /autoteka/v1/monitoring/bucket/remove:
     parameters:
     - $ref: '#/components/parameters/authHeader'
     post:
-      description: 'Метод удаления идентификаторов из мониторинга (vin/frame)
-
-        '
+      description: Метод удаления идентификаторов из мониторинга (vin/frame)
       operationId: monitoringBucketRemove
       requestBody:
         content:
@@ -137,9 +123,7 @@ paths:
           description: Информация об ошибке
       security:
       - ClientCredentials: []
-      summary: 'Удаление идентификаторов из мониторинга (vin/frame)
-
-        '
+      summary: Удаление идентификаторов из мониторинга (vin/frame)
       tags:
       - OfflineMonitoring
   /autoteka/v1/monitoring/get-reg-actions/:
@@ -150,16 +134,18 @@ paths:
       in: query
       name: cursor
       schema:
-        nullable: true
-        type: string
+        type:
+        - string
+        - 'null'
     - description: Отбирать рег. действия не раньше указанной даты (включительно)
       example: '2020-01-01'
       in: query
       name: operationDateFrom
       schema:
-        nullable: true
         pattern: ^\d{4}-\d{2}-\d{2}$
-        type: string
+        type:
+        - string
+        - 'null'
     - description: Количество строк в результате
       example: 10
       in: query
@@ -168,12 +154,11 @@ paths:
         description: По умолчанию 100
         maximum: 10000
         minimum: 1
-        nullable: true
-        type: integer
+        type:
+        - integer
+        - 'null'
     get:
-      description: 'Метод получение событий мониторинга
-
-        '
+      description: Метод получение событий мониторинга
       operationId: monitoringGetRegActions
       responses:
         '200':
@@ -202,40 +187,11 @@ paths:
           description: Информация об ошибке
       security:
       - ClientCredentials: []
-      summary: 'Получение событий мониторинга
-
-        '
+      summary: Получение событий мониторинга
       tags:
       - OfflineMonitoring
 components:
   schemas:
-    ResponseMonitoringGetRegActions:
-      properties:
-        data:
-          description: Массив рег. действий
-          items:
-            $ref: '#/components/schemas/ResponseMonitoringGetRegAction'
-          type: array
-        pagination:
-          description: Объект, отвечающий за постраничное считывание информации
-          properties:
-            hasNext:
-              description: Наличие результата на следующей странице
-              example: true
-              type: boolean
-            nextCursor:
-              description: Значение, которое нужно передать для получения информации со следующей страницы результата
-              example: '111111'
-              type: string
-            nextLink:
-              description: Ссылка для вычитывания следующей партии изменений
-              example: https://api.avito.ru/autoteka/v1/monitoring/get-reg-actions/?limit=10&cursor=111111
-              type: string
-          type: object
-      required:
-      - data
-      - pagination
-      type: object
     RequestMonitoringAddVinBucket:
       properties:
         data:
@@ -246,56 +202,6 @@ components:
           maxItems: 10000
           minItems: 1
           type: array
-      type: object
-    ResponseMonitoringDeleteVinBucket:
-      properties:
-        result:
-          properties:
-            isOk:
-              type: boolean
-          required:
-          - isOk
-          type: object
-      type: object
-    internalError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 500
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Service is temporary unavailable
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    ResponseMonitoringRemoveVinBucket:
-      properties:
-        result:
-          properties:
-            invalidVehicles:
-              description: Набор невалидных идентификаторов авто, которые не были приняты
-              items:
-                properties:
-                  description:
-                    description: Описание ошибки
-                    type: string
-                  vehicleID:
-                    description: Идентификатор авто
-                    type: string
-                type: object
-              type: array
-            isOk:
-              type: boolean
-          required:
-          - isOk
-          type: object
       type: object
     validatingError:
       properties:
@@ -315,28 +221,6 @@ components:
           - message
           type: object
       type: object
-    ResponseMonitoringAddVinBucket:
-      properties:
-        result:
-          properties:
-            invalidVehicles:
-              description: Набор невалидных идентификаторов авто, которые не были приняты
-              items:
-                properties:
-                  description:
-                    description: Описание ошибки
-                    type: string
-                  vehicleID:
-                    description: Идентификатор авто
-                    type: string
-                type: object
-              type: array
-            isOk:
-              type: boolean
-          required:
-          - isOk
-          type: object
-      type: object
     RequestMonitoringRemoveVinBucket:
       properties:
         data:
@@ -348,13 +232,42 @@ components:
           minItems: 1
           type: array
       type: object
+    internalError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 500
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Service is temporary unavailable
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    ResponseMonitoringDeleteVinBucket:
+      properties:
+        result:
+          properties:
+            isOk:
+              type: boolean
+          required:
+          - isOk
+          type: object
+      type: object
     ResponseMonitoringGetRegAction:
       properties:
         actualAt:
           description: Дата актуальности в формате Unixtime
           format: int64
-          nullable: true
-          type: integer
+          type:
+          - integer
+          - 'null'
         brand:
           description: Марка авто
           example: BMW
@@ -386,8 +299,9 @@ components:
         operationDateTo:
           description: Дата окончания рег. действия, null если длится по настоящее время
           example: 2021-01-01T00:00:00Z03:00
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         ownerCode:
           description: 'Код владельца: 1 — юр. лицо, 2 — физ. лицо'
           enum:
@@ -397,8 +311,9 @@ components:
           - 4
           example: 2
           format: int64
-          nullable: true
-          type: integer
+          type:
+          - integer
+          - 'null'
         vin:
           description: VIN-номер авто
           example: AA*************11
@@ -411,6 +326,55 @@ components:
       required:
       - vin
       - operationCode
+      type: object
+    ResponseMonitoringAddVinBucket:
+      properties:
+        result:
+          properties:
+            invalidVehicles:
+              description: Набор невалидных идентификаторов авто, которые не были приняты
+              items:
+                properties:
+                  description:
+                    description: Описание ошибки
+                    type: string
+                  vehicleID:
+                    description: Идентификатор авто
+                    type: string
+                type: object
+              type: array
+            isOk:
+              type: boolean
+          required:
+          - isOk
+          type: object
+      type: object
+    ResponseMonitoringGetRegActions:
+      properties:
+        data:
+          description: Массив рег. действий
+          items:
+            $ref: '#/components/schemas/ResponseMonitoringGetRegAction'
+          type: array
+        pagination:
+          description: Объект, отвечающий за постраничное считывание информации
+          properties:
+            hasNext:
+              description: Наличие результата на следующей странице
+              example: true
+              type: boolean
+            nextCursor:
+              description: Значение, которое нужно передать для получения информации со следующей страницы результата
+              example: '111111'
+              type: string
+            nextLink:
+              description: Ссылка для вычитывания следующей партии изменений
+              example: https://api.avito.ru/autoteka/v1/monitoring/get-reg-actions/?limit=10&cursor=111111
+              type: string
+          type: object
+      required:
+      - data
+      - pagination
       type: object
     forbiddenError:
       properties:
@@ -430,6 +394,28 @@ components:
           - message
           type: object
       type: object
+    ResponseMonitoringRemoveVinBucket:
+      properties:
+        result:
+          properties:
+            invalidVehicles:
+              description: Набор невалидных идентификаторов авто, которые не были приняты
+              items:
+                properties:
+                  description:
+                    description: Описание ошибки
+                    type: string
+                  vehicleID:
+                    description: Идентификатор авто
+                    type: string
+                type: object
+              type: array
+            isOk:
+              type: boolean
+          required:
+          - isOk
+          type: object
+      type: object
   parameters:
     authHeader:
       description: Токен для авторизации
@@ -439,19 +425,13 @@ components:
       schema:
         type: string
   securitySchemes:
-    AuthorizationCode:
-      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
-      flows:
-        authorizationCode:
-          authorizationUrl: https://avito.ru/oauth
-          scopes:
-            ah:access: Взаимодействие с иерархией аккаунтов
-          tokenUrl: https://api.avito.ru/token
-      type: oauth2
     ClientCredentials:
       description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
       flows:
         clientCredentials:
           scopes: {}
-          tokenUrl: https://api.avito.ru/token
+          tokenUrl: https://pro.autoteka.ru/token
       type: oauth2
+x-gateway:
+  exportTo:
+  - gateway: open-api-gateway

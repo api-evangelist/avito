@@ -1,16 +1,12 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
-    email: supportautoload@avito.ru
-  description: 'API для взаимодействия с иерархией аккаунтов в Авито
-
-    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
-
-    '
-  title: Иерархия Аккаунтов Access Evaluation API
+    email: partner@autoteka.ru
+  title: Автотека Evaluation API
   version: '1'
+  x-codegen-version: v2
 servers:
-- url: https://api.avito.ru/
+- url: https://pro.autoteka.ru/
 tags:
 - name: Evaluation
   x-displayName: Оценка и характеристики автомобиля
@@ -20,9 +16,7 @@ paths:
     post:
       description: 'Метод для получения возможных параметров для заполнения пользователем.
 
-        Первый запрос можно сделать без параметров, получить данные и далее, передавая нужные id и valueId в повторном запросе, получить все параметры.
-
-        '
+        Первый запрос можно сделать без параметров, получить данные и далее, передавая нужные id и valueId в повторном запросе, получить все параметры.'
       operationId: catalogsResolve
       parameters:
       - $ref: '#/components/parameters/authHeader'
@@ -64,9 +58,7 @@ paths:
           description: Информация об ошибке
       security:
       - ClientCredentials: []
-      summary: 'Получение актуальных параметров Автокаталога
-
-        '
+      summary: Получение актуальных параметров Автокаталога
       tags:
       - Evaluation
   /autoteka/v1/specifications/by-plate-number:
@@ -77,12 +69,10 @@ paths:
         read: 5s
         send: 5s
     post:
-      description: 'Метод для запроса на получение спецификации по регистрационному номеру, возвращает идентификатор спецификации, по которому можно получить спецификацию в [методе для получения спецификации](#operation/specificationGetById).
+      description: 'Метод для запроса на получение спецификации по регистрационному номеру, возвращает идентификатор спецификации, по которому можно получить спецификацию в методе для получения спецификации.
 
 
-        Чтобы подключить эту возможность, обратитесь к менеджеру Автотеки. Обратите внимание, что для её подключения надо завести отдельную учётную запись Автотеки.
-
-        '
+        Чтобы подключить эту возможность, обратитесь к менеджеру Автотеки. Обратите внимание, что для её подключения надо завести отдельную учётную запись Автотеки.'
       operationId: specificationByPlateNumber
       parameters:
       - $ref: '#/components/parameters/authHeader'
@@ -137,9 +127,7 @@ paths:
           description: Информация об ошибке
       security:
       - ClientCredentials: []
-      summary: 'Запрос характеристик по регистрационному номеру
-
-        '
+      summary: Запрос характеристик по регистрационному номеру
       tags:
       - Evaluation
   /autoteka/v1/specifications/by-vehicle-id:
@@ -150,12 +138,10 @@ paths:
         read: 5s
         send: 5s
     post:
-      description: 'Метод для запроса на получение спецификации по идентификатору авто (vin/frame), возвращает идентификатор спецификации, по которому можно получить спецификацию в [методе для получения спецификации](#operation/specificationGetById).
+      description: 'Метод для запроса на получение спецификации по идентификатору авто (vin/frame), возвращает идентификатор спецификации, по которому можно получить спецификацию в методе для получения спецификации.
 
 
-        Чтобы подключить эту возможность, обратитесь к менеджеру Автотеки. Обратите внимание, что для её подключения надо завести отдельную учётную запись Автотеки.
-
-        '
+        Чтобы подключить эту возможность, обратитесь к менеджеру Автотеки. Обратите внимание, что для её подключения надо завести отдельную учётную запись Автотеки.'
       operationId: specificationByVehicleId
       parameters:
       - $ref: '#/components/parameters/authHeader'
@@ -199,9 +185,7 @@ paths:
           description: Информация об ошибке
       security:
       - ClientCredentials: []
-      summary: 'Запрос характеристик по идентификатору авто (vin/frame)
-
-        '
+      summary: Запрос характеристик по идентификатору авто (vin/frame)
       tags:
       - Evaluation
   /autoteka/v1/specifications/specification/{specificationID}:
@@ -218,9 +202,7 @@ paths:
       description: 'Метод для получения спецификации по ее идентификатору.
 
 
-        Чтобы подключить эту возможность, обратитесь к менеджеру Автотеки. Обратите внимание, что для её подключения надо завести отдельную учётную запись Автотеки.
-
-        '
+        Чтобы подключить эту возможность, обратитесь к менеджеру Автотеки. Обратите внимание, что для её подключения надо завести отдельную учётную запись Автотеки.'
       operationId: specificationGetById
       responses:
         '200':
@@ -255,9 +237,7 @@ paths:
           description: Информация об ошибке
       security:
       - ClientCredentials: []
-      summary: 'Получение характеристик по ID запроса
-
-        '
+      summary: Получение характеристик по ID запроса
       tags:
       - Evaluation
   /autoteka/v1/valuation/by-specification:
@@ -268,12 +248,10 @@ paths:
         read: 5s
         send: 5s
     post:
-      description: 'Метод для получения оценки по параметрам, полученным из методов [получения спецификации по ее идентификатору](#operation/specificationID) и [получения параметров автокаталога Авито](#operation/catalogsResolve)
+      description: 'Метод для получения оценки по параметрам, полученным из методов получения спецификации по ее идентификатору и получения параметров автокаталога Авито
 
 
-        Чтобы подключить эту возможность, обратитесь к менеджеру Автотеки. Обратите внимание, что для её подключения надо завести отдельную учётную запись Автотеки.
-
-        '
+        Чтобы подключить эту возможность, обратитесь к менеджеру Автотеки. Обратите внимание, что для её подключения надо завести отдельную учётную запись Автотеки.'
       operationId: valuationBySpecification
       parameters:
       - $ref: '#/components/parameters/authHeader'
@@ -326,9 +304,7 @@ paths:
           description: Информация об ошибке
       security:
       - ClientCredentials: []
-      summary: 'Получение оценки по параметрам
-
-        '
+      summary: Получение оценки по параметрам
       tags:
       - Evaluation
 components:
@@ -355,442 +331,143 @@ components:
             '
           items:
             $ref: '#/components/schemas/NewCarValuation'
-          nullable: true
-          type: array
+          type:
+          - array
+          - 'null'
         specification:
           $ref: '#/components/schemas/SpecificationResultAutoteka'
         valuation:
           $ref: '#/components/schemas/AvitoPriceValuation'
       type: object
-    RequestReportByPlateNumberAutoteka:
+    DocumentsResultAutoteka:
       properties:
-        plateNumber:
-          description: Регистрационный номер запрашиваемого авто.
+        pts:
+          description: Информация о ПТС
+          properties:
+            date:
+              description: Дата выдачи ПТС
+              example: '2024-07-31'
+              type:
+              - string
+              - 'null'
+            number:
+              description: Номер ПТС
+              example: '1234567890'
+              type:
+              - string
+              - 'null'
+            organization:
+              description: Организация, выдавшая ПТС
+              example: Название организации
+              type:
+              - string
+              - 'null'
+          type:
+          - object
+          - 'null'
+        sts:
+          description: Информация об СТС
+          properties:
+            date:
+              description: Дата выдачи СТС
+              example: '2024-07-31'
+              type:
+              - string
+              - 'null'
+            number:
+              description: Серия и номер СТС
+              example: '1234567890'
+              type:
+              - string
+              - 'null'
+          type:
+          - object
+          - 'null'
+      type:
+      - object
+      - 'null'
+    RequestReportByVehicleIdAutoteka:
+      properties:
+        vehicleId:
+          description: Идентификатор запрашиваемого авто (vin/frame).
           minLength: 1
           type: string
       required:
-      - plateNumber
-      type: object
-    tooManyRequestsError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 429
-              format: int32
-              type: integer
-          required:
-          - code
-          type: object
-      type: object
-    NewCarValuation:
-      description: Оценка нового авто на основе рынка Авито
-      properties:
-        avgPrice:
-          description: Средняя цена на основе объявлений
-          example: 2010000
-          type: integer
-        bodyType:
-          description: Тип автомобиля
-          example: Универсал
-          type: string
-        brand:
-          description: Бренд
-          example: ВАЗ (LADA)
-          type: string
-        complectation:
-          description: Комплектация
-          example: Enjoy'24
-          type: string
-        drive:
-          description: Привод
-          example: Передний
-          type: string
-        engineType:
-          description: Тип двигателя
-          example: Бензин
-          type: string
-        maxPrice:
-          description: Максимальная цена на основе объявлений
-          example: 2050000
-          type: integer
-        medianPrice:
-          description: Средняя цена на основе объявлений
-          example: 2020000
-          type: integer
-        minPrice:
-          description: Минимальная цена на основе объявлений
-          example: 2000000
-          type: integer
-        model:
-          description: Модель
-          example: Largus Cross
-          type: string
-        modification:
-          description: Модификация
-          example: 1.6 MT (106 л.с.)
-          type: string
-        transmission:
-          description: Коробка передач
-          example: Механика
-          type: string
-        year:
-          description: Год выпуска
-          example: 2025
-          type: integer
-      required:
-      - brand
-      - model
-      - year
-      - modification
-      - bodyType
-      - complectation
-      - drive
-      - transmission
-      - engineType
-      - avgPrice
-      - medianPrice
-      - minPrice
-      - maxPrice
-      type: object
-    RequestCatalogsResolve:
-      properties:
-        fieldsValueIds:
-          description: Выбранные значения параметров
-          items:
-            properties:
-              id:
-                description: Идентификатор параметра из каталога Авито
-                example: 110000
-                format: int64
-                minimum: 1
-                type: integer
-              valueId:
-                description: Идентификатор значения из каталога Авито
-                example: 403153
-                format: int64
-                minimum: 1
-                type: integer
-            required:
-            - id
-            - valueId
-            type: object
-          type: array
-      required:
-      - fieldsValueIds
-      type: object
-    SpecificationNormalizedSpecificationAutoteka:
-      nullable: true
-      properties:
-        bodyType:
-          description: Кузов
-          nullable: true
-          properties:
-            value:
-              description: Значение
-              example: Внедорожник
-              type: string
-            valueId:
-              description: Идентификатор значения
-              example: 331231
-              format: int64
-              type: integer
-          required:
-          - valueId
-          - value
-          type: object
-        brand:
-          description: Бренд
-          nullable: true
-          properties:
-            value:
-              description: Значение
-              example: Chery
-              type: string
-            valueId:
-              description: Идентификатор значения
-              example: 329210
-              format: int64
-              type: integer
-          required:
-          - valueId
-          - value
-          type: object
-        capacity:
-          description: Емкость
-          nullable: true
-          properties:
-            value:
-              description: Значение
-              example: 129
-              format: float64
-              type: number
-          required:
-          - value
-          type: object
-        complectation:
-          description: Комплектация
-          nullable: true
-          properties:
-            value:
-              description: Значение
-              example: Comfort
-              type: string
-            valueId:
-              description: Идентификатор значения
-              example: 369961
-              format: int64
-              type: integer
-          required:
-          - valueId
-          - value
-          type: object
-        doorsCount:
-          description: Количество дверей
-          nullable: true
-          properties:
-            value:
-              description: Значение
-              example: 5
-              format: int64
-              type: integer
-            valueId:
-              description: Идентификатор значения
-              example: 331245
-              format: int64
-              type: integer
-          required:
-          - valueId
-          - value
-          type: object
-        drive:
-          description: Привод
-          nullable: true
-          properties:
-            value:
-              description: Значение
-              example: Передний
-              type: string
-            valueId:
-              description: Идентификатор значения
-              example: 331251
-              format: int64
-              type: integer
-          required:
-          - valueId
-          - value
-          type: object
-        engine:
-          description: Объем двигателя
-          nullable: true
-          properties:
-            value:
-              description: Значение
-              example: 2.4
-              format: float64
-              type: number
-            valueId:
-              description: Идентификатор значения
-              example: 331775
-              format: int64
-              type: integer
-          required:
-          - valueId
-          - value
-          type: object
-        engineType:
-          description: Тип двигателя
-          nullable: true
-          properties:
-            value:
-              description: Значение
-              example: Бензин
-              type: string
-            valueId:
-              description: Идентификатор значения
-              example: 331247
-              format: int64
-              type: integer
-          required:
-          - valueId
-          - value
-          type: object
-        generation:
-          description: Поколение
-          nullable: true
-          properties:
-            value:
-              description: Значение
-              example: T11 (2005—2013)
-              type: string
-            valueId:
-              description: Идентификатор значения
-              example: 332287
-              format: int64
-              type: integer
-          required:
-          - valueId
-          - value
-          type: object
-        model:
-          description: Модель
-          nullable: true
-          properties:
-            value:
-              description: Значение
-              example: Tiggo (T11)
-              type: string
-            valueId:
-              description: Идентификатор значения
-              example: 330887
-              format: int64
-              type: integer
-          required:
-          - valueId
-          - value
-          type: object
-        modification:
-          description: Модификация
-          nullable: true
-          properties:
-            value:
-              description: Значение
-              example: 2.4 MT (129 л.с.)
-              type: string
-            valueId:
-              description: Идентификатор значения
-              example: 408424
-              format: int64
-              type: integer
-          required:
-          - valueId
-          - value
-          type: object
-        transmission:
-          description: Тип КПП
-          nullable: true
-          properties:
-            value:
-              description: Значение
-              example: Механика
-              type: string
-            valueId:
-              description: Идентификатор значения
-              example: 331254
-              format: int64
-              type: integer
-          required:
-          - valueId
-          - value
-          type: object
-        wheel:
-          description: Руль
-          nullable: true
-          properties:
-            value:
-              description: Значение
-              example: Левый
-              type: string
-          required:
-          - value
-          type: object
-        year:
-          description: Год выпуска
-          nullable: true
-          properties:
-            value:
-              description: Значение
-              example: 2007
-              format: int64
-              type: integer
-            valueId:
-              description: Идентификатор значения
-              example: 331123
-              format: int64
-              type: integer
-          required:
-          - valueId
-          - value
-          type: object
-      required:
-      - brand
-      - model
-      - bodyType
-      - doorsCount
-      - drive
-      - wheel
-      - engineType
-      - engine
-      - capacity
-      - transmission
-      - generation
-      - modification
-      - complectation
-      - year
-      type: object
-    SpecificationIdResultAutoteka:
-      properties:
-        specificationId:
-          description: Идентификатор спецификации, по которому ее можно получить
-          example: 1
-          format: int64
-          minimum: 1
-          type: integer
-      required:
-      - specificationId
-      type: object
-    forbiddenError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 403
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Forbidden
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    SpecificationResultAutoteka:
-      properties:
-        equipment:
-          $ref: '#/components/schemas/SpecificationEquipmentAutoteka'
-        normalizedSpecification:
-          $ref: '#/components/schemas/SpecificationNormalizedSpecificationAutoteka'
-        plateNumber:
-          description: Регистрационный номер
-          example: X777XX777
-          nullable: true
-          type: string
-        specificationId:
-          description: Идентификатор спецификации
-          example: 157987
-          format: int64
-          type: integer
-        status:
-          description: Статус `success`, `processing`, `notFound`
-          example: success
-          type: string
-        vehicleId:
-          description: Идентификатор запрашиваемого авто (vin/frame)
-          example: XUUNF487JA0007223
-          nullable: true
-          type: string
-      required:
-      - equipment
-      - normalizedSpecification
-      - specificationId
-      - plateNumber
-      - status
       - vehicleId
       type: object
+    AvitoPriceValuation:
+      description: Оценка подержаного автомобиля от Авито
+      properties:
+        avgMarketPrice:
+          description: Оценка на основе объявлений
+          example: 950000
+          type:
+          - integer
+          - 'null'
+        avgMileage:
+          description: Средний пробег аналогов
+          example: 50000
+          type:
+          - integer
+          - 'null'
+        avgPriceWithCondition:
+          description: Оценка с учетом состояния автомобилей на основе реальных сделок
+          example: 936000
+          type: integer
+        avgYear:
+          description: Средний год выпуска аналогов
+          example: 2012.9999
+          format: float
+          type:
+          - number
+          - 'null'
+        imvUrl:
+          deprecated: true
+          description: Поле больше не заполняется. Ссылка на страницу Авито IMV вида https://www.avito.ru/au-imv-info/2963331288
+          example: https://www.avito.ru/au-imv-info/2963331288
+          type:
+          - string
+          - 'null'
+        itemsCount:
+          description: Количество машин, учтенных в оценке
+          example: 121
+          type:
+          - integer
+          - 'null'
+        marketNormalPriceRange:
+          description: Диапазон "рыночной" оценки данного автомобиля по закрытым сделкам
+          properties:
+            max:
+              description: Максимальная граница "рыночной" оценки данного автомобиля по закрытым сделкам
+              example: 5248900
+              type: integer
+            min:
+              description: Минимальная граница "рыночной" оценки данного автомобиля по закрытым сделкам
+              example: 3248900
+              type: integer
+          required:
+          - min
+          - max
+          type:
+          - object
+          - 'null'
+        maxPrice:
+          description: Максимальная цена похожих авто на основе объявлений
+          example: 1000000
+          type:
+          - integer
+          - 'null'
+        minPrice:
+          description: Минимальная цена похожих авто на основе объявлений
+          example: 800000
+          type:
+          - integer
+          - 'null'
+      required:
+      - avgPriceWithCondition
+      type:
+      - object
+      - 'null'
     internalError:
       properties:
         error:
@@ -809,120 +486,9 @@ components:
           - message
           type: object
       type: object
-    AvitoPriceValuation:
-      description: Оценка подержаного автомобиля от Авито
-      nullable: true
-      properties:
-        avgMarketPrice:
-          description: Оценка на основе объявлений
-          example: 950000
-          nullable: true
-          type: integer
-        avgMileage:
-          description: Средний пробег аналогов
-          example: 50000
-          nullable: true
-          type: integer
-        avgPriceWithCondition:
-          description: Оценка с учетом состояния автомобилей на основе реальных сделок
-          example: 936000
-          type: integer
-        avgYear:
-          description: Средний год выпуска аналогов
-          example: 2012.9999
-          format: float
-          nullable: true
-          type: number
-        imvUrl:
-          deprecated: true
-          description: Поле больше не заполняется. Ссылка на страницу Авито IMV вида https://www.avito.ru/au-imv-info/2963331288
-          example: https://www.avito.ru/au-imv-info/2963331288
-          nullable: true
-          type: string
-        itemsCount:
-          description: Количество машин, учтенных в оценке
-          example: 121
-          nullable: true
-          type: integer
-        marketNormalPriceRange:
-          description: Диапазон "рыночной" оценки данного автомобиля по закрытым сделкам
-          nullable: true
-          properties:
-            max:
-              description: Максимальная граница "рыночной" оценки данного автомобиля по закрытым сделкам
-              example: 5248900
-              type: integer
-            min:
-              description: Минимальная граница "рыночной" оценки данного автомобиля по закрытым сделкам
-              example: 3248900
-              type: integer
-          required:
-          - min
-          - max
-          type: object
-        maxPrice:
-          description: Максимальная цена похожих авто на основе объявлений
-          example: 1000000
-          nullable: true
-          type: integer
-        minPrice:
-          description: Минимальная цена похожих авто на основе объявлений
-          example: 800000
-          nullable: true
-          type: integer
-      required:
-      - avgPriceWithCondition
-      type: object
-    CreateSpecificationResponseDataAutoteka:
-      properties:
-        specification:
-          $ref: '#/components/schemas/SpecificationIdResultAutoteka'
-      type: object
-    validatingError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 400
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Validation error
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    CreateSpecificationResponseBodyAutoteka:
-      properties:
-        result:
-          $ref: '#/components/schemas/CreateSpecificationResponseDataAutoteka'
-      type: object
-    notFoundError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 404
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Not found
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
     RequestValuationBySpecificationResolve:
       properties:
         location:
-          nullable: true
           properties:
             lat:
               example: 55.755863189697266
@@ -935,18 +501,20 @@ components:
           required:
           - lat
           - long
-          type: object
+          type:
+          - object
+          - 'null'
         mileage:
           description: Пробег в км
           example: 15000
           format: int32
-          nullable: true
-          type: integer
+          type:
+          - integer
+          - 'null'
         specification:
           properties:
             bodyType:
               description: Тип ТС
-              nullable: true
               properties:
                 label:
                   description: Значение параметра
@@ -961,7 +529,9 @@ components:
               required:
               - label
               - valueId
-              type: object
+              type:
+              - object
+              - 'null'
             brand:
               description: Марка
               properties:
@@ -981,7 +551,6 @@ components:
               type: object
             color:
               description: Цвет
-              nullable: true
               properties:
                 label:
                   description: Значение параметра
@@ -996,10 +565,11 @@ components:
               required:
               - label
               - valueId
-              type: object
+              type:
+              - object
+              - 'null'
             complectation:
               description: Комплектация
-              nullable: true
               properties:
                 label:
                   description: Значение параметра
@@ -1014,10 +584,11 @@ components:
               required:
               - label
               - valueId
-              type: object
+              type:
+              - object
+              - 'null'
             doorsCount:
               description: Количество дверей
-              nullable: true
               properties:
                 label:
                   description: Значение параметра
@@ -1032,7 +603,9 @@ components:
               required:
               - label
               - valueId
-              type: object
+              type:
+              - object
+              - 'null'
             generation:
               description: 'Поколение
 
@@ -1144,10 +717,94 @@ components:
         vehicleId:
           description: Идентификатор авто (vin/frame).
           example: XTA21110987654321
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
       required:
       - specification
+      type: object
+    SpecificationIdResultAutoteka:
+      properties:
+        specificationId:
+          description: Идентификатор спецификации, по которому ее можно получить
+          example: 1
+          format: int64
+          minimum: 1
+          type: integer
+      required:
+      - specificationId
+      type: object
+    tooManyRequestsError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 429
+              format: int32
+              type: integer
+          required:
+          - code
+          type: object
+      type: object
+    CatalogsFieldAutoteka:
+      description: Параметр из каталога Авито
+      properties:
+        dataType:
+          description: Тип значения параметра
+          example: integer
+          type: string
+        id:
+          description: Идентификатор параметра
+          example: 110000
+          format: int64
+          minimum: 1
+          type: integer
+        label:
+          description: Название параметра
+          example: Марка
+          type: string
+        values:
+          items:
+            properties:
+              label:
+                description: Значение параметра
+                example: Accent
+                type: string
+              valueId:
+                description: Идентификатор значения параметра
+                example: 403154
+                format: int64
+                minimum: 1
+                type: integer
+            required:
+            - label
+            - valueId
+            type: object
+          type: array
+      required:
+      - id
+      - label
+      - dataType
+      - values
+      type: object
+    forbiddenError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 403
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Forbidden
+              type: string
+          required:
+          - code
+          - message
+          type: object
       type: object
     ValuationBySpecificationResultAutoteka:
       properties:
@@ -1159,8 +816,9 @@ components:
           description: Пробег запрашиваемого авто
           example: 30000
           format: int64
-          nullable: true
-          type: integer
+          type:
+          - integer
+          - 'null'
         model:
           description: Модель
           example: X5
@@ -1174,8 +832,9 @@ components:
             '
           items:
             $ref: '#/components/schemas/NewCarValuation'
-          nullable: true
-          type: array
+          type:
+          - array
+          - 'null'
         ownersCount:
           description: Количество владельцев
           example: 4+
@@ -1190,8 +849,9 @@ components:
           description: Идентификатор запрашиваемого авто (vin/frame)
           example: XUU09876543215671
           minLength: 3
-          nullable: true
-          type: string
+          type:
+          - string
+          - 'null'
         year:
           description: Год выпуска запрашиваемого авто
           example: 2005
@@ -1206,17 +866,390 @@ components:
       - status
       - vehicleId
       type: object
+    validatingError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 400
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Validation error
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
     GetSpecificationResponseBodyAutoteka:
       properties:
         result:
           $ref: '#/components/schemas/GetSpecificationResponseDataAutoteka'
       type: object
+    RequestCatalogsResolve:
+      properties:
+        fieldsValueIds:
+          description: Выбранные значения параметров
+          items:
+            properties:
+              id:
+                description: Идентификатор параметра из каталога Авито
+                example: 110000
+                format: int64
+                minimum: 1
+                type: integer
+              valueId:
+                description: Идентификатор значения из каталога Авито
+                example: 403153
+                format: int64
+                minimum: 1
+                type: integer
+            required:
+            - id
+            - valueId
+            type: object
+          type: array
+      required:
+      - fieldsValueIds
+      type: object
+    CreateSpecificationResponseDataAutoteka:
+      properties:
+        specification:
+          $ref: '#/components/schemas/SpecificationIdResultAutoteka'
+      type: object
+    notFoundError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 404
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Not found
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    RequestReportByPlateNumberAutoteka:
+      properties:
+        plateNumber:
+          description: Регистрационный номер запрашиваемого авто.
+          minLength: 1
+          type: string
+      required:
+      - plateNumber
+      type: object
+    SpecificationResultAutoteka:
+      properties:
+        equipment:
+          $ref: '#/components/schemas/SpecificationEquipmentAutoteka'
+        normalizedSpecification:
+          $ref: '#/components/schemas/SpecificationNormalizedSpecificationAutoteka'
+        plateNumber:
+          description: Регистрационный номер
+          example: X777XX777
+          type:
+          - string
+          - 'null'
+        specificationId:
+          description: Идентификатор спецификации
+          example: 157987
+          format: int64
+          type: integer
+        status:
+          description: Статус `success`, `processing`, `notFound`
+          example: success
+          type: string
+        vehicleId:
+          description: Идентификатор запрашиваемого авто (vin/frame)
+          example: XUUNF487JA0007223
+          type:
+          - string
+          - 'null'
+      required:
+      - equipment
+      - normalizedSpecification
+      - specificationId
+      - plateNumber
+      - status
+      - vehicleId
+      type: object
+    SpecificationNormalizedSpecificationAutoteka:
+      properties:
+        bodyType:
+          description: Кузов
+          properties:
+            value:
+              description: Значение
+              example: Внедорожник
+              type: string
+            valueId:
+              description: Идентификатор значения
+              example: 331231
+              format: int64
+              type: integer
+          required:
+          - valueId
+          - value
+          type:
+          - object
+          - 'null'
+        brand:
+          description: Бренд
+          properties:
+            value:
+              description: Значение
+              example: Chery
+              type: string
+            valueId:
+              description: Идентификатор значения
+              example: 329210
+              format: int64
+              type: integer
+          required:
+          - valueId
+          - value
+          type:
+          - object
+          - 'null'
+        capacity:
+          description: Емкость
+          properties:
+            value:
+              description: Значение
+              example: 129
+              format: float64
+              type: number
+          required:
+          - value
+          type:
+          - object
+          - 'null'
+        complectation:
+          description: Комплектация
+          properties:
+            value:
+              description: Значение
+              example: Comfort
+              type: string
+            valueId:
+              description: Идентификатор значения
+              example: 369961
+              format: int64
+              type: integer
+          required:
+          - valueId
+          - value
+          type:
+          - object
+          - 'null'
+        doorsCount:
+          description: Количество дверей
+          properties:
+            value:
+              description: Значение
+              example: 5
+              format: int64
+              type: integer
+            valueId:
+              description: Идентификатор значения
+              example: 331245
+              format: int64
+              type: integer
+          required:
+          - valueId
+          - value
+          type:
+          - object
+          - 'null'
+        drive:
+          description: Привод
+          properties:
+            value:
+              description: Значение
+              example: Передний
+              type: string
+            valueId:
+              description: Идентификатор значения
+              example: 331251
+              format: int64
+              type: integer
+          required:
+          - valueId
+          - value
+          type:
+          - object
+          - 'null'
+        engine:
+          description: Объем двигателя
+          properties:
+            value:
+              description: Значение
+              example: 2.4
+              format: float64
+              type: number
+            valueId:
+              description: Идентификатор значения
+              example: 331775
+              format: int64
+              type: integer
+          required:
+          - valueId
+          - value
+          type:
+          - object
+          - 'null'
+        engineType:
+          description: Тип двигателя
+          properties:
+            value:
+              description: Значение
+              example: Бензин
+              type: string
+            valueId:
+              description: Идентификатор значения
+              example: 331247
+              format: int64
+              type: integer
+          required:
+          - valueId
+          - value
+          type:
+          - object
+          - 'null'
+        generation:
+          description: Поколение
+          properties:
+            value:
+              description: Значение
+              example: T11 (2005—2013)
+              type: string
+            valueId:
+              description: Идентификатор значения
+              example: 332287
+              format: int64
+              type: integer
+          required:
+          - valueId
+          - value
+          type:
+          - object
+          - 'null'
+        model:
+          description: Модель
+          properties:
+            value:
+              description: Значение
+              example: Tiggo (T11)
+              type: string
+            valueId:
+              description: Идентификатор значения
+              example: 330887
+              format: int64
+              type: integer
+          required:
+          - valueId
+          - value
+          type:
+          - object
+          - 'null'
+        modification:
+          description: Модификация
+          properties:
+            value:
+              description: Значение
+              example: 2.4 MT (129 л.с.)
+              type: string
+            valueId:
+              description: Идентификатор значения
+              example: 408424
+              format: int64
+              type: integer
+          required:
+          - valueId
+          - value
+          type:
+          - object
+          - 'null'
+        transmission:
+          description: Тип КПП
+          properties:
+            value:
+              description: Значение
+              example: Механика
+              type: string
+            valueId:
+              description: Идентификатор значения
+              example: 331254
+              format: int64
+              type: integer
+          required:
+          - valueId
+          - value
+          type:
+          - object
+          - 'null'
+        wheel:
+          description: Руль
+          properties:
+            value:
+              description: Значение
+              example: Левый
+              type: string
+          required:
+          - value
+          type:
+          - object
+          - 'null'
+        year:
+          description: Год выпуска
+          properties:
+            value:
+              description: Значение
+              example: 2007
+              format: int64
+              type: integer
+            valueId:
+              description: Идентификатор значения
+              example: 331123
+              format: int64
+              type: integer
+          required:
+          - valueId
+          - value
+          type:
+          - object
+          - 'null'
+      required:
+      - brand
+      - model
+      - bodyType
+      - doorsCount
+      - drive
+      - wheel
+      - engineType
+      - engine
+      - capacity
+      - transmission
+      - generation
+      - modification
+      - complectation
+      - year
+      type:
+      - object
+      - 'null'
     SpecificationEquipmentAutoteka:
-      nullable: true
       properties:
         bodyNumber:
           description: Номер кузова
-          nullable: true
           properties:
             title:
               description: Номер кузова
@@ -1228,10 +1261,11 @@ components:
           required:
           - title
           - value
-          type: object
+          type:
+          - object
+          - 'null'
         bodyType:
           description: Тип ТС
-          nullable: true
           properties:
             title:
               description: Заголовок
@@ -1262,10 +1296,11 @@ components:
           required:
           - title
           - value
-          type: object
+          type:
+          - object
+          - 'null'
         brand:
           description: Бренд
-          nullable: true
           properties:
             title:
               description: Заголовок
@@ -1340,10 +1375,11 @@ components:
           required:
           - title
           - value
-          type: object
+          type:
+          - object
+          - 'null'
         color:
           description: Цвет кузова
-          nullable: true
           properties:
             description:
               description: Текстовое значение
@@ -1417,10 +1453,11 @@ components:
           - description
           - title
           - value
-          type: object
+          type:
+          - object
+          - 'null'
         engineNumber:
           description: Номер двигателя
-          nullable: true
           properties:
             title:
               description: Номер двигателя
@@ -1432,10 +1469,11 @@ components:
           required:
           - title
           - value
-          type: object
+          type:
+          - object
+          - 'null'
         engineType:
           description: Тип двигателя
-          nullable: true
           properties:
             title:
               description: Заголовок
@@ -1460,10 +1498,11 @@ components:
           required:
           - title
           - value
-          type: object
+          type:
+          - object
+          - 'null'
         horsepower:
           description: Количество лошадиных сил
-          nullable: true
           properties:
             description:
               description: Текстовое значение
@@ -1482,10 +1521,11 @@ components:
           - description
           - title
           - value
-          type: object
+          type:
+          - object
+          - 'null'
         maxWeight:
           description: Разрешенная максимальная масса
-          nullable: true
           properties:
             description:
               description: Текстовое значение
@@ -1504,10 +1544,11 @@ components:
           - title
           - value
           - description
-          type: object
+          type:
+          - object
+          - 'null'
         model:
           description: Модель
-          nullable: true
           properties:
             title:
               description: Заголовок
@@ -1520,10 +1561,11 @@ components:
           required:
           - title
           - value
-          type: object
+          type:
+          - object
+          - 'null'
         netWeight:
           description: Масса без нагрузки
-          nullable: true
           properties:
             description:
               description: Текстовое значение
@@ -1542,10 +1584,11 @@ components:
           - title
           - value
           - description
-          type: object
+          type:
+          - object
+          - 'null'
         vehicleCategory:
           description: Категория ТС
-          nullable: true
           properties:
             title:
               description: Заголовок
@@ -1568,10 +1611,11 @@ components:
           required:
           - title
           - value
-          type: object
+          type:
+          - object
+          - 'null'
         volume:
           description: Объем двигателя
-          nullable: true
           properties:
             description:
               description: Текстовое значение
@@ -1590,10 +1634,11 @@ components:
           - description
           - title
           - value
-          type: object
+          type:
+          - object
+          - 'null'
         year:
           description: Год выпуска
-          nullable: true
           properties:
             title:
               description: Заголовок
@@ -1607,7 +1652,9 @@ components:
           required:
           - title
           - value
-          type: object
+          type:
+          - object
+          - 'null'
       required:
       - bodyNumber
       - brand
@@ -1622,117 +1669,94 @@ components:
       - bodyType
       - volume
       - year
+      type:
+      - object
+      - 'null'
+    NewCarValuation:
+      description: Оценка нового авто на основе рынка Авито
+      properties:
+        avgPrice:
+          description: Средняя цена на основе объявлений
+          example: 2010000
+          type: integer
+        bodyType:
+          description: Тип автомобиля
+          example: Универсал
+          type: string
+        brand:
+          description: Бренд
+          example: ВАЗ (LADA)
+          type: string
+        complectation:
+          description: Комплектация
+          example: Enjoy'24
+          type: string
+        drive:
+          description: Привод
+          example: Передний
+          type: string
+        engineType:
+          description: Тип двигателя
+          example: Бензин
+          type: string
+        maxPrice:
+          description: Максимальная цена на основе объявлений
+          example: 2050000
+          type: integer
+        medianPrice:
+          description: Средняя цена на основе объявлений
+          example: 2020000
+          type: integer
+        minPrice:
+          description: Минимальная цена на основе объявлений
+          example: 2000000
+          type: integer
+        model:
+          description: Модель
+          example: Largus Cross
+          type: string
+        modification:
+          description: Модификация
+          example: 1.6 MT (106 л.с.)
+          type: string
+        transmission:
+          description: Коробка передач
+          example: Механика
+          type: string
+        year:
+          description: Год выпуска
+          example: 2025
+          type: integer
+      required:
+      - brand
+      - model
+      - year
+      - modification
+      - bodyType
+      - complectation
+      - drive
+      - transmission
+      - engineType
+      - avgPrice
+      - medianPrice
+      - minPrice
+      - maxPrice
       type: object
     CatalogsResolveResponseBodyAutoteka:
       properties:
         result:
           $ref: '#/components/schemas/CatalogsResolveResponseDataAutoteka'
       type: object
-    RequestReportByVehicleIdAutoteka:
-      properties:
-        vehicleId:
-          description: Идентификатор запрашиваемого авто (vin/frame).
-          minLength: 1
-          type: string
-      required:
-      - vehicleId
-      type: object
-    DocumentsResultAutoteka:
-      nullable: true
-      properties:
-        pts:
-          description: Информация о ПТС
-          nullable: true
-          properties:
-            date:
-              description: Дата выдачи ПТС
-              example: '2024-07-31'
-              nullable: true
-              type: string
-            number:
-              description: Номер ПТС
-              example: '1234567890'
-              nullable: true
-              type: string
-            organization:
-              description: Организация, выдавшая ПТС
-              example: Название организации
-              nullable: true
-              type: string
-          type: object
-        sts:
-          description: Информация об СТС
-          nullable: true
-          properties:
-            date:
-              description: Дата выдачи СТС
-              example: '2024-07-31'
-              nullable: true
-              type: string
-            number:
-              description: Серия и номер СТС
-              example: '1234567890'
-              nullable: true
-              type: string
-          type: object
-      type: object
     ValuationBySpecificationResponseBodyAutoteka:
       properties:
         result:
           $ref: '#/components/schemas/ValuationBySpecificationResultAutoteka'
       type: object
-    CatalogsFieldAutoteka:
-      description: Параметр из каталога Авито
+    CreateSpecificationResponseBodyAutoteka:
       properties:
-        dataType:
-          description: Тип значения параметра
-          example: integer
-          type: string
-        id:
-          description: Идентификатор параметра
-          example: 110000
-          format: int64
-          minimum: 1
-          type: integer
-        label:
-          description: Название параметра
-          example: Марка
-          type: string
-        values:
-          items:
-            properties:
-              label:
-                description: Значение параметра
-                example: Accent
-                type: string
-              valueId:
-                description: Идентификатор значения параметра
-                example: 403154
-                format: int64
-                minimum: 1
-                type: integer
-            required:
-            - label
-            - valueId
-            type: object
-          type: array
-      required:
-      - id
-      - label
-      - dataType
-      - values
+        result:
+          $ref: '#/components/schemas/CreateSpecificationResponseDataAutoteka'
       type: object
-  headers:
-    X-RateLimit-Limit:
-      description: Количество запросов в минуту
-      schema:
-        format: int32
-        type: integer
-    X-RateLimit-Remaining:
-      description: Доступное количество запросов в текущем временном окне
-      schema:
-        format: int32
-        type: integer
   parameters:
     authHeader:
       description: Токен для авторизации
@@ -1741,20 +1765,25 @@ components:
       name: Authorization
       schema:
         type: string
+  headers:
+    X-RateLimit-Remaining:
+      description: Доступное количество запросов в текущем временном окне
+      schema:
+        format: int32
+        type: integer
+    X-RateLimit-Limit:
+      description: Количество запросов в минуту
+      schema:
+        format: int32
+        type: integer
   securitySchemes:
-    AuthorizationCode:
-      description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)
-      flows:
-        authorizationCode:
-          authorizationUrl: https://avito.ru/oauth
-          scopes:
-            ah:access: Взаимодействие с иерархией аккаунтов
-          tokenUrl: https://api.avito.ru/token
-      type: oauth2
     ClientCredentials:
       description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
       flows:
         clientCredentials:
           scopes: {}
-          tokenUrl: https://api.avito.ru/token
+          tokenUrl: https://pro.autoteka.ru/token
       type: oauth2
+x-gateway:
+  exportTo:
+  - gateway: open-api-gateway

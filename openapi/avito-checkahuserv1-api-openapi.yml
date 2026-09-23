@@ -1,13 +1,11 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: supportautoload@avito.ru
   description: 'API для взаимодействия с иерархией аккаунтов в Авито
 
-    **Авито API для бизнеса предоставляется согласно [Условиям использования](https://www.avito.ru/legal/pro_tools/public-api).**
-
-    '
-  title: Иерархия Аккаунтов Access CheckAhUserV1 API
+    **Авито API для бизнеса предоставляется согласно Условиям использования.**'
+  title: Иерархия Аккаунтов Check Ah User V1 API
   version: '1'
 servers:
 - url: https://api.avito.ru/
@@ -37,9 +35,7 @@ paths:
         type: string
     get:
       deprecated: true
-      description: 'Устаревший метод, используйте /checkAhUserV2 либо /getAhInfoV1. Ручка для получения информации по ИА для пользователя.
-
-        '
+      description: Устаревший метод, используйте /checkAhUserV2 либо /getAhInfoV1. Ручка для получения информации по ИА для пользователя.
       operationId: checkAhUserV1
       responses:
         '200':
@@ -50,8 +46,9 @@ paths:
                 properties:
                   avitoCompanyId:
                     description: ИД компании, к которой принадлежит сотрудник
-                    nullable: true
-                    type: integer
+                    type:
+                    - integer
+                    - 'null'
                   isChief:
                     description: Признак того, что пользователь является руководителем
                     type: boolean
