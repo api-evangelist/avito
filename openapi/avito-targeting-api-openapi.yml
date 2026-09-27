@@ -266,117 +266,8 @@ paths:
       tags:
       - Targeting
 components:
-  schemas:
-    inn:
-      description: ИНН
-      example: 1234567890
-      maxLength: 12
-      minLength: 10
-      type: string
-    targetTaskId:
-      additionalProperties: false
-      description: Идентификатор задачи проверки ИНН клиентов
-      properties:
-        taskId:
-          $ref: '#/components/schemas/id'
-      required:
-      - taskId
-      type: object
-    badRequestResponseStatus:
-      description: Статус ответа
-      enum:
-      - bad-request
-      example: bad-request
-      type: string
-    notFoundResponseStatus:
-      description: Статус ответа
-      enum:
-      - not-found
-      example: not-found
-      type: string
-    okResponseStatus:
-      description: Статус результата ответа
-      enum:
-      - ok
-      example: ok
-      type: string
-    unauthorizedResponseStatus:
-      description: Статус ответа
-      enum:
-      - unauthorized
-      example: unauthorized
-      type: string
-    errorField:
-      description: Наименование поля
-      example: userId
-      type: string
-    errorResult:
-      additionalProperties: false
-      description: Результат с ошибкой
-      properties:
-        message:
-          $ref: '#/components/schemas/errorMessage'
-      required:
-      - message
-      type: object
-    forbiddenResponseStatus:
-      description: Статус ответа
-      enum:
-      - forbidden
-      example: forbidden
-      type: string
-    defaultErrorResponse:
-      additionalProperties: false
-      properties:
-        error:
-          additionalProperties: false
-          description: Ошибка
-          properties:
-            code:
-              description: Код ошибки
-              example: 1001
-              type: integer
-            message:
-              $ref: '#/components/schemas/errorMessage'
-          required:
-          - code
-          - message
-          type: object
-      required:
-      - error
-      type: object
-    errorFields:
-      description: Ошибки валидации
-      items:
-        additionalProperties: false
-        description: Ошибка валидации поля
-        properties:
-          field:
-            $ref: '#/components/schemas/errorField'
-          message:
-            $ref: '#/components/schemas/errorMessage'
-        required:
-        - field
-        - message
-        type: object
-      type: array
-    id:
-      description: Идентификатор
-      example: 123456
-      minimum: 1
-      type: integer
-    errorMessage:
-      description: Сообщение об ошибке
-      example: Ошибка
-      type: string
   responses:
-    defaultInternalServerError:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Ошибка сервера
-    notFoundWithStatus:
+    forbiddenWithStatus:
       content:
         application/json:
           schema:
@@ -385,12 +276,24 @@ components:
               result:
                 $ref: '#/components/schemas/errorResult'
               status:
-                $ref: '#/components/schemas/notFoundResponseStatus'
+                $ref: '#/components/schemas/forbiddenResponseStatus'
             required:
             - status
             - result
             type: object
-      description: Не найдено
+      description: Действие запрещено
+    defaultInternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Ошибка сервера
+    defaultTooManyRequests:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Превышено количество запросов
     badRequestFieldsWithStatus:
       content:
         application/json:
@@ -421,13 +324,7 @@ components:
             - result
             type: object
       description: Требуется авторизация
-    defaultTooManyRequests:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Превышено количество запросов
-    forbiddenWithStatus:
+    notFoundWithStatus:
       content:
         application/json:
           schema:
@@ -436,12 +333,115 @@ components:
               result:
                 $ref: '#/components/schemas/errorResult'
               status:
-                $ref: '#/components/schemas/forbiddenResponseStatus'
+                $ref: '#/components/schemas/notFoundResponseStatus'
             required:
             - status
             - result
             type: object
-      description: Действие запрещено
+      description: Не найдено
+  schemas:
+    badRequestResponseStatus:
+      description: Статус ответа
+      enum:
+      - bad-request
+      example: bad-request
+      type: string
+    notFoundResponseStatus:
+      description: Статус ответа
+      enum:
+      - not-found
+      example: not-found
+      type: string
+    okResponseStatus:
+      description: Статус результата ответа
+      enum:
+      - ok
+      example: ok
+      type: string
+    id:
+      description: Идентификатор
+      example: 123456
+      minimum: 1
+      type: integer
+    errorField:
+      description: Наименование поля
+      example: userId
+      type: string
+    errorMessage:
+      description: Сообщение об ошибке
+      example: Ошибка
+      type: string
+    errorFields:
+      description: Ошибки валидации
+      items:
+        additionalProperties: false
+        description: Ошибка валидации поля
+        properties:
+          field:
+            $ref: '#/components/schemas/errorField'
+          message:
+            $ref: '#/components/schemas/errorMessage'
+        required:
+        - field
+        - message
+        type: object
+      type: array
+    inn:
+      description: ИНН
+      example: 1234567890
+      maxLength: 12
+      minLength: 10
+      type: string
+    errorResult:
+      additionalProperties: false
+      description: Результат с ошибкой
+      properties:
+        message:
+          $ref: '#/components/schemas/errorMessage'
+      required:
+      - message
+      type: object
+    defaultErrorResponse:
+      additionalProperties: false
+      properties:
+        error:
+          additionalProperties: false
+          description: Ошибка
+          properties:
+            code:
+              description: Код ошибки
+              example: 1001
+              type: integer
+            message:
+              $ref: '#/components/schemas/errorMessage'
+          required:
+          - code
+          - message
+          type: object
+      required:
+      - error
+      type: object
+    unauthorizedResponseStatus:
+      description: Статус ответа
+      enum:
+      - unauthorized
+      example: unauthorized
+      type: string
+    forbiddenResponseStatus:
+      description: Статус ответа
+      enum:
+      - forbidden
+      example: forbidden
+      type: string
+    targetTaskId:
+      additionalProperties: false
+      description: Идентификатор задачи проверки ИНН клиентов
+      properties:
+        taskId:
+          $ref: '#/components/schemas/id'
+      required:
+      - taskId
+      type: object
   parameters:
     authHeader:
       description: Токен для авторизации

@@ -483,34 +483,47 @@ paths:
       tags:
       - Statistics
 components:
-  parameters:
-    userIdPathParameter:
-      description: Идентификатор пользователя клиента
-      in: path
-      name: user_id
-      required: true
-      schema:
-        $ref: '#/components/schemas/id'
-    authHeader:
-      description: Токен для авторизации
-      in: header
-      name: Authorization
-      required: true
-      schema:
-        example: Bearer ACCESS_TOKEN
-        type: string
-    agencyClientIdHeader:
-      description: Идентификатор пользователя клиента
-      in: header
-      name: X-AgencyClientId
-      required: true
-      schema:
-        $ref: '#/components/schemas/id'
+  responses:
+    defaultBadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Неверный запрос
+    defaultInternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Ошибка сервера
+    defaultTooManyRequests:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Превышено количество запросов
+    defaultUnauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Требуется авторизация
+    defaultForbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Действие запрещено
   schemas:
-    timestamp:
-      description: Временная метка
-      example: 1598958000
+    counter:
+      description: Счетчик
+      example: 123
       type: integer
+    amountDouble:
+      description: Сумма в рублях
+      example: 1000
+      format: double
+      type: number
     statsSpendingsGrouping:
       description: Тип группировки расходов
       enum:
@@ -519,11 +532,36 @@ components:
       - month
       example: month
       type: string
-    amountDouble:
-      description: Сумма в рублях
-      example: 1000
-      format: double
-      type: number
+    id:
+      description: Идентификатор
+      example: 123456
+      minimum: 1
+      type: integer
+    errorMessage:
+      description: Сообщение об ошибке
+      example: Ошибка
+      type: string
+    limit:
+      description: Ограничение количества сущностей в выборке
+      example: 100
+      maximum: 1000
+      minimum: 1
+      type: integer
+    statsMetricsGrouping:
+      description: Тип группировки показателей
+      enum:
+      - day
+      - week
+      - month
+      - totals
+      example: month
+      type: string
+    ids:
+      description: Список идентификаторов
+      items:
+        $ref: '#/components/schemas/id'
+      minItems: 1
+      type: array
     defaultErrorResponse:
       additionalProperties: false
       properties:
@@ -544,12 +582,20 @@ components:
       required:
       - error
       type: object
-    ids:
-      description: Список идентификаторов
-      items:
-        $ref: '#/components/schemas/id'
-      minItems: 1
-      type: array
+    timestamp:
+      description: Временная метка
+      example: 1598958000
+      type: integer
+    offset:
+      description: Смещение, с которого начинается выборка
+      example: 10
+      minimum: 0
+      type: integer
+    date:
+      description: Дата в формате YYYY-MM-DD
+      example: '2025-05-02'
+      format: date
+      type: string
     statsMetric:
       description: Показатель статистики
       enum:
@@ -590,75 +636,29 @@ components:
       - oldActiveItems
       example: views
       type: string
-    limit:
-      description: Ограничение количества сущностей в выборке
-      example: 100
-      maximum: 1000
-      minimum: 1
-      type: integer
-    counter:
-      description: Счетчик
-      example: 123
-      type: integer
-    id:
-      description: Идентификатор
-      example: 123456
-      minimum: 1
-      type: integer
-    statsMetricsGrouping:
-      description: Тип группировки показателей
-      enum:
-      - day
-      - week
-      - month
-      - totals
-      example: month
-      type: string
-    offset:
-      description: Смещение, с которого начинается выборка
-      example: 10
-      minimum: 0
-      type: integer
-    errorMessage:
-      description: Сообщение об ошибке
-      example: Ошибка
-      type: string
-    date:
-      description: Дата в формате YYYY-MM-DD
-      example: '2025-05-02'
-      format: date
-      type: string
-  responses:
-    defaultInternalServerError:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Ошибка сервера
-    defaultForbidden:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Действие запрещено
-    defaultBadRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Неверный запрос
-    defaultTooManyRequests:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Превышено количество запросов
-    defaultUnauthorized:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Требуется авторизация
+  parameters:
+    userIdPathParameter:
+      description: Идентификатор пользователя клиента
+      in: path
+      name: user_id
+      required: true
+      schema:
+        $ref: '#/components/schemas/id'
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
+    agencyClientIdHeader:
+      description: Идентификатор пользователя клиента
+      in: header
+      name: X-AgencyClientId
+      required: true
+      schema:
+        $ref: '#/components/schemas/id'
   securitySchemes:
     ClientCredentials:
       description: 'Используйте OAuth2 с механизмом `client_credentials` для доступа к возможностям учётной записи агентства. [Подробнее](#tag/Access)

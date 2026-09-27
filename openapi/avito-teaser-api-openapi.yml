@@ -154,13 +154,80 @@ components:
           - message
           type: object
       type: object
-    RequestTeaserByVehicleIdAutoteka:
+    tooManyRequestsError:
       properties:
-        vehicleId:
-          description: Идентификатор запрашиваемого авто (vin/frame).
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 429
+              format: int32
+              type: integer
+          required:
+          - code
+          type: object
+      type: object
+    TeaserWithoutDataAutoteka:
+      properties:
+        status:
+          description: Текущий статус генерации тизера
+          enum:
+          - success
+          - processing
+          example: processing
           type: string
+        teaserId:
+          description: Идентификатор сгенерированного тизера, по которому его можно получить
+          example: 1
+          format: int64
+          minimum: 1
+          type: integer
       required:
-      - vehicleId
+      - teaserId
+      - status
+      type: object
+    notFoundError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 404
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Not found
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    CreateTeaserResponseBodyAutoteka:
+      properties:
+        result:
+          $ref: '#/components/schemas/CreateTeaserResponseDataAutoteka'
+      type: object
+    TeaserResponse:
+      description: Тизер и статус готовности
+      properties:
+        data:
+          $ref: '#/components/schemas/Teaser'
+        status:
+          description: Статус готовности
+          enum:
+          - success
+          - processing
+          type: string
+        teaserId:
+          description: Идентификатор тизера
+          example: 1234567
+          type: integer
+      required:
+      - teaserId
+      - status
+      - data
       type: object
     Teaser:
       description: Тизер
@@ -292,103 +359,18 @@ components:
       type:
       - object
       - 'null'
-    internalError:
+    RequestTeaserByVehicleIdAutoteka:
       properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 500
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Service is temporary unavailable
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    CreateTeaserResponseBodyAutoteka:
-      properties:
-        result:
-          $ref: '#/components/schemas/CreateTeaserResponseDataAutoteka'
-      type: object
-    notFoundError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 404
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Not found
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    TeaserWithoutDataAutoteka:
-      properties:
-        status:
-          description: Текущий статус генерации тизера
-          enum:
-          - success
-          - processing
-          example: processing
+        vehicleId:
+          description: Идентификатор запрашиваемого авто (vin/frame).
           type: string
-        teaserId:
-          description: Идентификатор сгенерированного тизера, по которому его можно получить
-          example: 1
-          format: int64
-          minimum: 1
-          type: integer
       required:
-      - teaserId
-      - status
-      type: object
-    tooManyRequestsError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 429
-              format: int32
-              type: integer
-          required:
-          - code
-          type: object
+      - vehicleId
       type: object
     CreateTeaserResponseDataAutoteka:
       properties:
         teaser:
           $ref: '#/components/schemas/TeaserWithoutDataAutoteka'
-      type: object
-    TeaserResponse:
-      description: Тизер и статус готовности
-      properties:
-        data:
-          $ref: '#/components/schemas/Teaser'
-        status:
-          description: Статус готовности
-          enum:
-          - success
-          - processing
-          type: string
-        teaserId:
-          description: Идентификатор тизера
-          example: 1234567
-          type: integer
-      required:
-      - teaserId
-      - status
-      - data
       type: object
     forbiddenError:
       properties:
@@ -408,17 +390,24 @@ components:
           - message
           type: object
       type: object
-  headers:
-    X-RateLimit-Limit:
-      description: Количество запросов в минуту
-      schema:
-        format: int32
-        type: integer
-    X-RateLimit-Remaining:
-      description: Доступное количество запросов в текущем временном окне
-      schema:
-        format: int32
-        type: integer
+    internalError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 500
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Service is temporary unavailable
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
   parameters:
     authHeader:
       description: Токен для авторизации
@@ -427,6 +416,17 @@ components:
       name: Authorization
       schema:
         type: string
+  headers:
+    X-RateLimit-Remaining:
+      description: Доступное количество запросов в текущем временном окне
+      schema:
+        format: int32
+        type: integer
+    X-RateLimit-Limit:
+      description: Количество запросов в минуту
+      schema:
+        format: int32
+        type: integer
   securitySchemes:
     ClientCredentials:
       description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)

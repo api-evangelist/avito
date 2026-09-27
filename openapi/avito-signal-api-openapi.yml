@@ -73,23 +73,25 @@ components:
           - message
           type: object
       type: object
-    internalError:
+    RequestGetLeads:
       properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 500
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Service is temporary unavailable
-              type: string
-          required:
-          - code
-          - message
-          type: object
+        lastId:
+          description: Последний успешно-прочитанный id, указывается для постраничной выдачи
+          type:
+          - integer
+          - 'null'
+        limit:
+          description: Количество записей в ответе
+          maximum: 10000
+          type:
+          - integer
+          - 'null'
+        subscriptionId:
+          description: Идентификатор подписки
+          minimum: 1
+          type: integer
+      required:
+      - subscriptionId
       type: object
     ResponseGetLeads:
       properties:
@@ -270,26 +272,6 @@ components:
             type: object
           type: array
       type: object
-    RequestGetLeads:
-      properties:
-        lastId:
-          description: Последний успешно-прочитанный id, указывается для постраничной выдачи
-          type:
-          - integer
-          - 'null'
-        limit:
-          description: Количество записей в ответе
-          maximum: 10000
-          type:
-          - integer
-          - 'null'
-        subscriptionId:
-          description: Идентификатор подписки
-          minimum: 1
-          type: integer
-      required:
-      - subscriptionId
-      type: object
     forbiddenError:
       properties:
         error:
@@ -302,6 +284,24 @@ components:
             message:
               description: Сообщение об ошибке
               example: Forbidden
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    internalError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 500
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Service is temporary unavailable
               type: string
           required:
           - code

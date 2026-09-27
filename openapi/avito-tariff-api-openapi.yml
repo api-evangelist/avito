@@ -106,42 +106,6 @@ paths:
       - Tariff
 components:
   schemas:
-    authError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 401
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Unauthorized
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    serviceError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 500
-              format: int32
-              type: integer
-            message:
-              description: Описание ошибки
-              example: Error while processing request. Please, contact support
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
     TariffContractPackage:
       properties:
         categories:
@@ -210,6 +174,42 @@ components:
             message:
               description: Сообщение об ошибке
               example: Not found
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    authError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 401
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Unauthorized
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    serviceError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 500
+              format: int32
+              type: integer
+            message:
+              description: Описание ошибки
+              example: Error while processing request. Please, contact support
               type: string
           required:
           - code

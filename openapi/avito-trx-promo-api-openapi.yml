@@ -175,31 +175,6 @@ paths:
       tags:
       - Trx Promo
 components:
-  responses:
-    errorV3BadRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/apiV3error400'
-      description: BadRequest
-    errorV3InternalError:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/apiV3error500'
-      description: InternalError
-    errorV3Forbidden:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/apiV3error403'
-      description: Forbidden
-    errorV3Unauthenticated:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/apiV3error401'
-      description: Unauthenticated
   parameters:
     OAuthScopes:
       description: Список зон доступа
@@ -281,6 +256,95 @@ components:
                 required:
                 - itemID
                 - success
+                type: object
+              type: array
+          required:
+          - result
+          type: object
+      required:
+      - success
+      title: okResponse
+      type: object
+    apiV3error401:
+      additionalProperties: false
+      properties:
+        unauthenticated:
+          additionalProperties: false
+          properties:
+            message:
+              type: string
+          required:
+          - message
+          type: object
+      required:
+      - unauthenticated
+      title: UnauthenticatedResponse
+      type: object
+    apiV3error400:
+      additionalProperties: false
+      properties:
+        bad-request:
+          additionalProperties: false
+          properties:
+            message:
+              type: string
+          required:
+          - message
+          type: object
+      required:
+      - bad-request
+      title: BadRequestResponse
+      type: object
+    CommissionResponse:
+      additionalProperties: false
+      properties:
+        success:
+          additionalProperties: false
+          properties:
+            result:
+              items:
+                properties:
+                  error:
+                    properties:
+                      code:
+                        enum:
+                        - 1001
+                        type: integer
+                      message:
+                        type: string
+                    required:
+                    - code
+                    - message
+                    type: object
+                  itemID:
+                    type: integer
+                  promoAvailable:
+                    description: Флаг доступности промо
+                    type: boolean
+                  settings:
+                    description: Доступные настройки продвижения
+                    properties:
+                      step:
+                        description: Шаг изменения процента в сотых долях 100 - 1%
+                        example: 100
+                        type: integer
+                      valueMax:
+                        description: Максимальный процент в сотых долях 100 - 1%
+                        example: 1500
+                        type: integer
+                      valueMin:
+                        description: Минимальный процент в сотых долях 100 - 1%
+                        example: 100
+                        type: integer
+                    required:
+                    - valueMin
+                    - valueMax
+                    - step
+                    type: object
+                required:
+                - itemID
+                - promoAvailable
+                - settings
                 type: object
               type: array
           required:
@@ -378,95 +442,31 @@ components:
       - items
       title: requestBody
       type: object
-    apiV3error400:
-      additionalProperties: false
-      properties:
-        bad-request:
-          additionalProperties: false
-          properties:
-            message:
-              type: string
-          required:
-          - message
-          type: object
-      required:
-      - bad-request
-      title: BadRequestResponse
-      type: object
-    apiV3error401:
-      additionalProperties: false
-      properties:
-        unauthenticated:
-          additionalProperties: false
-          properties:
-            message:
-              type: string
-          required:
-          - message
-          type: object
-      required:
-      - unauthenticated
-      title: UnauthenticatedResponse
-      type: object
-    CommissionResponse:
-      additionalProperties: false
-      properties:
-        success:
-          additionalProperties: false
-          properties:
-            result:
-              items:
-                properties:
-                  error:
-                    properties:
-                      code:
-                        enum:
-                        - 1001
-                        type: integer
-                      message:
-                        type: string
-                    required:
-                    - code
-                    - message
-                    type: object
-                  itemID:
-                    type: integer
-                  promoAvailable:
-                    description: Флаг доступности промо
-                    type: boolean
-                  settings:
-                    description: Доступные настройки продвижения
-                    properties:
-                      step:
-                        description: Шаг изменения процента в сотых долях 100 - 1%
-                        example: 100
-                        type: integer
-                      valueMax:
-                        description: Максимальный процент в сотых долях 100 - 1%
-                        example: 1500
-                        type: integer
-                      valueMin:
-                        description: Минимальный процент в сотых долях 100 - 1%
-                        example: 100
-                        type: integer
-                    required:
-                    - valueMin
-                    - valueMax
-                    - step
-                    type: object
-                required:
-                - itemID
-                - promoAvailable
-                - settings
-                type: object
-              type: array
-          required:
-          - result
-          type: object
-      required:
-      - success
-      title: okResponse
-      type: object
+  responses:
+    errorV3Forbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/apiV3error403'
+      description: Forbidden
+    errorV3BadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/apiV3error400'
+      description: BadRequest
+    errorV3InternalError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/apiV3error500'
+      description: InternalError
+    errorV3Unauthenticated:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/apiV3error401'
+      description: Unauthenticated
   securitySchemes:
     AuthorizationCode:
       description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](#tag/ApplicationAccess)

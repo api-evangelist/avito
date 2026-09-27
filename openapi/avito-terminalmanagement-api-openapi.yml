@@ -198,77 +198,6 @@ paths:
       - TerminalManagement
 components:
   schemas:
-    Delivery-zipCode:
-      example: '324654'
-      title: Почтовый индекс. Не может быть пустым. Должен содержать 6 цифр.
-      type: string
-    SortingCentersTagsTaskResult:
-      properties:
-        count:
-          description: Количество успешно привязанных тегов к сортировочным центрам
-          type: string
-      required:
-      - count
-      title: Привязка тегов к сортировочным центрам
-      type: object
-    customAreaScheduleRequest:
-      description: "Список уникальных кастомных расписаний. \nОбратите внимание, повторная заливка расписания перезаписывает старое для одного и того же сочетания область, дата, услуга.\n"
-      items:
-        $ref: '#/components/schemas/customAreaScheduleRequestObject'
-      minItems: 1
-      type: array
-    SortingCentersTaskResult:
-      properties:
-        count:
-          description: Количество успешно загруженных сортировочных центров
-          type: string
-      required:
-      - count
-      title: Загрузка сортировочных центров
-      type: object
-    AreasTaskResult:
-      properties:
-        edited:
-          type: string
-        incoming:
-          type: string
-      required:
-      - edited
-      - incoming
-      title: Области доставки
-      type: object
-    DeliveryError:
-      properties:
-        code:
-          description: код ошибки
-          example: fail
-          title: код ошибки
-          type: string
-        message:
-          description: Человекопонятное описание ошибки
-          example: something went wrong
-          title: описание ошибки
-          type: string
-      required:
-      - code
-      - message
-      type:
-      - object
-      - 'null'
-    AddTerminalsReply:
-      properties:
-        data:
-          properties:
-            taskId:
-              description: id задачи на добавление терминалов
-              format: int32
-              type: integer
-          type:
-          - object
-          - 'null'
-        error:
-          $ref: '#/components/schemas/DeliveryError'
-      type: object
     AddTaskReply:
       properties:
         data:
@@ -299,10 +228,83 @@ components:
           - object
           - 'null'
       type: object
+    DeliveryError:
+      properties:
+        code:
+          description: код ошибки
+          example: fail
+          title: код ошибки
+          type: string
+        message:
+          description: Человекопонятное описание ошибки
+          example: something went wrong
+          title: описание ошибки
+          type: string
+      required:
+      - code
+      - message
+      type:
+      - object
+      - 'null'
+    customAreaScheduleRequest:
+      description: "Список уникальных кастомных расписаний. \nОбратите внимание, повторная заливка расписания перезаписывает старое для одного и того же сочетания область, дата, услуга.\n"
+      items:
+        $ref: '#/components/schemas/customAreaScheduleRequestObject'
+      minItems: 1
+      type: array
+    DeliveryIntervalInDate:
+      description: дата и вреся доставки/забора (дата и время локальные, таймзона соотвествует таймзоне, в которой происходит событие)
+      properties:
+        date:
+          description: дата доставки/забора
+          example: '2006-01-04'
+          format: date
+          type: string
+        intervals:
+          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
+      required:
+      - date
+      - intervals
+      type: object
+    DeliveryDayTimeIntervals:
+      description: 'Список интервалов времени внутри одного дня, в формате - `hh:mm:ss/hh:mm:ss`
+
+        Время локальное для региона загружаемых данных.
+
+        '
+      items:
+        $ref: '#/components/schemas/DeliveryDayTimeInterval'
+      type: array
+    Delivery-directionTag:
+      description: "Тэг направления, к которому привязывается пункт_самовывоза / индекс (область доставки).\n<br />\nИспользуется для связки в направлениях тарифа. Поля:\n  - `directionTagFrom`\n  - `directionTagTo`\n"
+      example: moscow-2020-12-12
+      title: Тэг направления
+      type: string
+    DeliveryProviderAreaNumber:
+      description: "id области доставки на стороне службы доставки \n(передается при загрузке областей доставки и будет использоваться при создании заказа \nв качестве идентификатора адресного объекта забора/доставки отправления)\n"
+      example: 7989jgftyf-jkghtd
+      maxLength: 128
+      minLength: 1
+      type: string
+    AreasTaskResult:
+      properties:
+        edited:
+          type: string
+        incoming:
+          type: string
+      required:
+      - edited
+      - incoming
+      title: Области доставки
+      type: object
     DeliveryDayTimeInterval:
       description: Интервал времени внутри одного дня `hh:mm:ss/hh:mm:ss`
       example: 09:00:00/12:00:00
       type: string
+    AddTerminalsRequest:
+      items:
+        $ref: '#/components/schemas/Terminal'
+      type: array
     customAreaScheduleRequestObject:
       properties:
         customSchedule:
@@ -337,37 +339,90 @@ components:
       - services
       - customSchedule
       type: object
-    DeliveryError4XX:
+    Address:
       properties:
-        message:
-          description: Человекопонятное описание ошибки
-          example: something went wrong
-          title: Описание ошибки
+        addressRow:
+          description: Человекочитаемое представление адреса
+          example: Челябинская обл, Магнитогорск, Герцена ул, д.6
           type: string
-        status:
-          description: false – в случае возникновения ошибки
-          example: false
-          title: статус
-          type: boolean
-      required:
-      - code
-      - message
-      type:
-      - object
-      - 'null'
-    DeliveryIntervalInDate:
-      description: дата и вреся доставки/забора (дата и время локальные, таймзона соотвествует таймзоне, в которой происходит событие)
-      properties:
-        date:
-          description: дата доставки/забора
-          example: '2006-01-04'
-          format: date
+        building:
+          description: Строение
+          example: '2'
           type: string
-        intervals:
-          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
+        country:
+          description: Страна
+          example: Российская Федерация
+          type: string
+        fias:
+          description: ФИАС идентификатор населенного пункта, в котором расположен ПВЗ. Не может быть пустым. Должен иметь формат UUID.
+          example: 0c5b2444-70a0-4932-980c-b4dc0d3f02b5
+          type: string
+        floor:
+          description: Этаж
+          example: 1
+          type: integer
+        house:
+          description: Дом
+          example: 2
+          type: string
+        housing:
+          description: Корпус
+          example: 4
+          type: string
+        lat:
+          description: Географическая широта, в градусах.
+          example: 52.3295026
+          maximum: 81.8
+          minimum: 41.1
+          type: number
+        lng:
+          description: Географическая долгота, в градусах.
+          example: 55.697951
+          maximum: 180
+          minimum: -180
+          type: number
+        locality:
+          description: Населенный пункт. Не может быть пустым.
+          example: Набережные Челны
+          type: string
+        localityType:
+          description: Тип населенного пункта
+          example: город
+          type: string
+        porch:
+          description: Подъезд
+          example: 3
+          type: string
+        region:
+          description: "Субъект Российской Федерации.  \nВозможные типы субъектов: республики, края, области, города федерального значения, автономные области и автономные округа\n"
+          example: Республика Татарстан
+          type: string
+        room:
+          description: Квартира (офис).
+          example: 4
+          type: string
+        street:
+          description: Улица
+          example: ленина
+          type: string
+        subRegion:
+          description: Субрегион
+          example: Набережные Челны
+          type: string
+        subRegionType:
+          description: Тип субрегиона - муниципальный район/городской округ
+          example: городской округ
+          type: string
+        zipCode:
+          $ref: '#/components/schemas/Delivery-zipCode'
       required:
-      - date
-      - intervals
+      - conuntry
+      - region
+      - locality
+      - fias
+      - zipCode
+      - lat
+      - lng
       type: object
     TariffTaskResult:
       properties:
@@ -378,10 +433,6 @@ components:
       - tariffId
       title: Загрузка тарифа
       type: object
-    AddTerminalsRequest:
-      items:
-        $ref: '#/components/schemas/Terminal'
-      type: array
     Delivery-phones:
       description: Список номеров телефонов
       items:
@@ -389,6 +440,50 @@ components:
         pattern: ^7[0-9]{10}$
         type: string
       type: array
+    Delivery-zipCode:
+      example: '324654'
+      title: Почтовый индекс. Не может быть пустым. Должен содержать 6 цифр.
+      type: string
+    AreasCustomScheduleTaskResult:
+      properties:
+        uploaded:
+          type: string
+      required:
+      - uploaded
+      title: Кастомное расписание областей доставки
+      type: object
+    SortingCentersTagsTaskResult:
+      properties:
+        count:
+          description: Количество успешно привязанных тегов к сортировочным центрам
+          type: string
+      required:
+      - count
+      title: Привязка тегов к сортировочным центрам
+      type: object
+    AddTerminalsReply:
+      properties:
+        data:
+          properties:
+            taskId:
+              description: id задачи на добавление терминалов
+              format: int32
+              type: integer
+          type:
+          - object
+          - 'null'
+        error:
+          $ref: '#/components/schemas/DeliveryError'
+      type: object
+    SortingCentersTaskResult:
+      properties:
+        count:
+          description: Количество успешно загруженных сортировочных центров
+          type: string
+      required:
+      - count
+      title: Загрузка сортировочных центров
+      type: object
     Restriction:
       properties:
         dimensionalFactor:
@@ -436,17 +531,82 @@ components:
       - maxDimensions
       - maxDeclaredCost
       type: object
-    Delivery-directionTag:
-      description: "Тэг направления, к которому привязывается пункт_самовывоза / индекс (область доставки).\n<br />\nИспользуется для связки в направлениях тарифа. Поля:\n  - `directionTagFrom`\n  - `directionTagTo`\n"
-      example: moscow-2020-12-12
-      title: Тэг направления
-      type: string
-    DeliveryProviderAreaNumber:
-      description: "id области доставки на стороне службы доставки \n(передается при загрузке областей доставки и будет использоваться при создании заказа \nв качестве идентификатора адресного объекта забора/доставки отправления)\n"
-      example: 7989jgftyf-jkghtd
-      maxLength: 128
-      minLength: 1
-      type: string
+    DeliveryError4XX:
+      properties:
+        message:
+          description: Человекопонятное описание ошибки
+          example: something went wrong
+          title: Описание ошибки
+          type: string
+        status:
+          description: false – в случае возникновения ошибки
+          example: false
+          title: статус
+          type: boolean
+      required:
+      - code
+      - message
+      type:
+      - object
+      - 'null'
+    GetTaskData:
+      properties:
+        errors:
+          items:
+            $ref: '#/components/schemas/DeliveryError'
+          type:
+          - array
+          - 'null'
+        result:
+          oneOf:
+          - $ref: '#/components/schemas/AreasTaskResult'
+          - $ref: '#/components/schemas/AreasCustomScheduleTaskResult'
+          - $ref: '#/components/schemas/TerminalsTaskResult'
+          - $ref: '#/components/schemas/TariffTaskResult'
+          - $ref: '#/components/schemas/SortingCentersTaskResult'
+          - $ref: '#/components/schemas/SortingCentersTagsTaskResult'
+        state:
+          description: Статус задачи
+          enum:
+          - processing
+          - success
+          - failed
+          - pending_approval
+          - declined
+          type: string
+        taskId:
+          format: int32
+          type: integer
+      required:
+      - taskId
+      - state
+      type: object
+    Schedule:
+      description: "Значения интервала времени в течение дня должны быть в диапазоне от `00:00:00` до `23:59:59`.\nИнтервал работы после полуночи необходимо переносить в следующий день недели.\n\nПравильно:\n  - `\"fri\": [\"09:00:00/12:00:00\", \"13:00:00/18:00:00\"]` – расписание в пятницу с 9 до 18 с перерывом с 12 до 13\n  - `\"sun\": []` – выходной в воскресенье\n\nНеправильно:\n  - `\"mon\": [\"09:00/18:00\"]` – не хватает значения секунд\n  - `\"tue\": [\"09:00:00/01:00:00\"]` – интервал заходит на следующий день\n  - `\"wen\": [\"09:00:00/00:00:00\"]` – максимальное значение границы должно быть `23:59:59`\n"
+      properties:
+        fri:
+          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
+        mon:
+          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
+        sat:
+          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
+        sun:
+          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
+        thu:
+          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
+        tue:
+          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
+        wed:
+          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
+      required:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+      - sun
+      type: object
     GetTaskReply:
       properties:
         data:
@@ -565,14 +725,6 @@ components:
       - schedule
       - restriction
       type: object
-    AreasCustomScheduleTaskResult:
-      properties:
-        uploaded:
-          type: string
-      required:
-      - uploaded
-      title: Кастомное расписание областей доставки
-      type: object
     TerminalsTaskResult:
       description: 'Результат загрузки терминалов.
 
@@ -626,165 +778,6 @@ components:
           type: string
       title: Загрузка терминалов
       type: object
-    Address:
-      properties:
-        addressRow:
-          description: Человекочитаемое представление адреса
-          example: Челябинская обл, Магнитогорск, Герцена ул, д.6
-          type: string
-        building:
-          description: Строение
-          example: '2'
-          type: string
-        country:
-          description: Страна
-          example: Российская Федерация
-          type: string
-        fias:
-          description: ФИАС идентификатор населенного пункта, в котором расположен ПВЗ. Не может быть пустым. Должен иметь формат UUID.
-          example: 0c5b2444-70a0-4932-980c-b4dc0d3f02b5
-          type: string
-        floor:
-          description: Этаж
-          example: 1
-          type: integer
-        house:
-          description: Дом
-          example: 2
-          type: string
-        housing:
-          description: Корпус
-          example: 4
-          type: string
-        lat:
-          description: Географическая широта, в градусах.
-          example: 52.3295026
-          maximum: 81.8
-          minimum: 41.1
-          type: number
-        lng:
-          description: Географическая долгота, в градусах.
-          example: 55.697951
-          maximum: 180
-          minimum: -180
-          type: number
-        locality:
-          description: Населенный пункт. Не может быть пустым.
-          example: Набережные Челны
-          type: string
-        localityType:
-          description: Тип населенного пункта
-          example: город
-          type: string
-        porch:
-          description: Подъезд
-          example: 3
-          type: string
-        region:
-          description: "Субъект Российской Федерации.  \nВозможные типы субъектов: республики, края, области, города федерального значения, автономные области и автономные округа\n"
-          example: Республика Татарстан
-          type: string
-        room:
-          description: Квартира (офис).
-          example: 4
-          type: string
-        street:
-          description: Улица
-          example: ленина
-          type: string
-        subRegion:
-          description: Субрегион
-          example: Набережные Челны
-          type: string
-        subRegionType:
-          description: Тип субрегиона - муниципальный район/городской округ
-          example: городской округ
-          type: string
-        zipCode:
-          $ref: '#/components/schemas/Delivery-zipCode'
-      required:
-      - conuntry
-      - region
-      - locality
-      - fias
-      - zipCode
-      - lat
-      - lng
-      type: object
-    DeliveryDayTimeIntervals:
-      description: 'Список интервалов времени внутри одного дня, в формате - `hh:mm:ss/hh:mm:ss`
-
-        Время локальное для региона загружаемых данных.
-
-        '
-      items:
-        $ref: '#/components/schemas/DeliveryDayTimeInterval'
-      type: array
-    Schedule:
-      description: "Значения интервала времени в течение дня должны быть в диапазоне от `00:00:00` до `23:59:59`.\nИнтервал работы после полуночи необходимо переносить в следующий день недели.\n\nПравильно:\n  - `\"fri\": [\"09:00:00/12:00:00\", \"13:00:00/18:00:00\"]` – расписание в пятницу с 9 до 18 с перерывом с 12 до 13\n  - `\"sun\": []` – выходной в воскресенье\n\nНеправильно:\n  - `\"mon\": [\"09:00/18:00\"]` – не хватает значения секунд\n  - `\"tue\": [\"09:00:00/01:00:00\"]` – интервал заходит на следующий день\n  - `\"wen\": [\"09:00:00/00:00:00\"]` – максимальное значение границы должно быть `23:59:59`\n"
-      properties:
-        fri:
-          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
-        mon:
-          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
-        sat:
-          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
-        sun:
-          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
-        thu:
-          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
-        tue:
-          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
-        wed:
-          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
-      required:
-      - mon
-      - tue
-      - wed
-      - thu
-      - fri
-      - sat
-      - sun
-      type: object
-    GetTaskData:
-      properties:
-        errors:
-          items:
-            $ref: '#/components/schemas/DeliveryError'
-          type:
-          - array
-          - 'null'
-        result:
-          oneOf:
-          - $ref: '#/components/schemas/AreasTaskResult'
-          - $ref: '#/components/schemas/AreasCustomScheduleTaskResult'
-          - $ref: '#/components/schemas/TerminalsTaskResult'
-          - $ref: '#/components/schemas/TariffTaskResult'
-          - $ref: '#/components/schemas/SortingCentersTaskResult'
-          - $ref: '#/components/schemas/SortingCentersTagsTaskResult'
-        state:
-          description: Статус задачи
-          enum:
-          - processing
-          - success
-          - failed
-          - pending_approval
-          - declined
-          type: string
-        taskId:
-          format: int32
-          type: integer
-      required:
-      - taskId
-      - state
-      type: object
-  parameters:
-    authHeader:
-      description: Токен для авторизации
-      example: Bearer ACCESS_TOKEN
-      in: header
-      name: Authorization
-      required: true
   responses:
     DeliveryForbidden:
       content:
@@ -795,15 +788,6 @@ components:
                 $ref: '#/components/schemas/DeliveryError4XX'
             type: object
       description: Ошибка авторизации. Например, нет прав для выполнения операции.
-    DeliveryInternalServerError:
-      content:
-        application/json:
-          schema:
-            properties:
-              error:
-                $ref: '#/components/schemas/DeliveryError'
-            type: object
-      description: internal server error
     DeliveryUnauthorized:
       content:
         application/json:
@@ -813,6 +797,22 @@ components:
                 $ref: '#/components/schemas/DeliveryError4XX'
             type: object
       description: Ошибка аутентификации. Например, некорректный токен.
+    DeliveryInternalServerError:
+      content:
+        application/json:
+          schema:
+            properties:
+              error:
+                $ref: '#/components/schemas/DeliveryError'
+            type: object
+      description: internal server error
+  parameters:
+    authHeader:
+      description: Токен для авторизации
+      example: Bearer ACCESS_TOKEN
+      in: header
+      name: Authorization
+      required: true
   securitySchemes:
     AuthorizationCode:
       description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)

@@ -318,74 +318,6 @@ components:
       required:
       - fields
       type: object
-    GetSpecificationResponseDataAutoteka:
-      properties:
-        documents:
-          $ref: '#/components/schemas/DocumentsResultAutoteka'
-        newCarValuations:
-          description: 'Массив оценок новых авто с аналогичной спецификацией.
-
-
-            Чтобы подключить эту возможность, обратитесь к менеджеру Автотеки.
-
-            '
-          items:
-            $ref: '#/components/schemas/NewCarValuation'
-          type:
-          - array
-          - 'null'
-        specification:
-          $ref: '#/components/schemas/SpecificationResultAutoteka'
-        valuation:
-          $ref: '#/components/schemas/AvitoPriceValuation'
-      type: object
-    DocumentsResultAutoteka:
-      properties:
-        pts:
-          description: Информация о ПТС
-          properties:
-            date:
-              description: Дата выдачи ПТС
-              example: '2024-07-31'
-              type:
-              - string
-              - 'null'
-            number:
-              description: Номер ПТС
-              example: '1234567890'
-              type:
-              - string
-              - 'null'
-            organization:
-              description: Организация, выдавшая ПТС
-              example: Название организации
-              type:
-              - string
-              - 'null'
-          type:
-          - object
-          - 'null'
-        sts:
-          description: Информация об СТС
-          properties:
-            date:
-              description: Дата выдачи СТС
-              example: '2024-07-31'
-              type:
-              - string
-              - 'null'
-            number:
-              description: Серия и номер СТС
-              example: '1234567890'
-              type:
-              - string
-              - 'null'
-          type:
-          - object
-          - 'null'
-      type:
-      - object
-      - 'null'
     RequestReportByVehicleIdAutoteka:
       properties:
         vehicleId:
@@ -394,417 +326,6 @@ components:
           type: string
       required:
       - vehicleId
-      type: object
-    AvitoPriceValuation:
-      description: Оценка подержаного автомобиля от Авито
-      properties:
-        avgMarketPrice:
-          description: Оценка на основе объявлений
-          example: 950000
-          type:
-          - integer
-          - 'null'
-        avgMileage:
-          description: Средний пробег аналогов
-          example: 50000
-          type:
-          - integer
-          - 'null'
-        avgPriceWithCondition:
-          description: Оценка с учетом состояния автомобилей на основе реальных сделок
-          example: 936000
-          type: integer
-        avgYear:
-          description: Средний год выпуска аналогов
-          example: 2012.9999
-          format: float
-          type:
-          - number
-          - 'null'
-        imvUrl:
-          deprecated: true
-          description: Поле больше не заполняется. Ссылка на страницу Авито IMV вида https://www.avito.ru/au-imv-info/2963331288
-          example: https://www.avito.ru/au-imv-info/2963331288
-          type:
-          - string
-          - 'null'
-        itemsCount:
-          description: Количество машин, учтенных в оценке
-          example: 121
-          type:
-          - integer
-          - 'null'
-        marketNormalPriceRange:
-          description: Диапазон "рыночной" оценки данного автомобиля по закрытым сделкам
-          properties:
-            max:
-              description: Максимальная граница "рыночной" оценки данного автомобиля по закрытым сделкам
-              example: 5248900
-              type: integer
-            min:
-              description: Минимальная граница "рыночной" оценки данного автомобиля по закрытым сделкам
-              example: 3248900
-              type: integer
-          required:
-          - min
-          - max
-          type:
-          - object
-          - 'null'
-        maxPrice:
-          description: Максимальная цена похожих авто на основе объявлений
-          example: 1000000
-          type:
-          - integer
-          - 'null'
-        minPrice:
-          description: Минимальная цена похожих авто на основе объявлений
-          example: 800000
-          type:
-          - integer
-          - 'null'
-      required:
-      - avgPriceWithCondition
-      type:
-      - object
-      - 'null'
-    internalError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 500
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Service is temporary unavailable
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    RequestValuationBySpecificationResolve:
-      properties:
-        location:
-          properties:
-            lat:
-              example: 55.755863189697266
-              format: float64
-              type: number
-            long:
-              example: 37.617698669433594
-              format: float64
-              type: number
-          required:
-          - lat
-          - long
-          type:
-          - object
-          - 'null'
-        mileage:
-          description: Пробег в км
-          example: 15000
-          format: int32
-          type:
-          - integer
-          - 'null'
-        specification:
-          properties:
-            bodyType:
-              description: Тип ТС
-              properties:
-                label:
-                  description: Значение параметра
-                  example: Кроссовер
-                  type: string
-                valueId:
-                  description: Идентификатор значения параметра
-                  example: 13815
-                  format: int64
-                  minimum: 1
-                  type: integer
-              required:
-              - label
-              - valueId
-              type:
-              - object
-              - 'null'
-            brand:
-              description: Марка
-              properties:
-                label:
-                  description: Значение параметра
-                  example: BMW
-                  type: string
-                valueId:
-                  description: Идентификатор значения параметра
-                  example: 13815
-                  format: int64
-                  minimum: 1
-                  type: integer
-              required:
-              - label
-              - valueId
-              type: object
-            color:
-              description: Цвет
-              properties:
-                label:
-                  description: Значение параметра
-                  example: Серебряный
-                  type: string
-                valueId:
-                  description: Идентификатор значения параметра
-                  example: 13815
-                  format: int64
-                  minimum: 1
-                  type: integer
-              required:
-              - label
-              - valueId
-              type:
-              - object
-              - 'null'
-            complectation:
-              description: Комплектация
-              properties:
-                label:
-                  description: Значение параметра
-                  example: Престиж
-                  type: string
-                valueId:
-                  description: Идентификатор значения параметра
-                  example: 13815
-                  format: int64
-                  minimum: 1
-                  type: integer
-              required:
-              - label
-              - valueId
-              type:
-              - object
-              - 'null'
-            doorsCount:
-              description: Количество дверей
-              properties:
-                label:
-                  description: Значение параметра
-                  example: 4
-                  type: string
-                valueId:
-                  description: Идентификатор значения параметра
-                  example: 13815
-                  format: int64
-                  minimum: 1
-                  type: integer
-              required:
-              - label
-              - valueId
-              type:
-              - object
-              - 'null'
-            generation:
-              description: 'Поколение
-
-
-                Для оценки нового авто, параметр является необязательным, в таком случае возможно заполнение `{"label": "", "valueId": 0}`
-
-                '
-              properties:
-                label:
-                  description: Значение параметра
-                  example: 1 поколение
-                  type: string
-                valueId:
-                  description: Идентификатор значения параметра
-                  example: 13815
-                  format: int64
-                  minimum: 0
-                  type: integer
-              required:
-              - label
-              - valueId
-              type: object
-            model:
-              description: Модель
-              properties:
-                label:
-                  description: Значение параметра
-                  example: X3
-                  type: string
-                valueId:
-                  description: Идентификатор значения параметра
-                  example: 13815
-                  format: int64
-                  minimum: 1
-                  type: integer
-              required:
-              - label
-              - valueId
-              type: object
-            modification:
-              description: 'Модификация
-
-
-                Для оценки нового авто, параметр является необязательным, в таком случае возможно заполнение `{"label": "", "valueId": 0}`
-
-                '
-              properties:
-                label:
-                  description: Значение параметра
-                  example: Люкс
-                  type: string
-                valueId:
-                  description: Идентификатор значения параметра
-                  example: 13815
-                  format: int64
-                  minimum: 0
-                  type: integer
-              required:
-              - label
-              - valueId
-              type: object
-            ownersCount:
-              description: 'Количество владельцев
-
-
-                Для оценки нового авто, параметр является необязательным, в таком случае возможно заполнение `{"label": "", "valueId": 0}`
-
-                '
-              properties:
-                label:
-                  description: Значение параметра
-                  example: 4+
-                  type: string
-                valueId:
-                  description: Идентификатор значения параметра
-                  example: 13815
-                  format: int64
-                  minimum: 0
-                  type: integer
-              required:
-              - label
-              - valueId
-              type: object
-            year:
-              description: Год выпуска
-              properties:
-                label:
-                  description: Значение параметра
-                  example: 2013
-                  type: string
-                valueId:
-                  description: Идентификатор значения параметра
-                  example: 13815
-                  format: int64
-                  minimum: 1
-                  type: integer
-              required:
-              - label
-              - valueId
-              type: object
-          required:
-          - brand
-          - model
-          - year
-          - generation
-          - modification
-          - ownersCount
-          type: object
-        vehicleId:
-          description: Идентификатор авто (vin/frame).
-          example: XTA21110987654321
-          type:
-          - string
-          - 'null'
-      required:
-      - specification
-      type: object
-    SpecificationIdResultAutoteka:
-      properties:
-        specificationId:
-          description: Идентификатор спецификации, по которому ее можно получить
-          example: 1
-          format: int64
-          minimum: 1
-          type: integer
-      required:
-      - specificationId
-      type: object
-    tooManyRequestsError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 429
-              format: int32
-              type: integer
-          required:
-          - code
-          type: object
-      type: object
-    CatalogsFieldAutoteka:
-      description: Параметр из каталога Авито
-      properties:
-        dataType:
-          description: Тип значения параметра
-          example: integer
-          type: string
-        id:
-          description: Идентификатор параметра
-          example: 110000
-          format: int64
-          minimum: 1
-          type: integer
-        label:
-          description: Название параметра
-          example: Марка
-          type: string
-        values:
-          items:
-            properties:
-              label:
-                description: Значение параметра
-                example: Accent
-                type: string
-              valueId:
-                description: Идентификатор значения параметра
-                example: 403154
-                format: int64
-                minimum: 1
-                type: integer
-            required:
-            - label
-            - valueId
-            type: object
-          type: array
-      required:
-      - id
-      - label
-      - dataType
-      - values
-      type: object
-    forbiddenError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 403
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Forbidden
-              type: string
-          required:
-          - code
-          - message
-          type: object
       type: object
     ValuationBySpecificationResultAutoteka:
       properties:
@@ -866,78 +387,71 @@ components:
       - status
       - vehicleId
       type: object
-    validatingError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 400
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Validation error
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
     GetSpecificationResponseBodyAutoteka:
       properties:
         result:
           $ref: '#/components/schemas/GetSpecificationResponseDataAutoteka'
       type: object
-    RequestCatalogsResolve:
-      properties:
-        fieldsValueIds:
-          description: Выбранные значения параметров
-          items:
-            properties:
-              id:
-                description: Идентификатор параметра из каталога Авито
-                example: 110000
-                format: int64
-                minimum: 1
-                type: integer
-              valueId:
-                description: Идентификатор значения из каталога Авито
-                example: 403153
-                format: int64
-                minimum: 1
-                type: integer
-            required:
-            - id
-            - valueId
-            type: object
-          type: array
-      required:
-      - fieldsValueIds
-      type: object
-    CreateSpecificationResponseDataAutoteka:
-      properties:
-        specification:
-          $ref: '#/components/schemas/SpecificationIdResultAutoteka'
-      type: object
-    notFoundError:
+    tooManyRequestsError:
       properties:
         error:
           properties:
             code:
               description: Код ошибки
-              example: 404
+              example: 429
               format: int32
               type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Not found
-              type: string
           required:
           - code
-          - message
           type: object
       type: object
+    DocumentsResultAutoteka:
+      properties:
+        pts:
+          description: Информация о ПТС
+          properties:
+            date:
+              description: Дата выдачи ПТС
+              example: '2024-07-31'
+              type:
+              - string
+              - 'null'
+            number:
+              description: Номер ПТС
+              example: '1234567890'
+              type:
+              - string
+              - 'null'
+            organization:
+              description: Организация, выдавшая ПТС
+              example: Название организации
+              type:
+              - string
+              - 'null'
+          type:
+          - object
+          - 'null'
+        sts:
+          description: Информация об СТС
+          properties:
+            date:
+              description: Дата выдачи СТС
+              example: '2024-07-31'
+              type:
+              - string
+              - 'null'
+            number:
+              description: Серия и номер СТС
+              example: '1234567890'
+              type:
+              - string
+              - 'null'
+          type:
+          - object
+          - 'null'
+      type:
+      - object
+      - 'null'
     RequestReportByPlateNumberAutoteka:
       properties:
         plateNumber:
@@ -947,305 +461,17 @@ components:
       required:
       - plateNumber
       type: object
-    SpecificationResultAutoteka:
+    SpecificationIdResultAutoteka:
       properties:
-        equipment:
-          $ref: '#/components/schemas/SpecificationEquipmentAutoteka'
-        normalizedSpecification:
-          $ref: '#/components/schemas/SpecificationNormalizedSpecificationAutoteka'
-        plateNumber:
-          description: Регистрационный номер
-          example: X777XX777
-          type:
-          - string
-          - 'null'
         specificationId:
-          description: Идентификатор спецификации
-          example: 157987
+          description: Идентификатор спецификации, по которому ее можно получить
+          example: 1
           format: int64
+          minimum: 1
           type: integer
-        status:
-          description: Статус `success`, `processing`, `notFound`
-          example: success
-          type: string
-        vehicleId:
-          description: Идентификатор запрашиваемого авто (vin/frame)
-          example: XUUNF487JA0007223
-          type:
-          - string
-          - 'null'
       required:
-      - equipment
-      - normalizedSpecification
       - specificationId
-      - plateNumber
-      - status
-      - vehicleId
       type: object
-    SpecificationNormalizedSpecificationAutoteka:
-      properties:
-        bodyType:
-          description: Кузов
-          properties:
-            value:
-              description: Значение
-              example: Внедорожник
-              type: string
-            valueId:
-              description: Идентификатор значения
-              example: 331231
-              format: int64
-              type: integer
-          required:
-          - valueId
-          - value
-          type:
-          - object
-          - 'null'
-        brand:
-          description: Бренд
-          properties:
-            value:
-              description: Значение
-              example: Chery
-              type: string
-            valueId:
-              description: Идентификатор значения
-              example: 329210
-              format: int64
-              type: integer
-          required:
-          - valueId
-          - value
-          type:
-          - object
-          - 'null'
-        capacity:
-          description: Емкость
-          properties:
-            value:
-              description: Значение
-              example: 129
-              format: float64
-              type: number
-          required:
-          - value
-          type:
-          - object
-          - 'null'
-        complectation:
-          description: Комплектация
-          properties:
-            value:
-              description: Значение
-              example: Comfort
-              type: string
-            valueId:
-              description: Идентификатор значения
-              example: 369961
-              format: int64
-              type: integer
-          required:
-          - valueId
-          - value
-          type:
-          - object
-          - 'null'
-        doorsCount:
-          description: Количество дверей
-          properties:
-            value:
-              description: Значение
-              example: 5
-              format: int64
-              type: integer
-            valueId:
-              description: Идентификатор значения
-              example: 331245
-              format: int64
-              type: integer
-          required:
-          - valueId
-          - value
-          type:
-          - object
-          - 'null'
-        drive:
-          description: Привод
-          properties:
-            value:
-              description: Значение
-              example: Передний
-              type: string
-            valueId:
-              description: Идентификатор значения
-              example: 331251
-              format: int64
-              type: integer
-          required:
-          - valueId
-          - value
-          type:
-          - object
-          - 'null'
-        engine:
-          description: Объем двигателя
-          properties:
-            value:
-              description: Значение
-              example: 2.4
-              format: float64
-              type: number
-            valueId:
-              description: Идентификатор значения
-              example: 331775
-              format: int64
-              type: integer
-          required:
-          - valueId
-          - value
-          type:
-          - object
-          - 'null'
-        engineType:
-          description: Тип двигателя
-          properties:
-            value:
-              description: Значение
-              example: Бензин
-              type: string
-            valueId:
-              description: Идентификатор значения
-              example: 331247
-              format: int64
-              type: integer
-          required:
-          - valueId
-          - value
-          type:
-          - object
-          - 'null'
-        generation:
-          description: Поколение
-          properties:
-            value:
-              description: Значение
-              example: T11 (2005—2013)
-              type: string
-            valueId:
-              description: Идентификатор значения
-              example: 332287
-              format: int64
-              type: integer
-          required:
-          - valueId
-          - value
-          type:
-          - object
-          - 'null'
-        model:
-          description: Модель
-          properties:
-            value:
-              description: Значение
-              example: Tiggo (T11)
-              type: string
-            valueId:
-              description: Идентификатор значения
-              example: 330887
-              format: int64
-              type: integer
-          required:
-          - valueId
-          - value
-          type:
-          - object
-          - 'null'
-        modification:
-          description: Модификация
-          properties:
-            value:
-              description: Значение
-              example: 2.4 MT (129 л.с.)
-              type: string
-            valueId:
-              description: Идентификатор значения
-              example: 408424
-              format: int64
-              type: integer
-          required:
-          - valueId
-          - value
-          type:
-          - object
-          - 'null'
-        transmission:
-          description: Тип КПП
-          properties:
-            value:
-              description: Значение
-              example: Механика
-              type: string
-            valueId:
-              description: Идентификатор значения
-              example: 331254
-              format: int64
-              type: integer
-          required:
-          - valueId
-          - value
-          type:
-          - object
-          - 'null'
-        wheel:
-          description: Руль
-          properties:
-            value:
-              description: Значение
-              example: Левый
-              type: string
-          required:
-          - value
-          type:
-          - object
-          - 'null'
-        year:
-          description: Год выпуска
-          properties:
-            value:
-              description: Значение
-              example: 2007
-              format: int64
-              type: integer
-            valueId:
-              description: Идентификатор значения
-              example: 331123
-              format: int64
-              type: integer
-          required:
-          - valueId
-          - value
-          type:
-          - object
-          - 'null'
-      required:
-      - brand
-      - model
-      - bodyType
-      - doorsCount
-      - drive
-      - wheel
-      - engineType
-      - engine
-      - capacity
-      - transmission
-      - generation
-      - modification
-      - complectation
-      - year
-      type:
-      - object
-      - 'null'
     SpecificationEquipmentAutoteka:
       properties:
         bodyNumber:
@@ -1672,6 +898,795 @@ components:
       type:
       - object
       - 'null'
+    CatalogsResolveResponseBodyAutoteka:
+      properties:
+        result:
+          $ref: '#/components/schemas/CatalogsResolveResponseDataAutoteka'
+      type: object
+    GetSpecificationResponseDataAutoteka:
+      properties:
+        documents:
+          $ref: '#/components/schemas/DocumentsResultAutoteka'
+        newCarValuations:
+          description: 'Массив оценок новых авто с аналогичной спецификацией.
+
+
+            Чтобы подключить эту возможность, обратитесь к менеджеру Автотеки.
+
+            '
+          items:
+            $ref: '#/components/schemas/NewCarValuation'
+          type:
+          - array
+          - 'null'
+        specification:
+          $ref: '#/components/schemas/SpecificationResultAutoteka'
+        valuation:
+          $ref: '#/components/schemas/AvitoPriceValuation'
+      type: object
+    validatingError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 400
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Validation error
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    AvitoPriceValuation:
+      description: Оценка подержаного автомобиля от Авито
+      properties:
+        avgMarketPrice:
+          description: Оценка на основе объявлений
+          example: 950000
+          type:
+          - integer
+          - 'null'
+        avgMileage:
+          description: Средний пробег аналогов
+          example: 50000
+          type:
+          - integer
+          - 'null'
+        avgPriceWithCondition:
+          description: Оценка с учетом состояния автомобилей на основе реальных сделок
+          example: 936000
+          type: integer
+        avgYear:
+          description: Средний год выпуска аналогов
+          example: 2012.9999
+          format: float
+          type:
+          - number
+          - 'null'
+        imvUrl:
+          deprecated: true
+          description: Поле больше не заполняется. Ссылка на страницу Авито IMV вида https://www.avito.ru/au-imv-info/2963331288
+          example: https://www.avito.ru/au-imv-info/2963331288
+          type:
+          - string
+          - 'null'
+        itemsCount:
+          description: Количество машин, учтенных в оценке
+          example: 121
+          type:
+          - integer
+          - 'null'
+        marketNormalPriceRange:
+          description: Диапазон "рыночной" оценки данного автомобиля по закрытым сделкам
+          properties:
+            max:
+              description: Максимальная граница "рыночной" оценки данного автомобиля по закрытым сделкам
+              example: 5248900
+              type: integer
+            min:
+              description: Минимальная граница "рыночной" оценки данного автомобиля по закрытым сделкам
+              example: 3248900
+              type: integer
+          required:
+          - min
+          - max
+          type:
+          - object
+          - 'null'
+        maxPrice:
+          description: Максимальная цена похожих авто на основе объявлений
+          example: 1000000
+          type:
+          - integer
+          - 'null'
+        minPrice:
+          description: Минимальная цена похожих авто на основе объявлений
+          example: 800000
+          type:
+          - integer
+          - 'null'
+      required:
+      - avgPriceWithCondition
+      type:
+      - object
+      - 'null'
+    RequestValuationBySpecificationResolve:
+      properties:
+        location:
+          properties:
+            lat:
+              example: 55.755863189697266
+              format: float64
+              type: number
+            long:
+              example: 37.617698669433594
+              format: float64
+              type: number
+          required:
+          - lat
+          - long
+          type:
+          - object
+          - 'null'
+        mileage:
+          description: Пробег в км
+          example: 15000
+          format: int32
+          type:
+          - integer
+          - 'null'
+        specification:
+          properties:
+            bodyType:
+              description: Тип ТС
+              properties:
+                label:
+                  description: Значение параметра
+                  example: Кроссовер
+                  type: string
+                valueId:
+                  description: Идентификатор значения параметра
+                  example: 13815
+                  format: int64
+                  minimum: 1
+                  type: integer
+              required:
+              - label
+              - valueId
+              type:
+              - object
+              - 'null'
+            brand:
+              description: Марка
+              properties:
+                label:
+                  description: Значение параметра
+                  example: BMW
+                  type: string
+                valueId:
+                  description: Идентификатор значения параметра
+                  example: 13815
+                  format: int64
+                  minimum: 1
+                  type: integer
+              required:
+              - label
+              - valueId
+              type: object
+            color:
+              description: Цвет
+              properties:
+                label:
+                  description: Значение параметра
+                  example: Серебряный
+                  type: string
+                valueId:
+                  description: Идентификатор значения параметра
+                  example: 13815
+                  format: int64
+                  minimum: 1
+                  type: integer
+              required:
+              - label
+              - valueId
+              type:
+              - object
+              - 'null'
+            complectation:
+              description: Комплектация
+              properties:
+                label:
+                  description: Значение параметра
+                  example: Престиж
+                  type: string
+                valueId:
+                  description: Идентификатор значения параметра
+                  example: 13815
+                  format: int64
+                  minimum: 1
+                  type: integer
+              required:
+              - label
+              - valueId
+              type:
+              - object
+              - 'null'
+            doorsCount:
+              description: Количество дверей
+              properties:
+                label:
+                  description: Значение параметра
+                  example: 4
+                  type: string
+                valueId:
+                  description: Идентификатор значения параметра
+                  example: 13815
+                  format: int64
+                  minimum: 1
+                  type: integer
+              required:
+              - label
+              - valueId
+              type:
+              - object
+              - 'null'
+            generation:
+              description: 'Поколение
+
+
+                Для оценки нового авто, параметр является необязательным, в таком случае возможно заполнение `{"label": "", "valueId": 0}`
+
+                '
+              properties:
+                label:
+                  description: Значение параметра
+                  example: 1 поколение
+                  type: string
+                valueId:
+                  description: Идентификатор значения параметра
+                  example: 13815
+                  format: int64
+                  minimum: 0
+                  type: integer
+              required:
+              - label
+              - valueId
+              type: object
+            model:
+              description: Модель
+              properties:
+                label:
+                  description: Значение параметра
+                  example: X3
+                  type: string
+                valueId:
+                  description: Идентификатор значения параметра
+                  example: 13815
+                  format: int64
+                  minimum: 1
+                  type: integer
+              required:
+              - label
+              - valueId
+              type: object
+            modification:
+              description: 'Модификация
+
+
+                Для оценки нового авто, параметр является необязательным, в таком случае возможно заполнение `{"label": "", "valueId": 0}`
+
+                '
+              properties:
+                label:
+                  description: Значение параметра
+                  example: Люкс
+                  type: string
+                valueId:
+                  description: Идентификатор значения параметра
+                  example: 13815
+                  format: int64
+                  minimum: 0
+                  type: integer
+              required:
+              - label
+              - valueId
+              type: object
+            ownersCount:
+              description: 'Количество владельцев
+
+
+                Для оценки нового авто, параметр является необязательным, в таком случае возможно заполнение `{"label": "", "valueId": 0}`
+
+                '
+              properties:
+                label:
+                  description: Значение параметра
+                  example: 4+
+                  type: string
+                valueId:
+                  description: Идентификатор значения параметра
+                  example: 13815
+                  format: int64
+                  minimum: 0
+                  type: integer
+              required:
+              - label
+              - valueId
+              type: object
+            year:
+              description: Год выпуска
+              properties:
+                label:
+                  description: Значение параметра
+                  example: 2013
+                  type: string
+                valueId:
+                  description: Идентификатор значения параметра
+                  example: 13815
+                  format: int64
+                  minimum: 1
+                  type: integer
+              required:
+              - label
+              - valueId
+              type: object
+          required:
+          - brand
+          - model
+          - year
+          - generation
+          - modification
+          - ownersCount
+          type: object
+        vehicleId:
+          description: Идентификатор авто (vin/frame).
+          example: XTA21110987654321
+          type:
+          - string
+          - 'null'
+      required:
+      - specification
+      type: object
+    SpecificationResultAutoteka:
+      properties:
+        equipment:
+          $ref: '#/components/schemas/SpecificationEquipmentAutoteka'
+        normalizedSpecification:
+          $ref: '#/components/schemas/SpecificationNormalizedSpecificationAutoteka'
+        plateNumber:
+          description: Регистрационный номер
+          example: X777XX777
+          type:
+          - string
+          - 'null'
+        specificationId:
+          description: Идентификатор спецификации
+          example: 157987
+          format: int64
+          type: integer
+        status:
+          description: Статус `success`, `processing`, `notFound`
+          example: success
+          type: string
+        vehicleId:
+          description: Идентификатор запрашиваемого авто (vin/frame)
+          example: XUUNF487JA0007223
+          type:
+          - string
+          - 'null'
+      required:
+      - equipment
+      - normalizedSpecification
+      - specificationId
+      - plateNumber
+      - status
+      - vehicleId
+      type: object
+    SpecificationNormalizedSpecificationAutoteka:
+      properties:
+        bodyType:
+          description: Кузов
+          properties:
+            value:
+              description: Значение
+              example: Внедорожник
+              type: string
+            valueId:
+              description: Идентификатор значения
+              example: 331231
+              format: int64
+              type: integer
+          required:
+          - valueId
+          - value
+          type:
+          - object
+          - 'null'
+        brand:
+          description: Бренд
+          properties:
+            value:
+              description: Значение
+              example: Chery
+              type: string
+            valueId:
+              description: Идентификатор значения
+              example: 329210
+              format: int64
+              type: integer
+          required:
+          - valueId
+          - value
+          type:
+          - object
+          - 'null'
+        capacity:
+          description: Емкость
+          properties:
+            value:
+              description: Значение
+              example: 129
+              format: float64
+              type: number
+          required:
+          - value
+          type:
+          - object
+          - 'null'
+        complectation:
+          description: Комплектация
+          properties:
+            value:
+              description: Значение
+              example: Comfort
+              type: string
+            valueId:
+              description: Идентификатор значения
+              example: 369961
+              format: int64
+              type: integer
+          required:
+          - valueId
+          - value
+          type:
+          - object
+          - 'null'
+        doorsCount:
+          description: Количество дверей
+          properties:
+            value:
+              description: Значение
+              example: 5
+              format: int64
+              type: integer
+            valueId:
+              description: Идентификатор значения
+              example: 331245
+              format: int64
+              type: integer
+          required:
+          - valueId
+          - value
+          type:
+          - object
+          - 'null'
+        drive:
+          description: Привод
+          properties:
+            value:
+              description: Значение
+              example: Передний
+              type: string
+            valueId:
+              description: Идентификатор значения
+              example: 331251
+              format: int64
+              type: integer
+          required:
+          - valueId
+          - value
+          type:
+          - object
+          - 'null'
+        engine:
+          description: Объем двигателя
+          properties:
+            value:
+              description: Значение
+              example: 2.4
+              format: float64
+              type: number
+            valueId:
+              description: Идентификатор значения
+              example: 331775
+              format: int64
+              type: integer
+          required:
+          - valueId
+          - value
+          type:
+          - object
+          - 'null'
+        engineType:
+          description: Тип двигателя
+          properties:
+            value:
+              description: Значение
+              example: Бензин
+              type: string
+            valueId:
+              description: Идентификатор значения
+              example: 331247
+              format: int64
+              type: integer
+          required:
+          - valueId
+          - value
+          type:
+          - object
+          - 'null'
+        generation:
+          description: Поколение
+          properties:
+            value:
+              description: Значение
+              example: T11 (2005—2013)
+              type: string
+            valueId:
+              description: Идентификатор значения
+              example: 332287
+              format: int64
+              type: integer
+          required:
+          - valueId
+          - value
+          type:
+          - object
+          - 'null'
+        model:
+          description: Модель
+          properties:
+            value:
+              description: Значение
+              example: Tiggo (T11)
+              type: string
+            valueId:
+              description: Идентификатор значения
+              example: 330887
+              format: int64
+              type: integer
+          required:
+          - valueId
+          - value
+          type:
+          - object
+          - 'null'
+        modification:
+          description: Модификация
+          properties:
+            value:
+              description: Значение
+              example: 2.4 MT (129 л.с.)
+              type: string
+            valueId:
+              description: Идентификатор значения
+              example: 408424
+              format: int64
+              type: integer
+          required:
+          - valueId
+          - value
+          type:
+          - object
+          - 'null'
+        transmission:
+          description: Тип КПП
+          properties:
+            value:
+              description: Значение
+              example: Механика
+              type: string
+            valueId:
+              description: Идентификатор значения
+              example: 331254
+              format: int64
+              type: integer
+          required:
+          - valueId
+          - value
+          type:
+          - object
+          - 'null'
+        wheel:
+          description: Руль
+          properties:
+            value:
+              description: Значение
+              example: Левый
+              type: string
+          required:
+          - value
+          type:
+          - object
+          - 'null'
+        year:
+          description: Год выпуска
+          properties:
+            value:
+              description: Значение
+              example: 2007
+              format: int64
+              type: integer
+            valueId:
+              description: Идентификатор значения
+              example: 331123
+              format: int64
+              type: integer
+          required:
+          - valueId
+          - value
+          type:
+          - object
+          - 'null'
+      required:
+      - brand
+      - model
+      - bodyType
+      - doorsCount
+      - drive
+      - wheel
+      - engineType
+      - engine
+      - capacity
+      - transmission
+      - generation
+      - modification
+      - complectation
+      - year
+      type:
+      - object
+      - 'null'
+    forbiddenError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 403
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Forbidden
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    CreateSpecificationResponseBodyAutoteka:
+      properties:
+        result:
+          $ref: '#/components/schemas/CreateSpecificationResponseDataAutoteka'
+      type: object
+    CreateSpecificationResponseDataAutoteka:
+      properties:
+        specification:
+          $ref: '#/components/schemas/SpecificationIdResultAutoteka'
+      type: object
+    notFoundError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 404
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Not found
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    CatalogsFieldAutoteka:
+      description: Параметр из каталога Авито
+      properties:
+        dataType:
+          description: Тип значения параметра
+          example: integer
+          type: string
+        id:
+          description: Идентификатор параметра
+          example: 110000
+          format: int64
+          minimum: 1
+          type: integer
+        label:
+          description: Название параметра
+          example: Марка
+          type: string
+        values:
+          items:
+            properties:
+              label:
+                description: Значение параметра
+                example: Accent
+                type: string
+              valueId:
+                description: Идентификатор значения параметра
+                example: 403154
+                format: int64
+                minimum: 1
+                type: integer
+            required:
+            - label
+            - valueId
+            type: object
+          type: array
+      required:
+      - id
+      - label
+      - dataType
+      - values
+      type: object
+    ValuationBySpecificationResponseBodyAutoteka:
+      properties:
+        result:
+          $ref: '#/components/schemas/ValuationBySpecificationResultAutoteka'
+      type: object
+    RequestCatalogsResolve:
+      properties:
+        fieldsValueIds:
+          description: Выбранные значения параметров
+          items:
+            properties:
+              id:
+                description: Идентификатор параметра из каталога Авито
+                example: 110000
+                format: int64
+                minimum: 1
+                type: integer
+              valueId:
+                description: Идентификатор значения из каталога Авито
+                example: 403153
+                format: int64
+                minimum: 1
+                type: integer
+            required:
+            - id
+            - valueId
+            type: object
+          type: array
+      required:
+      - fieldsValueIds
+      type: object
+    internalError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 500
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Service is temporary unavailable
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
     NewCarValuation:
       description: Оценка нового авто на основе рынка Авито
       properties:
@@ -1742,21 +1757,6 @@ components:
       - minPrice
       - maxPrice
       type: object
-    CatalogsResolveResponseBodyAutoteka:
-      properties:
-        result:
-          $ref: '#/components/schemas/CatalogsResolveResponseDataAutoteka'
-      type: object
-    ValuationBySpecificationResponseBodyAutoteka:
-      properties:
-        result:
-          $ref: '#/components/schemas/ValuationBySpecificationResultAutoteka'
-      type: object
-    CreateSpecificationResponseBodyAutoteka:
-      properties:
-        result:
-          $ref: '#/components/schemas/CreateSpecificationResponseDataAutoteka'
-      type: object
   parameters:
     authHeader:
       description: Токен для авторизации
@@ -1766,13 +1766,13 @@ components:
       schema:
         type: string
   headers:
-    X-RateLimit-Remaining:
-      description: Доступное количество запросов в текущем временном окне
+    X-RateLimit-Limit:
+      description: Количество запросов в минуту
       schema:
         format: int32
         type: integer
-    X-RateLimit-Limit:
-      description: Количество запросов в минуту
+    X-RateLimit-Remaining:
+      description: Доступное количество запросов в текущем временном окне
       schema:
         format: int32
         type: integer

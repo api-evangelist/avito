@@ -70,6 +70,24 @@ paths:
       - Core
 components:
   schemas:
+    notFoundError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 404
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Not found
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
     authError:
       properties:
         error:
@@ -106,23 +124,14 @@ components:
           - message
           type: object
       type: object
-    notFoundError:
+    UpdatePriceRequest:
       properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 404
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Not found
-              type: string
-          required:
-          - code
-          - message
-          type: object
+        price:
+          description: Цена
+          example: 100
+          type: integer
+      required:
+      - price
       type: object
     UpdatePriceResponse:
       properties:
@@ -135,15 +144,6 @@ components:
       - result
       type: object
     tooManyRequests:
-      type: object
-    UpdatePriceRequest:
-      properties:
-        price:
-          description: Цена
-          example: 100
-          type: integer
-      required:
-      - price
       type: object
   parameters:
     pathItemId:

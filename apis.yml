@@ -50,7 +50,7 @@ tags:
 - Classifieds
 - Marketplace
 - E-Commerce
-- Real-Estate
+- Real Estate
 - Automotive
 - Job
 - Advertising
@@ -70,6 +70,7 @@ tags_raw:
 - Messaging
 - Delivery
 - Russia
+- Real-Estate
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -723,7 +724,7 @@ apis:
   - type: Documentation
     url: https://developers.avito.ru/api-catalog/user/documentation
 - aid: avito:avito-balance-api
-  name: Avito balance API
+  name: Avito Balance API
   description: >-
     С помощью API данного раздела вы можете получить информацию о балансе средств агентства и всех операций
     с ним.
@@ -1604,7 +1605,7 @@ apis:
   - type: Documentation
     url: https://developers.avito.ru/api-catalog/user/documentation
 - aid: avito:avito-invite-api
-  name: Avito invite API
+  name: Avito Invite API
   description: >-
     С помощью API данного раздела вы можете приглашать в агентство новых клиентов.
 
@@ -2290,7 +2291,7 @@ apis:
   - type: Documentation
     url: https://developers.avito.ru/api-catalog/user/documentation
 - aid: avito:avito-profile-api
-  name: Avito profile API
+  name: Avito Profile API
   description: >-
     С помощью API данного раздела вы можете получать актуальную информацию о клиентах агентства.
 
@@ -2844,7 +2845,7 @@ apis:
   - type: Documentation
     url: https://developers.avito.ru/api-catalog/user/documentation
 - aid: avito:avito-statistics-api
-  name: Avito statistics API
+  name: Avito Statistics API
   description: >-
     С помощью API данного раздела вы можете получать статистику по объявлениям и расходам клиентов.
 
@@ -2978,7 +2979,7 @@ apis:
   - type: Documentation
     url: https://developers.avito.ru/api-catalog/user/documentation
 - aid: avito:avito-targeting-api
-  name: Avito targeting API
+  name: Avito Targeting API
   description: >-
     С помощью API данного раздела вы можете узнать статус клиентов, проверив их ИНН.
 
@@ -3245,7 +3246,7 @@ apis:
   - type: Documentation
     url: https://developers.avito.ru/api-catalog/user/documentation
 - aid: avito:avito-transactions-api
-  name: Avito transactions API
+  name: Avito Transactions API
   description: >-
     С помощью API данного раздела вы можете выполнять переводы средств клиентам и отслеживать транзакции.
 

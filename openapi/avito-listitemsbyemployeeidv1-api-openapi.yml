@@ -67,66 +67,7 @@ paths:
       tags:
       - ListItemsByEmployeeIdV1
 components:
-  parameters:
-    X-Oauth-Scopes:
-      description: Список зон доступа, полученных приложением
-      example: ah:access
-      in: header
-      name: X-Oauth-Scopes
-      schema:
-        type: string
-    authHeader:
-      description: Токен для авторизации
-      in: header
-      name: Authorization
-      required: true
-      schema:
-        example: Bearer ACCESS_TOKEN
-        type: string
-    XIsEmployee:
-      deprecated: true
-      description: 'Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании.
-
-        '
-      in: header
-      name: X-Is-Employee
-      schema:
-        type:
-        - boolean
-        - 'null'
-    X-Oauth-Flow:
-      description: Выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)
-      example: authorization_code
-      in: header
-      name: X-Oauth-Flow
-      schema:
-        type: string
-    XEmployeeOf:
-      description: Идентификатор компании, от имени которой работает сотрудник.
-      in: header
-      name: X-Employee-Of
-      schema:
-        minimum: 1
-        type:
-        - integer
-        - 'null'
   schemas:
-    ListItemsByEmployeeIdResult:
-      description: Список объявлений по сотруднику компании
-      properties:
-        hasNext:
-          description: Можно пагинировать дальше по списку
-          type: boolean
-        items:
-          description: Список идентификаторов объявлений
-          items:
-            description: Идентификатор объявления
-            type: integer
-          type: array
-      required:
-      - hasNext
-      - items
-      type: object
     ListItemsByEmployeeIdBody:
       properties:
         categoryId:
@@ -170,6 +111,65 @@ components:
       required:
       - error
       type: object
+    ListItemsByEmployeeIdResult:
+      description: Список объявлений по сотруднику компании
+      properties:
+        hasNext:
+          description: Можно пагинировать дальше по списку
+          type: boolean
+        items:
+          description: Список идентификаторов объявлений
+          items:
+            description: Идентификатор объявления
+            type: integer
+          type: array
+      required:
+      - hasNext
+      - items
+      type: object
+  parameters:
+    XIsEmployee:
+      deprecated: true
+      description: 'Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании.
+
+        '
+      in: header
+      name: X-Is-Employee
+      schema:
+        type:
+        - boolean
+        - 'null'
+    X-Oauth-Scopes:
+      description: Список зон доступа, полученных приложением
+      example: ah:access
+      in: header
+      name: X-Oauth-Scopes
+      schema:
+        type: string
+    X-Oauth-Flow:
+      description: Выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)
+      example: authorization_code
+      in: header
+      name: X-Oauth-Flow
+      schema:
+        type: string
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
+    XEmployeeOf:
+      description: Идентификатор компании, от имени которой работает сотрудник.
+      in: header
+      name: X-Employee-Of
+      schema:
+        minimum: 1
+        type:
+        - integer
+        - 'null'
   securitySchemes:
     AuthorizationCode:
       description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)

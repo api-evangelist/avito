@@ -146,6 +146,14 @@ paths:
       - LinkItemsV1
 components:
   parameters:
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
     X-Oauth-Flow:
       description: Выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)
       example: authorization_code
@@ -159,14 +167,6 @@ components:
       in: header
       name: X-Oauth-Scopes
       schema:
-        type: string
-    authHeader:
-      description: Токен для авторизации
-      in: header
-      name: Authorization
-      required: true
-      schema:
-        example: Bearer ACCESS_TOKEN
         type: string
   schemas:
     LinkItems:

@@ -180,30 +180,71 @@ paths:
       - Ratings
 components:
   schemas:
-    ReviewItem:
-      description: Структура объявления
+    ReviewImage:
+      description: Структура изображения, приложенного к отзыву
       properties:
+        number:
+          description: Порядковый номер изображения
+          example: 1
+          type: integer
+        sizes:
+          description: Список размеров изображения
+          items:
+            $ref: '#/components/schemas/ReviewImageSize'
+          type: array
+      required:
+      - number
+      - sizes
+      type: object
+    RemoveAnswerResponse:
+      properties:
+        success:
+          description: Статус успешности запроса
+          example: true
+          type: boolean
+      required:
+      - success
+      type: object
+    CreateAnswerResponse:
+      properties:
+        createdAt:
+          description: Timestamp создания ответа
+          example: 1571654040
+          type: integer
         id:
-          description: ID объявления
+          description: ID ответа
           example: 1234567
           type: integer
-        title:
-          description: Заголовок объявления
-          example: Автомобиль 2020-го года
+      required:
+      - id
+      - createdAt
+      type: object
+    ReviewSender:
+      description: Структура отправителя отзыва
+      properties:
+        name:
+          description: Имя отправителя
+          example: Владимир
           type: string
+      required:
+      - name
       type:
       - object
       - 'null'
-    GetRatingInfoResponse:
+    ReviewError:
+      description: Ошибка Bad Request
       properties:
-        isEnabled:
-          description: Включен ли рейтинг
-          example: true
-          type: boolean
-        rating:
-          $ref: '#/components/schemas/Rating'
+        code:
+          description: Код ошибки
+          example: validation
+          type: string
+        message:
+          description: Текст ошибки
+          example: Field `offset` is not integer
+          type: string
       required:
-      - isEnabled
+      - code
+      - message
       type: object
     Review:
       description: Структура отзыва
@@ -268,6 +309,31 @@ components:
       - canAnswer
       - createdAt
       type: object
+    GetRatingInfoResponse:
+      properties:
+        isEnabled:
+          description: Включен ли рейтинг
+          example: true
+          type: boolean
+        rating:
+          $ref: '#/components/schemas/Rating'
+      required:
+      - isEnabled
+      type: object
+    CreateAnswerRequestBody:
+      properties:
+        message:
+          description: Текст ответа на отзыв
+          example: Спасибо за отзыв
+          type: string
+        reviewId:
+          description: ID отзыва
+          example: 1234567
+          type: integer
+      required:
+      - reviewId
+      - message
+      type: object
     GetReviewsResponse:
       properties:
         reviews:
@@ -298,6 +364,34 @@ components:
       - id
       - title
       type: object
+    ReviewImageSize:
+      description: Структура изображения определенного разрешения
+      properties:
+        size:
+          description: Разрешение изображения в формате 100x100
+          example: 100x100
+          type: string
+        url:
+          description: Ссылка на изображение
+          type: string
+      required:
+      - size
+      - url
+      type: object
+    ReviewItem:
+      description: Структура объявления
+      properties:
+        id:
+          description: ID объявления
+          example: 1234567
+          type: integer
+        title:
+          description: Заголовок объявления
+          example: Автомобиль 2020-го года
+          type: string
+      type:
+      - object
+      - 'null'
     Rating:
       properties:
         reviewsCount:
@@ -320,56 +414,6 @@ components:
       type:
       - object
       - 'null'
-    ReviewImageSize:
-      description: Структура изображения определенного разрешения
-      properties:
-        size:
-          description: Разрешение изображения в формате 100x100
-          example: 100x100
-          type: string
-        url:
-          description: Ссылка на изображение
-          type: string
-      required:
-      - size
-      - url
-      type: object
-    ReviewSender:
-      description: Структура отправителя отзыва
-      properties:
-        name:
-          description: Имя отправителя
-          example: Владимир
-          type: string
-      required:
-      - name
-      type:
-      - object
-      - 'null'
-    ReviewError:
-      description: Ошибка Bad Request
-      properties:
-        code:
-          description: Код ошибки
-          example: validation
-          type: string
-        message:
-          description: Текст ошибки
-          example: Field `offset` is not integer
-          type: string
-      required:
-      - code
-      - message
-      type: object
-    RemoveAnswerResponse:
-      properties:
-        success:
-          description: Статус успешности запроса
-          example: true
-          type: boolean
-      required:
-      - success
-      type: object
     ReviewAnswer:
       description: Структура ответа на отзыв
       properties:
@@ -406,50 +450,6 @@ components:
       type:
       - object
       - 'null'
-    CreateAnswerRequestBody:
-      properties:
-        message:
-          description: Текст ответа на отзыв
-          example: Спасибо за отзыв
-          type: string
-        reviewId:
-          description: ID отзыва
-          example: 1234567
-          type: integer
-      required:
-      - reviewId
-      - message
-      type: object
-    CreateAnswerResponse:
-      properties:
-        createdAt:
-          description: Timestamp создания ответа
-          example: 1571654040
-          type: integer
-        id:
-          description: ID ответа
-          example: 1234567
-          type: integer
-      required:
-      - id
-      - createdAt
-      type: object
-    ReviewImage:
-      description: Структура изображения, приложенного к отзыву
-      properties:
-        number:
-          description: Порядковый номер изображения
-          example: 1
-          type: integer
-        sizes:
-          description: Список размеров изображения
-          items:
-            $ref: '#/components/schemas/ReviewImageSize'
-          type: array
-      required:
-      - number
-      - sizes
-      type: object
   parameters:
     authHeader:
       description: Токен для авторизации

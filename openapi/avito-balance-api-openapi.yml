@@ -205,6 +205,37 @@ paths:
       tags:
       - Balance
 components:
+  responses:
+    defaultUnauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Требуется авторизация
+    defaultBadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Неверный запрос
+    defaultTooManyRequests:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Превышено количество запросов
+    defaultInternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Ошибка сервера
+    defaultForbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Действие запрещено
   schemas:
     defaultErrorResponse:
       additionalProperties: false
@@ -226,14 +257,29 @@ components:
       required:
       - error
       type: object
-    errorMessage:
-      description: Сообщение об ошибке
-      example: Ошибка
+    transactionId:
+      description: Идентификатор транзакции
+      example: b52717c26fbc027acc34f165490fd4fdf404f3aa
+      minLength: 1
       type: string
+    id:
+      description: Идентификатор
+      example: 123456
+      minimum: 1
+      type: integer
     dateTime:
       description: Дата в формате RFC3339
       example: '2025-05-02T11:00:00+03:00'
       format: date-time
+      type: string
+    offset:
+      description: Смещение, с которого начинается выборка
+      example: 10
+      minimum: 0
+      type: integer
+    errorMessage:
+      description: Сообщение об ошибке
+      example: Ошибка
       type: string
     limit:
       description: Ограничение количества сущностей в выборке
@@ -241,56 +287,10 @@ components:
       maximum: 1000
       minimum: 1
       type: integer
-    transactionId:
-      description: Идентификатор транзакции
-      example: b52717c26fbc027acc34f165490fd4fdf404f3aa
-      minLength: 1
-      type: string
     amountKopecks:
       description: Сумма в копейках
       example: 100000
       type: integer
-    id:
-      description: Идентификатор
-      example: 123456
-      minimum: 1
-      type: integer
-    offset:
-      description: Смещение, с которого начинается выборка
-      example: 10
-      minimum: 0
-      type: integer
-  responses:
-    defaultUnauthorized:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Требуется авторизация
-    defaultInternalServerError:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Ошибка сервера
-    defaultTooManyRequests:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Превышено количество запросов
-    defaultForbidden:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Действие запрещено
-    defaultBadRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Неверный запрос
   parameters:
     authHeader:
       description: Токен для авторизации

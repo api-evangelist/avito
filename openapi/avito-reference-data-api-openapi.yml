@@ -100,26 +100,6 @@ paths:
       x-trailing-slash: true
 components:
   schemas:
-    ReportItem_autoteka:
-      properties:
-        createdAt:
-          description: Дата и время генерации отчета
-          example: '2020-09-30 16:51:32.187629'
-          type: string
-        reportId:
-          description: Идентификатор сгенерированного отчета, по которому его можно получить
-          example: 1
-          format: int64
-          type: integer
-        vin:
-          description: ВИН-номер
-          example: JSAJTDA4V00105...
-          type: string
-      required:
-      - vin
-      - createdAt
-      - reportId
-      type: object
     validatingError:
       properties:
         error:
@@ -142,24 +122,6 @@ components:
       properties:
         result:
           $ref: '#/components/schemas/GetActivePackageResponseDataAutoteka'
-      type: object
-    internalError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 500
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Service is temporary unavailable
-              type: string
-          required:
-          - code
-          - message
-          type: object
       type: object
     PackageAutoteka:
       properties:
@@ -187,14 +149,30 @@ components:
       - reportsCnt
       - reportsCntRemain
       type: object
-    GetReportsListResponseDataAutoteka:
+    GetActivePackageResponseDataAutoteka:
       properties:
-        result:
-          items:
-            $ref: '#/components/schemas/ReportItem_autoteka'
-          type: array
+        package:
+          $ref: '#/components/schemas/PackageAutoteka'
+      type: object
+    ReportItem_autoteka:
+      properties:
+        createdAt:
+          description: Дата и время генерации отчета
+          example: '2020-09-30 16:51:32.187629'
+          type: string
+        reportId:
+          description: Идентификатор сгенерированного отчета, по которому его можно получить
+          example: 1
+          format: int64
+          type: integer
+        vin:
+          description: ВИН-номер
+          example: JSAJTDA4V00105...
+          type: string
       required:
-      - result
+      - vin
+      - createdAt
+      - reportId
       type: object
     forbiddenError:
       properties:
@@ -214,10 +192,32 @@ components:
           - message
           type: object
       type: object
-    GetActivePackageResponseDataAutoteka:
+    internalError:
       properties:
-        package:
-          $ref: '#/components/schemas/PackageAutoteka'
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 500
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Service is temporary unavailable
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    GetReportsListResponseDataAutoteka:
+      properties:
+        result:
+          items:
+            $ref: '#/components/schemas/ReportItem_autoteka'
+          type: array
+      required:
+      - result
       type: object
   parameters:
     authHeader:

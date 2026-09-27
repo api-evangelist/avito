@@ -307,7 +307,83 @@ paths:
       tags:
       - Transactions
 components:
+  responses:
+    badRequestFields:
+      content:
+        application/json:
+          schema:
+            additionalProperties: false
+            properties:
+              result:
+                $ref: '#/components/schemas/errorFields'
+            required:
+            - result
+            type: object
+      description: Неверный запрос
+    unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorResponse'
+      description: Требуется авторизация
+    notFound:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorResponse'
+      description: Не найдено
+    defaultInternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Ошибка сервера
+    defaultTooManyRequests:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Превышено количество запросов
+    forbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorResponse'
+      description: Действие запрещено
+  parameters:
+    transactionIdPathParameter:
+      description: Идентификатор транзакции
+      in: path
+      name: transaction_id
+      required: true
+      schema:
+        $ref: '#/components/schemas/transactionId'
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
   schemas:
+    errorResponse:
+      additionalProperties: false
+      properties:
+        result:
+          $ref: '#/components/schemas/errorResult'
+      required:
+      - result
+      type: object
+    errorResult:
+      additionalProperties: false
+      description: Результат с ошибкой
+      properties:
+        message:
+          $ref: '#/components/schemas/errorMessage'
+      required:
+      - message
+      type: object
     defaultErrorResponse:
       additionalProperties: false
       properties:
@@ -328,18 +404,31 @@ components:
       required:
       - error
       type: object
-    errorMessage:
-      description: Сообщение об ошибке
-      example: Ошибка
-      type: string
-    errorField:
-      description: Наименование поля
-      example: userId
-      type: string
     transactionId:
       description: Идентификатор транзакции
       example: b52717c26fbc027acc34f165490fd4fdf404f3aa
       minLength: 1
+      type: string
+    id:
+      description: Идентификатор
+      example: 123456
+      minimum: 1
+      type: integer
+    errorField:
+      description: Наименование поля
+      example: userId
+      type: string
+    transactionStatus:
+      description: Статус транзакции
+      enum:
+      - processing
+      - success
+      - error
+      example: success
+      type: string
+    errorMessage:
+      description: Сообщение об ошибке
+      example: Ошибка
       type: string
     errorFields:
       description: Ошибки валидации
@@ -356,95 +445,6 @@ components:
         - message
         type: object
       type: array
-    errorResponse:
-      additionalProperties: false
-      properties:
-        result:
-          $ref: '#/components/schemas/errorResult'
-      required:
-      - result
-      type: object
-    errorResult:
-      additionalProperties: false
-      description: Результат с ошибкой
-      properties:
-        message:
-          $ref: '#/components/schemas/errorMessage'
-      required:
-      - message
-      type: object
-    transactionStatus:
-      description: Статус транзакции
-      enum:
-      - processing
-      - success
-      - error
-      example: success
-      type: string
-    id:
-      description: Идентификатор
-      example: 123456
-      minimum: 1
-      type: integer
-  responses:
-    unauthorized:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/errorResponse'
-      description: Требуется авторизация
-    defaultInternalServerError:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Ошибка сервера
-    notFound:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/errorResponse'
-      description: Не найдено
-    defaultTooManyRequests:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Превышено количество запросов
-    forbidden:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/errorResponse'
-      description: Действие запрещено
-    badRequestFields:
-      content:
-        application/json:
-          schema:
-            additionalProperties: false
-            properties:
-              result:
-                $ref: '#/components/schemas/errorFields'
-            required:
-            - result
-            type: object
-      description: Неверный запрос
-  parameters:
-    authHeader:
-      description: Токен для авторизации
-      in: header
-      name: Authorization
-      required: true
-      schema:
-        example: Bearer ACCESS_TOKEN
-        type: string
-    transactionIdPathParameter:
-      description: Идентификатор транзакции
-      in: path
-      name: transaction_id
-      required: true
-      schema:
-        $ref: '#/components/schemas/transactionId'
   securitySchemes:
     ClientCredentials:
       description: 'Используйте OAuth2 с механизмом `client_credentials` для доступа к возможностям учётной записи агентства. [Подробнее](#tag/Access)

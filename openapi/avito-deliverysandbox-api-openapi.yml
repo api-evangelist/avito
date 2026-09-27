@@ -463,6 +463,254 @@ paths:
       - DeliverySandbox
 components:
   schemas:
+    CreateParcelCourierAddress:
+      description: Адрес пользователя
+      properties:
+        addressRow:
+          description: Адрес, выбранный пользователем.
+          example: Москва, ул. Лесная, 20с2
+          type: string
+        coordinates:
+          $ref: '#/components/schemas/CreateParcelCourierCoordinates'
+        details:
+          $ref: '#/components/schemas/CreateParcelCourierAddressDetails'
+      required:
+      - addressRow
+      - details
+      - coordinates
+      type: object
+    SandboxCancelAnnouncementOptions:
+      description: Опции отмены анонса.
+      properties:
+        urlToCancelAnnouncement:
+          description: URL, куда отправлять отмену анонса.
+          type: string
+      required:
+      - urlToCancelAnnouncement
+      type: object
+    GetSandboxParcelInfoDimensions:
+      properties:
+        realHeight:
+          type:
+          - integer
+          - 'null'
+        realLength:
+          type:
+          - integer
+          - 'null'
+        realWeight:
+          type:
+          - integer
+          - 'null'
+        realWidth:
+          type:
+          - integer
+          - 'null'
+      title: Реальные весогабаритные параметры посылки
+      type:
+      - object
+      - 'null'
+    GetChangeParcelInfoRequest:
+      properties:
+        applicationID:
+          title: Идентификатор заявки на изменение данных посылки
+          type: string
+      required:
+      - applicationID
+      type: object
+    ChangeParcelReply:
+      properties:
+        data:
+          $ref: '#/components/schemas/ChangeParcelReplyData'
+        error:
+          $ref: '#/components/schemas/ChangeParcelError'
+      type: object
+    CancelSandboxParcelError:
+      properties:
+        code:
+          enum:
+          - VALIDATION_ERROR
+          - INTERNAL_ERROR
+          - UNKNOWN_PROVIDER
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      type:
+      - object
+      - 'null'
+    SandboxCreateAnnouncementError:
+      properties:
+        code:
+          enum:
+          - VALIDATION_ERROR
+          - INTERNAL_ERROR
+          - OBJECT_EXISTS
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type:
+      - object
+      - 'null'
+    GetChangeParcelInfoReplyData:
+      properties:
+        receiver:
+          properties:
+            name:
+              title: Новые ФИО получателя
+              type: string
+            phones:
+              items:
+                type: string
+              title: Новые телефоны получателя
+              type: array
+          type: object
+        status:
+          title: Текущий статус заявки
+          type: string
+      type:
+      - object
+      - 'null'
+    GetSandboxParcelInfoRequest:
+      properties:
+        parcelID:
+          type: string
+      required:
+      - parcelID
+      type: object
+    CreateParcelUserDeliveryTerminal:
+      properties:
+        id:
+          example: T1000
+          title: Номер терминала
+          type: string
+      title: Терминал
+      type: object
+    CreateSandboxParcelReceiverDelivery:
+      properties:
+        courier:
+          $ref: '#/components/schemas/CreateParcelDeliveryCourier'
+        terminal:
+          $ref: '#/components/schemas/CreateParcelUserDeliveryTerminal'
+      title: Данные по доставке
+      type: object
+    SandboxCancelAnnouncementReply:
+      properties:
+        data:
+          properties:
+            status:
+              description: Статус выполнения операции.
+              enum:
+              - success
+              type: string
+          type:
+          - object
+          - 'null'
+        error:
+          $ref: '#/components/schemas/SandboxCancelAnnouncementError'
+      type: object
+    SandboxGetAnnouncementEventReply:
+      properties:
+        data:
+          properties:
+            announcementEvent:
+              description: Последнее событие анонса.
+              type: string
+          type:
+          - object
+          - 'null'
+        error:
+          $ref: '#/components/schemas/SandboxGetAnnouncementEventError'
+      type: object
+    GetRegisteredParcelIDReply:
+      properties:
+        data:
+          properties:
+            parcelID:
+              type: string
+          type:
+          - object
+          - 'null'
+        error:
+          $ref: '#/components/schemas/GetRegisteredParcelIDError'
+      type: object
+    GetSandboxParcelInfoTerminals:
+      properties:
+        approximate:
+          title: Расчетный терминал
+          type: string
+        real:
+          title: Реальный терминал
+          type:
+          - string
+          - 'null'
+      type: object
+    GetChangeParcelInfoReply:
+      properties:
+        data:
+          $ref: '#/components/schemas/GetChangeParcelInfoReplyData'
+        error:
+          $ref: '#/components/schemas/GetChangeParcelInfoError'
+      type: object
+    ChangeParcelRequest:
+      properties:
+        application:
+          $ref: '#/components/schemas/ChangeParcelRequestApplication'
+        options:
+          $ref: '#/components/schemas/ChangeParcelRequestOptions'
+        parcelID:
+          title: Идентификатор посылки.
+          type: string
+        type:
+          enum:
+          - changeReceiver
+          - prohibitParcelReceive
+          - extendParcelStorage
+          - prohibitParcelAcceptance
+          title: Тип заявки, которую необходимо зарегистрировать.
+          type: string
+      required:
+      - type
+      - parcelID
+      type: object
+    SandboxCreateAnnouncementDeliveryPoint:
+      properties:
+        accuracy:
+          description: Точность определения точки.
+          enum:
+          - EXACT
+          - APPROXIMATE
+          type:
+          - string
+          - 'null'
+        id:
+          description: Идентификатор точки (ПВЗ/сортировочного центра).
+          type:
+          - string
+          - 'null'
+        provider:
+          description: Код службы доставки.
+          type: string
+      required:
+      - provider
+      type:
+      - object
+      - 'null'
+    CreateParcelCourierOptions:
+      properties:
+        comment:
+          description: Комментарий для курьера, оставленный пользователем.
+          example: Комментарий для курьера
+          type: string
+        elevatorAvailable:
+          description: Наличие лифта в доме, способного поднять посылку.
+          example: true
+          type: boolean
+      type: object
     CreateParcelCourierCoordinates:
       description: Координаты пользователя
       properties:
@@ -487,35 +735,60 @@ components:
           $ref: '#/components/schemas/CreateParcelUserDeliveryTerminal'
       title: Данные по доставке
       type: object
-    SandboxCreateAnnouncementReply:
+    CreateSandboxV2Options:
       properties:
-        data:
-          properties:
-            status:
-              description: Статус выполнения операции.
-              enum:
-              - success
-              - failed
-              type: string
-          type:
-          - object
-          - 'null'
-        error:
-          $ref: '#/components/schemas/SandboxCreateAnnouncementError'
-      type: object
-    ChangeParcelRequestOptions:
-      properties:
-        changeParcelUrl:
-          title: URL, куда должен быть направлен запрос на создание заявки
+        registrationUrl:
+          description: На заданный URL будет отправлен запрос на регистрацию посылки
           type: string
       type: object
-    CreateSandboxParcelError:
+    SandboxCreateAnnouncementParticipant:
+      properties:
+        delivery:
+          properties:
+            sortingCenter:
+              $ref: '#/components/schemas/SandboxCreateAnnouncementDeliveryPoint'
+            terminal:
+              $ref: '#/components/schemas/SandboxCreateAnnouncementDeliveryPoint'
+            type:
+              description: Тип пункта отправки/приема.
+              enum:
+              - TERMINAL
+              - SORTING_CENTER
+              type: string
+          required:
+          - type
+          type: object
+        email:
+          description: Электронная почта участника.
+          type: string
+        name:
+          description: Наименование участника доставки (отправителя/получателя).
+          type: string
+        phones:
+          description: Контактные телефоны.
+          items:
+            type: string
+          type: array
+        type:
+          description: Тип участника доставки (отправителя/получателя).
+          enum:
+          - 3PL
+          - ABD
+          type: string
+      required:
+      - type
+      - phones
+      - email
+      - name
+      - delivery
+      type: object
+    GetChangeParcelInfoError:
       properties:
         code:
           enum:
           - VALIDATION_ERROR
           - INTERNAL_ERROR
-          - UNKNOWN_PROVIDER
+          - APPLICATION_NOT_FOUND
           type: string
         message:
           type: string
@@ -524,7 +797,170 @@ components:
       type:
       - object
       - 'null'
-    SandboxCancelAnnouncementError:
+    SandboxGetAnnouncementEventRequest:
+      properties:
+        announcementID:
+          description: Уникальный идентификатор анонса UUID V4.
+          type: string
+      required:
+      - announcementID
+      type: object
+    ChangeParcelReplyData:
+      properties:
+        applicationID:
+          title: Идентификатор заявки на изменение данных
+          type: string
+      type:
+      - object
+      - 'null'
+    CreateParcelDeliveryCourier:
+      properties:
+        address:
+          $ref: '#/components/schemas/CreateParcelCourierAddress'
+        dateTimeInterval:
+          $ref: '#/components/schemas/CreateParcelCourierDateTimeInterval'
+        options:
+          $ref: '#/components/schemas/CreateParcelCourierOptions'
+      title: Данные по курьерской доставке
+      type: object
+    ChangeParcelRequestApplication:
+      properties:
+        kind:
+          enum:
+          - buyer
+          - seller
+          title: Инициатор заявки на изменение ФИО и номера телефона. Покупатель или продавец.
+          type: string
+        name:
+          title: Новые ФИО получателя посылки
+          type: string
+        phones:
+          items:
+            type: string
+          title: Новые телефоны получателя посылки
+          type: array
+      title: Заявка на изменение данных
+      type: object
+    CreateParcelReply:
+      properties:
+        data:
+          properties:
+            orderID:
+              title: Идентификатор заказа
+              type: string
+          type:
+          - object
+          - 'null'
+        error:
+          $ref: '#/components/schemas/CreateParcelError'
+      type: object
+    SandboxCreateAnnouncementOptions:
+      description: Опции анонса.
+      properties:
+        urlToSendAnnouncement:
+          description: URL, куда отправлять сформированный анонс.
+          type: string
+      required:
+      - urlToSendAnnouncement
+      type: object
+    GetSandboxParcelInfoReply:
+      properties:
+        data:
+          $ref: '#/components/schemas/GetSandboxParcelInfoReplyData'
+        error:
+          $ref: '#/components/schemas/GetSandboxParcelInfoError'
+      type: object
+    CreateParcelError:
+      description: 'Ошибка создания посылки.
+
+
+        Поле присутствует, если запрос не был успешно обработан. Если запрос был успешно обработан, то поле отсутствует.
+
+        '
+      properties:
+        code:
+          description: "Код ошибки.\n\n- `VALIDATION_ERROR` – ошибка валидации данных (например, длина передаваемого поля превышает допустимые лимиты, или какое-то поле отсутствует). \nВ поле `error.message` должно содержаться пояснение, какое поле не прошло валидацию.\n- `UNSUPPORTED_PARAM_ERROR` – в запросе получен неподдерживаемый параметр. В поле `error.message` должно содержаться пояснение, какое поле не поддерживается.\n- `TERMINAL_UNAVAILABLE` – терминал, указанный в запросе, недоступен для создания посылки. В поле `error.message` должно содержаться пояснение причины недоступности терминала.\n- `SORTING_CENTER_UNAVAILABLE` – сортировочный центр, указанный в запросе, недоступен для создания посылки. В поле error.message должно содержаться пояснение причины недоступности сортировочного центра.\n\nВсе перечисленные ошибки – \"терминальные\". \nПри получении этих ошибок Avito не будет выполнять повторные запросы, т.к. повтор приведет к тому же результату.\n\nСписок в дальнейшем может пополняться.\n"
+          enum:
+          - VALIDATION_ERROR
+          - UNSUPPORTED_PARAM_ERROR
+          - TERMINAL_UNAVAILABLE
+          - SORTING_CENTER_UNAVAILABLE
+          example: VALIDATION_ERROR
+          type: string
+        message:
+          description: Текстовое описание ошибки
+          example: Текст ошибки
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    CreateParcelCourierDateTimeInterval:
+      description: Интервал для курьерской доставки.
+      properties:
+        end:
+          description: Дата и время окончания интервала в RFC3339.
+          example: '2025-02-01T10:26:15+03:00'
+          format: date-time
+          type: string
+        start:
+          description: Дата и время начала интервала в RFC3339.
+          example: '2025-02-01T10:26:15+03:00'
+          format: date-time
+          type: string
+      required:
+      - start
+      - end
+    ChangeParcelRequestOptions:
+      properties:
+        changeParcelUrl:
+          title: URL, куда должен быть направлен запрос на создание заявки
+          type: string
+      type: object
+    GetSandboxParcelInfoReplyData:
+      properties:
+        dimensions:
+          $ref: '#/components/schemas/GetSandboxParcelInfoDimensions'
+        history:
+          items:
+            $ref: '#/components/schemas/GetSandboxParcelInfoParcelHistory'
+          title: История статусов посылки
+          type: array
+        receiver:
+          properties:
+            terminals:
+              $ref: '#/components/schemas/GetSandboxParcelInfoTerminals'
+          title: Информация о получателе
+          type: object
+        sender:
+          properties:
+            terminals:
+              $ref: '#/components/schemas/GetSandboxParcelInfoTerminals'
+          title: Информация об отправителе
+          type: object
+        status:
+          title: Текущий статус посылки
+          type: string
+      type:
+      - object
+      - 'null'
+    ChangeParcelError:
+      properties:
+        code:
+          enum:
+          - VALIDATION_ERROR
+          - INTERNAL_ERROR
+          - UNSUITABLE_PARCEL
+          - PARCEL_NOT_FOUND
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      type:
+      - object
+      - 'null'
+    SandboxGetAnnouncementEventError:
       properties:
         code:
           enum:
@@ -540,28 +976,70 @@ components:
       type:
       - object
       - 'null'
-    GetSandboxParcelInfoDimensions:
+    SandboxCreateAnnouncementPackage:
       properties:
-        realHeight:
+        id:
+          description: Штрихкод идентификатор грузоместа.
+          type: string
+        parcelIDs:
+          description: Список идентификаторов посылок Авито.
+          items:
+            type: string
+          type: array
+        sealID:
+          description: Номер пломбы грузоместа.
           type:
-          - integer
+          - string
           - 'null'
-        realLength:
+      required:
+      - id
+      - parcelIDs
+      type: object
+    CreateParcelCourierAddressDetails:
+      description: 'Детали адреса курьерской доставки.
+
+        '
+      properties:
+        flat:
+          description: Номер квартиры.
+          example: '23'
+          type: string
+        floor:
+          description: Номер этажа.
+          example: '4'
+          type: string
+        house:
+          description: Номер дома, корпуса, строения пользователя.
+          example: 20с2
+          type: string
+        porch:
+          description: Номер подъезда.
+          example: '2'
+          type: string
+      required:
+      - house
+      - porch
+      - floor
+      - flat
+    GetSandboxParcelInfoParcelHistory:
+      properties:
+        date:
+          format: date-time
+          type: string
+        event:
+          type: string
+        location:
           type:
-          - integer
+          - string
           - 'null'
-        realWeight:
-          type:
-          - integer
-          - 'null'
-        realWidth:
-          type:
-          - integer
-          - 'null'
-      title: Реальные весогабаритные параметры посылки
-      type:
-      - object
-      - 'null'
+        status:
+          type: string
+      type: object
+    CancelSandboxParcelOptions:
+      properties:
+        cancelationUrl:
+          type: string
+      type: object
     CreateSandboxParcelItem:
       properties:
         breadcrumbs:
@@ -603,13 +1081,6 @@ components:
       required:
       - quantity
       type: object
-    GetChangeParcelInfoReply:
-      properties:
-        data:
-          $ref: '#/components/schemas/GetChangeParcelInfoReplyData'
-        error:
-          $ref: '#/components/schemas/GetChangeParcelInfoError'
-      type: object
     GetRegisteredParcelIDRequest:
       properties:
         orderID:
@@ -617,162 +1088,37 @@ components:
       required:
       - orderID
       type: object
-    CancelSandboxParcelOptions:
-      properties:
-        cancelationUrl:
-          type: string
-      type: object
-    GetChangeParcelInfoRequest:
-      properties:
-        applicationID:
-          title: Идентификатор заявки на изменение данных посылки
-          type: string
-      required:
-      - applicationID
-      type: object
-    GetSandboxParcelInfoReplyData:
-      properties:
-        dimensions:
-          $ref: '#/components/schemas/GetSandboxParcelInfoDimensions'
-        history:
-          items:
-            $ref: '#/components/schemas/GetSandboxParcelInfoParcelHistory'
-          title: История статусов посылки
-          type: array
-        receiver:
-          properties:
-            terminals:
-              $ref: '#/components/schemas/GetSandboxParcelInfoTerminals'
-          title: Информация о получателе
-          type: object
-        sender:
-          properties:
-            terminals:
-              $ref: '#/components/schemas/GetSandboxParcelInfoTerminals'
-          title: Информация об отправителе
-          type: object
-        status:
-          title: Текущий статус посылки
-          type: string
-      type:
-      - object
-      - 'null'
-    SandboxCreateAnnouncementPackage:
-      properties:
-        id:
-          description: Штрихкод идентификатор грузоместа.
-          type: string
-        parcelIDs:
-          description: Список идентификаторов посылок Авито.
-          items:
-            type: string
-          type: array
-        sealID:
-          description: Номер пломбы грузоместа.
-          type:
-          - string
-          - 'null'
-      required:
-      - id
-      - parcelIDs
-      type: object
-    GetRegisteredParcelIDReply:
-      properties:
-        data:
-          properties:
-            parcelID:
-              type: string
-          type:
-          - object
-          - 'null'
-        error:
-          $ref: '#/components/schemas/GetRegisteredParcelIDError'
-      type: object
-    SandboxCreateAnnouncementError:
+    GetSandboxParcelInfoError:
       properties:
         code:
           enum:
           - VALIDATION_ERROR
           - INTERNAL_ERROR
-          - OBJECT_EXISTS
+          - UNKNOWN_PROVIDER
+          - NOT_FOUND
           type: string
         message:
           type: string
       required:
       - code
-      - message
       type:
       - object
       - 'null'
-    CreateParcelError:
-      description: 'Ошибка создания посылки.
-
-
-        Поле присутствует, если запрос не был успешно обработан. Если запрос был успешно обработан, то поле отсутствует.
-
-        '
-      properties:
-        code:
-          description: "Код ошибки.\n\n- `VALIDATION_ERROR` – ошибка валидации данных (например, длина передаваемого поля превышает допустимые лимиты, или какое-то поле отсутствует). \nВ поле `error.message` должно содержаться пояснение, какое поле не прошло валидацию.\n- `UNSUPPORTED_PARAM_ERROR` – в запросе получен неподдерживаемый параметр. В поле `error.message` должно содержаться пояснение, какое поле не поддерживается.\n- `TERMINAL_UNAVAILABLE` – терминал, указанный в запросе, недоступен для создания посылки. В поле `error.message` должно содержаться пояснение причины недоступности терминала.\n- `SORTING_CENTER_UNAVAILABLE` – сортировочный центр, указанный в запросе, недоступен для создания посылки. В поле error.message должно содержаться пояснение причины недоступности сортировочного центра.\n\nВсе перечисленные ошибки – \"терминальные\". \nПри получении этих ошибок Avito не будет выполнять повторные запросы, т.к. повтор приведет к тому же результату.\n\nСписок в дальнейшем может пополняться.\n"
-          enum:
-          - VALIDATION_ERROR
-          - UNSUPPORTED_PARAM_ERROR
-          - TERMINAL_UNAVAILABLE
-          - SORTING_CENTER_UNAVAILABLE
-          example: VALIDATION_ERROR
-          type: string
-        message:
-          description: Текстовое описание ошибки
-          example: Текст ошибки
-          type: string
-      required:
-      - code
-      - message
-      type: object
-    CancelSandboxParcelReply:
+    SandboxCreateAnnouncementReply:
       properties:
         data:
           properties:
             status:
+              description: Статус выполнения операции.
+              enum:
+              - success
+              - failed
               type: string
           type:
           - object
           - 'null'
         error:
-          $ref: '#/components/schemas/CancelSandboxParcelError'
-      type: object
-    SandboxGetAnnouncementEventError:
-      properties:
-        code:
-          enum:
-          - INTERNAL_ERROR
-          - VALIDATION_ERROR
-          - ANNOUNCEMENT_NOT_FOUND
-          type: string
-        message:
-          type: string
-      required:
-      - code
-      - message
-      type:
-      - object
-      - 'null'
-    ChangeParcelReplyData:
-      properties:
-        applicationID:
-          title: Идентификатор заявки на изменение данных
-          type: string
-      type:
-      - object
-      - 'null'
-    CancelSandxobParcelRequest:
-      properties:
-        options:
-          $ref: '#/components/schemas/CancelSandboxParcelOptions'
-        parcelID:
-          type: string
-      required:
-      - parcelID
+          $ref: '#/components/schemas/SandboxCreateAnnouncementError'
       type: object
     CreateParcelItemBreadcrumb:
       properties:
@@ -822,96 +1168,50 @@ components:
       - date
       - packages
       type: object
-    GetSandboxParcelInfoReply:
+    CancelSandboxParcelReply:
       properties:
         data:
-          $ref: '#/components/schemas/GetSandboxParcelInfoReplyData'
+          properties:
+            status:
+              type: string
+          type:
+          - object
+          - 'null'
         error:
-          $ref: '#/components/schemas/GetSandboxParcelInfoError'
+          $ref: '#/components/schemas/CancelSandboxParcelError'
       type: object
-    SandboxCreateAnnouncementOptions:
-      description: Опции анонса.
+    GetRegisteredParcelIDError:
       properties:
-        urlToSendAnnouncement:
-          description: URL, куда отправлять сформированный анонс.
+        code:
+          enum:
+          - NOT_FOUND
+          - NOT_REGISTERED
+          - VALIDATION_ERROR
+          - INTERNAL_ERROR
+          type: string
+        message:
           type: string
       required:
-      - urlToSendAnnouncement
-      type: object
-    CreateParcelCourierDateTimeInterval:
-      description: Интервал для курьерской доставки.
+      - code
+      type:
+      - object
+      - 'null'
+    SandboxCancelAnnouncementError:
       properties:
-        end:
-          description: Дата и время окончания интервала в RFC3339.
-          example: '2025-02-01T10:26:15+03:00'
-          format: date-time
+        code:
+          enum:
+          - INTERNAL_ERROR
+          - VALIDATION_ERROR
+          - ANNOUNCEMENT_NOT_FOUND
           type: string
-        start:
-          description: Дата и время начала интервала в RFC3339.
-          example: '2025-02-01T10:26:15+03:00'
-          format: date-time
+        message:
           type: string
       required:
-      - start
-      - end
-    GetSandboxParcelInfoParcelHistory:
-      properties:
-        date:
-          format: date-time
-          type: string
-        event:
-          type: string
-        location:
-          type:
-          - string
-          - 'null'
-        status:
-          type: string
-      type: object
-    GetSandboxParcelInfoTerminals:
-      properties:
-        approximate:
-          title: Расчетный терминал
-          type: string
-        real:
-          title: Реальный терминал
-          type:
-          - string
-          - 'null'
-      type: object
-    SandboxCancelAnnouncementOptions:
-      description: Опции отмены анонса.
-      properties:
-        urlToCancelAnnouncement:
-          description: URL, куда отправлять отмену анонса.
-          type: string
-      required:
-      - urlToCancelAnnouncement
-      type: object
-    CreateParcelCourierAddress:
-      description: Адрес пользователя
-      properties:
-        addressRow:
-          description: Адрес, выбранный пользователем.
-          example: Москва, ул. Лесная, 20с2
-          type: string
-        coordinates:
-          $ref: '#/components/schemas/CreateParcelCourierCoordinates'
-        details:
-          $ref: '#/components/schemas/CreateParcelCourierAddressDetails'
-      required:
-      - addressRow
-      - details
-      - coordinates
-      type: object
-    CreateParcelUserDeliveryTerminal:
-      properties:
-        id:
-          example: T1000
-          title: Номер терминала
-          type: string
-      title: Терминал
-      type: object
+      - code
+      - message
+      type:
+      - object
+      - 'null'
     CreateSandboxParcelV2:
       properties:
         items:
@@ -938,330 +1238,15 @@ components:
             type: string
           type: array
       type: object
-    GetSandboxParcelInfoError:
+    CancelSandxobParcelRequest:
       properties:
-        code:
-          enum:
-          - VALIDATION_ERROR
-          - INTERNAL_ERROR
-          - UNKNOWN_PROVIDER
-          - NOT_FOUND
-          type: string
-        message:
-          type: string
-      required:
-      - code
-      type:
-      - object
-      - 'null'
-    CreateParcelCourierAddressDetails:
-      description: 'Детали адреса курьерской доставки.
-
-        '
-      properties:
-        flat:
-          description: Номер квартиры.
-          example: '23'
-          type: string
-        floor:
-          description: Номер этажа.
-          example: '4'
-          type: string
-        house:
-          description: Номер дома, корпуса, строения пользователя.
-          example: 20с2
-          type: string
-        porch:
-          description: Номер подъезда.
-          example: '2'
-          type: string
-      required:
-      - house
-      - porch
-      - floor
-      - flat
-    ChangeParcelRequest:
-      properties:
-        application:
-          $ref: '#/components/schemas/ChangeParcelRequestApplication'
         options:
-          $ref: '#/components/schemas/ChangeParcelRequestOptions'
-        parcelID:
-          title: Идентификатор посылки.
-          type: string
-        type:
-          enum:
-          - changeReceiver
-          - prohibitParcelReceive
-          - extendParcelStorage
-          - prohibitParcelAcceptance
-          title: Тип заявки, которую необходимо зарегистрировать.
-          type: string
-      required:
-      - type
-      - parcelID
-      type: object
-    GetChangeParcelInfoReplyData:
-      properties:
-        receiver:
-          properties:
-            name:
-              title: Новые ФИО получателя
-              type: string
-            phones:
-              items:
-                type: string
-              title: Новые телефоны получателя
-              type: array
-          type: object
-        status:
-          title: Текущий статус заявки
-          type: string
-      type:
-      - object
-      - 'null'
-    CreateParcelDeliveryCourier:
-      properties:
-        address:
-          $ref: '#/components/schemas/CreateParcelCourierAddress'
-        dateTimeInterval:
-          $ref: '#/components/schemas/CreateParcelCourierDateTimeInterval'
-        options:
-          $ref: '#/components/schemas/CreateParcelCourierOptions'
-      title: Данные по курьерской доставке
-      type: object
-    CreateSandboxParcelReceiverDelivery:
-      properties:
-        courier:
-          $ref: '#/components/schemas/CreateParcelDeliveryCourier'
-        terminal:
-          $ref: '#/components/schemas/CreateParcelUserDeliveryTerminal'
-      title: Данные по доставке
-      type: object
-    ChangeParcelError:
-      properties:
-        code:
-          enum:
-          - VALIDATION_ERROR
-          - INTERNAL_ERROR
-          - UNSUITABLE_PARCEL
-          - PARCEL_NOT_FOUND
-          type: string
-        message:
-          type: string
-      required:
-      - code
-      type:
-      - object
-      - 'null'
-    SandboxCreateAnnouncementDeliveryPoint:
-      properties:
-        accuracy:
-          description: Точность определения точки.
-          enum:
-          - EXACT
-          - APPROXIMATE
-          type:
-          - string
-          - 'null'
-        id:
-          description: Идентификатор точки (ПВЗ/сортировочного центра).
-          type:
-          - string
-          - 'null'
-        provider:
-          description: Код службы доставки.
-          type: string
-      required:
-      - provider
-      type:
-      - object
-      - 'null'
-    CancelSandboxParcelError:
-      properties:
-        code:
-          enum:
-          - VALIDATION_ERROR
-          - INTERNAL_ERROR
-          - UNKNOWN_PROVIDER
-          type: string
-        message:
-          type: string
-      required:
-      - code
-      type:
-      - object
-      - 'null'
-    GetChangeParcelInfoError:
-      properties:
-        code:
-          enum:
-          - VALIDATION_ERROR
-          - INTERNAL_ERROR
-          - APPLICATION_NOT_FOUND
-          type: string
-        message:
-          type: string
-      required:
-      - code
-      type:
-      - object
-      - 'null'
-    SandboxGetAnnouncementEventReply:
-      properties:
-        data:
-          properties:
-            announcementEvent:
-              description: Последнее событие анонса.
-              type: string
-          type:
-          - object
-          - 'null'
-        error:
-          $ref: '#/components/schemas/SandboxGetAnnouncementEventError'
-      type: object
-    GetSandboxParcelInfoRequest:
-      properties:
+          $ref: '#/components/schemas/CancelSandboxParcelOptions'
         parcelID:
           type: string
       required:
       - parcelID
       type: object
-    ChangeParcelReply:
-      properties:
-        data:
-          $ref: '#/components/schemas/ChangeParcelReplyData'
-        error:
-          $ref: '#/components/schemas/ChangeParcelError'
-      type: object
-    SandboxGetAnnouncementEventRequest:
-      properties:
-        announcementID:
-          description: Уникальный идентификатор анонса UUID V4.
-          type: string
-      required:
-      - announcementID
-      type: object
-    SandboxCreateAnnouncementParticipant:
-      properties:
-        delivery:
-          properties:
-            sortingCenter:
-              $ref: '#/components/schemas/SandboxCreateAnnouncementDeliveryPoint'
-            terminal:
-              $ref: '#/components/schemas/SandboxCreateAnnouncementDeliveryPoint'
-            type:
-              description: Тип пункта отправки/приема.
-              enum:
-              - TERMINAL
-              - SORTING_CENTER
-              type: string
-          required:
-          - type
-          type: object
-        email:
-          description: Электронная почта участника.
-          type: string
-        name:
-          description: Наименование участника доставки (отправителя/получателя).
-          type: string
-        phones:
-          description: Контактные телефоны.
-          items:
-            type: string
-          type: array
-        type:
-          description: Тип участника доставки (отправителя/получателя).
-          enum:
-          - 3PL
-          - ABD
-          type: string
-      required:
-      - type
-      - phones
-      - email
-      - name
-      - delivery
-      type: object
-    CreateSandboxV2Options:
-      properties:
-        registrationUrl:
-          description: На заданный URL будет отправлен запрос на регистрацию посылки
-          type: string
-      type: object
-    SandboxCancelAnnouncementReply:
-      properties:
-        data:
-          properties:
-            status:
-              description: Статус выполнения операции.
-              enum:
-              - success
-              type: string
-          type:
-          - object
-          - 'null'
-        error:
-          $ref: '#/components/schemas/SandboxCancelAnnouncementError'
-      type: object
-    CreateParcelReply:
-      properties:
-        data:
-          properties:
-            orderID:
-              title: Идентификатор заказа
-              type: string
-          type:
-          - object
-          - 'null'
-        error:
-          $ref: '#/components/schemas/CreateParcelError'
-      type: object
-    CreateParcelCourierOptions:
-      properties:
-        comment:
-          description: Комментарий для курьера, оставленный пользователем.
-          example: Комментарий для курьера
-          type: string
-        elevatorAvailable:
-          description: Наличие лифта в доме, способного поднять посылку.
-          example: true
-          type: boolean
-      type: object
-    ChangeParcelRequestApplication:
-      properties:
-        kind:
-          enum:
-          - buyer
-          - seller
-          title: Инициатор заявки на изменение ФИО и номера телефона. Покупатель или продавец.
-          type: string
-        name:
-          title: Новые ФИО получателя посылки
-          type: string
-        phones:
-          items:
-            type: string
-          title: Новые телефоны получателя посылки
-          type: array
-      title: Заявка на изменение данных
-      type: object
-    GetRegisteredParcelIDError:
-      properties:
-        code:
-          enum:
-          - NOT_FOUND
-          - NOT_REGISTERED
-          - VALIDATION_ERROR
-          - INTERNAL_ERROR
-          type: string
-        message:
-          type: string
-      required:
-      - code
-      type:
-      - object
-      - 'null'
     SandboxCancelAnnouncementRequest:
       properties:
         announcementID:
@@ -1280,6 +1265,21 @@ components:
       - announcementID
       - date
       type: object
+    CreateSandboxParcelError:
+      properties:
+        code:
+          enum:
+          - VALIDATION_ERROR
+          - INTERNAL_ERROR
+          - UNKNOWN_PROVIDER
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      type:
+      - object
+      - 'null'
   parameters:
     authHeader:
       description: Токен для авторизации

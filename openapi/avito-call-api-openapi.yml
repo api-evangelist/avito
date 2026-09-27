@@ -212,31 +212,14 @@ paths:
       - Call
 components:
   schemas:
-    CpaError:
+    CallById:
       properties:
-        code:
-          description: 'Внутренний код ошибки
-
-
-            Возможные значения:
-
-            - 1000 - пустой запрос
-
-            - 1001 - ошибка валидации
-
-            - 1002 - ошибка авторизации
-
-            - 1003 - внутренняя ошибка
-
-            - 1004 - не найдено
-
-            '
+        callId:
+          description: Идентификатор звонка
           format: int64
           type: integer
-        message:
-          description: Текст ошибки
-          example: ЦД недоступно для обжалования
-          type: string
+      required:
+      - callId
       type: object
     CreateComplaint:
       properties:
@@ -250,24 +233,6 @@ components:
       required:
       - callId
       - message
-      type: object
-    serviceError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 500
-              format: int32
-              type: integer
-            message:
-              description: Описание ошибки
-              example: Error while processing request. Please, contact support
-              type: string
-          required:
-          - code
-          - message
-          type: object
       type: object
     CallsByTime:
       properties:
@@ -291,6 +256,19 @@ components:
       - dateTimeFrom
       - limit
       type: object
+    tooManyRequestsError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 429
+              format: int32
+              type: integer
+          required:
+          - code
+          type: object
+      type: object
     notFoundError:
       properties:
         error:
@@ -308,15 +286,6 @@ components:
           - code
           - message
           type: object
-      type: object
-    CallById:
-      properties:
-        callId:
-          description: Идентификатор звонка
-          format: int64
-          type: integer
-      required:
-      - callId
       type: object
     CallV2:
       properties:
@@ -389,28 +358,51 @@ components:
           example: '0.0109999'
           type: number
       type: object
-    tooManyRequestsError:
+    CpaError:
+      properties:
+        code:
+          description: 'Внутренний код ошибки
+
+
+            Возможные значения:
+
+            - 1000 - пустой запрос
+
+            - 1001 - ошибка валидации
+
+            - 1002 - ошибка авторизации
+
+            - 1003 - внутренняя ошибка
+
+            - 1004 - не найдено
+
+            '
+          format: int64
+          type: integer
+        message:
+          description: Текст ошибки
+          example: ЦД недоступно для обжалования
+          type: string
+      type: object
+    serviceError:
       properties:
         error:
           properties:
             code:
               description: Код ошибки
-              example: 429
+              example: 500
               format: int32
               type: integer
+            message:
+              description: Описание ошибки
+              example: Error while processing request. Please, contact support
+              type: string
           required:
           - code
+          - message
           type: object
       type: object
   parameters:
-    sourceHeader:
-      description: Имя сервиса, отправляющего запрос
-      in: header
-      name: X-Source
-      required: true
-      schema:
-        example: someName
-        type: string
     authHeader:
       description: Токен для авторизации
       in: header
@@ -419,14 +411,22 @@ components:
       schema:
         example: Bearer ACCESS_TOKEN
         type: string
+    sourceHeader:
+      description: Имя сервиса, отправляющего запрос
+      in: header
+      name: X-Source
+      required: true
+      schema:
+        example: someName
+        type: string
   headers:
-    X-RateLimit-Limit:
-      description: Количество запросов в минуту
+    X-RateLimit-Remaining:
+      description: Доступное количество запросов в текущем временном окне
       schema:
         format: int32
         type: integer
-    X-RateLimit-Remaining:
-      description: Доступное количество запросов в текущем временном окне
+    X-RateLimit-Limit:
+      description: Количество запросов в минуту
       schema:
         format: int32
         type: integer

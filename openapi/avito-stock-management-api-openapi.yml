@@ -158,42 +158,7 @@ paths:
       operationId: putStockManagement1Stocks
       x-operation-id-source: derived
 components:
-  responses:
-    unauthorized:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/unauthError'
-      description: Unauthorized
-    tooManyRequests:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/errorMessage'
-      description: Too Many Requests
-    internalError:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/errorMessage'
-      description: Internal Error
-    badRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/errorMessage'
-      description: Bad request
   schemas:
-    errorMessage:
-      additionalProperties: false
-      properties:
-        message:
-          description: Текст ошибки
-          example: Что-то пошло не так
-          type: string
-      required:
-      - message
-      type: object
     stockEditResult:
       properties:
         stocks:
@@ -226,6 +191,16 @@ components:
             - success
             type: object
           type: array
+      type: object
+    unauthError:
+      additionalProperties: false
+      properties:
+        message:
+          description: Сообщение о том, что пользователь не авторизован. Если текст ошибки "Unsupported flow for endpoint", значит в авторизационном заголовке "X-Oauth-Flow" не передан "authorization_code"
+          example: Unsupported flow for endpoint
+          type: string
+      required:
+      - message
       type: object
     stocksInfoResult:
       properties:
@@ -264,16 +239,41 @@ components:
             type: object
           type: array
       type: object
-    unauthError:
+    errorMessage:
       additionalProperties: false
       properties:
         message:
-          description: Сообщение о том, что пользователь не авторизован. Если текст ошибки "Unsupported flow for endpoint", значит в авторизационном заголовке "X-Oauth-Flow" не передан "authorization_code"
-          example: Unsupported flow for endpoint
+          description: Текст ошибки
+          example: Что-то пошло не так
           type: string
       required:
       - message
       type: object
+  responses:
+    tooManyRequests:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorMessage'
+      description: Too Many Requests
+    unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/unauthError'
+      description: Unauthorized
+    badRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorMessage'
+      description: Bad request
+    internalError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorMessage'
+      description: Internal Error
   parameters:
     authHeader:
       description: Токен для авторизации

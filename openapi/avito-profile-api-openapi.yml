@@ -314,12 +314,6 @@ paths:
       - Profile
 components:
   responses:
-    defaultInternalServerError:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Ошибка сервера
     forbiddenWithStatus:
       content:
         application/json:
@@ -335,6 +329,18 @@ components:
             - result
             type: object
       description: Действие запрещено
+    defaultInternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Ошибка сервера
+    defaultTooManyRequests:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Превышено количество запросов
     badRequestFieldsWithStatus:
       content:
         application/json:
@@ -365,46 +371,51 @@ components:
             - result
             type: object
       description: Требуется авторизация
-    defaultTooManyRequests:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Превышено количество запросов
   schemas:
-    amountKopecks:
-      description: Сумма в копейках
-      example: 100000
-      type: integer
     badRequestResponseStatus:
       description: Статус ответа
       enum:
       - bad-request
       example: bad-request
       type: string
+    counter:
+      description: Счетчик
+      example: 123
+      type: integer
     okResponseStatus:
       description: Статус результата ответа
       enum:
       - ok
       example: ok
       type: string
-    unauthorizedResponseStatus:
-      description: Статус ответа
-      enum:
-      - unauthorized
-      example: unauthorized
-      type: string
-    linkType:
-      description: Тип связи с клиентом
-      enum:
-      - adv
-      - trx
-      example: adv
-      type: string
+    id:
+      description: Идентификатор
+      example: 123456
+      minimum: 1
+      type: integer
     errorField:
       description: Наименование поля
       example: userId
       type: string
+    errorMessage:
+      description: Сообщение об ошибке
+      example: Ошибка
+      type: string
+    errorFields:
+      description: Ошибки валидации
+      items:
+        additionalProperties: false
+        description: Ошибка валидации поля
+        properties:
+          field:
+            $ref: '#/components/schemas/errorField'
+          message:
+            $ref: '#/components/schemas/errorMessage'
+        required:
+        - field
+        - message
+        type: object
+      type: array
     errorResult:
       additionalProperties: false
       description: Результат с ошибкой
@@ -414,16 +425,6 @@ components:
       required:
       - message
       type: object
-    toggle:
-      description: Переключатель
-      example: true
-      type: boolean
-    forbiddenResponseStatus:
-      description: Статус ответа
-      enum:
-      - forbidden
-      example: forbidden
-      type: string
     defaultErrorResponse:
       additionalProperties: false
       properties:
@@ -444,43 +445,42 @@ components:
       required:
       - error
       type: object
-    counter:
-      description: Счетчик
-      example: 123
+    toggle:
+      description: Переключатель
+      example: true
+      type: boolean
+    dateTime:
+      description: Дата в формате RFC3339
+      example: '2025-05-02T11:00:00+03:00'
+      format: date-time
+      type: string
+    unauthorizedResponseStatus:
+      description: Статус ответа
+      enum:
+      - unauthorized
+      example: unauthorized
+      type: string
+    amountKopecks:
+      description: Сумма в копейках
+      example: 100000
       type: integer
-    errorFields:
-      description: Ошибки валидации
-      items:
-        additionalProperties: false
-        description: Ошибка валидации поля
-        properties:
-          field:
-            $ref: '#/components/schemas/errorField'
-          message:
-            $ref: '#/components/schemas/errorMessage'
-        required:
-        - field
-        - message
-        type: object
-      type: array
-    id:
-      description: Идентификатор
-      example: 123456
-      minimum: 1
-      type: integer
+    forbiddenResponseStatus:
+      description: Статус ответа
+      enum:
+      - forbidden
+      example: forbidden
+      type: string
     offset:
       description: Смещение, с которого начинается выборка
       example: 10
       minimum: 0
       type: integer
-    errorMessage:
-      description: Сообщение об ошибке
-      example: Ошибка
-      type: string
-    dateTime:
-      description: Дата в формате RFC3339
-      example: '2025-05-02T11:00:00+03:00'
-      format: date-time
+    linkType:
+      description: Тип связи с клиентом
+      enum:
+      - adv
+      - trx
+      example: adv
       type: string
   parameters:
     authHeader:

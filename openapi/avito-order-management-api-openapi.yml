@@ -534,6 +534,20 @@ paths:
       - Order Management
 components:
   schemas:
+    orderCheckConfirmationCodeResponse:
+      description: Ответ ручки проверки кода подтверждения
+      properties:
+        data:
+          properties:
+            status:
+              enum:
+              - success
+              - fail
+              - expired
+              - attempts
+              type: string
+          type: object
+      type: object
     setCourierDeliveryRangeResponse:
       description: Ответ для ручки установки параметров курьерской доставки
       properties:
@@ -541,6 +555,156 @@ components:
           description: Флаг успеха выбора времени приезда курьера
           example: false
           type: boolean
+      type: object
+    setCourierDeliveryRangeRequest:
+      description: Параметры запроса для ручки установки параметров курьерской доставки
+      properties:
+        address:
+          description: Адрес продавца
+          minLength: 1
+          type: string
+        addressDetails:
+          description: Детали адреса продавца
+          type: string
+        endDate:
+          description: Конечная дата приезда курьера
+          format: date-time
+          type: string
+        intervalType:
+          description: Тип интервала
+          enum:
+          - fixed
+          - asap
+          type: string
+        name:
+          description: ФИО
+          minLength: 1
+          type: string
+        orderId:
+          description: ID заказа
+          minLength: 1
+          type: string
+        phone:
+          description: Телефон
+          minLength: 1
+          type: string
+        startDate:
+          description: Начальная дата приезда курьера
+          format: date-time
+          type: string
+      required:
+      - orderId
+      - address
+      - startDate
+      - endDate
+      - intervalType
+      - phone
+      - name
+      type: object
+    action:
+      properties:
+        name:
+          description: Название действия
+          enum:
+          - setMarkings
+          - setCNCDetails
+          - setTrackNumber
+          - fixTrackNumber
+          - acceptReturnOrder
+          - confirm
+          - reject
+          - perform
+          - receive
+          type: string
+        required:
+          description: Обязательность действия для продвижения заказа.
+          type: boolean
+      type: object
+    ordersInfo:
+      description: Ответ для ручки получения информации о заказе
+      properties:
+        hasMore:
+          description: Есть ли еще заказы
+          example: true
+          type: boolean
+        orders:
+          description: Массив заказов
+          items:
+            $ref: '#/components/schemas/order'
+          type: array
+      required:
+      - orders
+      - hasMore
+      type: object
+    buyerInfo:
+      description: Информация о покупателе. Доступна только для DBS и RDBS после оплаты заказа
+      properties:
+        fullName:
+          description: ФИО покупателя
+          example: Пушкин Александр Сергеевич
+          type: string
+        phoneNumber:
+          description: Номер телефона покупателя
+          example: 79876543210
+          type: string
+      type:
+      - object
+      - 'null'
+    discount:
+      properties:
+        id:
+          description: Идентификатор скидки
+          example: myfriendpromo
+          type: string
+        type:
+          description: Тип скидки
+          enum:
+          - promocode
+          type: string
+        value:
+          description: Размер скидки
+          example: 10
+          type: number
+      type: object
+    orderCheckConfirmationCodeRequest:
+      description: Запрос на проверку кода подтверждения
+      properties:
+        confirmCode:
+          description: Код, который показал пользователь
+          type: string
+        parcelID:
+          description: ID посылки в Авито
+          example: P00081306679
+          type: string
+      type: object
+    delivery:
+      description: Информация о доставке
+      properties:
+        buyerInfo:
+          $ref: '#/components/schemas/buyerInfo'
+        courierInfo:
+          $ref: '#/components/schemas/courierInfo'
+        dispatchNumber:
+          description: Номер отправления. Отсутствует для RDBS.
+          example: '0000042642072'
+          type: string
+        serviceName:
+          description: Название службы доставки.
+          example: Boxberry
+          type: string
+        serviceType:
+          description: "Способ доставки \n  - `pvz` - ПВЗ;\n  - `dbs` - Доставка партнёрами продавца (ПВЗ);\n  - `rdbs` - Доставка курьером продавца;\n  - `postamat` - Доставка через постамат;\n"
+          enum:
+          - pvz
+          - dbs
+          - rdbs
+          type: string
+        terminalInfo:
+          $ref: '#/components/schemas/terminalInfo'
+        trackingNumber:
+          description: Номер для отслеживания посылки. Отсутствует для RDBS.
+          example: '0000012642072'
+          type: string
       type: object
     terminalInfo:
       description: Информация о ПВЗ выбранном покупателем для доставки DBS
@@ -560,124 +724,89 @@ components:
       type:
       - object
       - 'null'
-    schedules:
-      description: Расписание запланированных событий и необходимых действий над заказом
+    status:
+      enum:
+      - on_confirmation
+      - ready_to_ship
+      - in_transit
+      - canceled
+      - delivered
+      - on_return
+      - in_dispute
+      - closed
+      type: string
+    orderCNCSetDetailsRequest:
+      description: Запрос на подготовку заказа и уточнение деталей
       properties:
-        confirmTill:
-          description: Дата, до которой продавцу нужно подтвердить заказ
-          example: '2016-11-01T20:44:39Z'
-          type:
-          - string
-          - 'null'
-        deliveryDate:
-          description: Дата доставки товара покупателю переданная продавцом (RDBS)
-          example: '2016-11-01T20:44:39Z'
-          type:
-          - string
-          - 'null'
-        deliveryDateMaх:
-          description: Максимальная ожидаемая дата доставки товара покупателю
-          example: '2016-11-01T20:44:39Z'
-          type:
-          - string
-          - 'null'
-        deliveryDateMin:
-          description: Минимальная ожидаемая дата доставки товара покупателю
-          example: '2016-11-01T20:44:39Z'
-          type:
-          - string
-          - 'null'
-        setTrackingNumberTill:
-          description: Дата, до которой продавцу нужно передать трек-номер заказа (DBS)
-          example: '2016-11-01T20:44:39Z'
-          type:
-          - string
-          - 'null'
-        shipTill:
-          description: Дата, до которой продавцу нужно отправить заказ
-          example: '2016-11-01T20:44:39Z'
-          type:
-          - string
-          - 'null'
-      type: object
-      x-redoc-markdown-subheaders: schedules
-    item:
-      properties:
-        avitoId:
-          description: ID товара в базе Avito
-          example: '2799377316'
+        address:
+          description: Адрес получения товара
+          example: Тверская улица, 3, Москва
           type: string
-        chatId:
-          description: Идентификатор чата
-          example: u2i-isUW4p7EZVu4R4Zk6ts2G
-          type: string
-        count:
-          description: Количество товара
-          example: 2
+        bookingPeriod:
+          description: Сроки бронирования товара
+          example: 4
           type: integer
-        discounts:
-          description: Список примененных скидок
-          items:
-            $ref: '#/components/schemas/discount'
-          type: array
+        details:
+          description: Комментарий, который получит покупатель
+          example: Могу передать товар с 13:00 до 18:00
+          type: string
         id:
-          description: ID товара в базе продавца
-          example: '132768483'
+          description: ID заказа в Авито
+          example: '5000000000000000'
           type: string
-        location:
-          description: Город, в котором размещено объявление
-          example: Новосибирск
-          type: string
-        prices:
-          $ref: '#/components/schemas/itemPrices'
-        title:
-          description: Название товара
-          example: Кеды Venice
+        marketplaceId:
+          description: Номер заказа в Авито в новой системе
+          example: '70000000000000000'
           type: string
       required:
-      - avitoId
-      - title
-      - prices
-      - count
+      - id
+      - marketplaceId
+      - bookingPeriod
       type: object
-    orderAcceptReturnOrderResponse:
-      description: Ответ выбора указанного ПВЗ для возврата
+    setOrderMarkingRequest:
+      description: Запрос ручки обновления маркировок
       properties:
-        success:
-          description: Флаг успеха указанного ПВЗ для возврата
-          example: false
-          type: boolean
-      type: object
-    marking:
-      description: Данные маркировки
-      properties:
-        itemId:
-          description: ID товара в Авито
-          example: '2799377316'
-          type: string
         markings:
-          description: Набор маркировок, которые требуется сохранить
+          description: Массив маркировок, которые требуется передать
           items:
-            example: '36376376113637637611363763761123'
-            maxLength: 129
-            minLength: 29
-            type: string
-          maxItems: 10
+            $ref: '#/components/schemas/marking'
           type: array
+      type: object
+    ordersLabelsRequest:
+      description: Запрос на создание генерации этикеток для пользователя по его заказам
+      properties:
+        orderIDs:
+          description: ID заказов в сервисе сделок (marketplace)
+          items:
+            type: string
+          maxItems: 50
+          minItems: 1
+          type: array
+      required:
+      - orderIDs
+      type: object
+    orderAcceptReturnOrderRequest:
+      description: Запрос выбора ПВЗ для возврата товара
+      properties:
         orderId:
           description: ID заказа в Авито
           example: '50000000000000000'
           type: string
-      type: object
-    orderCheckConfirmationCodeRequest:
-      description: Запрос на проверку кода подтверждения
-      properties:
-        confirmCode:
-          description: Код, который показал пользователь
-          type: string
-        parcelID:
-          description: ID посылки в Авито
-          example: P00081306679
+        recipient:
+          description: Данные человека, который будет забирать возвратную посылку
+          properties:
+            name:
+              description: ФИО получателя
+              example: Иванов Иван Иванович
+              type: string
+            phone:
+              description: Номер телефона человека, который будет забирать возвратную посылку
+              example: '+79999999999'
+              type: string
+          type: object
+        terminalNumber:
+          description: Номер отделения Почты России, куда придёт возвратная посылка.
+          example: '141138'
           type: string
       type: object
     order:
@@ -739,33 +868,6 @@ components:
       - delivery
       - schedules
       type: object
-    discount:
-      properties:
-        id:
-          description: Идентификатор скидки
-          example: myfriendpromo
-          type: string
-        type:
-          description: Тип скидки
-          enum:
-          - promocode
-          type: string
-        value:
-          description: Размер скидки
-          example: 10
-          type: number
-      type: object
-    status:
-      enum:
-      - on_confirmation
-      - ready_to_ship
-      - in_transit
-      - canceled
-      - delivered
-      - on_return
-      - in_dispute
-      - closed
-      type: string
     returnPolicy:
       description: Информация по возврату
       properties:
@@ -786,19 +888,24 @@ components:
       type:
       - object
       - 'null'
-    ordersLabelsRequest:
-      description: Запрос на создание генерации этикеток для пользователя по его заказам
+    courierInfo:
+      description: Информация об адресе покупателя для курьерской доставки RDBS
       properties:
-        orderIDs:
-          description: ID заказов в сервисе сделок (marketplace)
-          items:
-            type: string
-          maxItems: 50
-          minItems: 1
-          type: array
-      required:
-      - orderIDs
-      type: object
+        address:
+          description: Адрес, на который покупатель оформил доставку
+          example: Москва, ул. Каретный ряд, 16, ст. 1, к. 2
+          type:
+          - string
+          - 'null'
+        comment:
+          description: Комментарий покупателя
+          example: Подъезд во дворе дома, домофон не работает
+          type:
+          - string
+          - 'null'
+      type:
+      - object
+      - 'null'
     setOrderMarkingResponse:
       description: Ответ ручки обновления маркировок
       properties:
@@ -827,6 +934,27 @@ components:
             type: object
           type: array
       type: object
+    ordersLabelsResponse:
+      description: Ответ на запрос создания генерации этикеток для пользователя по его заказам
+      properties:
+        taskID:
+          description: ID задачи (документа)
+          type: string
+      required:
+      - taskID
+      type: object
+    orderSetTrackingNumberRequest:
+      description: Запрос ручки передачи трек-номера
+      properties:
+        orderId:
+          description: ID заказа в Авито
+          example: '50000000000000000'
+          type: string
+        trackingNumber:
+          description: Трек-номер посылки
+          example: 01-01031002199
+          type: string
+      type: object
     orderPrices:
       properties:
         commission:
@@ -850,174 +978,6 @@ components:
           example: 960
           type: number
       type: object
-    error:
-      properties:
-        code:
-          description: Код ошибки
-          example: 500
-          type: integer
-        message:
-          description: Текст ошибки
-          example: Error message
-          type: string
-      required:
-      - message
-      - code
-      type: object
-    orderSetTrackingNumberResponse:
-      description: Ответ ручки передачи трек-номера
-      example:
-        error:
-          code: already_set
-          message: Трек-номер уже зарегистрирован для другого заказа
-        success: false
-      properties:
-        error:
-          properties:
-            code:
-              description: "Код ошибки:\n  * `incorrect_number` - Некорректный трек-номер\n  * `already_set` - Трек-номер уже зарегистрирован для другого заказа\n"
-              type: string
-            message:
-              description: Текст ошибки
-              type: string
-          required:
-          - message
-          - code
-          type: object
-        success:
-          description: Флаг успеха обновления
-          example: false
-          type: boolean
-      type: object
-    orderCNCSetDetailsRequest:
-      description: Запрос на подготовку заказа и уточнение деталей
-      properties:
-        address:
-          description: Адрес получения товара
-          example: Тверская улица, 3, Москва
-          type: string
-        bookingPeriod:
-          description: Сроки бронирования товара
-          example: 4
-          type: integer
-        details:
-          description: Комментарий, который получит покупатель
-          example: Могу передать товар с 13:00 до 18:00
-          type: string
-        id:
-          description: ID заказа в Авито
-          example: '5000000000000000'
-          type: string
-        marketplaceId:
-          description: Номер заказа в Авито в новой системе
-          example: '70000000000000000'
-          type: string
-      required:
-      - id
-      - marketplaceId
-      - bookingPeriod
-      type: object
-    orderCNCSetDetailsResponse:
-      description: Ответ ручки подготовки заказа с самовывозом
-      properties:
-        result:
-          properties:
-            success:
-              type: boolean
-          type: object
-        status:
-          type: string
-      type: object
-    orderSetTrackingNumberRequest:
-      description: Запрос ручки передачи трек-номера
-      properties:
-        orderId:
-          description: ID заказа в Авито
-          example: '50000000000000000'
-          type: string
-        trackingNumber:
-          description: Трек-номер посылки
-          example: 01-01031002199
-          type: string
-      type: object
-    courierInfo:
-      description: Информация об адресе покупателя для курьерской доставки RDBS
-      properties:
-        address:
-          description: Адрес, на который покупатель оформил доставку
-          example: Москва, ул. Каретный ряд, 16, ст. 1, к. 2
-          type:
-          - string
-          - 'null'
-        comment:
-          description: Комментарий покупателя
-          example: Подъезд во дворе дома, домофон не работает
-          type:
-          - string
-          - 'null'
-      type:
-      - object
-      - 'null'
-    setOrderMarkingRequest:
-      description: Запрос ручки обновления маркировок
-      properties:
-        markings:
-          description: Массив маркировок, которые требуется передать
-          items:
-            $ref: '#/components/schemas/marking'
-          type: array
-      type: object
-    delivery:
-      description: Информация о доставке
-      properties:
-        buyerInfo:
-          $ref: '#/components/schemas/buyerInfo'
-        courierInfo:
-          $ref: '#/components/schemas/courierInfo'
-        dispatchNumber:
-          description: Номер отправления. Отсутствует для RDBS.
-          example: '0000042642072'
-          type: string
-        serviceName:
-          description: Название службы доставки.
-          example: Boxberry
-          type: string
-        serviceType:
-          description: "Способ доставки \n  - `pvz` - ПВЗ;\n  - `dbs` - Доставка партнёрами продавца (ПВЗ);\n  - `rdbs` - Доставка курьером продавца;\n  - `postamat` - Доставка через постамат;\n"
-          enum:
-          - pvz
-          - dbs
-          - rdbs
-          type: string
-        terminalInfo:
-          $ref: '#/components/schemas/terminalInfo'
-        trackingNumber:
-          description: Номер для отслеживания посылки. Отсутствует для RDBS.
-          example: '0000012642072'
-          type: string
-      type: object
-    orderCheckConfirmationCodeResponse:
-      description: Ответ ручки проверки кода подтверждения
-      properties:
-        data:
-          properties:
-            status:
-              enum:
-              - success
-              - fail
-              - expired
-              - attempts
-              type: string
-          type: object
-      type: object
-    orderApplyTransitionResponse:
-      description: Ответ перевода заказа в другой статус
-      properties:
-        success:
-          description: Флаг успеха перевода в новый статус
-          example: false
-          type: boolean
-      type: object
     itemPrices:
       properties:
         commission:
@@ -1037,14 +997,111 @@ components:
           example: 480
           type: number
       type: object
-    ordersLabelsResponse:
-      description: Ответ на запрос создания генерации этикеток для пользователя по его заказам
+    item:
       properties:
-        taskID:
-          description: ID задачи (документа)
+        avitoId:
+          description: ID товара в базе Avito
+          example: '2799377316'
+          type: string
+        chatId:
+          description: Идентификатор чата
+          example: u2i-isUW4p7EZVu4R4Zk6ts2G
+          type: string
+        count:
+          description: Количество товара
+          example: 2
+          type: integer
+        discounts:
+          description: Список примененных скидок
+          items:
+            $ref: '#/components/schemas/discount'
+          type: array
+        id:
+          description: ID товара в базе продавца
+          example: '132768483'
+          type: string
+        location:
+          description: Город, в котором размещено объявление
+          example: Новосибирск
+          type: string
+        prices:
+          $ref: '#/components/schemas/itemPrices'
+        title:
+          description: Название товара
+          example: Кеды Venice
           type: string
       required:
-      - taskID
+      - avitoId
+      - title
+      - prices
+      - count
+      type: object
+    orderApplyTransitionRequest:
+      description: Запрос перевода заказа в другой статус
+      properties:
+        orderId:
+          description: ID заказа в Авито
+          example: '50000000000000000'
+          type: string
+        params:
+          description: Дополнительные параметры доставки
+          properties:
+            cnc:
+              description: Параметры для подготовки заказа с самовывозом
+              properties:
+                confirmCode:
+                  description: Код подтверждения, который покупатель показывает продавцу
+                  example: '1755'
+                  type: string
+                marketplaceId:
+                  description: Номер заказа в Авито в новой системе
+                  example: '70000000000000000'
+                  type: string
+              type:
+              - object
+              - 'null'
+          type:
+          - object
+          - 'null'
+        transition:
+          description: "Название перехода. \n  * `confirm` - подтверждение заказа;\n  * `reject` - отмена заказа;\n  * `perform` - подтверждение отправки заказа (RDBS);\n  * `receive` - подтверждение доставки заказа (RDBS, CNC).\n"
+          enum:
+          - confirm
+          - reject
+          - perform
+          - receive
+          example: confirm
+          type: string
+      type: object
+    error:
+      properties:
+        code:
+          description: Код ошибки
+          example: 500
+          type: integer
+        message:
+          description: Текст ошибки
+          example: Error message
+          type: string
+      required:
+      - message
+      - code
+      type: object
+    orderAcceptReturnOrderResponse:
+      description: Ответ выбора указанного ПВЗ для возврата
+      properties:
+        success:
+          description: Флаг успеха указанного ПВЗ для возврата
+          example: false
+          type: boolean
+      type: object
+    orderApplyTransitionResponse:
+      description: Ответ перевода заказа в другой статус
+      properties:
+        success:
+          description: Флаг успеха перевода в новый статус
+          example: false
+          type: boolean
       type: object
     getDeliveryCourierConfirmationResponse:
       properties:
@@ -1111,161 +1168,141 @@ components:
       - status
       - result
       type: object
-    buyerInfo:
-      description: Информация о покупателе. Доступна только для DBS и RDBS после оплаты заказа
+    marking:
+      description: Данные маркировки
       properties:
-        fullName:
-          description: ФИО покупателя
-          example: Пушкин Александр Сергеевич
+        itemId:
+          description: ID товара в Авито
+          example: '2799377316'
           type: string
-        phoneNumber:
-          description: Номер телефона покупателя
-          example: 79876543210
-          type: string
-      type:
-      - object
-      - 'null'
-    setCourierDeliveryRangeRequest:
-      description: Параметры запроса для ручки установки параметров курьерской доставки
-      properties:
-        address:
-          description: Адрес продавца
-          minLength: 1
-          type: string
-        addressDetails:
-          description: Детали адреса продавца
-          type: string
-        endDate:
-          description: Конечная дата приезда курьера
-          format: date-time
-          type: string
-        intervalType:
-          description: Тип интервала
-          enum:
-          - fixed
-          - asap
-          type: string
-        name:
-          description: ФИО
-          minLength: 1
-          type: string
-        orderId:
-          description: ID заказа
-          minLength: 1
-          type: string
-        phone:
-          description: Телефон
-          minLength: 1
-          type: string
-        startDate:
-          description: Начальная дата приезда курьера
-          format: date-time
-          type: string
-      required:
-      - orderId
-      - address
-      - startDate
-      - endDate
-      - intervalType
-      - phone
-      - name
-      type: object
-    orderAcceptReturnOrderRequest:
-      description: Запрос выбора ПВЗ для возврата товара
-      properties:
-        orderId:
-          description: ID заказа в Авито
-          example: '50000000000000000'
-          type: string
-        recipient:
-          description: Данные человека, который будет забирать возвратную посылку
-          properties:
-            name:
-              description: ФИО получателя
-              example: Иванов Иван Иванович
-              type: string
-            phone:
-              description: Номер телефона человека, который будет забирать возвратную посылку
-              example: '+79999999999'
-              type: string
-          type: object
-        terminalNumber:
-          description: Номер отделения Почты России, куда придёт возвратная посылка.
-          example: '141138'
-          type: string
-      type: object
-    ordersInfo:
-      description: Ответ для ручки получения информации о заказе
-      properties:
-        hasMore:
-          description: Есть ли еще заказы
-          example: true
-          type: boolean
-        orders:
-          description: Массив заказов
+        markings:
+          description: Набор маркировок, которые требуется сохранить
           items:
-            $ref: '#/components/schemas/order'
+            example: '36376376113637637611363763761123'
+            maxLength: 129
+            minLength: 29
+            type: string
+          maxItems: 10
           type: array
-      required:
-      - orders
-      - hasMore
-      type: object
-    action:
-      properties:
-        name:
-          description: Название действия
-          enum:
-          - setMarkings
-          - setCNCDetails
-          - setTrackNumber
-          - fixTrackNumber
-          - acceptReturnOrder
-          - confirm
-          - reject
-          - perform
-          - receive
-          type: string
-        required:
-          description: Обязательность действия для продвижения заказа.
-          type: boolean
-      type: object
-    orderApplyTransitionRequest:
-      description: Запрос перевода заказа в другой статус
-      properties:
         orderId:
           description: ID заказа в Авито
           example: '50000000000000000'
           type: string
-        params:
-          description: Дополнительные параметры доставки
+      type: object
+    orderCNCSetDetailsResponse:
+      description: Ответ ручки подготовки заказа с самовывозом
+      properties:
+        result:
           properties:
-            cnc:
-              description: Параметры для подготовки заказа с самовывозом
-              properties:
-                confirmCode:
-                  description: Код подтверждения, который покупатель показывает продавцу
-                  example: '1755'
-                  type: string
-                marketplaceId:
-                  description: Номер заказа в Авито в новой системе
-                  example: '70000000000000000'
-                  type: string
-              type:
-              - object
-              - 'null'
-          type:
-          - object
-          - 'null'
-        transition:
-          description: "Название перехода. \n  * `confirm` - подтверждение заказа;\n  * `reject` - отмена заказа;\n  * `perform` - подтверждение отправки заказа (RDBS);\n  * `receive` - подтверждение доставки заказа (RDBS, CNC).\n"
-          enum:
-          - confirm
-          - reject
-          - perform
-          - receive
-          example: confirm
+            success:
+              type: boolean
+          type: object
+        status:
           type: string
       type: object
+    schedules:
+      description: Расписание запланированных событий и необходимых действий над заказом
+      properties:
+        confirmTill:
+          description: Дата, до которой продавцу нужно подтвердить заказ
+          example: '2016-11-01T20:44:39Z'
+          type:
+          - string
+          - 'null'
+        deliveryDate:
+          description: Дата доставки товара покупателю переданная продавцом (RDBS)
+          example: '2016-11-01T20:44:39Z'
+          type:
+          - string
+          - 'null'
+        deliveryDateMaх:
+          description: Максимальная ожидаемая дата доставки товара покупателю
+          example: '2016-11-01T20:44:39Z'
+          type:
+          - string
+          - 'null'
+        deliveryDateMin:
+          description: Минимальная ожидаемая дата доставки товара покупателю
+          example: '2016-11-01T20:44:39Z'
+          type:
+          - string
+          - 'null'
+        setTrackingNumberTill:
+          description: Дата, до которой продавцу нужно передать трек-номер заказа (DBS)
+          example: '2016-11-01T20:44:39Z'
+          type:
+          - string
+          - 'null'
+        shipTill:
+          description: Дата, до которой продавцу нужно отправить заказ
+          example: '2016-11-01T20:44:39Z'
+          type:
+          - string
+          - 'null'
+      type: object
+      x-redoc-markdown-subheaders: schedules
+    orderSetTrackingNumberResponse:
+      description: Ответ ручки передачи трек-номера
+      example:
+        error:
+          code: already_set
+          message: Трек-номер уже зарегистрирован для другого заказа
+        success: false
+      properties:
+        error:
+          properties:
+            code:
+              description: "Код ошибки:\n  * `incorrect_number` - Некорректный трек-номер\n  * `already_set` - Трек-номер уже зарегистрирован для другого заказа\n"
+              type: string
+            message:
+              description: Текст ошибки
+              type: string
+          required:
+          - message
+          - code
+          type: object
+        success:
+          description: Флаг успеха обновления
+          example: false
+          type: boolean
+      type: object
+  responses:
+    unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Unauthorized
+    badRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Bad request
+    tooManyRequests:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Too Many Requests
+    notFound:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Not found
+    internalError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Internal Error
+    forbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Forbidden
   parameters:
     authHeader:
       description: Токен для авторизации
@@ -1275,43 +1312,6 @@ components:
       schema:
         example: Bearer ACCESS_TOKEN
         type: string
-  responses:
-    unauthorized:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Unauthorized
-    tooManyRequests:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Too Many Requests
-    forbidden:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Forbidden
-    internalError:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Internal Error
-    badRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Bad request
-    notFound:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Not found
   securitySchemes:
     AuthorizationCode:
       description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](#tag/ApplicationAccess)
