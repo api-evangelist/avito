@@ -145,29 +145,6 @@ paths:
       tags:
       - LinkItemsV1
 components:
-  parameters:
-    authHeader:
-      description: Токен для авторизации
-      in: header
-      name: Authorization
-      required: true
-      schema:
-        example: Bearer ACCESS_TOKEN
-        type: string
-    X-Oauth-Flow:
-      description: Выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)
-      example: authorization_code
-      in: header
-      name: X-Oauth-Flow
-      schema:
-        type: string
-    X-Oauth-Scopes:
-      description: Список зон доступа, полученных приложением
-      example: ah:access
-      in: header
-      name: X-Oauth-Scopes
-      schema:
-        type: string
   schemas:
     LinkItems:
       properties:
@@ -191,6 +168,29 @@ components:
       - itemIds
       - employeeId
       type: object
+  parameters:
+    X-Oauth-Scopes:
+      description: Список зон доступа, полученных приложением
+      example: ah:access
+      in: header
+      name: X-Oauth-Scopes
+      schema:
+        type: string
+    X-Oauth-Flow:
+      description: Выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)
+      example: authorization_code
+      in: header
+      name: X-Oauth-Flow
+      schema:
+        type: string
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
   securitySchemes:
     AuthorizationCode:
       description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)

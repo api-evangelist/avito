@@ -100,29 +100,6 @@ paths:
       x-trailing-slash: true
 components:
   schemas:
-    validatingError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 400
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Validation error
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    GetActivePackageResponseBodyAutoteka:
-      properties:
-        result:
-          $ref: '#/components/schemas/GetActivePackageResponseDataAutoteka'
-      type: object
     PackageAutoteka:
       properties:
         createdTime:
@@ -149,30 +126,32 @@ components:
       - reportsCnt
       - reportsCntRemain
       type: object
-    GetActivePackageResponseDataAutoteka:
+    GetReportsListResponseDataAutoteka:
       properties:
-        package:
-          $ref: '#/components/schemas/PackageAutoteka'
-      type: object
-    ReportItem_autoteka:
-      properties:
-        createdAt:
-          description: Дата и время генерации отчета
-          example: '2020-09-30 16:51:32.187629'
-          type: string
-        reportId:
-          description: Идентификатор сгенерированного отчета, по которому его можно получить
-          example: 1
-          format: int64
-          type: integer
-        vin:
-          description: ВИН-номер
-          example: JSAJTDA4V00105...
-          type: string
+        result:
+          items:
+            $ref: '#/components/schemas/ReportItem_autoteka'
+          type: array
       required:
-      - vin
-      - createdAt
-      - reportId
+      - result
+      type: object
+    validatingError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 400
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Validation error
+              type: string
+          required:
+          - code
+          - message
+          type: object
       type: object
     forbiddenError:
       properties:
@@ -210,14 +189,35 @@ components:
           - message
           type: object
       type: object
-    GetReportsListResponseDataAutoteka:
+    ReportItem_autoteka:
+      properties:
+        createdAt:
+          description: Дата и время генерации отчета
+          example: '2020-09-30 16:51:32.187629'
+          type: string
+        reportId:
+          description: Идентификатор сгенерированного отчета, по которому его можно получить
+          example: 1
+          format: int64
+          type: integer
+        vin:
+          description: ВИН-номер
+          example: JSAJTDA4V00105...
+          type: string
+      required:
+      - vin
+      - createdAt
+      - reportId
+      type: object
+    GetActivePackageResponseBodyAutoteka:
       properties:
         result:
-          items:
-            $ref: '#/components/schemas/ReportItem_autoteka'
-          type: array
-      required:
-      - result
+          $ref: '#/components/schemas/GetActivePackageResponseDataAutoteka'
+      type: object
+    GetActivePackageResponseDataAutoteka:
+      properties:
+        package:
+          $ref: '#/components/schemas/PackageAutoteka'
       type: object
   parameters:
     authHeader:

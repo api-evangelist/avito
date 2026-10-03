@@ -212,14 +212,44 @@ paths:
       - Call
 components:
   schemas:
-    CallById:
+    tooManyRequestsError:
       properties:
-        callId:
-          description: Идентификатор звонка
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 429
+              format: int32
+              type: integer
+          required:
+          - code
+          type: object
+      type: object
+    CpaError:
+      properties:
+        code:
+          description: 'Внутренний код ошибки
+
+
+            Возможные значения:
+
+            - 1000 - пустой запрос
+
+            - 1001 - ошибка валидации
+
+            - 1002 - ошибка авторизации
+
+            - 1003 - внутренняя ошибка
+
+            - 1004 - не найдено
+
+            '
           format: int64
           type: integer
-      required:
-      - callId
+        message:
+          description: Текст ошибки
+          example: ЦД недоступно для обжалования
+          type: string
       type: object
     CreateComplaint:
       properties:
@@ -234,58 +264,14 @@ components:
       - callId
       - message
       type: object
-    CallsByTime:
+    CallById:
       properties:
-        dateTimeFrom:
-          description: Время с которого нужно начинать поиск звонков по startTime (строка в формате RFC3339)
-          example: '2021-01-02T15:04:05Z'
-          type: string
-        limit:
-          description: Размер выборки
-          format: int64
-          type: integer
-        offset:
-          description: 'Смещение выборки (по-умолчанию 0). Для улучшения производительности лучше использовать
-
-            максимальный startTime звонка из предыдущей выборки
-
-            '
+        callId:
+          description: Идентификатор звонка
           format: int64
           type: integer
       required:
-      - dateTimeFrom
-      - limit
-      type: object
-    tooManyRequestsError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 429
-              format: int32
-              type: integer
-          required:
-          - code
-          type: object
-      type: object
-    notFoundError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 404
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Not found
-              type: string
-          required:
-          - code
-          - message
-          type: object
+      - callId
       type: object
     CallV2:
       properties:
@@ -358,31 +344,23 @@ components:
           example: '0.0109999'
           type: number
       type: object
-    CpaError:
+    notFoundError:
       properties:
-        code:
-          description: 'Внутренний код ошибки
-
-
-            Возможные значения:
-
-            - 1000 - пустой запрос
-
-            - 1001 - ошибка валидации
-
-            - 1002 - ошибка авторизации
-
-            - 1003 - внутренняя ошибка
-
-            - 1004 - не найдено
-
-            '
-          format: int64
-          type: integer
-        message:
-          description: Текст ошибки
-          example: ЦД недоступно для обжалования
-          type: string
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 404
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Not found
+              type: string
+          required:
+          - code
+          - message
+          type: object
       type: object
     serviceError:
       properties:
@@ -402,15 +380,29 @@ components:
           - message
           type: object
       type: object
+    CallsByTime:
+      properties:
+        dateTimeFrom:
+          description: Время с которого нужно начинать поиск звонков по startTime (строка в формате RFC3339)
+          example: '2021-01-02T15:04:05Z'
+          type: string
+        limit:
+          description: Размер выборки
+          format: int64
+          type: integer
+        offset:
+          description: 'Смещение выборки (по-умолчанию 0). Для улучшения производительности лучше использовать
+
+            максимальный startTime звонка из предыдущей выборки
+
+            '
+          format: int64
+          type: integer
+      required:
+      - dateTimeFrom
+      - limit
+      type: object
   parameters:
-    authHeader:
-      description: Токен для авторизации
-      in: header
-      name: Authorization
-      required: true
-      schema:
-        example: Bearer ACCESS_TOKEN
-        type: string
     sourceHeader:
       description: Имя сервиса, отправляющего запрос
       in: header
@@ -419,14 +411,22 @@ components:
       schema:
         example: someName
         type: string
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
   headers:
-    X-RateLimit-Remaining:
-      description: Доступное количество запросов в текущем временном окне
+    X-RateLimit-Limit:
+      description: Количество запросов в минуту
       schema:
         format: int32
         type: integer
-    X-RateLimit-Limit:
-      description: Количество запросов в минуту
+    X-RateLimit-Remaining:
+      description: Доступное количество запросов в текущем временном окне
       schema:
         format: int32
         type: integer

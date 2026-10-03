@@ -2754,159 +2754,95 @@ paths:
       - Job
 components:
   schemas:
-    WorkerClass:
-      description: "Предпочтительный разряд кандидата\n<br>\nВозможные значения элементов массива:\n  - \"1\" - Первый;\n  - \"2\" - Второй;\n  - \"3\" - Третий;\n  - \"4\" - Четвертый;\n  - \"5andHigher\" - Пятый и выше;\n  - \"notNeeded\" - Не требуется.\n"
+    VacancyV2CreateResult:
+      properties:
+        id:
+          description: 'Идентификатор добавленной вакансии в формате UUID (в случае дубликата UUID не меняется).
+
+            Используется для запросов в ручки:
+
+            - [Получение статуса публикации вакансии V2](https://developers.avito.ru/api-catalog/job/documentation#operation/vacancyGetStatuses)
+
+            - [Редактирование вакансии V2](https://developers.avito.ru/api-catalog/job/documentation#operation/vacancyUpdateV2)
+
+            '
+          type: string
+      type: object
+    MedicalBookVacancy:
+      description: "Требуется ли медкнижка и кем она оформляется при приеме на работу\n<br>\nВозможные значения:\n  - \"registerByCandidate\" - Должен оформить кандидат;\n  - \"helpRegister\" - Поможем оформить;\n  - \"notNeeded\" - Не нужна;\n"
+      enum:
+      - registerByCandidate
+      - helpRegister
+      - notNeeded
       example:
-      - '1'
+      - registerByCandidate
+      type:
+      - string
+      - 'null'
+    Bonuses:
+      description: Бонусы, которые компания предоставляет кандидатам
+      example:
+      - pitanie
+      - prozivanie
       items:
         enum:
-        - '1'
-        - '2'
-        - '3'
-        - '4'
-        - 5andHigher
-        - notNeeded
+        - prozivanie
+        - pitanie
+        - medicinskaia_straxovka
+        - uniform
+        - oplata_benzina
+        - transport_do_raboty
+        - skidki_v_kompanii
+        - parkovka
+        - zony_otdyxa
+        - podarki_detiam_na_prazdniki
+        - oplata_mobilnoi_sviazi
+        - obuchenie
+        - kompensaciya_proezda_s_raboti
+        - kasko
+        - smartphone
+        - uslugi_shinomontaza
         type: string
       type:
       - array
       - 'null'
-    VacancyCreateResult:
+    WebhooksSubscriptionResultList:
       properties:
-        id:
-          description: Идентификатор добавленной вакансии на сайте.
-          type: string
-        url:
-          description: URL добавленной вакансии.
-          type: string
-        uuid:
-          description: Идентификатор добавленной вакансии.
-          type:
-          - string
-          - 'null'
+        webhooks:
+          description: список вебхуков
+          items:
+            $ref: '#/components/schemas/WebhookSubscribeRequestBody'
+          type: array
+      required:
+      - webhooks
       type: object
-    Photo:
+    ApplicationsGetStatesResult:
       properties:
-        url:
-          readOnly: true
-          title: URL Изображения
-          type: string
-      title: Изображение
+        states:
+          description: Список возможных статусов откликов
+          items:
+            properties:
+              description:
+                description: Человеко‑читаемое описание статуса
+                example: Новый отклик
+                type: string
+              slug:
+                description: Технический идентификатор статуса
+                example: new
+                type: string
+            type: object
+          type: array
       type: object
-    VehicleType:
-      description: "На какой технике предстоит работать кандитату, от выбора техники зависит какие категории прав можно будет указать в вакансии\n<br>\nПолучить актуальный список доступных значений можно из справочника `vehicle_type` через метод [getDictByID](/api-catalog/job/documentation#operation/getDictByID).\n<br>\nСтатичный [справочник](https://www.avito.st/s/openapi/catalog-vehicle-type.xml) объявлен устаревшим и более не будет использоваться. \n<br>\nИспользуется только для профессий \n - Водитель пассажирского транспорта\n - Водитель грузового транспорта\n - Водитель спецтехники\n - Машинист спецтехники\n<br>\n"
-      type:
-      - integer
-      - 'null'
-    MedicalBook:
-      enum:
-      - true
-      - false
-      title: Медкнижка
-      type: string
-    badRequestError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 400
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Bad Request
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    EducationLevel:
-      enum:
-      - higher
-      - unfinished-higher
-      - secondary
-      - special-secondary
-      - null
-      example: unfinished-higher
-      title: Уровень образования
-      type:
-      - string
-      - 'null'
-    ConflictError:
-      properties:
-        error:
-          properties:
-            message:
-              example: Обнаружен конфликт версий вакансии. Выполните запрос повторно.
-              title: Текст ошибки
-              type: string
-            payload:
-              additionalProperties: true
-              title: Доп.данные об ошибке (если имеются)
-              type:
-              - object
-              - 'null'
-            slug:
-              example: conflict
-              title: Кодовое название ошибки
-              type: string
-          type: object
-      type: object
-    SalaryBaseRange:
-      additionalProperties: false
-      description: 'Размер оклада. Оклад не может превышать заработную плату.
-
-        '
-      properties:
-        from:
-          description: Нижняя граница оклада, рублей за paid_period
-          example: 30000
-          type:
-          - integer
-          - 'null'
-        to:
-          description: Верхняя граница оклада, рублей за paid_period
-          example: 60000
-          type:
-          - integer
-          - 'null'
-      type: object
-    VacancyAutoRenewal:
-      properties:
-        auto_renewal:
-          type: boolean
-      type: object
-    Vacancies2.0:
-      items:
-        $ref: '#/components/schemas/Vacancy2.0'
-      type: array
-    NotFoundError:
-      properties:
-        error:
-          properties:
-            type:
-              description: Тип ошибки
-              enum:
-              - vacancies
-              type: string
-            value:
-              description: Значение ошибки
-              enum:
-              - employee_not_found
-              type: string
-      type: object
-    VacancyCreate:
+    VacancyUpdate:
       properties:
         address:
-          description: Полный адрес объекта (строка длиной от 1 до 256 символов). Обязательное, если не указаны координаты.
+          description: Полный адрес объекта (строка длиной от 0 до 256 символов)
           type: string
         administrator_organization_type:
           $ref: '#/components/schemas/AdministratorOrganizationType'
         age:
           $ref: '#/components/schemas/AgeCriteria'
         age_preferences:
-          description: "Блок \"в том числе для кандидатов\" (массив строк)\n\nВозможные значения элементов массива:\n  - \"olderThan45\" - старше 45 лет;\n  - \"olderThan14\" - от 14 лет;\n  - \"olderThan16\" - от 16 лет;\n  - \"withHealthProblems\" - с нарушениями здоровья;\n  - \"students\" - для студентов;\n  - \"pensioners\" - для пенсионеров.\n"
           enum:
           - olderThan45
           - olderThan14
@@ -2923,7 +2859,9 @@ components:
             - students
             - pensioners
             type: string
-          type: array
+          type:
+          - array
+          - 'null'
         allow_calls:
           $ref: '#/components/schemas/AllowCalls'
         allow_messages:
@@ -2940,8 +2878,6 @@ components:
           type: string
         bonuses:
           $ref: '#/components/schemas/Bonuses'
-        business_area:
-          $ref: '#/components/schemas/BusinessArea'
         citizenship:
           $ref: '#/components/schemas/CitizenshipCriteria'
         construction_work_type:
@@ -2994,17 +2930,14 @@ components:
         education_level:
           $ref: '#/components/schemas/VacancyEducationLevel'
         employee_id:
-          description: 'employee_id - Идентификатор сотрудника на Авито. Если этот параметр указан, то вакансия будет закреплена за сотрудником и с его баланса в Avito Pro будет списано размещение.
+          description: 'employee_id - Идентификатор сотрудника на Авито.
 
-            Использовать параметр можно только с billing_type равным package.
+            Сотрудник может редактировать только закрепленные за ним вакансии в Avito Pro.
 
-            Сотрудник должен быть активен.
+            Сотрудник должен быть в активен.
 
             '
           type: integer
-        employment:
-          description: "Занятость <br>\nВозможные значения:\n  - temporary - Временная\n  - full - Полная\n  - partial - Частичная\n\nЕсли ничего не выбрать то будет автоматически проставляться в зависимости от режима работы:\nПри flexible и partTime, тип занятости - partial.\nДля всех остальных full.\n\ndeprecated значение internship будет заменено на temporary\n"
-          type: string
         experience:
           description: Опыт работы
           properties:
@@ -3037,7 +2970,9 @@ components:
           - 'null'
         is_side_job:
           description: Подработка
-          type: boolean
+          type:
+          - boolean
+          - 'null'
         medical_book:
           $ref: '#/components/schemas/MedicalBookVacancy'
         medical_specialization:
@@ -3045,10 +2980,10 @@ components:
         medical_specialization_ids:
           $ref: '#/components/schemas/MedicalSpecializationIds'
         name:
-          description: Название вакансии (строка длиной от 1 до 50 символов)
+          description: Название вакансии (строка длиной от 0 до 50 символов)
           type: string
         payout_frequency:
-          description: "Частота выплат<br>\nВозможные значения:\n  - \"dailyPay\" - Каждый день;\n  - \"biweeklyPay\" - Дважды в месяц;\n  - \"weeklyPay\" - Раз в неделю;\n  - \"thriceMonthlyPay\" - три раза в месяц;\n  - \"monthlyPay\" - Раз в месяц.\n\nДля paid_period равным month и week недоступно для выбора dailyPay.\n\ndeprecated значение hourlyPay будет заменено на dailyPay\n"
+          description: "Частота выплат\nВозможные значения:\n  - \"dailyPay\" - Каждый день;\n  - \"biweeklyPay\" - Дважды в месяц;\n  - \"weeklyPay\" - Раз в неделю;\n  - \"thriceMonthlyPay\" - три раза в месяц\n  - \"monthlyPay\" - Раз в месяц.\n\ndeprecated значение hourlyPay будет заменено на dailyPay\n"
           properties:
             id:
               enum:
@@ -3060,7 +2995,9 @@ components:
               type: string
           required:
           - id
-          type: object
+          type:
+          - object
+          - 'null'
         profession:
           $ref: '#/components/schemas/Profession'
         registration_method:
@@ -3076,7 +3013,7 @@ components:
         salary_detail:
           $ref: '#/components/schemas/SalaryDetail'
         salary_range:
-          description: Блок с вилкой зарплаты, если одновременно с salary, имеет приоритет
+          description: Блок с вилкой зарплаты, если заполнен одновременно с salary, то имеет приоритет
           properties:
             from:
               description: Нижняя граница зарплаты, рублей в месяц
@@ -3086,19 +3023,6 @@ components:
               description: Верхняя граница зарплаты, рублей в месяц
               example: 60000
               type: integer
-          type: object
-        schedule:
-          description: "Режим работы <br>\nВозможные значения:\n  - flyInFlyOut - Вахта\n  - fixed - Фиксированный\n  - flexible - Гибкий\n  - shift - Сменный\n\ndeprecated значения fiveDay, sixDay, partTime, fullDay и remote будут заменены на fixed\nflyInFlyOut - Вахта, при выборе данного режима работы, адрес вакансии может быть только \"Город\", если адрес передается полноценный, то улица будет отрезана и адрес будет до \"Города\".\n"
-          properties:
-            id:
-              enum:
-              - flyInFlyOut
-              - fixed
-              - flexible
-              - shift
-              type: string
-          required:
-          - id
           type: object
         shifts:
           $ref: '#/components/schemas/Shifts'
@@ -3127,14 +3051,167 @@ components:
         worker_class:
           $ref: '#/components/schemas/WorkerClass'
       required:
-      - name
-      - description
       - billing_type
-      - business_area
-      - employment
-      - schedule
-      - experience
       type: object
+    FoodProductionShopType:
+      description: "В каком цеху по приготовлению пищи предстоит работать кандидату\n<br>\nВозможные значения элементов массива:\n  - \"cold\" - Холодный;\n  - \"hot\" - Горячий;\n  - \"confectionery\" - Кондитерский;\n  - \"preparation\" - Заготовочный;\n  - \"other\" - Другой.\n"
+      example:
+      - cold
+      items:
+        enum:
+        - cold
+        - hot
+        - confectionery
+        - preparation
+        - other
+        type: string
+      type:
+      - array
+      - 'null'
+    WorkerClass:
+      description: "Предпочтительный разряд кандидата\n<br>\nВозможные значения элементов массива:\n  - \"1\" - Первый;\n  - \"2\" - Второй;\n  - \"3\" - Третий;\n  - \"4\" - Четвертый;\n  - \"5andHigher\" - Пятый и выше;\n  - \"notNeeded\" - Не требуется.\n"
+      example:
+      - '1'
+      items:
+        enum:
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - 5andHigher
+        - notNeeded
+        type: string
+      type:
+      - array
+      - 'null'
+    VacancyProlongate:
+      properties:
+        billing_type:
+          description: "Вариант платного размещения\n\nВозможные значения:\n  - \"package\" - размещение объявления осуществляется только при наличии подходящего пакета размещения\n  - \"packageOrSingle\" - при наличии подходящего пакета оплата размещения объявления произойдет с него; если нет подходящего пакета, но достаточно денег на кошельке Авито, то произойдет разовое размещение\n  - \"single\" - только разовое размещение, произойдет при наличии достаточной суммы на кошельке Авито; если есть подходящий пакет размещения, он будет проигнорирован\n"
+          enum:
+          - package
+          - single
+          - packageOrSingle
+          type: string
+        employee_id:
+          description: 'employee_id - Идентификатор сотрудника на Авито. Если этот параметр указан, то с баланса сотрудника в Avito Pro будет списано размещение.
+
+            Использовать параметр можно только с billing_type равным package.
+
+            Сотрудник должен быть в активен.
+
+            '
+          type: integer
+      required:
+      - billing_type
+      type: object
+    EnrichedPropertyMatchingStatus:
+      description: "Статус проверки соответствия кандидата критериям вакансии. Возможные значения:<br/>\n - `\"no_criteria\"` - не выставлены критерии<br/>\n - `\"matched\"` - подошел под критерии<br/>\n - `\"mismatched\"` - не подошел под критерии"
+      enum:
+      - no_criteria
+      - matched
+      - mismatched
+      type: string
+    BadRequestShort:
+      properties:
+        error:
+          properties:
+            reason:
+              description: Причина возникновения ошибки (может не присутствовать)
+              enum:
+              - is_empty
+              - wrong_value
+              type: string
+            type:
+              description: Тип ошибки
+              enum:
+              - bad_json_data
+              type: string
+            value:
+              description: Ключ поля
+              type: string
+      type: object
+    serviceError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 500
+              format: int32
+              type: integer
+            message:
+              description: Описание ошибки
+              example: Error while processing request. Please, contact support
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    Specialization:
+      properties:
+        id:
+          example: 10186
+          format: int64
+          readOnly: true
+          title: Идентификатор категории
+          type: integer
+        title:
+          example: Консультирование
+          readOnly: true
+          title: Имя категории
+          type: string
+      title: Сфера деятельности
+      type: object
+    AllowCalls:
+      description: Разрешены ли звонки по вакансии.
+      type:
+      - boolean
+      - 'null'
+    Citizenship:
+      properties:
+        id:
+          example: 15973
+          format: int64
+          readOnly: true
+          title: Идентификатор гражданства
+          type: integer
+        title:
+          example: Россия
+          readOnly: true
+          title: Имя региона
+          type: string
+      title: Гражданство
+      type: object
+    RetailEquipmentType:
+      description: "С каким оборудованием или ПО предстоит работать кандидату\n<br>\nВозможные значения элементов массива:\n  - \"cashRegisterAndPosTerminals\" - Касса и POS-терминалы;\n  - \"accountingSoftware\" - Программы учёта товаров.\n"
+      example:
+      - cashRegisterAndPosTerminals
+      items:
+        enum:
+        - cashRegisterAndPosTerminals
+        - accountingSoftware
+        type: string
+      type:
+      - array
+      - 'null'
+    MedicalSpecializationIds:
+      description: 'Медицинская специализация (можно указать несколько значений)
+
+        <br>
+
+        Получить актуальный список доступных значений можно из справочника `medical_specialization` через метод [getDictByID](/api-catalog/job/documentation#operation/getDictByID).
+
+        '
+      example:
+      - 3265936
+      - 3265937
+      items:
+        type: integer
+      type:
+      - array
+      - 'null'
     BadRequest:
       properties:
         error:
@@ -3159,254 +3236,293 @@ components:
               - billing_type
               type: string
       type: object
-    ApplicationsGetStatesResult:
+    WebhookSubscribeRequestBody:
       properties:
-        states:
-          description: Список возможных статусов откликов
-          items:
-            properties:
-              description:
-                description: Человеко‑читаемое описание статуса
-                example: Новый отклик
-                type: string
-              slug:
-                description: Технический идентификатор статуса
-                example: new
-                type: string
-            type: object
-          type: array
+        secret:
+          description: сгенерированный ключ
+          example: cb1e150b-c5bf-4c3e-acd1-20ec88bdb3a1
+          type: string
+        url:
+          description: URL на который будут отправляться уведомления
+          example: https://mysite.webhook/
+          format: uri
+          type: string
+      required:
+      - url
+      - secret
       type: object
-    FoodProductionShopType:
-      description: "В каком цеху по приготовлению пищи предстоит работать кандидату\n<br>\nВозможные значения элементов массива:\n  - \"cold\" - Холодный;\n  - \"hot\" - Горячий;\n  - \"confectionery\" - Кондитерский;\n  - \"preparation\" - Заготовочный;\n  - \"other\" - Другой.\n"
-      example:
-      - cold
+    DriverLicenceCategory:
       items:
         enum:
-        - cold
-        - hot
-        - confectionery
-        - preparation
+        - a
+        - b
+        - be
+        - c
+        - ce
+        - d
+        - de
+        - m
+        - tm
+        - tb
+        readOnly: true
+        type: string
+      title: Категория водительских прав
+      type: array
+    RetailShopType:
+      description: "Что продает магазин в котором предстоит работать кандидату\n<br>\nВозможные значения элементов массива:\n  - \"hypermarketOrSupermarket\" - Гипермаркет или супермаркет;\n  - \"grocery\" - Продуктовый;\n  - \"electronicsAndHouseholdAppliances\" - Электроника и бытовая техника;\n  - \"clothesAndShoes\" - Одежда и обувь;\n  - \"perfumesAndCosmetics\" - Парфюмерия и косметика;\n  - \"constructionAndHouseholdGoods\" - Строительство и хозтовары;\n  - \"childrenGoods\" - Детские товары;\n  - \"sportingGoods\" - Спортивные товары;\n  - \"petShop\" - Зоомагазин;\n  - \"pharmacy\" - Аптека;\n  - \"other\" - Другое.\n"
+      example:
+      - hypermarketOrSupermarket
+      items:
+        enum:
+        - hypermarketOrSupermarket
+        - grocery
+        - electronicsAndHouseholdAppliances
+        - clothesAndShoes
+        - perfumesAndCosmetics
+        - constructionAndHouseholdGoods
+        - childrenGoods
+        - sportingGoods
+        - petShop
+        - pharmacy
         - other
         type: string
       type:
       - array
       - 'null'
-    ConstructionWorkType:
-      description: "С какими видами строительных или ремонтных работ предстоит столкнуться кандидату\n<br>\nВозможные значения элементов массива:\n  - \"paintingWorks\" - Малярные работы;\n  - \"wallCovering\" - Облицовка стен;\n  - \"tileWork\" - Работы с плиткой;\n  - \"mountingAndInstallation\" - Монтаж и установка;\n  - \"finishingWork\" - Отделочные работы;\n  - \"roofing\" - Кровельные работы;\n  - \"installationAndConfigurationOfEquipment\" - Монтаж и настройка оборудования;\n  - \"weldingWork\" - Сварочные работы;\n  - \"constructionOfFacades\" - Строительство фасадов;\n  - \"formingMaterials\" - Формовка материалов;\n  - \"concreteAndStoneWorks\" - Бетонные и каменные работы;\n  - \"repairWork\" - Ремонтные работы;\n  - \"other\" - Другие.\n"
-      example:
-      - paintingWorks
-      items:
-        enum:
-        - paintingWorks
-        - wallCovering
-        - tileWork
-        - mountingAndInstallation
-        - finishingWork
-        - roofing
-        - installationAndConfigurationOfEquipment
-        - weldingWork
-        - constructionOfFacades
-        - formingMaterials
-        - concreteAndStoneWorks
-        - repairWork
-        - other
-        type: string
-      type:
-      - array
-      - 'null'
-    BusinessArea:
-      description: "Идентификатор сферы деятельности \n<br>\nПолучить актуальный список доступных значений можно из справочника `business_area` через метод [getDictByID](/api-catalog/job/documentation#operation/getDictByID).\n<br>\nСтатичный [справочник](https://www.avito.st/s/openapi/catalog-business-area.xml) объявлен устаревшим и более не будет использоваться. \n<br>\n"
-      type: integer
-    GetApplicationsByIdsResult:
+    badRequestError:
       properties:
-        applies:
-          description: Список откликов
-          items:
-            properties:
-              applicant:
-                description: Данные соискателя
-                properties:
-                  data:
-                    properties:
-                      birthday:
-                        description: Дата рождения
-                        example: '1988-01-21'
-                        type:
-                        - string
-                        - 'null'
-                      citizenship:
-                        description: Гражданство
-                        example: Россия
-                        type:
-                        - string
-                        - 'null'
-                      education:
-                        $ref: '#/components/schemas/EducationLevel'
-                      full_name:
-                        description: Детали ФИО
-                        properties:
-                          first_name:
-                            description: Имя
-                            example: Иван
-                            type: string
-                          last_name:
-                            description: Фамилия
-                            example: Иванов
-                            type: string
-                          patronymic:
-                            description: Отчество, если указано
-                            example: Иванович
-                            type:
-                            - string
-                            - 'null'
-                        type:
-                        - object
-                        - 'null'
-                      gender:
-                        $ref: '#/components/schemas/Gender'
-                      name:
-                        description: ФИО
-                        example: Иванов Иван Иванович
-                        type:
-                        - string
-                        - 'null'
-                    type: object
-                  id:
-                    example: 1110dc2f-be18-47ef-a524-cd1234321d42
-                    type: string
-                  resume_id:
-                    example: 54312
-                    type:
-                    - string
-                    - 'null'
-                type: object
-              contacts:
-                description: Контакты соискателя
-                properties:
-                  chat:
-                    description: Чат с соискателем
-                    properties:
-                      value:
-                        description: Идентификатор чата
-                        example: u2i-2142059193-600277161
-                        type: string
-                    type:
-                    - object
-                    - 'null'
-                  phones:
-                    items:
-                      properties:
-                        status:
-                          description: Статус получения контакта от соискателя
-                          example: received
-                          type:
-                          - string
-                          - 'null'
-                        value:
-                          description: Телефон соискателя
-                          example: 72002000014
-                          type: string
-                      type: object
-                    type: array
-                type: object
-              created_at:
-                description: Дата создания отклика
-                example: '2022-05-04T12:00:00+03:00'
-                format: date-time (RFC3339)
-                type: string
-              employee_id:
-                description: Идентификатор сотрудника разместившего вакансию
-                example: 727226498
-                format: int64
-                type:
-                - integer
-                - 'null'
-              enriched_properties:
-                $ref: '#/components/schemas/EnrichedProperties'
-              id:
-                description: Идентификатор отклика
-                example: 11102026de0ad1be10e2236f
-                type: string
-              is_viewed:
-                description: Отклик просмотрен
-                example: true
-                type: boolean
-              negotiation_id:
-                description: Идентификатор отклика старого формата
-                example: 1132
-                format: int64
-                type:
-                - integer
-                - 'null'
-              prevalidation:
-                description: Статус и результат превалидации кандидата
-                properties:
-                  status:
-                    example: success
-                    type: string
-                  summary:
-                    description: Выжимка превалидации. Массив ответов на вопросы
-                    items:
-                      $ref: '#/components/schemas/PrevalidationAnswer'
-                    type:
-                    - array
-                    - 'null'
-                type:
-                - object
-                - 'null'
-              price:
-                description: Цена целевого действия (копейки)
-                properties:
-                  bonus:
-                    description: Цена целевого действия в бонусах (копейки)
-                    type: integer
-                  real:
-                    description: Цена целевого действия в реальных деньгах (копейки)
-                    type: integer
-                  total:
-                    description: Общая цена целевого действия (копейки)
-                    type: integer
-                required:
-                - bonus
-                - real
-                - total
-                type:
-                - object
-                - 'null'
-              source:
-                description: "Источник отклика\n\nВозможные значения:\n - \"sbc_cold_flow\" - Отклик по приглашению из рассылки по холодной базе кандидатов\n"
-                enum:
-                - sbc_cold_flow
-                example: sbc_cold_flow
-                type: string
-              state:
-                description: Статус отклика
-                example: new
-                type: string
-              type:
-                description: "Тип отклика\n\nВозможные значения:\n - \"by_phone\" - отклик через просмотр телефона\n - \"by_chat\" - отклик через чат\n"
-                enum:
-                - by_phone
-                - by_chat
-                example: by_chat
-                type: string
-              updated_at:
-                description: Дата обновления отклика
-                example: '2022-05-04T12:00:00+03:00'
-                format: date-time (RFC3339)
-                type: string
-              vacancy_id:
-                description: Идентификатор вакансии на сайте Авито
-                example: 18725423
-                format: int64
-                type: integer
-            type: object
-          type: array
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 400
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Bad Request
+              type: string
+          required:
+          - code
+          - message
+          type: object
       type: object
-    SalaryBaseBonus:
-      description: Премия. Не более 70 символов.
-      example: 5% от продаж в месяц
+    PaidPeriod:
+      description: "За какой период указана зарплата. <br>\nВозможные значения:\n  - \"month\" - За месяц;\n  - \"week\" - За неделю;\n  - \"shift\" - За смену;\n  - \"hour\" - За час;\n  - \"piecework\" - Сдельная оплата.\n\nДля schedule равным flyInFlyOut или shift доступны для выбора только month, shift.<br>\nДля employment равны full и schedule равным fixed доступен для выбора только month.\n"
+      enum:
+      - month
+      - week
+      - shift
+      - hour
+      - piecework
+      example:
+      - month
+      type:
+      - string
+      - 'null'
+    MedicalBook:
+      enum:
+      - true
+      - false
+      title: Медкнижка
       type: string
+    Profession:
+      description: Название профессии <br> Получить актуальный список доступных значений можно из справочника `profession` через метод [getDictByID](/api-catalog/job/documentation#operation/getDictByID). <br> Статичный [справочник](https://www.avito.st/s/openapi/catalog-profession.xml?v=5) объявлен устаревшим и более не будет использоваться. <br>
+      type:
+      - integer
+      - 'null'
+    SimplifiedVacancy:
+      properties:
+        addressDetails:
+          properties:
+            address:
+              type: string
+            city:
+              type: string
+          type: object
+        businessArea:
+          type: string
+        companyName:
+          type: string
+        link:
+          type: string
+        profession:
+          type: string
+        title:
+          type: string
+      type: object
+    ResumeContacts:
+      properties:
+        already_bought:
+          example: false
+          readOnly: true
+          title: Контакт уже приобретен
+          type: boolean
+        contacts:
+          example:
+          - type: e-mail
+            value: candidate@example.com
+          - type: phone
+            value: 79211234455
+          - type: chat_id
+            value: u2i-voDBaJ_nyscu9ztBC3TTaW
+          items:
+            $ref: '#/components/schemas/ResumeContact'
+          readOnly: true
+          title: Контакты
+          type: array
+        full_name:
+          description: Детали ФИО
+          properties:
+            first_name:
+              description: Имя
+              example: Иван
+              type: string
+            last_name:
+              description: Фамилия
+              example: Иванов
+              type: string
+            patronymic:
+              description: Отчество, если указано
+              example: Иванович
+              type:
+              - string
+              - 'null'
+          type:
+          - object
+          - 'null'
+        name:
+          example: Иванов Иван
+          readOnly: true
+          title: Имя
+          type: string
+      title: Контакты резюме
+      type: object
+    ResumeSearchMeta:
+      properties:
+        cursor:
+          example: 1538480436
+          format: int32
+          readOnly: true
+          title: Курсор поиска
+          type: integer
+        page:
+          example: 1
+          format: int32
+          readOnly: true
+          title: Номер страницы
+          type: integer
+        pages:
+          example: 6
+          format: int32
+          readOnly: true
+          title: Количество страниц
+          type: integer
+        per_page:
+          example: 25
+          format: int32
+          readOnly: true
+          title: Количество записей на странице
+          type: integer
+      title: Мета-информация ответа
+      type: object
+    EducationLevel:
+      enum:
+      - higher
+      - unfinished-higher
+      - secondary
+      - special-secondary
+      - null
+      example: unfinished-higher
+      title: Уровень образования
+      type:
+      - string
+      - 'null'
+    notFoundError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 404
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Not found
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    Grade:
+      description: Предпочтительный грейд кандидата
+      enum:
+      - junior
+      - middle
+      - senior
+      - lead
+      example:
+      - lead
+      type:
+      - string
+      - 'null'
+    Cuisine:
+      description: "Блюда какой кухни предстоит готовить кандидату\n<br>\nВозможные значения элементов массива:\n  - \"russian\" - Русская;\n  - \"european\" - Европейская;\n  - \"caucasian\" - Кавказская;\n  - \"italian\" - Итальянская;\n  - \"japanese\" - Японская;\n  - \"turkish\" - Турецкая;\n  - \"other\" - Другая.\n"
+      example:
+      - russian
+      items:
+        enum:
+        - russian
+        - european
+        - caucasian
+        - italian
+        - japanese
+        - turkish
+        - other
+        type: string
+      type:
+      - array
+      - 'null'
+    EditingForbiddenError:
+      properties:
+        error:
+          properties:
+            type:
+              description: Тип ошибки
+              enum:
+              - vacancies
+              type: string
+            value:
+              description: Значение ошибки
+              enum:
+              - chosen_vacancy_belongs_to_another_user
+              - unavailable_for_blocked
+              - unavailable_for_removed
+              - unavailable_to_change_location
+              - unavailable_to_edit
+              - vacancy_does_not_belong_to_employee
+              - employee_is_not_active
+              type: string
+      type: object
+    Phone:
+      description: Контактный телефон, если не передать - подставляется номер из профиля который используется по умолчанию. Если передать номер телефона которого нет в профиле, то он будет добавлен в профиль, но по нему необходимо будет пройти верификацию. Если номер телефона принадлежит другому пользователю, то вакансия не будет опубликована. Если вакансия публикуется от имени сотрудника и номер телефона ему не принадлежит - объявление так же не будет опубликовано.
+      properties:
+        city:
+          description: Код города (строка, соответствующая шаблону "^\\d{0,6}$")
+          type: string
+        country:
+          description: Код страны (строка, соответствующая шаблону "^\\+?\\d{0,5}$")
+          type: string
+        number:
+          description: Телефон (строка, соответствующая шаблону "^[\\d -]{4,32}$")
+          type: string
+      required:
+      - country
+      - city
+      - number
+      type: object
     VacancyEducationLevel:
       description: Предпочтительный уровень образования кандидата
       enum:
@@ -3418,59 +3534,500 @@ components:
       type:
       - string
       - 'null'
-    Shifts:
-      description: 'Смены
+    AgeCriteria:
+      additionalProperties: false
+      description: 'Возраст кандидата.
 
-        <br>
 
-        Получить актуальный список доступных значений можно из справочника `shifts` через метод [getDictByID](/api-catalog/job/documentation#operation/getDictByID).
+        Если выберите значения, в данных кандидата будет отметка, что кандидат соответствует этому критерию
 
-        <br>
+        или нет.
 
-        Доступен только для следующих режимов работы (schedule): "Сменный (shift)",  "Фиксированный (fixed)"
 
-        <br>
-
-        Для режима работы (schedule) "Фиксированный (fixed)" доступны только значения показывающие отношение количества рабочих дней к выходным, например "5/2"
+        Кандидаты не увидят этого в вакансии.
 
         '
-      items:
-        format: int64
-        type: integer
+      properties:
+        from:
+          example: 18
+          maximum: 99
+          minimum: 14
+          type:
+          - integer
+          - 'null'
+        to:
+          example: 65
+          maximum: 99
+          minimum: 14
+          type:
+          - integer
+          - 'null'
       type:
-      - array
+      - object
       - 'null'
-    ItemNotFoundError:
+    VacancyCreateResult:
       properties:
-        error:
-          properties:
-            type:
-              description: Тип ошибки
-              enum:
-              - vacancies
-              type: string
-            value:
-              description: Значение ошибки
-              enum:
-              - chosen_vacancy_is_not_found
-              type: string
+        id:
+          description: Идентификатор добавленной вакансии на сайте.
+          type: string
+        url:
+          description: URL добавленной вакансии.
+          type: string
+        uuid:
+          description: Идентификатор добавленной вакансии.
+          type:
+          - string
+          - 'null'
       type: object
-    CreationForbiddenError:
+    serviceUnavailableError:
       properties:
         error:
           properties:
-            type:
-              description: Тип ошибки
-              enum:
-              - vacancies
+            code:
+              description: Код ошибки
+              example: 503
+              format: int32
+              type: integer
+            message:
+              description: Описание ошибки
+              example: Service temporarily unavailable. Please, contact support
               type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    BadRequestOnVacancy:
+      properties:
+        errors:
+          items:
+            description: Ошибка с описанием причины
+            type: string
+          type: array
+      type: object
+    Resume2.0:
+      properties:
+        address_details:
+          $ref: '#/components/schemas/AddressDetails'
+        description:
+          description: Описание резюме
+          example: "Повар- универсал с 15 летним опытом работы:\nповар - пекарь, шеф-поваром на судах;\nповар -универсал в экспедициях и на приисках;\nповар горячего и холодного цехов в ресторанах и кафе Москвы;\nщеф-повар в ресторанах и ночных клубах Одессы.\nЗнание русской, поморской, украинской, кавказской, итальянской кухонь. Технология, администрирование. \nуправление персоналом."
+          type: string
+        id:
+          description: Идентификатор резюме
+          example: 2143065041
+          format: int64
+          type: integer
+        is_active:
+          description: Активность резюме
+          example: true
+          type: boolean
+        is_purchased:
+          description: Контакты резюме куплены
+          example: true
+          type: boolean
+        params:
+          description: Блок с параметрами резюме. Все поля опциональны и выводятся при наличии
+          properties:
+            ability_to_business_trip:
+              description: Готовность к командировкам
+              enum:
+              - Не готов
+              - Готов
+              - Иногда
+              type:
+              - string
+              - 'null'
+            address:
+              description: Место, рядом с которым вы хотите работать
+              example: Москва, Лесная улица 7
+              type:
+              - string
+              - 'null'
+            age:
+              description: Возраст соискателя
+              example: 32
+              format: int32
+              type:
+              - integer
+              - 'null'
+            business_area:
+              description: Сфера деятельности
+              enum:
+              - IT, интернет, телеком
+              - Автомобильный бизнес
+              - Административная работа
+              - Банки, инвестиции
+              - Без опыта, студенты
+              - Бухгалтерия, финансы
+              - Высший менеджмент
+              - Госслужба, НКО
+              - Домашний персонал
+              - ЖКХ, эксплуатация
+              - Искусство, развлечения
+              - Консультирование
+              - Курьерская доставка
+              - Маркетинг, реклама, PR
+              - Медицина, фармацевтика
+              - Образование, наука
+              - Охрана, безопасность
+              - Продажи
+              - Производство, сырьё, с/х
+              - Страхование
+              - Строительство
+              - Такси
+              - Транспорт, логистика
+              - Туризм, рестораны
+              - Управление персоналом
+              - Фитнес, салоны красоты
+              - Юриспруденция
+              type:
+              - string
+              - 'null'
+            driver_licence:
+              description: Водительское удостоверение
+              enum:
+              - true
+              - false
+              type:
+              - string
+              - 'null'
+            driver_licence_category:
+              description: Категория водительских прав
+              items:
+                enum:
+                - a
+                - b
+                - be
+                - c
+                - ce
+                - d
+                - de
+                - m
+                - tm
+                - tb
+                type: string
+              type:
+              - array
+              - 'null'
+            education:
+              description: Образование соискателя
+              enum:
+              - Высшее
+              - Незаконченное высшее
+              - Среднее
+              - Среднее специальное
+              type:
+              - string
+              - 'null'
+            education_list:
+              items:
+                properties:
+                  education_stop:
+                    description: Дата окончания учебного заведения
+                    example: 1995
+                    type:
+                    - string
+                    - 'null'
+                  institution:
+                    description: Наименование учебного заведения
+                    example: МГИМО МИД РФ
+                    type:
+                    - string
+                    - 'null'
+                  specialty:
+                    description: Специальность
+                    example: Финансы и кредит, экономист-международник
+                    type:
+                    - string
+                    - 'null'
+                type: object
+              type:
+              - array
+              - 'null'
+            experience_list:
+              items:
+                properties:
+                  company:
+                    description: Наименование организации
+                    example: МТС
+                    type:
+                    - string
+                    - 'null'
+                  position:
+                    description: Занимаемая должность
+                    example: Эксперт клиентского сервиса
+                    type:
+                    - string
+                    - 'null'
+                  responsibilities:
+                    description: Должностные обязанности
+                    example: Принятие входящих обращений от клиентов; помощь в решении возникающих вопросов; консультирование по продуктам компании; продажи
+                    type:
+                    - string
+                    - 'null'
+                  work_finish:
+                    description: Дата увольнения (при отсутствии считать, что работает по настоящее время)
+                    example: '2018-09-01'
+                    format: date
+                    type:
+                    - string
+                    - 'null'
+                  work_start:
+                    description: Дата приема на работу
+                    example: '2015-07-01'
+                    format: date
+                    type:
+                    - string
+                    - 'null'
+                type: object
+              type:
+              - array
+              - 'null'
+            language_list:
+              items:
+                properties:
+                  language:
+                    description: Язык
+                    example: Коми
+                    type:
+                    - string
+                    - 'null'
+                  language_level:
+                    description: Уровень владения языком
+                    enum:
+                    - Начальный
+                    - Средний
+                    - Выше среднего
+                    - Свободное владение
+                    type:
+                    - string
+                    - 'null'
+                type: object
+              type:
+              - array
+              - 'null'
+            moving:
+              description: Возможность переезда
+              enum:
+              - Невозможен
+              - Возможен
+              type:
+              - string
+              - 'null'
+            nationality:
+              description: Гражданство соискателя
+              example: Филиппины
+              type:
+              - string
+              - 'null'
+            pol:
+              description: Пол соискателя
+              enum:
+              - Мужской
+              - Женский
+              type:
+              - string
+              - 'null'
+            razreshenie_na_rabotu_v_rossii:
+              description: Наличие разрешения на работу в России
+              enum:
+              - Да
+              - Нет
+              type:
+              - string
+              - 'null'
+            schedule:
+              description: "Режим работы\nВозможные значения:\n  - flyInFlyOut - Вахта\n  - partTime - Неполный день\n  - fullDay - Полный день\n  - flexible - Плавающий\n  - shift - Сменный\n  - remote - Удалённая работа\n  - fiveDay - Пятидневная рабочая неделя\n  - sixDay - Шестидневная рабочая неделя\n"
+              enum:
+              - flyInFlyOut
+              - partTime
+              - fullDay
+              - flexible
+              - shift
+              - remote
+              - fiveDay
+              - sixDay
+              type:
+              - string
+              - 'null'
+          type: object
+        photos:
+          description: Присутствует в ответе только если в запросе есть флаг photos=true
+          items:
+            $ref: '#/components/schemas/Photo'
+          title: Изображения
+          type:
+          - array
+          - 'null'
+        salary:
+          description: Зарплата. Поле может отсутствовать в ответе (выводится при наличии зарплаты)
+          example: 60000
+          format: int32
+          type:
+          - integer
+          - 'null'
+        start_time:
+          description: Дата публикации резюме
+          example: '2020-08-21T08:44:12Z'
+          format: date-time (RFC3339)
+          type: string
+        title:
+          description: Наименование резюме
+          example: Повар-универсал
+          type: string
+        update_time:
+          description: Дата последнего обновления резюме
+          example: '2020-08-21T09:53:06Z'
+          format: date-time (RFC3339)
+          type: string
+        url:
+          description: URL резюме на сайте
+          example: /moskva/rezume/povar-universal_358696_2143065041
+          type: string
+      title: Информация о резюме v2
+      type: object
+    validatingError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 400
+              format: int32
+              type: integer
+            fields:
+              description: Информация об ошибке валидации параметров в формате ключ-значение
+              type:
+              - object
+              - 'null'
+            message:
+              description: Сообщение об ошибке
+              example: Validation error
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    EnrichedProperties:
+      description: Данные о кандидате
+      example:
+        age:
+          matching_status: matched
+          value: 21
+        citizenship:
+          matching_status: matched
+          value: rus
+        experience:
+          matching_status: mismatched
+          value: lt_1
+        full_name:
+          matching_status: no_criteria
+          value: null
+        gender:
+          matching_status: no_criteria
+          value: male
+        phone:
+          matching_status: no_criteria
+          value: '+79213223344'
+        status: completed_mismatched
+      properties:
+        age:
+          description: Возраст. Пусто, если соискатель не оставил эти данные.
+          properties:
+            matching_status:
+              $ref: '#/components/schemas/EnrichedPropertyMatchingStatus'
             value:
-              description: Значение ошибки
-              enum:
-              - unavailable_to_create
-              - employee_does_not_belong_to_company
-              - employee_is_not_active
-              type: string
+              description: Целое число, полное количество лет кандидата. Пусто, если соискатель не оставил эти данные.
+              type:
+              - integer
+              - 'null'
+          type:
+          - object
+          - 'null'
+        citizenship:
+          description: Гражданство. Пусто, если соискатель не оставил эти данные.
+          properties:
+            matching_status:
+              $ref: '#/components/schemas/EnrichedPropertyMatchingStatus'
+            value:
+              description: Код страны в стандартной кодировке ISO 3166-1 alpha-3. Пусто, если соискатель не оставил эти данные.
+              type:
+              - string
+              - 'null'
+          type:
+          - object
+          - 'null'
+        experience:
+          description: Опыт по профессии. Пусто, если соискатель не оставил эти данные.
+          properties:
+            matching_status:
+              $ref: '#/components/schemas/EnrichedPropertyMatchingStatus'
+            value:
+              description: "Возможные значения:<br/>\n - `\"0\"` - нет опыта<br/>\n - `\"lt_1\"` - меньше года<br/>\n - `\"1\"`..`\"50\"` - значения от 1 до 50, опыт в количестве лет<br/>\n - `\"no_experience\"` - нет опыта<br/>\n - `\"has_experience\"` - есть опыта<br/>\nПусто, если соискатель не оставил эти данные."
+              type:
+              - string
+              - 'null'
+          type:
+          - object
+          - 'null'
+        full_name:
+          description: ФИО. Пусто, если соискатель не оставил эти данные.
+          properties:
+            matching_status:
+              $ref: '#/components/schemas/EnrichedPropertyMatchingStatus'
+            value:
+              description: Строка со свободным вводом кандидата. Пусто, если соискатель не оставил эти данные.
+              type:
+              - string
+              - 'null'
+          type:
+          - object
+          - 'null'
+        gender:
+          description: Пол. Пусто, если соискатель не оставил эти данные.
+          properties:
+            matching_status:
+              $ref: '#/components/schemas/EnrichedPropertyMatchingStatus'
+            value:
+              description: "Возможные значения:<br/>\n - `\"male\"` - мужской<br/>\n - `\"female\"` - женский<br/>\nПусто, если соискатель не оставил эти данные."
+              type:
+              - string
+              - 'null'
+          type:
+          - object
+          - 'null'
+        phone:
+          description: Номер телефона. Пусто, если соискатель не оставил эти данные.
+          properties:
+            matching_status:
+              $ref: '#/components/schemas/EnrichedPropertyMatchingStatus'
+            value:
+              description: Номер телефона в формате +79211234455. Пусто, если соискатель не оставил эти данные.
+              type:
+              - string
+              - 'null'
+          type:
+          - object
+          - 'null'
+        status:
+          description: "Текущий статус сбора информации о кандидате. Возможные значения:<br/>\n - `\"in_progress\"` - собираются данные о кандидате<br/>\n - `\"not_completed\"` - данные о кандидате не собраны<br/>\n - `\"completed_no_criteria\"` - нет оценки под критерии вакансии<br/>\n - `\"completed_matched\"` - кандидат подошел под критерии вакансии<br/>\n - `\"completed_mismatched\"` - кандидат не подошел под критерии вакансии"
+          enum:
+          - in_progress
+          - not_completed
+          - completed_no_criteria
+          - completed_matched
+          - completed_mismatched
+          type: string
+      type: object
+    VacancyStatusesBody:
+      properties:
+        ids:
+          items:
+            description: Идентификатор публикации вакансии в формате UUID
+            type: string
+          type: array
       type: object
     Vacancy2.0:
       properties:
@@ -4129,100 +4686,76 @@ components:
           - 'null'
       title: Информация о вакансии v2
       type: object
-    VacancyArchive:
+    Contacts:
+      description: Контактная информация
       properties:
-        employee_id:
-          description: 'employee_id - Идентификатор сотрудника на Авито.
+        email:
+          description: 'Email контактного лица по данному объявлению.
 
-            Сотрудник может останавливать только закрепленные за ним вакансии в Avito Pro.
+            Учитывается только при публикации вакансии от имени Сотрудника.
 
-            Сотрудник должен быть в активен.
+            Если не заполнено то при публикации от Сотрудника будет использована почта из Профиля Сотрудника.
+
+
+            При публикации от Компании или Пользователя будет использоваться почта из Профиля, переданное значение будет проигнорировано.
 
             '
-          type: integer
+          maxLength: 255
+          minLength: 1
+          type:
+          - string
+          - 'null'
+        name:
+          description: 'Имя менеджера, контактного лица по данному объявлению.
+
+            Учитывается только при публикации вакансии от имени Сотрудника.
+
+            Если не заполнено то при публикации от Сотрудника будет использовано "Имя сотрудника, которое видят пользователи при просмотре объявления".
+
+
+            При публикации от Компании или Пользователя не заполняется, переданное значение будет проигнорировано.
+
+            '
+          maxLength: 30
+          minLength: 1
+          type:
+          - string
+          - 'null'
+        phone:
+          $ref: '#/components/schemas/Phone'
       type: object
-    StoppingForbiddenError:
-      properties:
-        error:
-          properties:
-            type:
-              description: Тип ошибки
-              enum:
-              - vacancies
-              type: string
-            value:
-              description: Значение ошибки
-              enum:
-              - chosen_vacancy_belongs_to_another_user
-              - unavailable_for_blocked
-              - unavailable_for_removed
-              - unavailable_for_rejected
-              - unavailable_to_stop
-              - vacancy_does_not_belong_to_employee
-              - employee_is_not_active
-              type: string
-      type: object
-    PaidPeriod:
-      description: "За какой период указана зарплата. <br>\nВозможные значения:\n  - \"month\" - За месяц;\n  - \"week\" - За неделю;\n  - \"shift\" - За смену;\n  - \"hour\" - За час;\n  - \"piecework\" - Сдельная оплата.\n\nДля schedule равным flyInFlyOut или shift доступны для выбора только month, shift.<br>\nДля employment равны full и schedule равным fixed доступен для выбора только month.\n"
-      enum:
-      - month
-      - week
-      - shift
-      - hour
-      - piecework
+    Vacancies2.0:
+      items:
+        $ref: '#/components/schemas/Vacancy2.0'
+      type: array
+    CitizenshipCriteria:
+      description: 'Гражданство кандидата.
+
+
+        Если выберите значение, в данных кандидата будет отметка, что кандидат соответствует этому критерию
+
+        или нет.
+
+
+        Кандидаты не увидят этого в вакансии.
+
+        '
       example:
-      - month
+      - rus
+      items:
+        enum:
+        - rus
+        - blr
+        - kaz
+        - kgz
+        - tjk
+        - arm
+        - uzb
+        - ukr
+        type: string
       type:
-      - string
+      - array
       - 'null'
-    serviceUnavailableError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 503
-              format: int32
-              type: integer
-            message:
-              description: Описание ошибки
-              example: Service temporarily unavailable. Please, contact support
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    LocationAddress:
-      description: Адрес объекта
-      properties:
-        area:
-          description: Район области
-          example: городской округ Новосибирск
-          type: string
-        house:
-          description: Номер дома
-          example: 117
-          type: string
-        locality:
-          description: Населённый пункт
-          example: Новосибирск
-          type: string
-        province:
-          description: Область
-          example: Новосибирская область
-          type: string
-        region:
-          description: Округ
-          example: Сибирский федеральный округ
-          type: string
-        street:
-          description: Улица
-          example: Вертковская улица
-          type: string
-      required:
-      - locality
-      type: object
     AddressDetails:
       description: Блок с деталями указанного в резюме адреса
       properties:
@@ -4252,94 +4785,118 @@ components:
           type:
           - string
           - 'null'
-    SalaryDetail:
-      description: Подробная информация по заработной плате
+    GetApplicationsIdsResult:
       properties:
-        base:
-          description: Оклад
-          properties:
-            bonus:
-              $ref: '#/components/schemas/SalaryBaseBonus'
-            range:
-              $ref: '#/components/schemas/SalaryBaseRange'
-          type:
-          - object
-          - 'null'
-        paid_period:
-          $ref: '#/components/schemas/PaidPeriod'
-        taxes:
-          $ref: '#/components/schemas/Taxes'
-      type:
-      - object
-      - 'null'
-    tooManyRequestsError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 429
-              format: int32
-              type: integer
-          required:
-          - code
-          type: object
+        applies:
+          description: Список идентификаторов
+          items:
+            properties:
+              created_at:
+                description: Дата создания отклика
+                example: '2022-03-21T10:23:23Z'
+                format: date-time (RFC3339)
+                type: string
+              id:
+                description: Идентификатор отклика
+                example: 11102026de0ad1be10e2236f
+                type: string
+              state:
+                description: Статус отклика
+                example: new
+                type: string
+              updated_at:
+                description: Дата обновления отклика
+                example: '2022-03-21T12:37:41Z'
+                format: date-time (RFC3339)
+                type: string
+            type: object
+          maxItems: 100
+          type: array
       type: object
-    Taxes:
-      description: "Зарплата указана. <br>\nВозможные значения:\n  - \"gross\" - До вычета налогов;\n  - \"net\" - На руки;\n"
+    ToolsAvailability:
+      description: "Требуется ли кандидату собственные инструменты для работы\n<br>\nВозможные значения:\n  - \"needYourOwn\" - Нужны свои;\n  - \"willBeProvided\" - Предоставляет работодатель.\n"
       enum:
-      - gross
-      - net
+      - needYourOwn
+      - willBeProvided
       example:
-      - gross
+      - needYourOwn
       type:
       - string
       - 'null'
-    ApplyProcessing:
-      description: 'Объект с настройкой обработки откликов на вакансию.
-
-
-        Даёт возможность настроить отклики только с резюме.
+    ActivationForbiddenError:
+      properties:
+        error:
+          properties:
+            type:
+              description: Тип ошибки
+              enum:
+              - vacancies
+              type: string
+            value:
+              description: Значение ошибки
+              enum:
+              - chosen_vacancy_belongs_to_another_user
+              - unavailable_for_blocked
+              - unavailable_for_removed
+              - too_early
+              - unavailable_to_activate
+              - vacancy_does_not_belong_to_employee
+              - employee_is_not_active
+              type: string
+      type: object
+    NotFoundError:
+      properties:
+        error:
+          properties:
+            type:
+              description: Тип ошибки
+              enum:
+              - vacancies
+              type: string
+            value:
+              description: Значение ошибки
+              enum:
+              - employee_not_found
+              type: string
+      type: object
+    SalaryBaseRange:
+      additionalProperties: false
+      description: 'Размер оклада. Оклад не может превышать заработную плату.
 
         '
       properties:
-        additional_questions:
-          deprecated: true
-          description: "*DEPRECATED* Заполнение поля не влияет на вакансию.  \nМассив со списком дополнительных вопросов, которые задаст ассистент Авито.\n\n  - `experience` - вопрос про опыт работы. \nВ качестве критерия будет использоваться значение поля `experience`.  В результатах опроса ассистент отметит, достаточно у кандидата опыта или нет. \n\n  - `citizenship` - вопрос про гражданство.\nВ качестве критерия будет использоваться значение поля `citizenship`, если оно заполнено.\n\n  - `age` - вопрос про возраст.\nВ качестве критерия будет использоваться значение поля `age`, если оно заполнено.\n"
-          items:
-            enum:
-            - experience
-            - citizenship
-            - age
-            type: string
+        from:
+          description: Нижняя граница оклада, рублей за paid_period
+          example: 30000
           type:
-          - array
+          - integer
           - 'null'
-        apply_type:
-          description: "Принимает два значения:\n\n  - `with_assistant` - на вакансию смогут откликнуться кандидаты с резюме и без.\n  - `only_with_resume` - на вакансию смогут откликаться только кандидаты с резюме. Если у кандидата нет резюме,\nАвито поможет создать его и откликнуться на вакансию\n"
-          enum:
-          - only_with_resume
-          - with_assistant
-          type: string
-      type:
-      - object
-      - 'null'
-    Phone:
-      description: Контактный телефон, если не передать - подставляется номер из профиля который используется по умолчанию. Если передать номер телефона которого нет в профиле, то он будет добавлен в профиль, но по нему необходимо будет пройти верификацию. Если номер телефона принадлежит другому пользователю, то вакансия не будет опубликована. Если вакансия публикуется от имени сотрудника и номер телефона ему не принадлежит - объявление так же не будет опубликовано.
+        to:
+          description: Верхняя граница оклада, рублей за paid_period
+          example: 60000
+          type:
+          - integer
+          - 'null'
+      type: object
+    ConflictError:
       properties:
-        city:
-          description: Код города (строка, соответствующая шаблону "^\\d{0,6}$")
-          type: string
-        country:
-          description: Код страны (строка, соответствующая шаблону "^\\+?\\d{0,5}$")
-          type: string
-        number:
-          description: Телефон (строка, соответствующая шаблону "^[\\d -]{4,32}$")
-          type: string
-      required:
-      - country
-      - city
-      - number
+        error:
+          properties:
+            message:
+              example: Обнаружен конфликт версий вакансии. Выполните запрос повторно.
+              title: Текст ошибки
+              type: string
+            payload:
+              additionalProperties: true
+              title: Доп.данные об ошибке (если имеются)
+              type:
+              - object
+              - 'null'
+            slug:
+              example: conflict
+              title: Кодовое название ошибки
+              type: string
+          type: object
       type: object
     VacanciesGetByIdsBody:
       properties:
@@ -4448,181 +5005,120 @@ components:
       required:
       - ids
       type: object
-    Profession:
-      description: Название профессии <br> Получить актуальный список доступных значений можно из справочника `profession` через метод [getDictByID](/api-catalog/job/documentation#operation/getDictByID). <br> Статичный [справочник](https://www.avito.st/s/openapi/catalog-profession.xml?v=5) объявлен устаревшим и более не будет использоваться. <br>
-      type:
-      - integer
-      - 'null'
-    VacancyV2CreateResult:
+    SalaryBaseBonus:
+      description: Премия. Не более 70 символов.
+      example: 5% от продаж в месяц
+      type: string
+    VacancyAutoRenewal:
       properties:
-        id:
-          description: 'Идентификатор добавленной вакансии в формате UUID (в случае дубликата UUID не меняется).
-
-            Используется для запросов в ручки:
-
-            - [Получение статуса публикации вакансии V2](https://developers.avito.ru/api-catalog/job/documentation#operation/vacancyGetStatuses)
-
-            - [Редактирование вакансии V2](https://developers.avito.ru/api-catalog/job/documentation#operation/vacancyUpdateV2)
-
-            '
-          type: string
+        auto_renewal:
+          type: boolean
       type: object
-    GetApplicationsIdsResult:
+    OwnTransport:
+      enum:
+      - false
+      - car
+      - cargo-car
+      - bike
+      - scooter
+      title: Свой транспорт
+      type: string
+    WorkHoursPerDay:
+      description: "Количество рабочих часов в день\n<br>\nПолучить актуальный список доступных значений можно из справочника `work_hours_per_day` через метод [getDictByID](/api-catalog/job/documentation#operation/getDictByID).\n<br>\nДля режима работы (schedule) равным \"Вахта (flyInFlyOut)\" недоступны значения \"13–15 часов\", \"Больше 15 часов\" \n<br>\nДля типа занятости (employment) равным \"Полная (full)\" недоступны значения \"До 4 часов\", \"4–5 часов\"\n<br>\nДля типов занятости (employment) равным \"Временная (temporary)\", \"Частичная (partial)\" недоступно значение \"Больше 15 часов\"\n"
+      items:
+        format: int64
+        type: integer
+      type:
+      - array
+      - 'null'
+    ResumeContact:
       properties:
-        applies:
-          description: Список идентификаторов
+        type:
+          enum:
+          - e-mail
+          - phone
+          - chat_id
+          readOnly: true
+          title: Тип контакта
+          type: string
+        value:
+          readOnly: true
+          title: Контактные данные
+          type: string
+      title: Контакт
+      type: object
+    StoppingForbiddenError:
+      properties:
+        error:
+          properties:
+            type:
+              description: Тип ошибки
+              enum:
+              - vacancies
+              type: string
+            value:
+              description: Значение ошибки
+              enum:
+              - chosen_vacancy_belongs_to_another_user
+              - unavailable_for_blocked
+              - unavailable_for_removed
+              - unavailable_for_rejected
+              - unavailable_to_stop
+              - vacancy_does_not_belong_to_employee
+              - employee_is_not_active
+              type: string
+      type: object
+    CreationForbiddenError:
+      properties:
+        error:
+          properties:
+            type:
+              description: Тип ошибки
+              enum:
+              - vacancies
+              type: string
+            value:
+              description: Значение ошибки
+              enum:
+              - unavailable_to_create
+              - employee_does_not_belong_to_company
+              - employee_is_not_active
+              type: string
+      type: object
+    EateryType:
+      description: "Формат заведения общепита в котором предстоит работать кандидату\n<br>\nВозможные значения элементов массива:\n  - \"cafe\" - Кафе;\n  - \"bar\" - Бар;\n  - \"fastFood\" - Фастфуд;\n  - \"restaurant\" - Ресторан;\n  - \"canteen\" - Столовая;\n  - \"bakery\" - Пекарня;\n  - \"other\" - Другой.\n"
+      example:
+      - cafe
+      items:
+        enum:
+        - cafe
+        - bar
+        - fastFood
+        - restaurant
+        - canteen
+        - bakery
+        - other
+        type: string
+      type:
+      - array
+      - 'null'
+    ApplicationsApplyActionsRequestBody:
+      properties:
+        action:
+          description: Новый статус отклика, который нужно применить
+          example: new
+          type: string
+        ids:
+          description: Список идентификаторов откликов, к которым нужно применить статус
           items:
-            properties:
-              created_at:
-                description: Дата создания отклика
-                example: '2022-03-21T10:23:23Z'
-                format: date-time (RFC3339)
-                type: string
-              id:
-                description: Идентификатор отклика
-                example: 11102026de0ad1be10e2236f
-                type: string
-              state:
-                description: Статус отклика
-                example: new
-                type: string
-              updated_at:
-                description: Дата обновления отклика
-                example: '2022-03-21T12:37:41Z'
-                format: date-time (RFC3339)
-                type: string
-            type: object
+            description: Идентификатор отклика
+            example: 11102026de0ad1be10e2236f
+            type: string
           maxItems: 100
           type: array
-      type: object
-    ToolsAvailability:
-      description: "Требуется ли кандидату собственные инструменты для работы\n<br>\nВозможные значения:\n  - \"needYourOwn\" - Нужны свои;\n  - \"willBeProvided\" - Предоставляет работодатель.\n"
-      enum:
-      - needYourOwn
-      - willBeProvided
-      example:
-      - needYourOwn
-      type:
-      - string
-      - 'null'
-    EnrichedProperties:
-      description: Данные о кандидате
-      example:
-        age:
-          matching_status: matched
-          value: 21
-        citizenship:
-          matching_status: matched
-          value: rus
-        experience:
-          matching_status: mismatched
-          value: lt_1
-        full_name:
-          matching_status: no_criteria
-          value: null
-        gender:
-          matching_status: no_criteria
-          value: male
-        phone:
-          matching_status: no_criteria
-          value: '+79213223344'
-        status: completed_mismatched
-      properties:
-        age:
-          description: Возраст. Пусто, если соискатель не оставил эти данные.
-          properties:
-            matching_status:
-              $ref: '#/components/schemas/EnrichedPropertyMatchingStatus'
-            value:
-              description: Целое число, полное количество лет кандидата. Пусто, если соискатель не оставил эти данные.
-              type:
-              - integer
-              - 'null'
-          type:
-          - object
-          - 'null'
-        citizenship:
-          description: Гражданство. Пусто, если соискатель не оставил эти данные.
-          properties:
-            matching_status:
-              $ref: '#/components/schemas/EnrichedPropertyMatchingStatus'
-            value:
-              description: Код страны в стандартной кодировке ISO 3166-1 alpha-3. Пусто, если соискатель не оставил эти данные.
-              type:
-              - string
-              - 'null'
-          type:
-          - object
-          - 'null'
-        experience:
-          description: Опыт по профессии. Пусто, если соискатель не оставил эти данные.
-          properties:
-            matching_status:
-              $ref: '#/components/schemas/EnrichedPropertyMatchingStatus'
-            value:
-              description: "Возможные значения:<br/>\n - `\"0\"` - нет опыта<br/>\n - `\"lt_1\"` - меньше года<br/>\n - `\"1\"`..`\"50\"` - значения от 1 до 50, опыт в количестве лет<br/>\n - `\"no_experience\"` - нет опыта<br/>\n - `\"has_experience\"` - есть опыта<br/>\nПусто, если соискатель не оставил эти данные."
-              type:
-              - string
-              - 'null'
-          type:
-          - object
-          - 'null'
-        full_name:
-          description: ФИО. Пусто, если соискатель не оставил эти данные.
-          properties:
-            matching_status:
-              $ref: '#/components/schemas/EnrichedPropertyMatchingStatus'
-            value:
-              description: Строка со свободным вводом кандидата. Пусто, если соискатель не оставил эти данные.
-              type:
-              - string
-              - 'null'
-          type:
-          - object
-          - 'null'
-        gender:
-          description: Пол. Пусто, если соискатель не оставил эти данные.
-          properties:
-            matching_status:
-              $ref: '#/components/schemas/EnrichedPropertyMatchingStatus'
-            value:
-              description: "Возможные значения:<br/>\n - `\"male\"` - мужской<br/>\n - `\"female\"` - женский<br/>\nПусто, если соискатель не оставил эти данные."
-              type:
-              - string
-              - 'null'
-          type:
-          - object
-          - 'null'
-        phone:
-          description: Номер телефона. Пусто, если соискатель не оставил эти данные.
-          properties:
-            matching_status:
-              $ref: '#/components/schemas/EnrichedPropertyMatchingStatus'
-            value:
-              description: Номер телефона в формате +79211234455. Пусто, если соискатель не оставил эти данные.
-              type:
-              - string
-              - 'null'
-          type:
-          - object
-          - 'null'
-        status:
-          description: "Текущий статус сбора информации о кандидате. Возможные значения:<br/>\n - `\"in_progress\"` - собираются данные о кандидате<br/>\n - `\"not_completed\"` - данные о кандидате не собраны<br/>\n - `\"completed_no_criteria\"` - нет оценки под критерии вакансии<br/>\n - `\"completed_matched\"` - кандидат подошел под критерии вакансии<br/>\n - `\"completed_mismatched\"` - кандидат не подошел под критерии вакансии"
-          enum:
-          - in_progress
-          - not_completed
-          - completed_no_criteria
-          - completed_matched
-          - completed_mismatched
-          type: string
-      type: object
-    VacancyStatusesBody:
-      properties:
-        ids:
-          items:
-            description: Идентификатор публикации вакансии в формате UUID
-            type: string
-          type: array
+      required:
+      - action
+      - ids
       type: object
     VacancySearchMeta:
       properties:
@@ -4646,95 +5142,66 @@ components:
           type: integer
       title: Мета-информация ответа
       type: object
-    Contacts:
-      description: Контактная информация
-      properties:
-        email:
-          description: 'Email контактного лица по данному объявлению.
-
-            Учитывается только при публикации вакансии от имени Сотрудника.
-
-            Если не заполнено то при публикации от Сотрудника будет использована почта из Профиля Сотрудника.
-
-
-            При публикации от Компании или Пользователя будет использоваться почта из Профиля, переданное значение будет проигнорировано.
-
-            '
-          maxLength: 255
-          minLength: 1
-          type:
-          - string
-          - 'null'
-        name:
-          description: 'Имя менеджера, контактного лица по данному объявлению.
-
-            Учитывается только при публикации вакансии от имени Сотрудника.
-
-            Если не заполнено то при публикации от Сотрудника будет использовано "Имя сотрудника, которое видят пользователи при просмотре объявления".
-
-
-            При публикации от Компании или Пользователя не заполняется, переданное значение будет проигнорировано.
-
-            '
-          maxLength: 30
-          minLength: 1
-          type:
-          - string
-          - 'null'
-        phone:
-          $ref: '#/components/schemas/Phone'
-      type: object
-    Grade:
-      description: Предпочтительный грейд кандидата
+    Taxes:
+      description: "Зарплата указана. <br>\nВозможные значения:\n  - \"gross\" - До вычета налогов;\n  - \"net\" - На руки;\n"
       enum:
-      - junior
-      - middle
-      - senior
-      - lead
+      - gross
+      - net
       example:
-      - lead
+      - gross
       type:
       - string
       - 'null'
-    FacilityType:
-      description: "Тип склада или производственной линии на которой предстоит работать кандидату\n<br>\nВозможные значения элементов массива:\n  - \"production\" - Производство;\n  - \"logisticsCenter\" - Логистический центр;\n  - \"warehouse\" - Склад;\n  - \"other\" - Другое.\n"
+    SetApplicationsIsViewedResult:
+      properties:
+        applies:
+          description: Список идентификаторов откликов и статусов их просмотренности после обновления
+          items:
+            properties:
+              id:
+                description: Идентификатор отклика
+                example: 11102026de0ad1be10e2236f
+                type: string
+              is_viewed:
+                example: true
+                type: boolean
+            required:
+            - id
+            - is_viewed
+            type: object
+          maxItems: 100
+          type: array
+      type: object
+    MedicalSpecialization:
+      deprecated: true
+      description: 'Медицинская специализация (можно указать несколько значений через запятую)
+
+        <br>
+
+        см. названия специализаций в
+
+        [ справочнике ](https://www.avito.st/s/openapi/catalog-medical-spec.xml)
+
+        '
       example:
-      - production
+      - Вирусолок
+      - Терапевт
       items:
-        enum:
-        - production
-        - logisticsCenter
-        - warehouse
-        - other
         type: string
       type:
       - array
       - 'null'
-    WebhookSubscribeRequestBody:
-      properties:
-        secret:
-          description: сгенерированный ключ
-          example: cb1e150b-c5bf-4c3e-acd1-20ec88bdb3a1
-          type: string
-        url:
-          description: URL на который будут отправляться уведомления
-          example: https://mysite.webhook/
-          format: uri
-          type: string
-      required:
-      - url
-      - secret
-      type: object
-    VacancyUpdate:
+    VacancyCreate:
       properties:
         address:
-          description: Полный адрес объекта (строка длиной от 0 до 256 символов)
+          description: Полный адрес объекта (строка длиной от 1 до 256 символов). Обязательное, если не указаны координаты.
           type: string
         administrator_organization_type:
           $ref: '#/components/schemas/AdministratorOrganizationType'
         age:
           $ref: '#/components/schemas/AgeCriteria'
         age_preferences:
+          description: "Блок \"в том числе для кандидатов\" (массив строк)\n\nВозможные значения элементов массива:\n  - \"olderThan45\" - старше 45 лет;\n  - \"olderThan14\" - от 14 лет;\n  - \"olderThan16\" - от 16 лет;\n  - \"withHealthProblems\" - с нарушениями здоровья;\n  - \"students\" - для студентов;\n  - \"pensioners\" - для пенсионеров.\n"
           enum:
           - olderThan45
           - olderThan14
@@ -4751,9 +5218,7 @@ components:
             - students
             - pensioners
             type: string
-          type:
-          - array
-          - 'null'
+          type: array
         allow_calls:
           $ref: '#/components/schemas/AllowCalls'
         allow_messages:
@@ -4770,6 +5235,8 @@ components:
           type: string
         bonuses:
           $ref: '#/components/schemas/Bonuses'
+        business_area:
+          $ref: '#/components/schemas/BusinessArea'
         citizenship:
           $ref: '#/components/schemas/CitizenshipCriteria'
         construction_work_type:
@@ -4822,14 +5289,17 @@ components:
         education_level:
           $ref: '#/components/schemas/VacancyEducationLevel'
         employee_id:
-          description: 'employee_id - Идентификатор сотрудника на Авито.
+          description: 'employee_id - Идентификатор сотрудника на Авито. Если этот параметр указан, то вакансия будет закреплена за сотрудником и с его баланса в Avito Pro будет списано размещение.
 
-            Сотрудник может редактировать только закрепленные за ним вакансии в Avito Pro.
+            Использовать параметр можно только с billing_type равным package.
 
-            Сотрудник должен быть в активен.
+            Сотрудник должен быть активен.
 
             '
           type: integer
+        employment:
+          description: "Занятость <br>\nВозможные значения:\n  - temporary - Временная\n  - full - Полная\n  - partial - Частичная\n\nЕсли ничего не выбрать то будет автоматически проставляться в зависимости от режима работы:\nПри flexible и partTime, тип занятости - partial.\nДля всех остальных full.\n\ndeprecated значение internship будет заменено на temporary\n"
+          type: string
         experience:
           description: Опыт работы
           properties:
@@ -4862,9 +5332,7 @@ components:
           - 'null'
         is_side_job:
           description: Подработка
-          type:
-          - boolean
-          - 'null'
+          type: boolean
         medical_book:
           $ref: '#/components/schemas/MedicalBookVacancy'
         medical_specialization:
@@ -4872,10 +5340,10 @@ components:
         medical_specialization_ids:
           $ref: '#/components/schemas/MedicalSpecializationIds'
         name:
-          description: Название вакансии (строка длиной от 0 до 50 символов)
+          description: Название вакансии (строка длиной от 1 до 50 символов)
           type: string
         payout_frequency:
-          description: "Частота выплат\nВозможные значения:\n  - \"dailyPay\" - Каждый день;\n  - \"biweeklyPay\" - Дважды в месяц;\n  - \"weeklyPay\" - Раз в неделю;\n  - \"thriceMonthlyPay\" - три раза в месяц\n  - \"monthlyPay\" - Раз в месяц.\n\ndeprecated значение hourlyPay будет заменено на dailyPay\n"
+          description: "Частота выплат<br>\nВозможные значения:\n  - \"dailyPay\" - Каждый день;\n  - \"biweeklyPay\" - Дважды в месяц;\n  - \"weeklyPay\" - Раз в неделю;\n  - \"thriceMonthlyPay\" - три раза в месяц;\n  - \"monthlyPay\" - Раз в месяц.\n\nДля paid_period равным month и week недоступно для выбора dailyPay.\n\ndeprecated значение hourlyPay будет заменено на dailyPay\n"
           properties:
             id:
               enum:
@@ -4887,9 +5355,7 @@ components:
               type: string
           required:
           - id
-          type:
-          - object
-          - 'null'
+          type: object
         profession:
           $ref: '#/components/schemas/Profession'
         registration_method:
@@ -4905,7 +5371,7 @@ components:
         salary_detail:
           $ref: '#/components/schemas/SalaryDetail'
         salary_range:
-          description: Блок с вилкой зарплаты, если заполнен одновременно с salary, то имеет приоритет
+          description: Блок с вилкой зарплаты, если одновременно с salary, имеет приоритет
           properties:
             from:
               description: Нижняя граница зарплаты, рублей в месяц
@@ -4915,6 +5381,19 @@ components:
               description: Верхняя граница зарплаты, рублей в месяц
               example: 60000
               type: integer
+          type: object
+        schedule:
+          description: "Режим работы <br>\nВозможные значения:\n  - flyInFlyOut - Вахта\n  - fixed - Фиксированный\n  - flexible - Гибкий\n  - shift - Сменный\n\ndeprecated значения fiveDay, sixDay, partTime, fullDay и remote будут заменены на fixed\nflyInFlyOut - Вахта, при выборе данного режима работы, адрес вакансии может быть только \"Город\", если адрес передается полноценный, то улица будет отрезана и адрес будет до \"Города\".\n"
+          properties:
+            id:
+              enum:
+              - flyInFlyOut
+              - fixed
+              - flexible
+              - shift
+              type: string
+          required:
+          - id
           type: object
         shifts:
           $ref: '#/components/schemas/Shifts'
@@ -4943,7 +5422,13 @@ components:
         worker_class:
           $ref: '#/components/schemas/WorkerClass'
       required:
+      - name
+      - description
       - billing_type
+      - business_area
+      - employment
+      - schedule
+      - experience
       type: object
     DriverLicence:
       enum:
@@ -4951,38 +5436,308 @@ components:
       - false
       title: Водительское удостоверение
       type: string
-    MedicalSpecialization:
-      deprecated: true
-      description: 'Медицинская специализация (можно указать несколько значений через запятую)
+    ItemNotFoundError:
+      properties:
+        error:
+          properties:
+            type:
+              description: Тип ошибки
+              enum:
+              - vacancies
+              type: string
+            value:
+              description: Значение ошибки
+              enum:
+              - chosen_vacancy_is_not_found
+              type: string
+      type: object
+    tooManyRequestsError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 429
+              format: int32
+              type: integer
+          required:
+          - code
+          type: object
+      type: object
+    BusinessArea:
+      description: "Идентификатор сферы деятельности \n<br>\nПолучить актуальный список доступных значений можно из справочника `business_area` через метод [getDictByID](/api-catalog/job/documentation#operation/getDictByID).\n<br>\nСтатичный [справочник](https://www.avito.st/s/openapi/catalog-business-area.xml) объявлен устаревшим и более не будет использоваться. \n<br>\n"
+      type: integer
+    Shifts:
+      description: 'Смены
 
         <br>
 
-        см. названия специализаций в
+        Получить актуальный список доступных значений можно из справочника `shifts` через метод [getDictByID](/api-catalog/job/documentation#operation/getDictByID).
 
-        [ справочнике ](https://www.avito.st/s/openapi/catalog-medical-spec.xml)
+        <br>
+
+        Доступен только для следующих режимов работы (schedule): "Сменный (shift)",  "Фиксированный (fixed)"
+
+        <br>
+
+        Для режима работы (schedule) "Фиксированный (fixed)" доступны только значения показывающие отношение количества рабочих дней к выходным, например "5/2"
 
         '
-      example:
-      - Вирусолок
-      - Терапевт
       items:
-        type: string
+        format: int64
+        type: integer
       type:
       - array
       - 'null'
-    Cuisine:
-      description: "Блюда какой кухни предстоит готовить кандидату\n<br>\nВозможные значения элементов массива:\n  - \"russian\" - Русская;\n  - \"european\" - Европейская;\n  - \"caucasian\" - Кавказская;\n  - \"italian\" - Итальянская;\n  - \"japanese\" - Японская;\n  - \"turkish\" - Турецкая;\n  - \"other\" - Другая.\n"
-      example:
-      - russian
+    Gender:
+      enum:
+      - female
+      - male
+      - null
+      example: female
+      title: Пол
+      type:
+      - string
+      - 'null'
+    SalaryDetail:
+      description: Подробная информация по заработной плате
+      properties:
+        base:
+          description: Оклад
+          properties:
+            bonus:
+              $ref: '#/components/schemas/SalaryBaseBonus'
+            range:
+              $ref: '#/components/schemas/SalaryBaseRange'
+          type:
+          - object
+          - 'null'
+        paid_period:
+          $ref: '#/components/schemas/PaidPeriod'
+        taxes:
+          $ref: '#/components/schemas/Taxes'
+      type:
+      - object
+      - 'null'
+    GetApplicationsByIdsResult:
+      properties:
+        applies:
+          description: Список откликов
+          items:
+            properties:
+              applicant:
+                description: Данные соискателя
+                properties:
+                  data:
+                    properties:
+                      birthday:
+                        description: Дата рождения
+                        example: '1988-01-21'
+                        type:
+                        - string
+                        - 'null'
+                      citizenship:
+                        description: Гражданство
+                        example: Россия
+                        type:
+                        - string
+                        - 'null'
+                      education:
+                        $ref: '#/components/schemas/EducationLevel'
+                      full_name:
+                        description: Детали ФИО
+                        properties:
+                          first_name:
+                            description: Имя
+                            example: Иван
+                            type: string
+                          last_name:
+                            description: Фамилия
+                            example: Иванов
+                            type: string
+                          patronymic:
+                            description: Отчество, если указано
+                            example: Иванович
+                            type:
+                            - string
+                            - 'null'
+                        type:
+                        - object
+                        - 'null'
+                      gender:
+                        $ref: '#/components/schemas/Gender'
+                      name:
+                        description: ФИО
+                        example: Иванов Иван Иванович
+                        type:
+                        - string
+                        - 'null'
+                    type: object
+                  id:
+                    example: 1110dc2f-be18-47ef-a524-cd1234321d42
+                    type: string
+                  resume_id:
+                    example: 54312
+                    type:
+                    - string
+                    - 'null'
+                type: object
+              contacts:
+                description: Контакты соискателя
+                properties:
+                  chat:
+                    description: Чат с соискателем
+                    properties:
+                      value:
+                        description: Идентификатор чата
+                        example: u2i-2142059193-600277161
+                        type: string
+                    type:
+                    - object
+                    - 'null'
+                  phones:
+                    items:
+                      properties:
+                        status:
+                          description: Статус получения контакта от соискателя
+                          example: received
+                          type:
+                          - string
+                          - 'null'
+                        value:
+                          description: Телефон соискателя
+                          example: 72002000014
+                          type: string
+                      type: object
+                    type: array
+                type: object
+              created_at:
+                description: Дата создания отклика
+                example: '2022-05-04T12:00:00+03:00'
+                format: date-time (RFC3339)
+                type: string
+              employee_id:
+                description: Идентификатор сотрудника разместившего вакансию
+                example: 727226498
+                format: int64
+                type:
+                - integer
+                - 'null'
+              enriched_properties:
+                $ref: '#/components/schemas/EnrichedProperties'
+              id:
+                description: Идентификатор отклика
+                example: 11102026de0ad1be10e2236f
+                type: string
+              is_viewed:
+                description: Отклик просмотрен
+                example: true
+                type: boolean
+              negotiation_id:
+                description: Идентификатор отклика старого формата
+                example: 1132
+                format: int64
+                type:
+                - integer
+                - 'null'
+              prevalidation:
+                description: Статус и результат превалидации кандидата
+                properties:
+                  status:
+                    example: success
+                    type: string
+                  summary:
+                    description: Выжимка превалидации. Массив ответов на вопросы
+                    items:
+                      $ref: '#/components/schemas/PrevalidationAnswer'
+                    type:
+                    - array
+                    - 'null'
+                type:
+                - object
+                - 'null'
+              price:
+                description: Цена целевого действия (копейки)
+                properties:
+                  bonus:
+                    description: Цена целевого действия в бонусах (копейки)
+                    type: integer
+                  real:
+                    description: Цена целевого действия в реальных деньгах (копейки)
+                    type: integer
+                  total:
+                    description: Общая цена целевого действия (копейки)
+                    type: integer
+                required:
+                - bonus
+                - real
+                - total
+                type:
+                - object
+                - 'null'
+              source:
+                description: "Источник отклика\n\nВозможные значения:\n - \"sbc_cold_flow\" - Отклик по приглашению из рассылки по холодной базе кандидатов\n"
+                enum:
+                - sbc_cold_flow
+                example: sbc_cold_flow
+                type: string
+              state:
+                description: Статус отклика
+                example: new
+                type: string
+              type:
+                description: "Тип отклика\n\nВозможные значения:\n - \"by_phone\" - отклик через просмотр телефона\n - \"by_chat\" - отклик через чат\n"
+                enum:
+                - by_phone
+                - by_chat
+                example: by_chat
+                type: string
+              updated_at:
+                description: Дата обновления отклика
+                example: '2022-05-04T12:00:00+03:00'
+                format: date-time (RFC3339)
+                type: string
+              vacancy_id:
+                description: Идентификатор вакансии на сайте Авито
+                example: 18725423
+                format: int64
+                type: integer
+            type: object
+          type: array
+      type: object
+    Photo:
+      properties:
+        url:
+          readOnly: true
+          title: URL Изображения
+          type: string
+      title: Изображение
+      type: object
+    DrivingLicenseCategory:
+      description: Категория прав
       items:
         enum:
-        - russian
-        - european
-        - caucasian
-        - italian
-        - japanese
-        - turkish
-        - other
+        - A
+        - AI
+        - AII
+        - AIII
+        - AIV
+        - B
+        - B1
+        - BE
+        - C
+        - C1
+        - C1E
+        - CE
+        - D
+        - D1
+        - D1E
+        - DE
+        - E
+        - F
+        - Tm
+        - Tb
+        - M
         type: string
       type:
       - array
@@ -5265,342 +6020,24 @@ components:
       required:
       - billing_type
       type: object
-    ResumeContacts:
-      properties:
-        already_bought:
-          example: false
-          readOnly: true
-          title: Контакт уже приобретен
-          type: boolean
-        contacts:
-          example:
-          - type: e-mail
-            value: candidate@example.com
-          - type: phone
-            value: 79211234455
-          - type: chat_id
-            value: u2i-voDBaJ_nyscu9ztBC3TTaW
-          items:
-            $ref: '#/components/schemas/ResumeContact'
-          readOnly: true
-          title: Контакты
-          type: array
-        full_name:
-          description: Детали ФИО
-          properties:
-            first_name:
-              description: Имя
-              example: Иван
-              type: string
-            last_name:
-              description: Фамилия
-              example: Иванов
-              type: string
-            patronymic:
-              description: Отчество, если указано
-              example: Иванович
-              type:
-              - string
-              - 'null'
-          type:
-          - object
-          - 'null'
-        name:
-          example: Иванов Иван
-          readOnly: true
-          title: Имя
-          type: string
-      title: Контакты резюме
-      type: object
-    PrevalidationAnswer:
-      description: Ответ на вопрос превалидации. Содержит лейбл, название и значение переменной.
-      example:
-        label: ФИО
-        value: Сидоров Иван Петрович
-      properties:
-        label:
-          description: Название переменной
-          type: string
-        value:
-          description: Значение переменной
-          type: string
-        variable:
-          description: Идентификатор переменной. Распространенные значения:<br/> `job_fio` - ФИО<br/> `job_phone` - телефон<br/> `job_birthdate` - дата рождения<br/> `job_city` - город<br/> `job_gender` - пол<br/> `job_citizenship` - гражданство<br/> `job_schedule` - желаемый режим работы<br/> `job_educational_level` - образование<br/> `job_district` - желаемый район работы<br/> `job_experience` - есть ли подходящий опыт<br/> `job_work_duration` - стаж работы на аналогичной должности<br/> `job_last_employment` - последнее место работы<br/> `job_last_position` - должность на последнем месте работы<br/> `job_salary_expectations` - желаемая зарплата<br/> `job_responsibility` - образование, специальность<br/> `job_current_education` - учится ли сейчас<br/> `job_current_employment` - работает ли сейчас<br/> `docs_available` - наличие СНИЛС, ИНН, паспорта или временного удостоверения<br/> `job_military_docs` - наличие документов воинского учета<br/> `is_drivers_licence` - наличие водительских прав<br/> `job_drivers_licence` - категория водительских прав<br/> `drivers_licence_country` - страна выдачи водительских прав<br/> `is_individual_entrepreneur` - оформлен ли как ИП<br/> `job_employment_records` - наличие трудовой книжки<br/> `is_medical_record` - наличие медицинской книжки<br/> `job_covid19` - сертификат о вакцинации<br/> `job_official_employment` - готовность работать по трудовому договору<br/> `job_tha` - РВП<br/> `job_work_permit` - разрешение на работу<br/> `job_tractor_driver_license` - наличие прав для управления спецтехникой<br/> `way_to_travel` - способ перемещения по городу<br/> `job_hostel` - нужно ли проживание<br/> `job_fly_in_basis_readiness` - готовность к вахте по графику из вакансии<br/> `job_spent_time_road` - желаемое время на дорогу<br/> `job_call_time` - время для звонка<br/> `job_driving_experience` - стаж вождения<br/> `job_phone_android` - наличие телефона на Android<br/> `job_use_own_car` - наличие авто<br/> `job_for_me` - ищет ли работу для себя<br/> `job_email` - электронная почта<br/> `job_preferred_address` - желаемый адрес работы<br/> `is_self_employed` - статус самозанятого<br/> `job_training_ready` - готовность пройти обучение<br/> `has_pc_and_workplace` - наличие рабочего места и компьютера
-          type: string
-      type:
-      - object
-      - 'null'
-    EnrichedPropertyMatchingStatus:
-      description: "Статус проверки соответствия кандидата критериям вакансии. Возможные значения:<br/>\n - `\"no_criteria\"` - не выставлены критерии<br/>\n - `\"matched\"` - подошел под критерии<br/>\n - `\"mismatched\"` - не подошел под критерии"
-      enum:
-      - no_criteria
-      - matched
-      - mismatched
-      type: string
-    OwnTransport:
-      enum:
-      - false
-      - car
-      - cargo-car
-      - bike
-      - scooter
-      title: Свой транспорт
-      type: string
-    ResumeContact:
-      properties:
-        type:
-          enum:
-          - e-mail
-          - phone
-          - chat_id
-          readOnly: true
-          title: Тип контакта
-          type: string
-        value:
-          readOnly: true
-          title: Контактные данные
-          type: string
-      title: Контакт
-      type: object
-    MedicalBookVacancy:
-      description: "Требуется ли медкнижка и кем она оформляется при приеме на работу\n<br>\nВозможные значения:\n  - \"registerByCandidate\" - Должен оформить кандидат;\n  - \"helpRegister\" - Поможем оформить;\n  - \"notNeeded\" - Не нужна;\n"
-      enum:
-      - registerByCandidate
-      - helpRegister
-      - notNeeded
-      example:
-      - registerByCandidate
-      type:
-      - string
-      - 'null'
-    CitizenshipCriteria:
-      description: 'Гражданство кандидата.
-
-
-        Если выберите значение, в данных кандидата будет отметка, что кандидат соответствует этому критерию
-
-        или нет.
-
-
-        Кандидаты не увидят этого в вакансии.
-
-        '
-      example:
-      - rus
-      items:
-        enum:
-        - rus
-        - blr
-        - kaz
-        - kgz
-        - tjk
-        - arm
-        - uzb
-        - ukr
-        type: string
-      type:
-      - array
-      - 'null'
-    Specialization:
-      properties:
-        id:
-          example: 10186
-          format: int64
-          readOnly: true
-          title: Идентификатор категории
-          type: integer
-        title:
-          example: Консультирование
-          readOnly: true
-          title: Имя категории
-          type: string
-      title: Сфера деятельности
-      type: object
-    ApplicationsApplyActionsRequestBody:
-      properties:
-        action:
-          description: Новый статус отклика, который нужно применить
-          example: new
-          type: string
-        ids:
-          description: Список идентификаторов откликов, к которым нужно применить статус
-          items:
-            description: Идентификатор отклика
-            example: 11102026de0ad1be10e2236f
-            type: string
-          maxItems: 100
-          type: array
-      required:
-      - action
-      - ids
-      type: object
-    ActivationForbiddenError:
-      properties:
-        error:
-          properties:
-            type:
-              description: Тип ошибки
-              enum:
-              - vacancies
-              type: string
-            value:
-              description: Значение ошибки
-              enum:
-              - chosen_vacancy_belongs_to_another_user
-              - unavailable_for_blocked
-              - unavailable_for_removed
-              - too_early
-              - unavailable_to_activate
-              - vacancy_does_not_belong_to_employee
-              - employee_is_not_active
-              type: string
-      type: object
-    BadRequestShort:
-      properties:
-        error:
-          properties:
-            reason:
-              description: Причина возникновения ошибки (может не присутствовать)
-              enum:
-              - is_empty
-              - wrong_value
-              type: string
-            type:
-              description: Тип ошибки
-              enum:
-              - bad_json_data
-              type: string
-            value:
-              description: Ключ поля
-              type: string
-      type: object
-    VacancyProlongate:
-      properties:
-        billing_type:
-          description: "Вариант платного размещения\n\nВозможные значения:\n  - \"package\" - размещение объявления осуществляется только при наличии подходящего пакета размещения\n  - \"packageOrSingle\" - при наличии подходящего пакета оплата размещения объявления произойдет с него; если нет подходящего пакета, но достаточно денег на кошельке Авито, то произойдет разовое размещение\n  - \"single\" - только разовое размещение, произойдет при наличии достаточной суммы на кошельке Авито; если есть подходящий пакет размещения, он будет проигнорирован\n"
-          enum:
-          - package
-          - single
-          - packageOrSingle
-          type: string
-        employee_id:
-          description: 'employee_id - Идентификатор сотрудника на Авито. Если этот параметр указан, то с баланса сотрудника в Avito Pro будет списано размещение.
-
-            Использовать параметр можно только с billing_type равным package.
-
-            Сотрудник должен быть в активен.
-
-            '
-          type: integer
-      required:
-      - billing_type
-      type: object
-    PaymentError:
-      properties:
-        error:
-          properties:
-            type:
-              description: Тип ошибки
-              enum:
-              - vacancies
-              type: string
-            value:
-              description: Значение ошибки
-              enum:
-              - not_enough_purchased_services
-              - employee_does_not_have_enough_purchased_services
-              - employee_can_publish_only_from_billing_type_package
-              type: string
-      type: object
-    AdministratorOrganizationType:
-      description: "Тип организации в которой предстоит работать кандидату. Используется для профессии Администратор\n<br>\nПолучить актуальный список доступных значений можно из справочника `administrator_organization_type` через метод [getDictByID](/api-catalog/job/documentation#operation/getDictByID).\n<br>\nСтатичный [справочник](https://www.avito.st/s/openapi/catalog-admininstrator-organization-type.xml) объявлен устаревшим и более не будет использоваться. \n<br>\n"
-      type:
-      - integer
-      - 'null'
-    EateryType:
-      description: "Формат заведения общепита в котором предстоит работать кандидату\n<br>\nВозможные значения элементов массива:\n  - \"cafe\" - Кафе;\n  - \"bar\" - Бар;\n  - \"fastFood\" - Фастфуд;\n  - \"restaurant\" - Ресторан;\n  - \"canteen\" - Столовая;\n  - \"bakery\" - Пекарня;\n  - \"other\" - Другой.\n"
-      example:
-      - cafe
-      items:
-        enum:
-        - cafe
-        - bar
-        - fastFood
-        - restaurant
-        - canteen
-        - bakery
-        - other
-        type: string
-      type:
-      - array
-      - 'null'
-    AllowCalls:
-      description: Разрешены ли звонки по вакансии.
-      type:
-      - boolean
-      - 'null'
-    Bonuses:
-      description: Бонусы, которые компания предоставляет кандидатам
-      example:
-      - pitanie
-      - prozivanie
-      items:
-        enum:
-        - prozivanie
-        - pitanie
-        - medicinskaia_straxovka
-        - uniform
-        - oplata_benzina
-        - transport_do_raboty
-        - skidki_v_kompanii
-        - parkovka
-        - zony_otdyxa
-        - podarki_detiam_na_prazdniki
-        - oplata_mobilnoi_sviazi
-        - obuchenie
-        - kompensaciya_proezda_s_raboti
-        - kasko
-        - smartphone
-        - uslugi_shinomontaza
-        type: string
-      type:
-      - array
-      - 'null'
-    notFoundError:
+    purchasingError:
       properties:
         error:
           properties:
             code:
               description: Код ошибки
-              example: 404
+              example: 402
               format: int32
               type: integer
             message:
               description: Сообщение об ошибке
-              example: Not found
+              example: Payment required
               type: string
           required:
           - code
           - message
           type: object
       type: object
-    DriverLicenceCategory:
-      items:
-        enum:
-        - a
-        - b
-        - be
-        - c
-        - ce
-        - d
-        - de
-        - m
-        - tm
-        - tb
-        readOnly: true
-        type: string
-      title: Категория водительских прав
-      type: array
     forbiddenError:
       properties:
         error:
@@ -5619,47 +6056,92 @@ components:
           - message
           type: object
       type: object
-    RetailShopType:
-      description: "Что продает магазин в котором предстоит работать кандидату\n<br>\nВозможные значения элементов массива:\n  - \"hypermarketOrSupermarket\" - Гипермаркет или супермаркет;\n  - \"grocery\" - Продуктовый;\n  - \"electronicsAndHouseholdAppliances\" - Электроника и бытовая техника;\n  - \"clothesAndShoes\" - Одежда и обувь;\n  - \"perfumesAndCosmetics\" - Парфюмерия и косметика;\n  - \"constructionAndHouseholdGoods\" - Строительство и хозтовары;\n  - \"childrenGoods\" - Детские товары;\n  - \"sportingGoods\" - Спортивные товары;\n  - \"petShop\" - Зоомагазин;\n  - \"pharmacy\" - Аптека;\n  - \"other\" - Другое.\n"
+    AdministratorOrganizationType:
+      description: "Тип организации в которой предстоит работать кандидату. Используется для профессии Администратор\n<br>\nПолучить актуальный список доступных значений можно из справочника `administrator_organization_type` через метод [getDictByID](/api-catalog/job/documentation#operation/getDictByID).\n<br>\nСтатичный [справочник](https://www.avito.st/s/openapi/catalog-admininstrator-organization-type.xml) объявлен устаревшим и более не будет использоваться. \n<br>\n"
+      type:
+      - integer
+      - 'null'
+    Location:
+      deprecated: true
+      properties:
+        id:
+          example: 637640
+          format: int64
+          readOnly: true
+          title: Идентификатор региона или населённого пункта
+          type: integer
+        title:
+          example: Москва
+          readOnly: true
+          title: Имя региона или адрес
+          type: string
+      title: Регион или населённый пункт. Поле deprecated — теперь детали адреса доступны в блоке "address_details"
+      type: object
+    ConstructionWorkType:
+      description: "С какими видами строительных или ремонтных работ предстоит столкнуться кандидату\n<br>\nВозможные значения элементов массива:\n  - \"paintingWorks\" - Малярные работы;\n  - \"wallCovering\" - Облицовка стен;\n  - \"tileWork\" - Работы с плиткой;\n  - \"mountingAndInstallation\" - Монтаж и установка;\n  - \"finishingWork\" - Отделочные работы;\n  - \"roofing\" - Кровельные работы;\n  - \"installationAndConfigurationOfEquipment\" - Монтаж и настройка оборудования;\n  - \"weldingWork\" - Сварочные работы;\n  - \"constructionOfFacades\" - Строительство фасадов;\n  - \"formingMaterials\" - Формовка материалов;\n  - \"concreteAndStoneWorks\" - Бетонные и каменные работы;\n  - \"repairWork\" - Ремонтные работы;\n  - \"other\" - Другие.\n"
       example:
-      - hypermarketOrSupermarket
+      - paintingWorks
       items:
         enum:
-        - hypermarketOrSupermarket
-        - grocery
-        - electronicsAndHouseholdAppliances
-        - clothesAndShoes
-        - perfumesAndCosmetics
-        - constructionAndHouseholdGoods
-        - childrenGoods
-        - sportingGoods
-        - petShop
-        - pharmacy
+        - paintingWorks
+        - wallCovering
+        - tileWork
+        - mountingAndInstallation
+        - finishingWork
+        - roofing
+        - installationAndConfigurationOfEquipment
+        - weldingWork
+        - constructionOfFacades
+        - formingMaterials
+        - concreteAndStoneWorks
+        - repairWork
         - other
         type: string
       type:
       - array
       - 'null'
-    WebhooksSubscriptionResultList:
+    Coordinates:
+      description: Географические координаты (для указания точки на карте), в градусах — десятичные дроби
       properties:
-        webhooks:
-          description: список вебхуков
-          items:
-            $ref: '#/components/schemas/WebhookSubscribeRequestBody'
-          type: array
+        latitude:
+          description: Широта
+          example: 55.755814
+          format: float
+          type: number
+        longitude:
+          description: Долгота
+          example: 37.617635
+          format: float
+          type: number
       required:
-      - webhooks
-      type: object
-    Gender:
-      enum:
-      - female
-      - male
-      - null
-      example: female
-      title: Пол
+      - latitude
+      - longitude
       type:
-      - string
+      - object
       - 'null'
+    VehicleType:
+      description: "На какой технике предстоит работать кандитату, от выбора техники зависит какие категории прав можно будет указать в вакансии\n<br>\nПолучить актуальный список доступных значений можно из справочника `vehicle_type` через метод [getDictByID](/api-catalog/job/documentation#operation/getDictByID).\n<br>\nСтатичный [справочник](https://www.avito.st/s/openapi/catalog-vehicle-type.xml) объявлен устаревшим и более не будет использоваться. \n<br>\nИспользуется только для профессий \n - Водитель пассажирского транспорта\n - Водитель грузового транспорта\n - Водитель спецтехники\n - Машинист спецтехники\n<br>\n"
+      type:
+      - integer
+      - 'null'
+    authError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 401
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Unauthorized
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
     SimplifiedResume:
       properties:
         address_details:
@@ -5729,388 +6211,64 @@ components:
           type: string
       title: Общая информация резюме
       type: object
-    Coordinates:
-      description: Географические координаты (для указания точки на карте), в градусах — десятичные дроби
+    VacancyArchive:
       properties:
-        latitude:
-          description: Широта
-          example: 55.755814
-          format: float
-          type: number
-        longitude:
-          description: Долгота
-          example: 37.617635
-          format: float
-          type: number
-      required:
-      - latitude
-      - longitude
-      type:
-      - object
-      - 'null'
-    DrivingExperience:
-      enum:
-      - less-than-three-years
-      - more-than-three-years
-      title: Опыт вождения
-      type: string
-    Location:
-      deprecated: true
-      properties:
-        id:
-          example: 637640
-          format: int64
-          readOnly: true
-          title: Идентификатор региона или населённого пункта
+        employee_id:
+          description: 'employee_id - Идентификатор сотрудника на Авито.
+
+            Сотрудник может останавливать только закрепленные за ним вакансии в Avito Pro.
+
+            Сотрудник должен быть в активен.
+
+            '
           type: integer
-        title:
-          example: Москва
-          readOnly: true
-          title: Имя региона или адрес
-          type: string
-      title: Регион или населённый пункт. Поле deprecated — теперь детали адреса доступны в блоке "address_details"
       type: object
-    RegistrationMethod:
-      description: 'Способ оформления (можно указать несколько значений через запятую)
-
-        <br>
-
-        Возможные значения:
-
-        - contract - Трудовой договор
-
-        - gph_ip - ГПХ с ИП
-
-        - gph_self_employed - ГПХ с самозанятым
-
-        - gph_individual - ГПХ с физическим лицом
-
-        '
-      example:
-      - contract
-      - gph_individual
-      items:
-        enum:
-        - contract
-        - gph_ip
-        - gph_self_employed
-        - gph_individual
-        type: string
-      type:
-      - array
-      - 'null'
-    HtmlTags:
-      deprecated: true
-      description: 'Поле deprecated - теперь всегда description с html-тэгами.
-
-        Флаг, указывающий на наличие html-тэгов в описании вакансии, для их специальной обработки. По умолчанию `false`
-
-        Поддерживаемые тэги - `p`, `ul`, `ol`, `li`, `br`, `strong`, `em`
-
-        '
-      type: boolean
-    Resume2.0:
+    PaymentError:
       properties:
-        address_details:
-          $ref: '#/components/schemas/AddressDetails'
-        description:
-          description: Описание резюме
-          example: "Повар- универсал с 15 летним опытом работы:\nповар - пекарь, шеф-поваром на судах;\nповар -универсал в экспедициях и на приисках;\nповар горячего и холодного цехов в ресторанах и кафе Москвы;\nщеф-повар в ресторанах и ночных клубах Одессы.\nЗнание русской, поморской, украинской, кавказской, итальянской кухонь. Технология, администрирование. \nуправление персоналом."
-          type: string
-        id:
-          description: Идентификатор резюме
-          example: 2143065041
-          format: int64
-          type: integer
-        is_active:
-          description: Активность резюме
-          example: true
-          type: boolean
-        is_purchased:
-          description: Контакты резюме куплены
-          example: true
-          type: boolean
-        params:
-          description: Блок с параметрами резюме. Все поля опциональны и выводятся при наличии
+        error:
           properties:
-            ability_to_business_trip:
-              description: Готовность к командировкам
+            type:
+              description: Тип ошибки
               enum:
-              - Не готов
-              - Готов
-              - Иногда
-              type:
-              - string
-              - 'null'
-            address:
-              description: Место, рядом с которым вы хотите работать
-              example: Москва, Лесная улица 7
-              type:
-              - string
-              - 'null'
-            age:
-              description: Возраст соискателя
-              example: 32
-              format: int32
-              type:
-              - integer
-              - 'null'
-            business_area:
-              description: Сфера деятельности
+              - vacancies
+              type: string
+            value:
+              description: Значение ошибки
               enum:
-              - IT, интернет, телеком
-              - Автомобильный бизнес
-              - Административная работа
-              - Банки, инвестиции
-              - Без опыта, студенты
-              - Бухгалтерия, финансы
-              - Высший менеджмент
-              - Госслужба, НКО
-              - Домашний персонал
-              - ЖКХ, эксплуатация
-              - Искусство, развлечения
-              - Консультирование
-              - Курьерская доставка
-              - Маркетинг, реклама, PR
-              - Медицина, фармацевтика
-              - Образование, наука
-              - Охрана, безопасность
-              - Продажи
-              - Производство, сырьё, с/х
-              - Страхование
-              - Строительство
-              - Такси
-              - Транспорт, логистика
-              - Туризм, рестораны
-              - Управление персоналом
-              - Фитнес, салоны красоты
-              - Юриспруденция
-              type:
-              - string
-              - 'null'
-            driver_licence:
-              description: Водительское удостоверение
-              enum:
-              - true
-              - false
-              type:
-              - string
-              - 'null'
-            driver_licence_category:
-              description: Категория водительских прав
-              items:
-                enum:
-                - a
-                - b
-                - be
-                - c
-                - ce
-                - d
-                - de
-                - m
-                - tm
-                - tb
-                type: string
-              type:
-              - array
-              - 'null'
-            education:
-              description: Образование соискателя
-              enum:
-              - Высшее
-              - Незаконченное высшее
-              - Среднее
-              - Среднее специальное
-              type:
-              - string
-              - 'null'
-            education_list:
-              items:
-                properties:
-                  education_stop:
-                    description: Дата окончания учебного заведения
-                    example: 1995
-                    type:
-                    - string
-                    - 'null'
-                  institution:
-                    description: Наименование учебного заведения
-                    example: МГИМО МИД РФ
-                    type:
-                    - string
-                    - 'null'
-                  specialty:
-                    description: Специальность
-                    example: Финансы и кредит, экономист-международник
-                    type:
-                    - string
-                    - 'null'
-                type: object
-              type:
-              - array
-              - 'null'
-            experience_list:
-              items:
-                properties:
-                  company:
-                    description: Наименование организации
-                    example: МТС
-                    type:
-                    - string
-                    - 'null'
-                  position:
-                    description: Занимаемая должность
-                    example: Эксперт клиентского сервиса
-                    type:
-                    - string
-                    - 'null'
-                  responsibilities:
-                    description: Должностные обязанности
-                    example: Принятие входящих обращений от клиентов; помощь в решении возникающих вопросов; консультирование по продуктам компании; продажи
-                    type:
-                    - string
-                    - 'null'
-                  work_finish:
-                    description: Дата увольнения (при отсутствии считать, что работает по настоящее время)
-                    example: '2018-09-01'
-                    format: date
-                    type:
-                    - string
-                    - 'null'
-                  work_start:
-                    description: Дата приема на работу
-                    example: '2015-07-01'
-                    format: date
-                    type:
-                    - string
-                    - 'null'
-                type: object
-              type:
-              - array
-              - 'null'
-            language_list:
-              items:
-                properties:
-                  language:
-                    description: Язык
-                    example: Коми
-                    type:
-                    - string
-                    - 'null'
-                  language_level:
-                    description: Уровень владения языком
-                    enum:
-                    - Начальный
-                    - Средний
-                    - Выше среднего
-                    - Свободное владение
-                    type:
-                    - string
-                    - 'null'
-                type: object
-              type:
-              - array
-              - 'null'
-            moving:
-              description: Возможность переезда
-              enum:
-              - Невозможен
-              - Возможен
-              type:
-              - string
-              - 'null'
-            nationality:
-              description: Гражданство соискателя
-              example: Филиппины
-              type:
-              - string
-              - 'null'
-            pol:
-              description: Пол соискателя
-              enum:
-              - Мужской
-              - Женский
-              type:
-              - string
-              - 'null'
-            razreshenie_na_rabotu_v_rossii:
-              description: Наличие разрешения на работу в России
-              enum:
-              - Да
-              - Нет
-              type:
-              - string
-              - 'null'
-            schedule:
-              description: "Режим работы\nВозможные значения:\n  - flyInFlyOut - Вахта\n  - partTime - Неполный день\n  - fullDay - Полный день\n  - flexible - Плавающий\n  - shift - Сменный\n  - remote - Удалённая работа\n  - fiveDay - Пятидневная рабочая неделя\n  - sixDay - Шестидневная рабочая неделя\n"
-              enum:
-              - flyInFlyOut
-              - partTime
-              - fullDay
-              - flexible
-              - shift
-              - remote
-              - fiveDay
-              - sixDay
-              type:
-              - string
-              - 'null'
-          type: object
-        photos:
-          description: Присутствует в ответе только если в запросе есть флаг photos=true
+              - not_enough_purchased_services
+              - employee_does_not_have_enough_purchased_services
+              - employee_can_publish_only_from_billing_type_package
+              type: string
+      type: object
+    ApplyProcessing:
+      description: 'Объект с настройкой обработки откликов на вакансию.
+
+
+        Даёт возможность настроить отклики только с резюме.
+
+        '
+      properties:
+        additional_questions:
+          deprecated: true
+          description: "*DEPRECATED* Заполнение поля не влияет на вакансию.  \nМассив со списком дополнительных вопросов, которые задаст ассистент Авито.\n\n  - `experience` - вопрос про опыт работы. \nВ качестве критерия будет использоваться значение поля `experience`.  В результатах опроса ассистент отметит, достаточно у кандидата опыта или нет. \n\n  - `citizenship` - вопрос про гражданство.\nВ качестве критерия будет использоваться значение поля `citizenship`, если оно заполнено.\n\n  - `age` - вопрос про возраст.\nВ качестве критерия будет использоваться значение поля `age`, если оно заполнено.\n"
           items:
-            $ref: '#/components/schemas/Photo'
-          title: Изображения
+            enum:
+            - experience
+            - citizenship
+            - age
+            type: string
           type:
           - array
           - 'null'
-        salary:
-          description: Зарплата. Поле может отсутствовать в ответе (выводится при наличии зарплаты)
-          example: 60000
-          format: int32
-          type:
-          - integer
-          - 'null'
-        start_time:
-          description: Дата публикации резюме
-          example: '2020-08-21T08:44:12Z'
-          format: date-time (RFC3339)
+        apply_type:
+          description: "Принимает два значения:\n\n  - `with_assistant` - на вакансию смогут откликнуться кандидаты с резюме и без.\n  - `only_with_resume` - на вакансию смогут откликаться только кандидаты с резюме. Если у кандидата нет резюме,\nАвито поможет создать его и откликнуться на вакансию\n"
+          enum:
+          - only_with_resume
+          - with_assistant
           type: string
-        title:
-          description: Наименование резюме
-          example: Повар-универсал
-          type: string
-        update_time:
-          description: Дата последнего обновления резюме
-          example: '2020-08-21T09:53:06Z'
-          format: date-time (RFC3339)
-          type: string
-        url:
-          description: URL резюме на сайте
-          example: /moskva/rezume/povar-universal_358696_2143065041
-          type: string
-      title: Информация о резюме v2
-      type: object
-    SetApplicationsIsViewedResult:
-      properties:
-        applies:
-          description: Список идентификаторов откликов и статусов их просмотренности после обновления
-          items:
-            properties:
-              id:
-                description: Идентификатор отклика
-                example: 11102026de0ad1be10e2236f
-                type: string
-              is_viewed:
-                example: true
-                type: boolean
-            required:
-            - id
-            - is_viewed
-            type: object
-          maxItems: 100
-          type: array
-      type: object
+      type:
+      - object
+      - 'null'
     VacancyStatusesResult:
       items:
         properties:
@@ -6171,106 +6329,36 @@ components:
             type: object
         type: object
       type: array
-    SimplifiedVacancy:
-      properties:
-        addressDetails:
-          properties:
-            address:
-              type: string
-            city:
-              type: string
-          type: object
-        businessArea:
-          type: string
-        companyName:
-          type: string
-        link:
-          type: string
-        profession:
-          type: string
-        title:
-          type: string
-      type: object
-    AgeCriteria:
-      additionalProperties: false
-      description: 'Возраст кандидата.
+    HtmlTags:
+      deprecated: true
+      description: 'Поле deprecated - теперь всегда description с html-тэгами.
 
+        Флаг, указывающий на наличие html-тэгов в описании вакансии, для их специальной обработки. По умолчанию `false`
 
-        Если выберите значения, в данных кандидата будет отметка, что кандидат соответствует этому критерию
-
-        или нет.
-
-
-        Кандидаты не увидят этого в вакансии.
+        Поддерживаемые тэги - `p`, `ul`, `ol`, `li`, `br`, `strong`, `em`
 
         '
-      properties:
-        from:
-          example: 18
-          maximum: 99
-          minimum: 14
-          type:
-          - integer
-          - 'null'
-        to:
-          example: 65
-          maximum: 99
-          minimum: 14
-          type:
-          - integer
-          - 'null'
+      type: boolean
+    DrivingExperience:
+      enum:
+      - less-than-three-years
+      - more-than-three-years
+      title: Опыт вождения
+      type: string
+    FacilityType:
+      description: "Тип склада или производственной линии на которой предстоит работать кандидату\n<br>\nВозможные значения элементов массива:\n  - \"production\" - Производство;\n  - \"logisticsCenter\" - Логистический центр;\n  - \"warehouse\" - Склад;\n  - \"other\" - Другое.\n"
+      example:
+      - production
+      items:
+        enum:
+        - production
+        - logisticsCenter
+        - warehouse
+        - other
+        type: string
       type:
-      - object
+      - array
       - 'null'
-    purchasingError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 402
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Payment required
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    validatingError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 400
-              format: int32
-              type: integer
-            fields:
-              description: Информация об ошибке валидации параметров в формате ключ-значение
-              type:
-              - object
-              - 'null'
-            message:
-              description: Сообщение об ошибке
-              example: Validation error
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    BadRequestOnVacancy:
-      properties:
-        errors:
-          items:
-            description: Ошибка с описанием причины
-            type: string
-          type: array
-      type: object
     WorkDaysPerWeek:
       description: 'Количество рабочих дней в неделю
 
@@ -6289,171 +6377,83 @@ components:
       type:
       - array
       - 'null'
-    authError:
+    PrevalidationAnswer:
+      description: Ответ на вопрос превалидации. Содержит лейбл, название и значение переменной.
+      example:
+        label: ФИО
+        value: Сидоров Иван Петрович
       properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 401
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Unauthorized
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    MedicalSpecializationIds:
-      description: 'Медицинская специализация (можно указать несколько значений)
+        label:
+          description: Название переменной
+          type: string
+        value:
+          description: Значение переменной
+          type: string
+        variable:
+          description: Идентификатор переменной. Распространенные значения:<br/> `job_fio` - ФИО<br/> `job_phone` - телефон<br/> `job_birthdate` - дата рождения<br/> `job_city` - город<br/> `job_gender` - пол<br/> `job_citizenship` - гражданство<br/> `job_schedule` - желаемый режим работы<br/> `job_educational_level` - образование<br/> `job_district` - желаемый район работы<br/> `job_experience` - есть ли подходящий опыт<br/> `job_work_duration` - стаж работы на аналогичной должности<br/> `job_last_employment` - последнее место работы<br/> `job_last_position` - должность на последнем месте работы<br/> `job_salary_expectations` - желаемая зарплата<br/> `job_responsibility` - образование, специальность<br/> `job_current_education` - учится ли сейчас<br/> `job_current_employment` - работает ли сейчас<br/> `docs_available` - наличие СНИЛС, ИНН, паспорта или временного удостоверения<br/> `job_military_docs` - наличие документов воинского учета<br/> `is_drivers_licence` - наличие водительских прав<br/> `job_drivers_licence` - категория водительских прав<br/> `drivers_licence_country` - страна выдачи водительских прав<br/> `is_individual_entrepreneur` - оформлен ли как ИП<br/> `job_employment_records` - наличие трудовой книжки<br/> `is_medical_record` - наличие медицинской книжки<br/> `job_covid19` - сертификат о вакцинации<br/> `job_official_employment` - готовность работать по трудовому договору<br/> `job_tha` - РВП<br/> `job_work_permit` - разрешение на работу<br/> `job_tractor_driver_license` - наличие прав для управления спецтехникой<br/> `way_to_travel` - способ перемещения по городу<br/> `job_hostel` - нужно ли проживание<br/> `job_fly_in_basis_readiness` - готовность к вахте по графику из вакансии<br/> `job_spent_time_road` - желаемое время на дорогу<br/> `job_call_time` - время для звонка<br/> `job_driving_experience` - стаж вождения<br/> `job_phone_android` - наличие телефона на Android<br/> `job_use_own_car` - наличие авто<br/> `job_for_me` - ищет ли работу для себя<br/> `job_email` - электронная почта<br/> `job_preferred_address` - желаемый адрес работы<br/> `is_self_employed` - статус самозанятого<br/> `job_training_ready` - готовность пройти обучение<br/> `has_pc_and_workplace` - наличие рабочего места и компьютера
+          type: string
+      type:
+      - object
+      - 'null'
+    RegistrationMethod:
+      description: 'Способ оформления (можно указать несколько значений через запятую)
 
         <br>
 
-        Получить актуальный список доступных значений можно из справочника `medical_specialization` через метод [getDictByID](/api-catalog/job/documentation#operation/getDictByID).
+        Возможные значения:
+
+        - contract - Трудовой договор
+
+        - gph_ip - ГПХ с ИП
+
+        - gph_self_employed - ГПХ с самозанятым
+
+        - gph_individual - ГПХ с физическим лицом
 
         '
       example:
-      - 3265936
-      - 3265937
+      - contract
+      - gph_individual
       items:
-        type: integer
+        enum:
+        - contract
+        - gph_ip
+        - gph_self_employed
+        - gph_individual
+        type: string
       type:
       - array
       - 'null'
-    ResumeSearchMeta:
+    LocationAddress:
+      description: Адрес объекта
       properties:
-        cursor:
-          example: 1538480436
-          format: int32
-          readOnly: true
-          title: Курсор поиска
-          type: integer
-        page:
-          example: 1
-          format: int32
-          readOnly: true
-          title: Номер страницы
-          type: integer
-        pages:
-          example: 6
-          format: int32
-          readOnly: true
-          title: Количество страниц
-          type: integer
-        per_page:
-          example: 25
-          format: int32
-          readOnly: true
-          title: Количество записей на странице
-          type: integer
-      title: Мета-информация ответа
-      type: object
-    Citizenship:
-      properties:
-        id:
-          example: 15973
-          format: int64
-          readOnly: true
-          title: Идентификатор гражданства
-          type: integer
-        title:
-          example: Россия
-          readOnly: true
-          title: Имя региона
+        area:
+          description: Район области
+          example: городской округ Новосибирск
           type: string
-      title: Гражданство
+        house:
+          description: Номер дома
+          example: 117
+          type: string
+        locality:
+          description: Населённый пункт
+          example: Новосибирск
+          type: string
+        province:
+          description: Область
+          example: Новосибирская область
+          type: string
+        region:
+          description: Округ
+          example: Сибирский федеральный округ
+          type: string
+        street:
+          description: Улица
+          example: Вертковская улица
+          type: string
+      required:
+      - locality
       type: object
-    WorkHoursPerDay:
-      description: "Количество рабочих часов в день\n<br>\nПолучить актуальный список доступных значений можно из справочника `work_hours_per_day` через метод [getDictByID](/api-catalog/job/documentation#operation/getDictByID).\n<br>\nДля режима работы (schedule) равным \"Вахта (flyInFlyOut)\" недоступны значения \"13–15 часов\", \"Больше 15 часов\" \n<br>\nДля типа занятости (employment) равным \"Полная (full)\" недоступны значения \"До 4 часов\", \"4–5 часов\"\n<br>\nДля типов занятости (employment) равным \"Временная (temporary)\", \"Частичная (partial)\" недоступно значение \"Больше 15 часов\"\n"
-      items:
-        format: int64
-        type: integer
-      type:
-      - array
-      - 'null'
-    DrivingLicenseCategory:
-      description: Категория прав
-      items:
-        enum:
-        - A
-        - AI
-        - AII
-        - AIII
-        - AIV
-        - B
-        - B1
-        - BE
-        - C
-        - C1
-        - C1E
-        - CE
-        - D
-        - D1
-        - D1E
-        - DE
-        - E
-        - F
-        - Tm
-        - Tb
-        - M
-        type: string
-      type:
-      - array
-      - 'null'
-    serviceError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 500
-              format: int32
-              type: integer
-            message:
-              description: Описание ошибки
-              example: Error while processing request. Please, contact support
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    EditingForbiddenError:
-      properties:
-        error:
-          properties:
-            type:
-              description: Тип ошибки
-              enum:
-              - vacancies
-              type: string
-            value:
-              description: Значение ошибки
-              enum:
-              - chosen_vacancy_belongs_to_another_user
-              - unavailable_for_blocked
-              - unavailable_for_removed
-              - unavailable_to_change_location
-              - unavailable_to_edit
-              - vacancy_does_not_belong_to_employee
-              - employee_is_not_active
-              type: string
-      type: object
-    RetailEquipmentType:
-      description: "С каким оборудованием или ПО предстоит работать кандидату\n<br>\nВозможные значения элементов массива:\n  - \"cashRegisterAndPosTerminals\" - Касса и POS-терминалы;\n  - \"accountingSoftware\" - Программы учёта товаров.\n"
-      example:
-      - cashRegisterAndPosTerminals
-      items:
-        enum:
-        - cashRegisterAndPosTerminals
-        - accountingSoftware
-        type: string
-      type:
-      - array
-      - 'null'
   parameters:
     authHeader:
       description: Токен для авторизации
@@ -6463,14 +6463,6 @@ components:
       schema:
         example: Bearer ACCESS_TOKEN
         type: string
-    pathVacancyId:
-      description: Идентификатор вакансии на сайте
-      in: path
-      name: vacancy_id
-      required: true
-      schema:
-        format: int64
-        type: integer
     pathVacancyUUID:
       description: 'UUID Идентификатор вакансии для V2 ручек
 
@@ -6483,12 +6475,6 @@ components:
       schema:
         format: uuid
         type: string
-    webhookUrl:
-      description: URL, на который отправляются уведомления
-      in: query
-      name: url
-      schema:
-        type: string
     pathDictionaryId:
       description: Идентификатор словаря
       in: path
@@ -6497,6 +6483,20 @@ components:
       schema:
         example: business_area
         type: string
+    webhookUrl:
+      description: URL, на который отправляются уведомления
+      in: query
+      name: url
+      schema:
+        type: string
+    pathVacancyId:
+      description: Идентификатор вакансии на сайте
+      in: path
+      name: vacancy_id
+      required: true
+      schema:
+        format: int64
+        type: integer
   headers:
     X-RateLimit-Limit:
       description: Установленное ограничение на число запросов в минуту

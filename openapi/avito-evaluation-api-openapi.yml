@@ -309,24 +309,158 @@ paths:
       - Evaluation
 components:
   schemas:
-    CatalogsResolveResponseDataAutoteka:
+    SpecificationIdResultAutoteka:
       properties:
-        fields:
-          items:
-            $ref: '#/components/schemas/CatalogsFieldAutoteka'
-          type: array
+        specificationId:
+          description: Идентификатор спецификации, по которому ее можно получить
+          example: 1
+          format: int64
+          minimum: 1
+          type: integer
       required:
-      - fields
+      - specificationId
       type: object
-    RequestReportByVehicleIdAutoteka:
+    RequestReportByPlateNumberAutoteka:
       properties:
-        vehicleId:
-          description: Идентификатор запрашиваемого авто (vin/frame).
+        plateNumber:
+          description: Регистрационный номер запрашиваемого авто.
           minLength: 1
           type: string
       required:
-      - vehicleId
+      - plateNumber
       type: object
+    forbiddenError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 403
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Forbidden
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    CatalogsFieldAutoteka:
+      description: Параметр из каталога Авито
+      properties:
+        dataType:
+          description: Тип значения параметра
+          example: integer
+          type: string
+        id:
+          description: Идентификатор параметра
+          example: 110000
+          format: int64
+          minimum: 1
+          type: integer
+        label:
+          description: Название параметра
+          example: Марка
+          type: string
+        values:
+          items:
+            properties:
+              label:
+                description: Значение параметра
+                example: Accent
+                type: string
+              valueId:
+                description: Идентификатор значения параметра
+                example: 403154
+                format: int64
+                minimum: 1
+                type: integer
+            required:
+            - label
+            - valueId
+            type: object
+          type: array
+      required:
+      - id
+      - label
+      - dataType
+      - values
+      type: object
+    GetSpecificationResponseDataAutoteka:
+      properties:
+        documents:
+          $ref: '#/components/schemas/DocumentsResultAutoteka'
+        newCarValuations:
+          description: 'Массив оценок новых авто с аналогичной спецификацией.
+
+
+            Чтобы подключить эту возможность, обратитесь к менеджеру Автотеки.
+
+            '
+          items:
+            $ref: '#/components/schemas/NewCarValuation'
+          type:
+          - array
+          - 'null'
+        specification:
+          $ref: '#/components/schemas/SpecificationResultAutoteka'
+        valuation:
+          $ref: '#/components/schemas/AvitoPriceValuation'
+      type: object
+    CreateSpecificationResponseDataAutoteka:
+      properties:
+        specification:
+          $ref: '#/components/schemas/SpecificationIdResultAutoteka'
+      type: object
+    DocumentsResultAutoteka:
+      properties:
+        pts:
+          description: Информация о ПТС
+          properties:
+            date:
+              description: Дата выдачи ПТС
+              example: '2024-07-31'
+              type:
+              - string
+              - 'null'
+            number:
+              description: Номер ПТС
+              example: '1234567890'
+              type:
+              - string
+              - 'null'
+            organization:
+              description: Организация, выдавшая ПТС
+              example: Название организации
+              type:
+              - string
+              - 'null'
+          type:
+          - object
+          - 'null'
+        sts:
+          description: Информация об СТС
+          properties:
+            date:
+              description: Дата выдачи СТС
+              example: '2024-07-31'
+              type:
+              - string
+              - 'null'
+            number:
+              description: Серия и номер СТС
+              example: '1234567890'
+              type:
+              - string
+              - 'null'
+          type:
+          - object
+          - 'null'
+      type:
+      - object
+      - 'null'
     ValuationBySpecificationResultAutoteka:
       properties:
         brand:
@@ -387,90 +521,42 @@ components:
       - status
       - vehicleId
       type: object
-    GetSpecificationResponseBodyAutoteka:
-      properties:
-        result:
-          $ref: '#/components/schemas/GetSpecificationResponseDataAutoteka'
-      type: object
-    tooManyRequestsError:
+    notFoundError:
       properties:
         error:
           properties:
             code:
               description: Код ошибки
-              example: 429
+              example: 404
               format: int32
               type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Not found
+              type: string
           required:
           - code
+          - message
           type: object
       type: object
-    DocumentsResultAutoteka:
+    RequestReportByVehicleIdAutoteka:
       properties:
-        pts:
-          description: Информация о ПТС
-          properties:
-            date:
-              description: Дата выдачи ПТС
-              example: '2024-07-31'
-              type:
-              - string
-              - 'null'
-            number:
-              description: Номер ПТС
-              example: '1234567890'
-              type:
-              - string
-              - 'null'
-            organization:
-              description: Организация, выдавшая ПТС
-              example: Название организации
-              type:
-              - string
-              - 'null'
-          type:
-          - object
-          - 'null'
-        sts:
-          description: Информация об СТС
-          properties:
-            date:
-              description: Дата выдачи СТС
-              example: '2024-07-31'
-              type:
-              - string
-              - 'null'
-            number:
-              description: Серия и номер СТС
-              example: '1234567890'
-              type:
-              - string
-              - 'null'
-          type:
-          - object
-          - 'null'
-      type:
-      - object
-      - 'null'
-    RequestReportByPlateNumberAutoteka:
-      properties:
-        plateNumber:
-          description: Регистрационный номер запрашиваемого авто.
+        vehicleId:
+          description: Идентификатор запрашиваемого авто (vin/frame).
           minLength: 1
           type: string
       required:
-      - plateNumber
+      - vehicleId
       type: object
-    SpecificationIdResultAutoteka:
+    CatalogsResolveResponseBodyAutoteka:
       properties:
-        specificationId:
-          description: Идентификатор спецификации, по которому ее можно получить
-          example: 1
-          format: int64
-          minimum: 1
-          type: integer
-      required:
-      - specificationId
+        result:
+          $ref: '#/components/schemas/CatalogsResolveResponseDataAutoteka'
+      type: object
+    ValuationBySpecificationResponseBodyAutoteka:
+      properties:
+        result:
+          $ref: '#/components/schemas/ValuationBySpecificationResultAutoteka'
       type: object
     SpecificationEquipmentAutoteka:
       properties:
@@ -898,123 +984,81 @@ components:
       type:
       - object
       - 'null'
-    CatalogsResolveResponseBodyAutoteka:
+    NewCarValuation:
+      description: Оценка нового авто на основе рынка Авито
+      properties:
+        avgPrice:
+          description: Средняя цена на основе объявлений
+          example: 2010000
+          type: integer
+        bodyType:
+          description: Тип автомобиля
+          example: Универсал
+          type: string
+        brand:
+          description: Бренд
+          example: ВАЗ (LADA)
+          type: string
+        complectation:
+          description: Комплектация
+          example: Enjoy'24
+          type: string
+        drive:
+          description: Привод
+          example: Передний
+          type: string
+        engineType:
+          description: Тип двигателя
+          example: Бензин
+          type: string
+        maxPrice:
+          description: Максимальная цена на основе объявлений
+          example: 2050000
+          type: integer
+        medianPrice:
+          description: Средняя цена на основе объявлений
+          example: 2020000
+          type: integer
+        minPrice:
+          description: Минимальная цена на основе объявлений
+          example: 2000000
+          type: integer
+        model:
+          description: Модель
+          example: Largus Cross
+          type: string
+        modification:
+          description: Модификация
+          example: 1.6 MT (106 л.с.)
+          type: string
+        transmission:
+          description: Коробка передач
+          example: Механика
+          type: string
+        year:
+          description: Год выпуска
+          example: 2025
+          type: integer
+      required:
+      - brand
+      - model
+      - year
+      - modification
+      - bodyType
+      - complectation
+      - drive
+      - transmission
+      - engineType
+      - avgPrice
+      - medianPrice
+      - minPrice
+      - maxPrice
+      type: object
+    CreateSpecificationResponseBodyAutoteka:
       properties:
         result:
-          $ref: '#/components/schemas/CatalogsResolveResponseDataAutoteka'
+          $ref: '#/components/schemas/CreateSpecificationResponseDataAutoteka'
       type: object
-    GetSpecificationResponseDataAutoteka:
-      properties:
-        documents:
-          $ref: '#/components/schemas/DocumentsResultAutoteka'
-        newCarValuations:
-          description: 'Массив оценок новых авто с аналогичной спецификацией.
-
-
-            Чтобы подключить эту возможность, обратитесь к менеджеру Автотеки.
-
-            '
-          items:
-            $ref: '#/components/schemas/NewCarValuation'
-          type:
-          - array
-          - 'null'
-        specification:
-          $ref: '#/components/schemas/SpecificationResultAutoteka'
-        valuation:
-          $ref: '#/components/schemas/AvitoPriceValuation'
-      type: object
-    validatingError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 400
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Validation error
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    AvitoPriceValuation:
-      description: Оценка подержаного автомобиля от Авито
-      properties:
-        avgMarketPrice:
-          description: Оценка на основе объявлений
-          example: 950000
-          type:
-          - integer
-          - 'null'
-        avgMileage:
-          description: Средний пробег аналогов
-          example: 50000
-          type:
-          - integer
-          - 'null'
-        avgPriceWithCondition:
-          description: Оценка с учетом состояния автомобилей на основе реальных сделок
-          example: 936000
-          type: integer
-        avgYear:
-          description: Средний год выпуска аналогов
-          example: 2012.9999
-          format: float
-          type:
-          - number
-          - 'null'
-        imvUrl:
-          deprecated: true
-          description: Поле больше не заполняется. Ссылка на страницу Авито IMV вида https://www.avito.ru/au-imv-info/2963331288
-          example: https://www.avito.ru/au-imv-info/2963331288
-          type:
-          - string
-          - 'null'
-        itemsCount:
-          description: Количество машин, учтенных в оценке
-          example: 121
-          type:
-          - integer
-          - 'null'
-        marketNormalPriceRange:
-          description: Диапазон "рыночной" оценки данного автомобиля по закрытым сделкам
-          properties:
-            max:
-              description: Максимальная граница "рыночной" оценки данного автомобиля по закрытым сделкам
-              example: 5248900
-              type: integer
-            min:
-              description: Минимальная граница "рыночной" оценки данного автомобиля по закрытым сделкам
-              example: 3248900
-              type: integer
-          required:
-          - min
-          - max
-          type:
-          - object
-          - 'null'
-        maxPrice:
-          description: Максимальная цена похожих авто на основе объявлений
-          example: 1000000
-          type:
-          - integer
-          - 'null'
-        minPrice:
-          description: Минимальная цена похожих авто на основе объявлений
-          example: 800000
-          type:
-          - integer
-          - 'null'
-      required:
-      - avgPriceWithCondition
-      type:
-      - object
-      - 'null'
     RequestValuationBySpecificationResolve:
       properties:
         location:
@@ -1251,6 +1295,120 @@ components:
           - 'null'
       required:
       - specification
+      type: object
+    validatingError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 400
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Validation error
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    internalError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 500
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Service is temporary unavailable
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    AvitoPriceValuation:
+      description: Оценка подержаного автомобиля от Авито
+      properties:
+        avgMarketPrice:
+          description: Оценка на основе объявлений
+          example: 950000
+          type:
+          - integer
+          - 'null'
+        avgMileage:
+          description: Средний пробег аналогов
+          example: 50000
+          type:
+          - integer
+          - 'null'
+        avgPriceWithCondition:
+          description: Оценка с учетом состояния автомобилей на основе реальных сделок
+          example: 936000
+          type: integer
+        avgYear:
+          description: Средний год выпуска аналогов
+          example: 2012.9999
+          format: float
+          type:
+          - number
+          - 'null'
+        imvUrl:
+          deprecated: true
+          description: Поле больше не заполняется. Ссылка на страницу Авито IMV вида https://www.avito.ru/au-imv-info/2963331288
+          example: https://www.avito.ru/au-imv-info/2963331288
+          type:
+          - string
+          - 'null'
+        itemsCount:
+          description: Количество машин, учтенных в оценке
+          example: 121
+          type:
+          - integer
+          - 'null'
+        marketNormalPriceRange:
+          description: Диапазон "рыночной" оценки данного автомобиля по закрытым сделкам
+          properties:
+            max:
+              description: Максимальная граница "рыночной" оценки данного автомобиля по закрытым сделкам
+              example: 5248900
+              type: integer
+            min:
+              description: Минимальная граница "рыночной" оценки данного автомобиля по закрытым сделкам
+              example: 3248900
+              type: integer
+          required:
+          - min
+          - max
+          type:
+          - object
+          - 'null'
+        maxPrice:
+          description: Максимальная цена похожих авто на основе объявлений
+          example: 1000000
+          type:
+          - integer
+          - 'null'
+        minPrice:
+          description: Минимальная цена похожих авто на основе объявлений
+          example: 800000
+          type:
+          - integer
+          - 'null'
+      required:
+      - avgPriceWithCondition
+      type:
+      - object
+      - 'null'
+    GetSpecificationResponseBodyAutoteka:
+      properties:
+        result:
+          $ref: '#/components/schemas/GetSpecificationResponseDataAutoteka'
       type: object
     SpecificationResultAutoteka:
       properties:
@@ -1551,97 +1709,18 @@ components:
       type:
       - object
       - 'null'
-    forbiddenError:
+    tooManyRequestsError:
       properties:
         error:
           properties:
             code:
               description: Код ошибки
-              example: 403
+              example: 429
               format: int32
               type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Forbidden
-              type: string
           required:
           - code
-          - message
           type: object
-      type: object
-    CreateSpecificationResponseBodyAutoteka:
-      properties:
-        result:
-          $ref: '#/components/schemas/CreateSpecificationResponseDataAutoteka'
-      type: object
-    CreateSpecificationResponseDataAutoteka:
-      properties:
-        specification:
-          $ref: '#/components/schemas/SpecificationIdResultAutoteka'
-      type: object
-    notFoundError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 404
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Not found
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    CatalogsFieldAutoteka:
-      description: Параметр из каталога Авито
-      properties:
-        dataType:
-          description: Тип значения параметра
-          example: integer
-          type: string
-        id:
-          description: Идентификатор параметра
-          example: 110000
-          format: int64
-          minimum: 1
-          type: integer
-        label:
-          description: Название параметра
-          example: Марка
-          type: string
-        values:
-          items:
-            properties:
-              label:
-                description: Значение параметра
-                example: Accent
-                type: string
-              valueId:
-                description: Идентификатор значения параметра
-                example: 403154
-                format: int64
-                minimum: 1
-                type: integer
-            required:
-            - label
-            - valueId
-            type: object
-          type: array
-      required:
-      - id
-      - label
-      - dataType
-      - values
-      type: object
-    ValuationBySpecificationResponseBodyAutoteka:
-      properties:
-        result:
-          $ref: '#/components/schemas/ValuationBySpecificationResultAutoteka'
       type: object
     RequestCatalogsResolve:
       properties:
@@ -1669,93 +1748,14 @@ components:
       required:
       - fieldsValueIds
       type: object
-    internalError:
+    CatalogsResolveResponseDataAutoteka:
       properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 500
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Service is temporary unavailable
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    NewCarValuation:
-      description: Оценка нового авто на основе рынка Авито
-      properties:
-        avgPrice:
-          description: Средняя цена на основе объявлений
-          example: 2010000
-          type: integer
-        bodyType:
-          description: Тип автомобиля
-          example: Универсал
-          type: string
-        brand:
-          description: Бренд
-          example: ВАЗ (LADA)
-          type: string
-        complectation:
-          description: Комплектация
-          example: Enjoy'24
-          type: string
-        drive:
-          description: Привод
-          example: Передний
-          type: string
-        engineType:
-          description: Тип двигателя
-          example: Бензин
-          type: string
-        maxPrice:
-          description: Максимальная цена на основе объявлений
-          example: 2050000
-          type: integer
-        medianPrice:
-          description: Средняя цена на основе объявлений
-          example: 2020000
-          type: integer
-        minPrice:
-          description: Минимальная цена на основе объявлений
-          example: 2000000
-          type: integer
-        model:
-          description: Модель
-          example: Largus Cross
-          type: string
-        modification:
-          description: Модификация
-          example: 1.6 MT (106 л.с.)
-          type: string
-        transmission:
-          description: Коробка передач
-          example: Механика
-          type: string
-        year:
-          description: Год выпуска
-          example: 2025
-          type: integer
+        fields:
+          items:
+            $ref: '#/components/schemas/CatalogsFieldAutoteka'
+          type: array
       required:
-      - brand
-      - model
-      - year
-      - modification
-      - bodyType
-      - complectation
-      - drive
-      - transmission
-      - engineType
-      - avgPrice
-      - medianPrice
-      - minPrice
-      - maxPrice
+      - fields
       type: object
   parameters:
     authHeader:

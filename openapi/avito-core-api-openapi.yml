@@ -70,23 +70,15 @@ paths:
       - Core
 components:
   schemas:
-    notFoundError:
+    UpdatePriceResponse:
       properties:
-        error:
+        result:
           properties:
-            code:
-              description: Код ошибки
-              example: 404
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Not found
-              type: string
-          required:
-          - code
-          - message
+            success:
+              type: boolean
           type: object
+      required:
+      - result
       type: object
     authError:
       properties:
@@ -133,15 +125,23 @@ components:
       required:
       - price
       type: object
-    UpdatePriceResponse:
+    notFoundError:
       properties:
-        result:
+        error:
           properties:
-            success:
-              type: boolean
+            code:
+              description: Код ошибки
+              example: 404
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Not found
+              type: string
+          required:
+          - code
+          - message
           type: object
-      required:
-      - result
       type: object
     tooManyRequests:
       type: object

@@ -256,40 +256,40 @@ paths:
       tags:
       - Cpxpromo
 components:
+  responses:
+    unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Unauthorized
+    badRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Bad request
+    internalError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Internal Error
   schemas:
-    budgetValue:
+    autoPromotion:
       properties:
-        compare:
-          description: Количество процентных пунктов. (На сколько выше в сравнении с конкурентами)
+        budgetPenny:
+          description: Текущий бюджет в копейках
           type: integer
-        maxForecast:
-          description: Максимальное кол-во ЦД за цену ЦД
-          type: integer
-        minForecast:
-          description: Минимальное кол-во ЦД за цену ЦД
-          type: integer
-        valuePenny:
-          description: Бюджет (в копейках)
-          type: integer
+        budgetType:
+          description: Тип бюджета ("1d" - дневной | "7d" - недельный | "30d" - месячный)
+          type: string
       required:
-      - valuePenny
-      - minForecast
-      - maxForecast
-      - compare
-      type: object
-    tooManyRequestsError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 429
-              format: int32
-              type: integer
-          required:
-          - code
-          type: object
-      type: object
+      - budgetPenny
+      - budgetType
+      type:
+      - object
+      - 'null'
     bid:
       properties:
         compare:
@@ -310,6 +310,37 @@ components:
       - maxForecast
       - compare
       type: object
+    getBidsOut:
+      properties:
+        actionTypeID:
+          description: Тип события (1 - звонок | 5 - пакет кликов | 7 - мессенджер, передача контакта в чате)
+          type: integer
+        auto:
+          $ref: '#/components/schemas/auto'
+        manual:
+          $ref: '#/components/schemas/manual'
+        selectedType:
+          description: Выбранный тип продвижения ("manual" - ручное продвижение | "auto" - автоматическое продвижение)
+          type: string
+      required:
+      - actionTypeID
+      - selectedType
+      type: object
+    manualPromotion:
+      properties:
+        bidPenny:
+          description: Текущая цена за целевое действие в копейках
+          type: integer
+        limitPenny:
+          description: Дневной лимит в копейках
+          type:
+          - integer
+          - 'null'
+      required:
+      - bidPenny
+      type:
+      - object
+      - 'null'
     AutoBid:
       properties:
         actionTypeID:
@@ -334,28 +365,18 @@ components:
       - budgetType
       - actionTypeID
       type: object
-    autoPromotion:
+    getPromotionsByItemIdsIn:
       properties:
-        budgetPenny:
-          description: Текущий бюджет в копейках
-          type: integer
-        budgetType:
-          description: Тип бюджета ("1d" - дневной | "7d" - недельный | "30d" - месячный)
-          type: string
+        itemIDs:
+          items:
+            description: Идентификатор объявления
+            example: 1
+            type: integer
+          maxItems: 200
+          minItems: 1
+          type: array
       required:
-      - budgetPenny
-      - budgetType
-      type:
-      - object
-      - 'null'
-    RemovePromotion:
-      properties:
-        itemID:
-          description: Идентификатор объявления
-          example: 123456789
-          type: integer
-      required:
-      - itemID
+      - itemIDs
       type: object
     ManualBid:
       properties:
@@ -382,44 +403,30 @@ components:
       - bidPenny
       - actionTypeID
       type: object
-    getBidsOut:
+    getPromotionsByItemIdsOut:
       properties:
-        actionTypeID:
-          description: Тип события (1 - звонок | 5 - пакет кликов | 7 - мессенджер, передача контакта в чате)
-          type: integer
-        auto:
-          $ref: '#/components/schemas/auto'
-        manual:
-          $ref: '#/components/schemas/manual'
-        selectedType:
-          description: Выбранный тип продвижения ("manual" - ручное продвижение | "auto" - автоматическое продвижение)
-          type: string
-      required:
-      - actionTypeID
-      - selectedType
-      type: object
-    budget:
-      properties:
-        budgets:
+        items:
           items:
-            $ref: '#/components/schemas/budgetValue'
+            properties:
+              actionTypeID:
+                description: Тип события (1 - звонок | 5 - пакет кликов | 7 - мессенджер, передача контакта в чате)
+                type: integer
+              autoPromotion:
+                $ref: '#/components/schemas/autoPromotion'
+              itemID:
+                description: Идентификатор объявления
+                type: integer
+              manualPromotion:
+                $ref: '#/components/schemas/manualPromotion'
+            required:
+            - itemID
+            - actionTypeID
+            type: object
           maxItems: 200
           minItems: 1
           type: array
-        maxLimitPenny:
-          description: Максимальный лимит (в копейках)
-          type: integer
-        minLimitPenny:
-          description: Минимальный лимит (в копейках)
-          type: integer
-        recBudgetPenny:
-          description: Рекомендованный лимит (в копейках)
-          type: integer
       required:
-      - budgets
-      - minLimitPenny
-      - maxLimitPenny
-      - recBudgetPenny
+      - items
       type: object
     auto:
       properties:
@@ -454,45 +461,38 @@ components:
       type:
       - object
       - 'null'
-    manualPromotion:
+    budgetValue:
       properties:
-        bidPenny:
-          description: Текущая цена за целевое действие в копейках
+        compare:
+          description: Количество процентных пунктов. (На сколько выше в сравнении с конкурентами)
           type: integer
-        limitPenny:
-          description: Дневной лимит в копейках
-          type:
-          - integer
-          - 'null'
+        maxForecast:
+          description: Максимальное кол-во ЦД за цену ЦД
+          type: integer
+        minForecast:
+          description: Минимальное кол-во ЦД за цену ЦД
+          type: integer
+        valuePenny:
+          description: Бюджет (в копейках)
+          type: integer
       required:
-      - bidPenny
-      type:
-      - object
-      - 'null'
-    getPromotionsByItemIdsOut:
+      - valuePenny
+      - minForecast
+      - maxForecast
+      - compare
+      type: object
+    tooManyRequestsError:
       properties:
-        items:
-          items:
-            properties:
-              actionTypeID:
-                description: Тип события (1 - звонок | 5 - пакет кликов | 7 - мессенджер, передача контакта в чате)
-                type: integer
-              autoPromotion:
-                $ref: '#/components/schemas/autoPromotion'
-              itemID:
-                description: Идентификатор объявления
-                type: integer
-              manualPromotion:
-                $ref: '#/components/schemas/manualPromotion'
-            required:
-            - itemID
-            - actionTypeID
-            type: object
-          maxItems: 200
-          minItems: 1
-          type: array
-      required:
-      - items
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 429
+              format: int32
+              type: integer
+          required:
+          - code
+          type: object
       type: object
     error:
       additionalProperties: false
@@ -503,6 +503,15 @@ components:
           type: string
       required:
       - message
+      type: object
+    RemovePromotion:
+      properties:
+        itemID:
+          description: Идентификатор объявления
+          example: 123456789
+          type: integer
+      required:
+      - itemID
       type: object
     manual:
       properties:
@@ -547,38 +556,29 @@ components:
       type:
       - object
       - 'null'
-    getPromotionsByItemIdsIn:
+    budget:
       properties:
-        itemIDs:
+        budgets:
           items:
-            description: Идентификатор объявления
-            example: 1
-            type: integer
+            $ref: '#/components/schemas/budgetValue'
           maxItems: 200
           minItems: 1
           type: array
+        maxLimitPenny:
+          description: Максимальный лимит (в копейках)
+          type: integer
+        minLimitPenny:
+          description: Минимальный лимит (в копейках)
+          type: integer
+        recBudgetPenny:
+          description: Рекомендованный лимит (в копейках)
+          type: integer
       required:
-      - itemIDs
+      - budgets
+      - minLimitPenny
+      - maxLimitPenny
+      - recBudgetPenny
       type: object
-  responses:
-    unauthorized:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Unauthorized
-    badRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Bad request
-    internalError:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Internal Error
   parameters:
     authHeader:
       description: Токен для авторизации

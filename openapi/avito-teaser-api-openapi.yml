@@ -136,24 +136,6 @@ paths:
       x-trailing-slash: true
 components:
   schemas:
-    validatingError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 400
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Validation error
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
     tooManyRequestsError:
       properties:
         error:
@@ -166,68 +148,6 @@ components:
           required:
           - code
           type: object
-      type: object
-    TeaserWithoutDataAutoteka:
-      properties:
-        status:
-          description: Текущий статус генерации тизера
-          enum:
-          - success
-          - processing
-          example: processing
-          type: string
-        teaserId:
-          description: Идентификатор сгенерированного тизера, по которому его можно получить
-          example: 1
-          format: int64
-          minimum: 1
-          type: integer
-      required:
-      - teaserId
-      - status
-      type: object
-    notFoundError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 404
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Not found
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    CreateTeaserResponseBodyAutoteka:
-      properties:
-        result:
-          $ref: '#/components/schemas/CreateTeaserResponseDataAutoteka'
-      type: object
-    TeaserResponse:
-      description: Тизер и статус готовности
-      properties:
-        data:
-          $ref: '#/components/schemas/Teaser'
-        status:
-          description: Статус готовности
-          enum:
-          - success
-          - processing
-          type: string
-        teaserId:
-          description: Идентификатор тизера
-          example: 1234567
-          type: integer
-      required:
-      - teaserId
-      - status
-      - data
       type: object
     Teaser:
       description: Тизер
@@ -359,6 +279,24 @@ components:
       type:
       - object
       - 'null'
+    notFoundError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 404
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Not found
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
     RequestTeaserByVehicleIdAutoteka:
       properties:
         vehicleId:
@@ -367,23 +305,38 @@ components:
       required:
       - vehicleId
       type: object
-    CreateTeaserResponseDataAutoteka:
+    TeaserResponse:
+      description: Тизер и статус готовности
       properties:
-        teaser:
-          $ref: '#/components/schemas/TeaserWithoutDataAutoteka'
+        data:
+          $ref: '#/components/schemas/Teaser'
+        status:
+          description: Статус готовности
+          enum:
+          - success
+          - processing
+          type: string
+        teaserId:
+          description: Идентификатор тизера
+          example: 1234567
+          type: integer
+      required:
+      - teaserId
+      - status
+      - data
       type: object
-    forbiddenError:
+    validatingError:
       properties:
         error:
           properties:
             code:
               description: Код ошибки
-              example: 403
+              example: 400
               format: int32
               type: integer
             message:
               description: Сообщение об ошибке
-              example: Forbidden
+              example: Validation error
               type: string
           required:
           - code
@@ -408,6 +361,53 @@ components:
           - message
           type: object
       type: object
+    forbiddenError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 403
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Forbidden
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    CreateTeaserResponseDataAutoteka:
+      properties:
+        teaser:
+          $ref: '#/components/schemas/TeaserWithoutDataAutoteka'
+      type: object
+    CreateTeaserResponseBodyAutoteka:
+      properties:
+        result:
+          $ref: '#/components/schemas/CreateTeaserResponseDataAutoteka'
+      type: object
+    TeaserWithoutDataAutoteka:
+      properties:
+        status:
+          description: Текущий статус генерации тизера
+          enum:
+          - success
+          - processing
+          example: processing
+          type: string
+        teaserId:
+          description: Идентификатор сгенерированного тизера, по которому его можно получить
+          example: 1
+          format: int64
+          minimum: 1
+          type: integer
+      required:
+      - teaserId
+      - status
+      type: object
   parameters:
     authHeader:
       description: Токен для авторизации
@@ -417,13 +417,13 @@ components:
       schema:
         type: string
   headers:
-    X-RateLimit-Remaining:
-      description: Доступное количество запросов в текущем временном окне
+    X-RateLimit-Limit:
+      description: Количество запросов в минуту
       schema:
         format: int32
         type: integer
-    X-RateLimit-Limit:
-      description: Количество запросов в минуту
+    X-RateLimit-Remaining:
+      description: Доступное количество запросов в текущем временном окне
       schema:
         format: int32
         type: integer

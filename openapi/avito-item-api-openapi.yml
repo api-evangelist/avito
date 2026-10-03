@@ -832,261 +832,16 @@ paths:
       - Item
 components:
   schemas:
-    StatisticsResponse:
-      properties:
-        errors:
-          type: object
-        result:
-          description: Статистические счетчики объявления
-          properties:
-            items:
-              $ref: '#/components/schemas/StatisticsCounters'
-          type: object
-      type: object
-    serviceUnavailableError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 503
-              format: int32
-              type: integer
-            message:
-              description: Описание ошибки
-              example: Service temporarily unavailable. Please, contact support
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    CallsStatsRequest:
-      properties:
-        dateFrom:
-          description: Начальная дата периода (YYYY-MM-DD)
-          type: string
-        dateTo:
-          description: Конечная дата периода (YYYY-MM-DD)
-          type: string
-        itemIds:
-          description: Идентификаторы объявлений
-          items:
-            type: integer
-          type: array
-      required:
-      - dateFrom
-      - dateTo
-      type: object
-    SpendingsResponse:
-      properties:
-        result:
-          properties:
-            groupings:
-              description: Группировки расходов
-              items:
-                properties:
-                  date:
-                    description: Дата группировки в формате YYYY-MM-DD
-                    example: '2025-05-02'
-                    type: string
-                  spendings:
-                    description: Расходы
-                    items:
-                      properties:
-                        services:
-                          description: Детализация по услугам
-                          items:
-                            properties:
-                              slug:
-                                description: Слаг услуги
-                                example: vas_highlight
-                                type: string
-                              value:
-                                description: Сумма расходов в рублях
-                                example: 123.95
-                                format: float
-                                type: number
-                            required:
-                            - slug
-                            - value
-                            type: object
-                          type: array
-                        slug:
-                          description: Слаг типа расходов (promotion, presence, commission, rest)
-                          example: presence
-                          type: string
-                        value:
-                          description: Сумма расходов в рублях
-                          example: 123.95
-                          format: float
-                          type: number
-                      required:
-                      - slug
-                      - value
-                      type: object
-                    type: array
-                  type:
-                    $ref: '#/components/schemas/SpendingsGroupings'
-                required:
-                - date
-                - type
-                - spendings
-                type: object
-              type: array
-            timestamp:
-              description: Временная метка ответа (UTC)
-              example: 1746133200
-              type: integer
-          required:
-          - groupings
-          - timestamp
-          type: object
-      required:
-      - result
-      type: object
-    SpendingsGroupings:
-      description: Группировка статистики расходов (по дням, неделям, месяцам)
-      enum:
-      - day
-      - week
-      - month
-      type: string
-    Groupings:
-      enum:
-      - day
-      - week
-      - month
-      - item
-      - totals
-      type: string
-    StickerResp:
-      description: Информация о значках для переданного списка объявлений
-      properties:
-        description:
-          description: Описание значка
-          type: string
-        id:
-          description: Идентификатор значка
-          type: integer
-        title:
-          description: Название значка
-          type: string
-      required:
-      - id
-      - title
-      - description
-      type: object
-    badRequestError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 400
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Bad Request
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    VasPricesResp:
+    StatisticsItemIDs:
+      description: Набор идентификаторов объявлений на сайте
+      example:
+      - 123456789
+      - 987654321
       items:
-        $ref: '#/components/schemas/ItemVasPricesResp'
+        type: integer
+      required:
+      - items
       type: array
-    validatingError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 400
-              format: int32
-              type: integer
-            fields:
-              description: Информация об ошибке валидации параметров в формате ключ-значение
-              type:
-              - object
-              - 'null'
-            message:
-              description: Сообщение об ошибке
-              example: Validation error
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    ItemsInfoWithCategoryAvito:
-      properties:
-        meta:
-          properties:
-            page:
-              description: Номер страницы
-              example: 1
-              type: integer
-            per_page:
-              description: Количество записей на странице
-              example: 25
-              type: integer
-          type: object
-        resources:
-          items:
-            properties:
-              address:
-                description: Адрес объявления
-                example: Москва, Лесная улица 7
-                type: string
-              category:
-                properties:
-                  id:
-                    description: Идентификатор категории
-                    example: 111
-                    format: int32
-                    type: integer
-                  name:
-                    description: Наименование категории
-                    example: Вакансии
-                    type: string
-                type: object
-              id:
-                description: Идентификатор объявления
-                example: 24122231
-                format: int32
-                type: integer
-              price:
-                description: Цена объявления (null значение означает, что цена не указана)
-                example: 35000
-                type:
-                - integer
-                - 'null'
-              status:
-                description: Статус объявления на сайте
-                enum:
-                - active
-                - removed
-                - old
-                - blocked
-                - rejected
-                type: string
-              title:
-                description: Наименование объявления
-                example: Продавец-кассир
-                type: string
-              url:
-                description: URL-адрес объявления
-                example: https://www.avito.ru/rostov-na-donu/vakansii/prodavets_magazina_2142
-                type:
-                - string
-                - 'null'
-            type: object
-          type: array
-      type: object
     SpendingsRequest:
       properties:
         dateFrom:
@@ -1152,6 +907,375 @@ components:
       - spendingTypes
       - grouping
       type: object
+    StickerResp:
+      description: Информация о значках для переданного списка объявлений
+      properties:
+        description:
+          description: Описание значка
+          type: string
+        id:
+          description: Идентификатор значка
+          type: integer
+        title:
+          description: Название значка
+          type: string
+      required:
+      - id
+      - title
+      - description
+      type: object
+    VasResp:
+      description: Информация об услугах и пакетах дополнительных услуг для переданного списка объявлений
+      properties:
+        price:
+          description: Цена со скидкой
+          example: 200
+          type: integer
+        priceOld:
+          description: Цена до применения скидки
+          example: 300
+          type: integer
+        slug:
+          description: Идентификатор услуги или пакета услуг
+          example: x2_1
+          type: string
+      required:
+      - slug
+      - price
+      - priceOld
+      type: object
+    StatisticsCounters:
+      items:
+        properties:
+          itemId:
+            description: Идентификатор объявления
+            format: int64
+            type: integer
+          stats:
+            items:
+              properties:
+                contacts:
+                  deprecated: true
+                  description: '__DEPRECATED (будет удалено в апреле 2021 г.).__
+
+                    __Используйте поле uniqContacts.__
+
+                    Запросы контактов объявления.
+
+                    '
+                  type: integer
+                date:
+                  description: Дата (в формате YYYY-MM-DD), за которую посчитаны статистические счетчики. Для группировок по периодам - дата начала периода.
+                  format: date
+                  type: string
+                favorites:
+                  deprecated: true
+                  description: __DEPRECATED (будет удалено в апреле 2021 г.).__ __Используйте поле uniqFavorites.__ Добавления объявления в избранное
+                  type: integer
+                uniqContacts:
+                  description: Уникальные пользователи, запрашивавшие контакты объявления
+                  type: integer
+                uniqFavorites:
+                  description: Уникальные пользователи, добавившие объявление в избранное
+                  type: integer
+                uniqViews:
+                  description: Уникальные пользователи, просматривавшие объявления
+                  type: integer
+                views:
+                  deprecated: true
+                  description: '__DEPRECATED (будет удалено в апреле 2021 г.).__
+
+                    __Используйте поле uniqViews.__
+
+                    Просмотры объявления.
+
+                    '
+                  type: integer
+              required:
+              - date
+              type: object
+            type: array
+        type: object
+      type: array
+    ItemsInfoWithCategoryAvito:
+      properties:
+        meta:
+          properties:
+            page:
+              description: Номер страницы
+              example: 1
+              type: integer
+            per_page:
+              description: Количество записей на странице
+              example: 25
+              type: integer
+          type: object
+        resources:
+          items:
+            properties:
+              address:
+                description: Адрес объявления
+                example: Москва, Лесная улица 7
+                type: string
+              category:
+                properties:
+                  id:
+                    description: Идентификатор категории
+                    example: 111
+                    format: int32
+                    type: integer
+                  name:
+                    description: Наименование категории
+                    example: Вакансии
+                    type: string
+                type: object
+              id:
+                description: Идентификатор объявления
+                example: 24122231
+                format: int32
+                type: integer
+              price:
+                description: Цена объявления (null значение означает, что цена не указана)
+                example: 35000
+                type:
+                - integer
+                - 'null'
+              status:
+                description: Статус объявления на сайте
+                enum:
+                - active
+                - removed
+                - old
+                - blocked
+                - rejected
+                type: string
+              title:
+                description: Наименование объявления
+                example: Продавец-кассир
+                type: string
+              url:
+                description: URL-адрес объявления
+                example: https://www.avito.ru/rostov-na-donu/vakansii/prodavets_magazina_2142
+                type:
+                - string
+                - 'null'
+            type: object
+          type: array
+      type: object
+    ErrorResponse:
+      properties:
+        error:
+          properties:
+            code:
+              example: 123
+              format: int32
+              type: integer
+            message:
+              example: message about error occurred
+              type: string
+          required:
+          - message
+          - code
+          type: object
+      type: object
+    vasIdRequestBody:
+      properties:
+        vas_id:
+          description: 'Идентификатор услуги, возможные его варианты значения:
+
+            - `highlight` — [выделение объявления](https://support.avito.ru/articles/200026858)
+
+            - `xl` – [XL-объявление](https://support.avito.ru/articles/685)
+
+            '
+          enum:
+          - highlight
+          - xl
+          type: string
+      required:
+      - vas_id
+      type: object
+    ApplyVasResp:
+      properties:
+        operationId:
+          title: Уникальный идентификатор операции покупки
+          type: integer
+      required:
+      - operationId
+      type: object
+    FieldError:
+      properties:
+        code:
+          description: Код ошибки
+          type: string
+        message:
+          description: Описание ошибки
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    notFoundError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 404
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Not found
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    packageIdRequestBodyV2:
+      properties:
+        package_id:
+          description: 'Идентификатор пакета услуг, возможные варианты значения:
+
+            - `x2_1` - применение пакета До 2 раз больше просмотров на 1 день
+
+            - `x2_7` - применение пакета До 2 раз больше просмотров на 7 дней
+
+            - `x5_1` - применение пакета До 5 раз больше просмотров на 1 день
+
+            - `x5_7` - применение пакета До 5 раз больше просмотров на 7 дней
+
+            - `x10_1` - применение пакета До 10 раз больше просмотров на 1 день
+
+            - `x10_7` - применение пакета До 10 раз больше просмотров на 7 дней
+
+
+            В некоторых регионах и категориях также доступны дополнительные варианты:
+
+            - `x15_1` - применение пакета До 15 раз больше просмотров на 1 день
+
+            - `x15_7` - применение пакета До 15 раз больше просмотров на 7 дней
+
+            - `x20_1` - применение пакета До 20 раз больше просмотров на 1 день
+
+            - `x20_7` - применение пакета До 20 раз больше просмотров на 7 дней
+
+
+            Если попытаться применить эти пакеты в недоступных для них регионе и категории, оплата не пройдёт.
+
+            '
+          enum:
+          - x2_1
+          - x2_7
+          - x5_1
+          - x5_7
+          - x10_1
+          - x10_7
+          - x15_1
+          - x15_7
+          - x20_1
+          - x20_7
+          type: string
+      required:
+      - package_id
+      type: object
+    VasAmountAvito:
+      properties:
+        amount:
+          description: Сумма списания за применение услуги или пакета
+          format: float
+          type: number
+      type: object
+    StatisticsFields:
+      description: Набор счетчиков, которые должны присутствовать в ответе
+      items:
+        enum:
+        - views
+        - uniqViews
+        - contacts
+        - uniqContacts
+        - favorites
+        - uniqFavorites
+        type: string
+      type: array
+    pricesItemIdsRequestBody:
+      properties:
+        itemIds:
+          description: Набор идентификаторов объявлений на сайте
+          items:
+            type: integer
+          type: array
+      required:
+      - itemIds
+      type: object
+    StatisticsResponse:
+      properties:
+        errors:
+          type: object
+        result:
+          description: Статистические счетчики объявления
+          properties:
+            items:
+              $ref: '#/components/schemas/StatisticsCounters'
+          type: object
+      type: object
+    VasPricesResp:
+      items:
+        $ref: '#/components/schemas/ItemVasPricesResp'
+      type: array
+    CallsStatsRequest:
+      properties:
+        dateFrom:
+          description: Начальная дата периода (YYYY-MM-DD)
+          type: string
+        dateTo:
+          description: Конечная дата периода (YYYY-MM-DD)
+          type: string
+        itemIds:
+          description: Идентификаторы объявлений
+          items:
+            type: integer
+          type: array
+      required:
+      - dateFrom
+      - dateTo
+      type: object
+    StatisticsShallowRequestBody:
+      properties:
+        dateFrom:
+          $ref: '#/components/schemas/StatisticsDateFrom'
+        dateTo:
+          $ref: '#/components/schemas/StatisticsDateTo'
+        fields:
+          $ref: '#/components/schemas/StatisticsFields'
+        itemIds:
+          $ref: '#/components/schemas/StatisticsItemIDs'
+        periodGrouping:
+          $ref: '#/components/schemas/StatisticsPeriodGrouping'
+      required:
+      - itemIds
+      - dateFrom
+      - dateTo
+      type: object
+    serviceUnavailableError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 503
+              format: int32
+              type: integer
+            message:
+              description: Описание ошибки
+              example: Service temporarily unavailable. Please, contact support
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
     authError:
       properties:
         error:
@@ -1183,49 +1307,13 @@ components:
           - items
           type: object
       type: object
-    StatisticsShallowRequestBody:
-      properties:
-        dateFrom:
-          $ref: '#/components/schemas/StatisticsDateFrom'
-        dateTo:
-          $ref: '#/components/schemas/StatisticsDateTo'
-        fields:
-          $ref: '#/components/schemas/StatisticsFields'
-        itemIds:
-          $ref: '#/components/schemas/StatisticsItemIDs'
-        periodGrouping:
-          $ref: '#/components/schemas/StatisticsPeriodGrouping'
-      required:
-      - itemIds
-      - dateFrom
-      - dateTo
-      type: object
-    VasApplyAvito:
-      properties:
-        amount:
-          description: Сумма списания за применение услуги
-          format: float
-          type: number
-        vas:
-          $ref: '#/components/schemas/InfoVas'
-      type: object
-    vasIdRequestBody:
-      properties:
-        vas_id:
-          description: 'Идентификатор услуги, возможные его варианты значения:
-
-            - `highlight` — [выделение объявления](https://support.avito.ru/articles/200026858)
-
-            - `xl` – [XL-объявление](https://support.avito.ru/articles/685)
-
-            '
-          enum:
-          - highlight
-          - xl
-          type: string
-      required:
-      - vas_id
-      type: object
+    SpendingsGroupings:
+      description: Группировка статистики расходов (по дням, неделям, месяцам)
+      enum:
+      - day
+      - week
+      - month
+      type: string
     CallsStatsDay:
       properties:
         answered:
@@ -1244,17 +1332,70 @@ components:
           description: Новые и одновременно отвеченные звонки
           type: integer
       type: object
-    FieldError:
+    Groupings:
+      enum:
+      - day
+      - week
+      - month
+      - item
+      - totals
+      type: string
+    serviceError:
       properties:
-        code:
-          description: Код ошибки
-          type: string
-        message:
-          description: Описание ошибки
-          type: string
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 500
+              format: int32
+              type: integer
+            message:
+              description: Описание ошибки
+              example: Error while processing request. Please, contact support
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    ItemVasPricesResp:
+      properties:
+        itemId:
+          description: Идентификатор объявления на сайте
+          type: integer
+        stickers:
+          items:
+            $ref: '#/components/schemas/StickerResp'
+          type: array
+        vas:
+          items:
+            $ref: '#/components/schemas/VasResp'
+          type: array
       required:
-      - code
-      - message
+      - vas
+      type: object
+    validatingError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 400
+              format: int32
+              type: integer
+            fields:
+              description: Информация об ошибке валидации параметров в формате ключ-значение
+              type:
+              - object
+              - 'null'
+            message:
+              description: Сообщение об ошибке
+              example: Validation error
+              type: string
+          required:
+          - code
+          - message
+          type: object
       type: object
     AnalyticsRequest:
       properties:
@@ -1346,36 +1487,83 @@ components:
       - limit
       - offset
       type: object
-    StatisticsFields:
-      description: Набор счетчиков, которые должны присутствовать в ответе
-      items:
-        enum:
-        - views
-        - uniqViews
-        - contacts
-        - uniqContacts
-        - favorites
-        - uniqFavorites
-        type: string
-      type: array
-    ApplyVasResp:
+    StatisticsDateFrom:
+      description: Дата (в формате YYYY-MM-DD), с которой (включительно) надо получить статистику
+      example: '2020-01-01'
+      type: string
+    tooManyRequests:
+      type: object
+    ItemInfoAvito:
       properties:
-        operationId:
-          title: Уникальный идентификатор операции покупки
+        autoload_item_id:
+          description: '[Идентификатор объявления](https://autoload.avito.ru/format/realty/#Id) из файла автозагрузки'
+          type:
+          - string
+          - 'null'
+        finish_time:
+          description: Дата завершения объявления
+          format: date-time
+          type:
+          - string
+          - 'null'
+        start_time:
+          description: Дата создания объявления
+          format: date-time
+          type:
+          - string
+          - 'null'
+        status:
+          description: Статус объявления на сайте
+          enum:
+          - active
+          - removed
+          - old
+          - blocked
+          - rejected
+          - not_found
+          - another_user
+          type: string
+        url:
+          description: URL-адрес объявления
+          type:
+          - string
+          - 'null'
+        vas:
+          description: Список примененных платных услуг
+          items:
+            $ref: '#/components/schemas/InfoVas'
+          type:
+          - array
+          - 'null'
+      type: object
+    StatisticsPeriodGrouping:
+      description: Период группировки
+      enum:
+      - day
+      - week
+      - month
+      type: string
+    StatisticsDateTo:
+      description: Дата (в формате YYYY-MM-DD), по которую (включительно) надо получить статистику
+      example: '2020-01-01'
+      type: string
+    CallsStatsItem:
+      properties:
+        days:
+          description: Массив статистики звонков объявления в разрезе дней
+          items:
+            $ref: '#/components/schemas/CallsStatsDay'
+          type: array
+        employeeId:
+          description: Идентификатор сотрудника в сервисе иерархии аккаунтов (0 означает, что звонок не аттрибуцирован до сотрудника)
+          type: integer
+        itemId:
+          description: Идентификатор объявления (0 означает, что звонок не аттрибуцирован до объявления)
           type: integer
       required:
-      - operationId
+      - employeeId
+      - itemId
       type: object
-    StatisticsItemIDs:
-      description: Набор идентификаторов объявлений на сайте
-      example:
-      - 123456789
-      - 987654321
-      items:
-        type: integer
-      required:
-      - items
-      type: array
     InfoVas:
       properties:
         finish_time:
@@ -1402,147 +1590,6 @@ components:
           - premium
           - xl
           type: string
-      type: object
-    VasResp:
-      description: Информация об услугах и пакетах дополнительных услуг для переданного списка объявлений
-      properties:
-        price:
-          description: Цена со скидкой
-          example: 200
-          type: integer
-        priceOld:
-          description: Цена до применения скидки
-          example: 300
-          type: integer
-        slug:
-          description: Идентификатор услуги или пакета услуг
-          example: x2_1
-          type: string
-      required:
-      - slug
-      - price
-      - priceOld
-      type: object
-    StatisticsCounters:
-      items:
-        properties:
-          itemId:
-            description: Идентификатор объявления
-            format: int64
-            type: integer
-          stats:
-            items:
-              properties:
-                contacts:
-                  deprecated: true
-                  description: '__DEPRECATED (будет удалено в апреле 2021 г.).__
-
-                    __Используйте поле uniqContacts.__
-
-                    Запросы контактов объявления.
-
-                    '
-                  type: integer
-                date:
-                  description: Дата (в формате YYYY-MM-DD), за которую посчитаны статистические счетчики. Для группировок по периодам - дата начала периода.
-                  format: date
-                  type: string
-                favorites:
-                  deprecated: true
-                  description: __DEPRECATED (будет удалено в апреле 2021 г.).__ __Используйте поле uniqFavorites.__ Добавления объявления в избранное
-                  type: integer
-                uniqContacts:
-                  description: Уникальные пользователи, запрашивавшие контакты объявления
-                  type: integer
-                uniqFavorites:
-                  description: Уникальные пользователи, добавившие объявление в избранное
-                  type: integer
-                uniqViews:
-                  description: Уникальные пользователи, просматривавшие объявления
-                  type: integer
-                views:
-                  deprecated: true
-                  description: '__DEPRECATED (будет удалено в апреле 2021 г.).__
-
-                    __Используйте поле uniqViews.__
-
-                    Просмотры объявления.
-
-                    '
-                  type: integer
-              required:
-              - date
-              type: object
-            type: array
-        type: object
-      type: array
-    notFoundError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 404
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Not found
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    StatisticsPeriodGrouping:
-      description: Период группировки
-      enum:
-      - day
-      - week
-      - month
-      type: string
-    CallsStatsItem:
-      properties:
-        days:
-          description: Массив статистики звонков объявления в разрезе дней
-          items:
-            $ref: '#/components/schemas/CallsStatsDay'
-          type: array
-        employeeId:
-          description: Идентификатор сотрудника в сервисе иерархии аккаунтов (0 означает, что звонок не аттрибуцирован до сотрудника)
-          type: integer
-        itemId:
-          description: Идентификатор объявления (0 означает, что звонок не аттрибуцирован до объявления)
-          type: integer
-      required:
-      - employeeId
-      - itemId
-      type: object
-    pricesItemIdsRequestBody:
-      properties:
-        itemIds:
-          description: Набор идентификаторов объявлений на сайте
-          items:
-            type: integer
-          type: array
-      required:
-      - itemIds
-      type: object
-    ItemVasPricesResp:
-      properties:
-        itemId:
-          description: Идентификатор объявления на сайте
-          type: integer
-        stickers:
-          items:
-            $ref: '#/components/schemas/StickerResp'
-          type: array
-        vas:
-          items:
-            $ref: '#/components/schemas/VasResp'
-          type: array
-      required:
-      - vas
       type: object
     AnalyticsResponse:
       properties:
@@ -1589,152 +1636,129 @@ components:
               type: string
           type: object
       type: object
-    StatisticsDateFrom:
-      description: Дата (в формате YYYY-MM-DD), с которой (включительно) надо получить статистику
-      example: '2020-01-01'
-      type: string
-    StatisticsDateTo:
-      description: Дата (в формате YYYY-MM-DD), по которую (включительно) надо получить статистику
-      example: '2020-01-01'
-      type: string
-    VasAmountAvito:
+    SpendingsResponse:
+      properties:
+        result:
+          properties:
+            groupings:
+              description: Группировки расходов
+              items:
+                properties:
+                  date:
+                    description: Дата группировки в формате YYYY-MM-DD
+                    example: '2025-05-02'
+                    type: string
+                  spendings:
+                    description: Расходы
+                    items:
+                      properties:
+                        services:
+                          description: Детализация по услугам
+                          items:
+                            properties:
+                              slug:
+                                description: Слаг услуги
+                                example: vas_highlight
+                                type: string
+                              value:
+                                description: Сумма расходов в рублях
+                                example: 123.95
+                                format: float
+                                type: number
+                            required:
+                            - slug
+                            - value
+                            type: object
+                          type: array
+                        slug:
+                          description: Слаг типа расходов (promotion, presence, commission, rest)
+                          example: presence
+                          type: string
+                        value:
+                          description: Сумма расходов в рублях
+                          example: 123.95
+                          format: float
+                          type: number
+                      required:
+                      - slug
+                      - value
+                      type: object
+                    type: array
+                  type:
+                    $ref: '#/components/schemas/SpendingsGroupings'
+                required:
+                - date
+                - type
+                - spendings
+                type: object
+              type: array
+            timestamp:
+              description: Временная метка ответа (UTC)
+              example: 1746133200
+              type: integer
+          required:
+          - groupings
+          - timestamp
+          type: object
+      required:
+      - result
+      type: object
+    VasApplyAvito:
       properties:
         amount:
-          description: Сумма списания за применение услуги или пакета
+          description: Сумма списания за применение услуги
           format: float
           type: number
+        vas:
+          $ref: '#/components/schemas/InfoVas'
       type: object
-    tooManyRequests:
-      type: object
-    serviceError:
+    badRequestError:
       properties:
         error:
           properties:
             code:
               description: Код ошибки
-              example: 500
+              example: 400
               format: int32
               type: integer
             message:
-              description: Описание ошибки
-              example: Error while processing request. Please, contact support
+              description: Сообщение об ошибке
+              example: Bad Request
               type: string
           required:
           - code
           - message
           type: object
-      type: object
-    packageIdRequestBodyV2:
-      properties:
-        package_id:
-          description: 'Идентификатор пакета услуг, возможные варианты значения:
-
-            - `x2_1` - применение пакета До 2 раз больше просмотров на 1 день
-
-            - `x2_7` - применение пакета До 2 раз больше просмотров на 7 дней
-
-            - `x5_1` - применение пакета До 5 раз больше просмотров на 1 день
-
-            - `x5_7` - применение пакета До 5 раз больше просмотров на 7 дней
-
-            - `x10_1` - применение пакета До 10 раз больше просмотров на 1 день
-
-            - `x10_7` - применение пакета До 10 раз больше просмотров на 7 дней
-
-
-            В некоторых регионах и категориях также доступны дополнительные варианты:
-
-            - `x15_1` - применение пакета До 15 раз больше просмотров на 1 день
-
-            - `x15_7` - применение пакета До 15 раз больше просмотров на 7 дней
-
-            - `x20_1` - применение пакета До 20 раз больше просмотров на 1 день
-
-            - `x20_7` - применение пакета До 20 раз больше просмотров на 7 дней
-
-
-            Если попытаться применить эти пакеты в недоступных для них регионе и категории, оплата не пройдёт.
-
-            '
-          enum:
-          - x2_1
-          - x2_7
-          - x5_1
-          - x5_7
-          - x10_1
-          - x10_7
-          - x15_1
-          - x15_7
-          - x20_1
-          - x20_7
-          type: string
-      required:
-      - package_id
-      type: object
-    ErrorResponse:
-      properties:
-        error:
-          properties:
-            code:
-              example: 123
-              format: int32
-              type: integer
-            message:
-              example: message about error occurred
-              type: string
-          required:
-          - message
-          - code
-          type: object
-      type: object
-    ItemInfoAvito:
-      properties:
-        autoload_item_id:
-          description: '[Идентификатор объявления](https://autoload.avito.ru/format/realty/#Id) из файла автозагрузки'
-          type:
-          - string
-          - 'null'
-        finish_time:
-          description: Дата завершения объявления
-          format: date-time
-          type:
-          - string
-          - 'null'
-        start_time:
-          description: Дата создания объявления
-          format: date-time
-          type:
-          - string
-          - 'null'
-        status:
-          description: Статус объявления на сайте
-          enum:
-          - active
-          - removed
-          - old
-          - blocked
-          - rejected
-          - not_found
-          - another_user
-          type: string
-        url:
-          description: URL-адрес объявления
-          type:
-          - string
-          - 'null'
-        vas:
-          description: Список примененных платных услуг
-          items:
-            $ref: '#/components/schemas/InfoVas'
-          type:
-          - array
-          - 'null'
       type: object
   parameters:
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
+    pathUserId:
+      description: Номер пользователя в Личном кабинете Авито
+      in: path
+      name: user_id
+      required: true
+      schema:
+        format: int64
+        type: integer
     pathItemId:
       description: Идентификатор объявления на сайте
       in: path
       name: item_id
+      required: true
+      schema:
+        format: int64
+        type: integer
+    userId:
+      description: Идентификатор пользователя (клиента)
+      in: path
+      name: user_id
       required: true
       schema:
         format: int64
@@ -1750,38 +1774,14 @@ components:
         - application/json
         example: application/json
         type: string
-    authHeader:
-      description: Токен для авторизации
-      in: header
-      name: Authorization
-      required: true
-      schema:
-        example: Bearer ACCESS_TOKEN
-        type: string
-    userId:
-      description: Идентификатор пользователя (клиента)
-      in: path
-      name: user_id
-      required: true
-      schema:
-        format: int64
-        type: integer
-    pathUserId:
-      description: Номер пользователя в Личном кабинете Авито
-      in: path
-      name: user_id
-      required: true
-      schema:
-        format: int64
-        type: integer
   headers:
-    X-RateLimit-Limit:
-      description: Количество запросов в минуту
+    X-RateLimit-Remaining:
+      description: Доступное количество запросов в текущем временном окне
       schema:
         format: int32
         type: integer
-    X-RateLimit-Remaining:
-      description: Доступное количество запросов в текущем временном окне
+    X-RateLimit-Limit:
+      description: Количество запросов в минуту
       schema:
         format: int32
         type: integer

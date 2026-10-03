@@ -174,95 +174,7 @@ paths:
       tags:
       - Cpa
 components:
-  responses:
-    '401':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CpaError'
-      description: Unauthorized
-    '500':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InternalError'
-      description: Internal Error
-    '403':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CpaErrorChat'
-      description: Forbidden
-    '404':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CpaError'
-      description: Not Found
-    '400':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/OpenApiError'
-      description: Bad Request
   schemas:
-    OpenApiError:
-      properties:
-        result:
-          properties:
-            error:
-              properties:
-                code:
-                  example: 1001
-                  title: Код ошибки
-                  type: integer
-                message:
-                  example: Ошибка валидации запроса
-                  title: Текст ошибки
-                  type: string
-                payload:
-                  properties:
-                    error:
-                      example: invalid character  looking for beginning of object key string
-                      type: string
-                  type: object
-              required:
-              - code
-              - message
-              type: object
-          required:
-          - error
-          type: object
-      required:
-      - result
-      type: object
-    tooManyRequestsError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 429
-              format: int32
-              type: integer
-          required:
-          - code
-          type: object
-      type: object
-    OpenAPIPhonesInfoFromChatsIn:
-      properties:
-        dateTimeFrom:
-          description: Время с которого начинается поиск
-          type: string
-        limit:
-          type: integer
-        offset:
-          type: integer
-      required:
-      - dateTimeFrom
-      - offset
-      - limit
-      type: object
     CpaErrorChat:
       properties:
         result:
@@ -332,6 +244,20 @@ components:
       - group
       - url
       type: object
+    OpenAPIPhonesInfoFromChatsIn:
+      properties:
+        dateTimeFrom:
+          description: Время с которого начинается поиск
+          type: string
+        limit:
+          type: integer
+        offset:
+          type: integer
+      required:
+      - dateTimeFrom
+      - offset
+      - limit
+      type: object
     InternalError:
       properties:
         result:
@@ -356,6 +282,80 @@ components:
       required:
       - result
       type: object
+    tooManyRequestsError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 429
+              format: int32
+              type: integer
+          required:
+          - code
+          type: object
+      type: object
+    OpenApiError:
+      properties:
+        result:
+          properties:
+            error:
+              properties:
+                code:
+                  example: 1001
+                  title: Код ошибки
+                  type: integer
+                message:
+                  example: Ошибка валидации запроса
+                  title: Текст ошибки
+                  type: string
+                payload:
+                  properties:
+                    error:
+                      example: invalid character  looking for beginning of object key string
+                      type: string
+                  type: object
+              required:
+              - code
+              - message
+              type: object
+          required:
+          - error
+          type: object
+      required:
+      - result
+      type: object
+  responses:
+    '500':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InternalError'
+      description: Internal Error
+    '403':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CpaErrorChat'
+      description: Forbidden
+    '401':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CpaError'
+      description: Unauthorized
+    '400':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OpenApiError'
+      description: Bad Request
+    '404':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CpaError'
+      description: Not Found
   parameters:
     authHeader:
       description: Токен для авторизации
@@ -374,13 +374,13 @@ components:
         example: someName
         type: string
   headers:
-    X-RateLimit-Remaining:
-      description: Доступное количество запросов в текущем временном окне
+    X-RateLimit-Limit:
+      description: Количество запросов в минуту
       schema:
         format: int32
         type: integer
-    X-RateLimit-Limit:
-      description: Количество запросов в минуту
+    X-RateLimit-Remaining:
+      description: Доступное количество запросов в текущем временном окне
       schema:
         format: int32
         type: integer

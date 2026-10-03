@@ -618,13 +618,6 @@ paths:
     - url: https://api.avito.ru/
 components:
   schemas:
-    ErrorMessage:
-      properties:
-        message:
-          type: string
-      required:
-      - message
-      type: object
     Error:
       description: Ошибка
       properties:
@@ -643,156 +636,12 @@ components:
       - code
       - message
       type: object
-    RealtyBooking:
-      description: Информация о бронировании
+    ErrorMessage:
       properties:
-        avito_booking_id:
-          description: Идентификатор бронирования на Авито
-          example: 11111
-          type: integer
-        base_price:
-          description: Стоимость проживания на весь срок бронирования
-          example: 8000
-          type: integer
-        check_in:
-          description: Дата заезда гостей
-          example: '2026-08-01'
-          format: date
+        message:
           type: string
-        check_out:
-          description: Дата выезда гостей
-          example: '2026-08-04'
-          format: date
-          type: string
-        contact:
-          description: Контактная информация гостя
-          properties:
-            email:
-              description: Контактный email
-              example: guest_email@domain.com
-              type: string
-            name:
-              description: Имя гостя
-              example: Иван
-              type: string
-            phone:
-              description: Номер телефона в 10-ти значном формате (только цифры)
-              example: '9997770000'
-              type: string
-          required:
-          - name
-          - email
-          type: object
-        guest_count:
-          description: Количество гостей
-          example: 1
-          type: integer
-        nights:
-          description: Количество ночей
-          example: 3
-          type: integer
-        safe_deposit:
-          description: Сумма внесённой предоплаты
-          properties:
-            owner_amount:
-              description: Сумма, которую получит владелец объекта
-              example: 4500
-              type: integer
-            tax:
-              description: Комиссия Авито
-              example: 500
-              type: integer
-            total_amount:
-              description: Фактическая сумма предоплаты
-              example: 5000
-              type: integer
-          type: object
-        status:
-          description: Статус брони
-          enum:
-          - active
-          - canceled
-          - pending
-          type: string
-      type: object
-    validatingError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 400
-              format: int32
-              type: integer
-            fields:
-              additionalProperties: {}
-              description: Информация об ошибке валидации параметров в формате ключ-значение
-              type:
-              - object
-              - 'null'
-            message:
-              description: Сообщение об ошибке
-              example: Validation error
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    DatesOverlapBookingError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 409
-              format: int32
-              type: integer
-            conflicts:
-              description: Список периодов, конфликтующих с оплаченными бронями на Авито
-              items:
-                $ref: '#/components/schemas/ConflictedInterval'
-              type: array
-            message:
-              description: Сообщение об ошибке
-              example: error
-              type: string
-          required:
-          - code
-          - message
-          - conflicts
-          type: object
-      type: object
-    ParamPriceItemRealty:
-      description: Параметры аренды для определённого периода
-      properties:
-        date_from:
-          description: Дата начала периода, не в прошлом
-          example: '2026-05-01'
-          format: date
-          type: string
-        date_to:
-          description: Дата конца периода (включительно), не в прошлом
-          example: '2026-05-09'
-          format: date
-          type: string
-        extra_guest_fee:
-          description: Доплата за гостя (рубли)
-          example: 700
-          format: int64
-          type: integer
-        minimal_duration:
-          description: Минимальная продолжительность (ночи), до 30 дней
-          example: 2
-          format: int32
-          maximum: 30
-          minimum: 1
-          type: integer
-        night_price:
-          description: Цена проживания за ночь (рубли)
-          example: 1990
-          format: int64
-          type: integer
+      required:
+      - message
       type: object
     AvitoBooking:
       description: Оплаченная на Авито бронь
@@ -846,6 +695,111 @@ components:
       required:
       - interval
       - bookings
+      type: object
+    Error_2:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: error
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    PostCalendarData:
+      description: Информация о занятости объекта на определённые периоды
+      properties:
+        bookings:
+          description: Список броней для выбранного объекта недвижимости (объявления)
+          items:
+            properties:
+              comment:
+                description: Дополнительная информация
+                example: Дополнительная информация
+                type:
+                - string
+                - 'null'
+              date_end:
+                description: Дата окончания периода аренды, не в прошлом
+                example: '2026-04-01'
+                format: date
+                type: string
+              date_start:
+                description: Дата начала периода аренды, не в прошлом
+                example: '2026-03-23'
+                format: date
+                type: string
+              type:
+                description: Даты закрыты вручную или по данными другого OTA (manual, booking)
+                enum:
+                - manual
+                - booking
+                type:
+                - string
+                - 'null'
+            type: object
+          type: array
+        source:
+          description: Название PMS системы
+          example: pms
+          type:
+          - string
+          - 'null'
+      type: object
+    DatesOverlapBookingError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 409
+              format: int32
+              type: integer
+            conflicts:
+              description: Список периодов, конфликтующих с оплаченными бронями на Авито
+              items:
+                $ref: '#/components/schemas/ConflictedInterval'
+              type: array
+            message:
+              description: Сообщение об ошибке
+              example: error
+              type: string
+          required:
+          - code
+          - message
+          - conflicts
+          type: object
+      type: object
+    validatingError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 400
+              format: int32
+              type: integer
+            fields:
+              additionalProperties: {}
+              description: Информация об ошибке валидации параметров в формате ключ-значение
+              type:
+              - object
+              - 'null'
+            message:
+              description: Сообщение об ошибке
+              example: Validation error
+              type: string
+          required:
+          - code
+          - message
+          type: object
       type: object
     BaseParams:
       description: Базовые параметры
@@ -995,23 +949,6 @@ components:
           - object
           - 'null'
       type: object
-    Error_2:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: error
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
     PostCalendarDataV2:
       description: Информация о доступности объекта на заданные интервалы
       properties:
@@ -1046,6 +983,109 @@ components:
           - string
           - 'null'
       type: object
+    RealtyBooking:
+      description: Информация о бронировании
+      properties:
+        avito_booking_id:
+          description: Идентификатор бронирования на Авито
+          example: 11111
+          type: integer
+        base_price:
+          description: Стоимость проживания на весь срок бронирования
+          example: 8000
+          type: integer
+        check_in:
+          description: Дата заезда гостей
+          example: '2026-08-01'
+          format: date
+          type: string
+        check_out:
+          description: Дата выезда гостей
+          example: '2026-08-04'
+          format: date
+          type: string
+        contact:
+          description: Контактная информация гостя
+          properties:
+            email:
+              description: Контактный email
+              example: guest_email@domain.com
+              type: string
+            name:
+              description: Имя гостя
+              example: Иван
+              type: string
+            phone:
+              description: Номер телефона в 10-ти значном формате (только цифры)
+              example: '9997770000'
+              type: string
+          required:
+          - name
+          - email
+          type: object
+        guest_count:
+          description: Количество гостей
+          example: 1
+          type: integer
+        nights:
+          description: Количество ночей
+          example: 3
+          type: integer
+        safe_deposit:
+          description: Сумма внесённой предоплаты
+          properties:
+            owner_amount:
+              description: Сумма, которую получит владелец объекта
+              example: 4500
+              type: integer
+            tax:
+              description: Комиссия Авито
+              example: 500
+              type: integer
+            total_amount:
+              description: Фактическая сумма предоплаты
+              example: 5000
+              type: integer
+          type: object
+        status:
+          description: Статус брони
+          enum:
+          - active
+          - canceled
+          - pending
+          type: string
+      type: object
+    ParamPriceItemRealty:
+      description: Параметры аренды для определённого периода
+      properties:
+        date_from:
+          description: Дата начала периода, не в прошлом
+          example: '2026-05-01'
+          format: date
+          type: string
+        date_to:
+          description: Дата конца периода (включительно), не в прошлом
+          example: '2026-05-09'
+          format: date
+          type: string
+        extra_guest_fee:
+          description: Доплата за гостя (рубли)
+          example: 700
+          format: int64
+          type: integer
+        minimal_duration:
+          description: Минимальная продолжительность (ночи), до 30 дней
+          example: 2
+          format: int32
+          maximum: 30
+          minimum: 1
+          type: integer
+        night_price:
+          description: Цена проживания за ночь (рубли)
+          example: 1990
+          format: int64
+          type: integer
+      type: object
     ParamPricesRealty:
       description: Диапазоны дат и соответствующие им ценовые параметры
       properties:
@@ -1054,64 +1094,13 @@ components:
             $ref: '#/components/schemas/ParamPriceItemRealty'
           type: array
       type: object
-    PostCalendarData:
-      description: Информация о занятости объекта на определённые периоды
-      properties:
-        bookings:
-          description: Список броней для выбранного объекта недвижимости (объявления)
-          items:
-            properties:
-              comment:
-                description: Дополнительная информация
-                example: Дополнительная информация
-                type:
-                - string
-                - 'null'
-              date_end:
-                description: Дата окончания периода аренды, не в прошлом
-                example: '2026-04-01'
-                format: date
-                type: string
-              date_start:
-                description: Дата начала периода аренды, не в прошлом
-                example: '2026-03-23'
-                format: date
-                type: string
-              type:
-                description: Даты закрыты вручную или по данными другого OTA (manual, booking)
-                enum:
-                - manual
-                - booking
-                type:
-                - string
-                - 'null'
-            type: object
-          type: array
-        source:
-          description: Название PMS системы
-          example: pms
-          type:
-          - string
-          - 'null'
-      type: object
   parameters:
-    authHeader:
-      description: Токен для авторизации
-      example: Bearer ACCESS_TOKEN
-      in: header
-      name: Authorization
-      required: true
+    skipError:
+      description: Флаг, с которым вместо ошибок(если ошибка произошла с айтемом) возвращается 200 статус, без ошибки
+      in: query
+      name: skip_error
       schema:
-        type: string
-    pathItemId:
-      description: Идентификатор объявления на сайте
-      in: path
-      name: item_id
-      required: true
-      schema:
-        format: int64
-        minimum: 1
-        type: integer
+        type: boolean
     pathUserId:
       description: Номер пользователя в Личном кабинете Авито
       in: path
@@ -1121,12 +1110,23 @@ components:
         format: int64
         minimum: 1
         type: integer
-    skipError:
-      description: Флаг, с которым вместо ошибок(если ошибка произошла с айтемом) возвращается 200 статус, без ошибки
-      in: query
-      name: skip_error
+    pathItemId:
+      description: Идентификатор объявления на сайте
+      in: path
+      name: item_id
+      required: true
       schema:
-        type: boolean
+        format: int64
+        minimum: 1
+        type: integer
+    authHeader:
+      description: Токен для авторизации
+      example: Bearer ACCESS_TOKEN
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        type: string
   securitySchemes:
     ClientCredentials:
       description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)

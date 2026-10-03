@@ -180,30 +180,35 @@ paths:
       - Ratings
 components:
   schemas:
-    ReviewImage:
-      description: Структура изображения, приложенного к отзыву
+    ReviewError:
+      description: Ошибка Bad Request
       properties:
-        number:
-          description: Порядковый номер изображения
-          example: 1
-          type: integer
-        sizes:
-          description: Список размеров изображения
-          items:
-            $ref: '#/components/schemas/ReviewImageSize'
-          type: array
+        code:
+          description: Код ошибки
+          example: validation
+          type: string
+        message:
+          description: Текст ошибки
+          example: Field `offset` is not integer
+          type: string
       required:
-      - number
-      - sizes
+      - code
+      - message
       type: object
-    RemoveAnswerResponse:
+    GetReviewsResponse:
       properties:
-        success:
-          description: Статус успешности запроса
-          example: true
-          type: boolean
+        reviews:
+          description: Список отзывов
+          items:
+            $ref: '#/components/schemas/Review'
+          type: array
+        total:
+          description: Количество всех отзывов
+          example: 35
+          type: integer
       required:
-      - success
+      - total
+      - reviews
       type: object
     CreateAnswerResponse:
       properties:
@@ -219,6 +224,79 @@ components:
       - id
       - createdAt
       type: object
+    ReviewAnswer:
+      description: Структура ответа на отзыв
+      properties:
+        createdAt:
+          description: Unix TimeStamp создания ответа
+          example: 1571654040
+          type: integer
+        id:
+          description: ID ответа
+          example: 1234567
+          type: integer
+        reject_reasons:
+          description: Список причин отклонения
+          items:
+            $ref: '#/components/schemas/RejectReason'
+          type: array
+        status:
+          description: "Статус ответа:\n  * `moderation` - на модерации\n  * `published` - опубликован\n  * `rejected` - отклонен\n"
+          enum:
+          - moderation
+          - published
+          - rejected
+          example: published
+          type: string
+        text:
+          description: Текст ответа
+          example: Спасибо за отзыв!
+          type: string
+      required:
+      - id
+      - text
+      - status
+      - createdAt
+      type:
+      - object
+      - 'null'
+    CreateAnswerRequestBody:
+      properties:
+        message:
+          description: Текст ответа на отзыв
+          example: Спасибо за отзыв
+          type: string
+        reviewId:
+          description: ID отзыва
+          example: 1234567
+          type: integer
+      required:
+      - reviewId
+      - message
+      type: object
+    ReviewImageSize:
+      description: Структура изображения определенного разрешения
+      properties:
+        size:
+          description: Разрешение изображения в формате 100x100
+          example: 100x100
+          type: string
+        url:
+          description: Ссылка на изображение
+          type: string
+      required:
+      - size
+      - url
+      type: object
+    RemoveAnswerResponse:
+      properties:
+        success:
+          description: Статус успешности запроса
+          example: true
+          type: boolean
+      required:
+      - success
+      type: object
     ReviewSender:
       description: Структура отправителя отзыва
       properties:
@@ -231,20 +309,21 @@ components:
       type:
       - object
       - 'null'
-    ReviewError:
-      description: Ошибка Bad Request
+    ReviewImage:
+      description: Структура изображения, приложенного к отзыву
       properties:
-        code:
-          description: Код ошибки
-          example: validation
-          type: string
-        message:
-          description: Текст ошибки
-          example: Field `offset` is not integer
-          type: string
+        number:
+          description: Порядковый номер изображения
+          example: 1
+          type: integer
+        sizes:
+          description: Список размеров изображения
+          items:
+            $ref: '#/components/schemas/ReviewImageSize'
+          type: array
       required:
-      - code
-      - message
+      - number
+      - sizes
       type: object
     Review:
       description: Структура отзыва
@@ -309,46 +388,6 @@ components:
       - canAnswer
       - createdAt
       type: object
-    GetRatingInfoResponse:
-      properties:
-        isEnabled:
-          description: Включен ли рейтинг
-          example: true
-          type: boolean
-        rating:
-          $ref: '#/components/schemas/Rating'
-      required:
-      - isEnabled
-      type: object
-    CreateAnswerRequestBody:
-      properties:
-        message:
-          description: Текст ответа на отзыв
-          example: Спасибо за отзыв
-          type: string
-        reviewId:
-          description: ID отзыва
-          example: 1234567
-          type: integer
-      required:
-      - reviewId
-      - message
-      type: object
-    GetReviewsResponse:
-      properties:
-        reviews:
-          description: Список отзывов
-          items:
-            $ref: '#/components/schemas/Review'
-          type: array
-        total:
-          description: Количество всех отзывов
-          example: 35
-          type: integer
-      required:
-      - total
-      - reviews
-      type: object
     RejectReason:
       description: Причина отклонения отзыва
       properties:
@@ -364,19 +403,16 @@ components:
       - id
       - title
       type: object
-    ReviewImageSize:
-      description: Структура изображения определенного разрешения
+    GetRatingInfoResponse:
       properties:
-        size:
-          description: Разрешение изображения в формате 100x100
-          example: 100x100
-          type: string
-        url:
-          description: Ссылка на изображение
-          type: string
+        isEnabled:
+          description: Включен ли рейтинг
+          example: true
+          type: boolean
+        rating:
+          $ref: '#/components/schemas/Rating'
       required:
-      - size
-      - url
+      - isEnabled
       type: object
     ReviewItem:
       description: Структура объявления
@@ -411,42 +447,6 @@ components:
       - score
       - reviewsWithScoreCount
       - reviewsCount
-      type:
-      - object
-      - 'null'
-    ReviewAnswer:
-      description: Структура ответа на отзыв
-      properties:
-        createdAt:
-          description: Unix TimeStamp создания ответа
-          example: 1571654040
-          type: integer
-        id:
-          description: ID ответа
-          example: 1234567
-          type: integer
-        reject_reasons:
-          description: Список причин отклонения
-          items:
-            $ref: '#/components/schemas/RejectReason'
-          type: array
-        status:
-          description: "Статус ответа:\n  * `moderation` - на модерации\n  * `published` - опубликован\n  * `rejected` - отклонен\n"
-          enum:
-          - moderation
-          - published
-          - rejected
-          example: published
-          type: string
-        text:
-          description: Текст ответа
-          example: Спасибо за отзыв!
-          type: string
-      required:
-      - id
-      - text
-      - status
-      - createdAt
       type:
       - object
       - 'null'

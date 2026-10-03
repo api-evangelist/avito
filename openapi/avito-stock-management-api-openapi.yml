@@ -158,6 +158,31 @@ paths:
       operationId: putStockManagement1Stocks
       x-operation-id-source: derived
 components:
+  responses:
+    unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/unauthError'
+      description: Unauthorized
+    tooManyRequests:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorMessage'
+      description: Too Many Requests
+    badRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorMessage'
+      description: Bad request
+    internalError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorMessage'
+      description: Internal Error
   schemas:
     stockEditResult:
       properties:
@@ -202,6 +227,16 @@ components:
       required:
       - message
       type: object
+    errorMessage:
+      additionalProperties: false
+      properties:
+        message:
+          description: Текст ошибки
+          example: Что-то пошло не так
+          type: string
+      required:
+      - message
+      type: object
     stocksInfoResult:
       properties:
         stocks:
@@ -239,41 +274,6 @@ components:
             type: object
           type: array
       type: object
-    errorMessage:
-      additionalProperties: false
-      properties:
-        message:
-          description: Текст ошибки
-          example: Что-то пошло не так
-          type: string
-      required:
-      - message
-      type: object
-  responses:
-    tooManyRequests:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/errorMessage'
-      description: Too Many Requests
-    unauthorized:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/unauthError'
-      description: Unauthorized
-    badRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/errorMessage'
-      description: Bad request
-    internalError:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/errorMessage'
-      description: Internal Error
   parameters:
     authHeader:
       description: Токен для авторизации

@@ -192,45 +192,32 @@ paths:
       - OfflineMonitoring
 components:
   schemas:
-    validatingError:
+    ResponseMonitoringGetRegActions:
       properties:
-        error:
+        data:
+          description: Массив рег. действий
+          items:
+            $ref: '#/components/schemas/ResponseMonitoringGetRegAction'
+          type: array
+        pagination:
+          description: Объект, отвечающий за постраничное считывание информации
           properties:
-            code:
-              description: Код ошибки
-              example: 400
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Validation error
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    ResponseMonitoringAddVinBucket:
-      properties:
-        result:
-          properties:
-            invalidVehicles:
-              description: Набор невалидных идентификаторов авто, которые не были приняты
-              items:
-                properties:
-                  description:
-                    description: Описание ошибки
-                    type: string
-                  vehicleID:
-                    description: Идентификатор авто
-                    type: string
-                type: object
-              type: array
-            isOk:
+            hasNext:
+              description: Наличие результата на следующей странице
+              example: true
               type: boolean
-          required:
-          - isOk
+            nextCursor:
+              description: Значение, которое нужно передать для получения информации со следующей страницы результата
+              example: '111111'
+              type: string
+            nextLink:
+              description: Ссылка для вычитывания следующей партии изменений
+              example: https://api.avito.ru/autoteka/v1/monitoring/get-reg-actions/?limit=10&cursor=111111
+              type: string
           type: object
+      required:
+      - data
+      - pagination
       type: object
     ResponseMonitoringRemoveVinBucket:
       properties:
@@ -321,54 +308,22 @@ components:
       - vin
       - operationCode
       type: object
-    RequestMonitoringAddVinBucket:
-      properties:
-        data:
-          description: Набор VIN-номеров для дальнейшего заполнения реестра
-          items:
-            example: AA*************11
-            type: string
-          maxItems: 10000
-          minItems: 1
-          type: array
-      type: object
-    RequestMonitoringRemoveVinBucket:
-      properties:
-        data:
-          description: Набор VIN-номеров для дальнейшего заполнения реестра
-          items:
-            example: AA*************11
-            type: string
-          maxItems: 10000
-          minItems: 1
-          type: array
-      type: object
-    forbiddenError:
+    validatingError:
       properties:
         error:
           properties:
             code:
               description: Код ошибки
-              example: 403
+              example: 400
               format: int32
               type: integer
             message:
               description: Сообщение об ошибке
-              example: Forbidden
+              example: Validation error
               type: string
           required:
           - code
           - message
-          type: object
-      type: object
-    ResponseMonitoringDeleteVinBucket:
-      properties:
-        result:
-          properties:
-            isOk:
-              type: boolean
-          required:
-          - isOk
           type: object
       type: object
     internalError:
@@ -389,32 +344,77 @@ components:
           - message
           type: object
       type: object
-    ResponseMonitoringGetRegActions:
+    ResponseMonitoringDeleteVinBucket:
+      properties:
+        result:
+          properties:
+            isOk:
+              type: boolean
+          required:
+          - isOk
+          type: object
+      type: object
+    RequestMonitoringRemoveVinBucket:
       properties:
         data:
-          description: Массив рег. действий
+          description: Набор VIN-номеров для дальнейшего заполнения реестра
           items:
-            $ref: '#/components/schemas/ResponseMonitoringGetRegAction'
+            example: AA*************11
+            type: string
+          maxItems: 10000
+          minItems: 1
           type: array
-        pagination:
-          description: Объект, отвечающий за постраничное считывание информации
+      type: object
+    RequestMonitoringAddVinBucket:
+      properties:
+        data:
+          description: Набор VIN-номеров для дальнейшего заполнения реестра
+          items:
+            example: AA*************11
+            type: string
+          maxItems: 10000
+          minItems: 1
+          type: array
+      type: object
+    ResponseMonitoringAddVinBucket:
+      properties:
+        result:
           properties:
-            hasNext:
-              description: Наличие результата на следующей странице
-              example: true
+            invalidVehicles:
+              description: Набор невалидных идентификаторов авто, которые не были приняты
+              items:
+                properties:
+                  description:
+                    description: Описание ошибки
+                    type: string
+                  vehicleID:
+                    description: Идентификатор авто
+                    type: string
+                type: object
+              type: array
+            isOk:
               type: boolean
-            nextCursor:
-              description: Значение, которое нужно передать для получения информации со следующей страницы результата
-              example: '111111'
-              type: string
-            nextLink:
-              description: Ссылка для вычитывания следующей партии изменений
-              example: https://api.avito.ru/autoteka/v1/monitoring/get-reg-actions/?limit=10&cursor=111111
-              type: string
+          required:
+          - isOk
           type: object
-      required:
-      - data
-      - pagination
+      type: object
+    forbiddenError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 403
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Forbidden
+              type: string
+          required:
+          - code
+          - message
+          type: object
       type: object
   parameters:
     authHeader:

@@ -175,28 +175,38 @@ paths:
       tags:
       - Trx Promo
 components:
-  parameters:
-    OAuthScopes:
-      description: Список зон доступа
-      in: header
-      name: x-oauth-scopes
-      schema:
-        type: string
-    OAuthFlow:
-      description: Выбранный флоу авторизации по протоколу OAuth 2.0
-      in: header
-      name: x-oauth-flow
-      required: true
-      schema:
-        type: string
-    OAuthAuthenticatedUserId:
-      description: Avito-ID пользователя
-      in: header
-      name: x-authenticated-userid
-      required: true
-      schema:
-        type: string
   schemas:
+    ApplyReq:
+      additionalProperties: false
+      properties:
+        items:
+          items:
+            additionalProperties: false
+            properties:
+              commission:
+                description: Комиссия за продвижение в сотых долях 1500 - 15%
+                example: 1500
+                type: integer
+              dateFrom:
+                description: Дата начала продвижения
+                example: '2024-12-01'
+                type: string
+              dateTo:
+                description: Дата окончания продвижения
+                example: '2024-12-31'
+                type: string
+              itemID:
+                type: integer
+            required:
+            - itemID
+            - commission
+            - dateFrom
+            type: object
+          type: array
+      required:
+      - items
+      title: requestBody
+      type: object
     apiV3error500:
       additionalProperties: false
       properties:
@@ -211,74 +221,6 @@ components:
       required:
       - internal-error
       title: InternalErrorResponse
-      type: object
-    apiV3error403:
-      additionalProperties: false
-      properties:
-        forbidden:
-          additionalProperties: false
-          properties:
-            message:
-              type: string
-          required:
-          - message
-          type: object
-      required:
-      - forbidden
-      title: ForbiddenResponse
-      type: object
-    CancelResponse:
-      additionalProperties: false
-      properties:
-        success:
-          additionalProperties: false
-          properties:
-            result:
-              items:
-                properties:
-                  error:
-                    properties:
-                      code:
-                        enum:
-                        - 1001
-                        - 1002
-                        type: integer
-                      message:
-                        type: string
-                    required:
-                    - code
-                    - message
-                    type: object
-                  itemID:
-                    type: integer
-                  success:
-                    type: boolean
-                required:
-                - itemID
-                - success
-                type: object
-              type: array
-          required:
-          - result
-          type: object
-      required:
-      - success
-      title: okResponse
-      type: object
-    apiV3error401:
-      additionalProperties: false
-      properties:
-        unauthenticated:
-          additionalProperties: false
-          properties:
-            message:
-              type: string
-          required:
-          - message
-          type: object
-      required:
-      - unauthenticated
-      title: UnauthenticatedResponse
       type: object
     apiV3error400:
       additionalProperties: false
@@ -411,36 +353,73 @@ components:
       - success
       title: okResponse
       type: object
-    ApplyReq:
+    apiV3error403:
       additionalProperties: false
       properties:
-        items:
-          items:
-            additionalProperties: false
-            properties:
-              commission:
-                description: Комиссия за продвижение в сотых долях 1500 - 15%
-                example: 1500
-                type: integer
-              dateFrom:
-                description: Дата начала продвижения
-                example: '2024-12-01'
-                type: string
-              dateTo:
-                description: Дата окончания продвижения
-                example: '2024-12-31'
-                type: string
-              itemID:
-                type: integer
-            required:
-            - itemID
-            - commission
-            - dateFrom
-            type: object
-          type: array
+        forbidden:
+          additionalProperties: false
+          properties:
+            message:
+              type: string
+          required:
+          - message
+          type: object
       required:
-      - items
-      title: requestBody
+      - forbidden
+      title: ForbiddenResponse
+      type: object
+    CancelResponse:
+      additionalProperties: false
+      properties:
+        success:
+          additionalProperties: false
+          properties:
+            result:
+              items:
+                properties:
+                  error:
+                    properties:
+                      code:
+                        enum:
+                        - 1001
+                        - 1002
+                        type: integer
+                      message:
+                        type: string
+                    required:
+                    - code
+                    - message
+                    type: object
+                  itemID:
+                    type: integer
+                  success:
+                    type: boolean
+                required:
+                - itemID
+                - success
+                type: object
+              type: array
+          required:
+          - result
+          type: object
+      required:
+      - success
+      title: okResponse
+      type: object
+    apiV3error401:
+      additionalProperties: false
+      properties:
+        unauthenticated:
+          additionalProperties: false
+          properties:
+            message:
+              type: string
+          required:
+          - message
+          type: object
+      required:
+      - unauthenticated
+      title: UnauthenticatedResponse
       type: object
   responses:
     errorV3Forbidden:
@@ -449,6 +428,12 @@ components:
           schema:
             $ref: '#/components/schemas/apiV3error403'
       description: Forbidden
+    errorV3Unauthenticated:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/apiV3error401'
+      description: Unauthenticated
     errorV3BadRequest:
       content:
         application/json:
@@ -461,12 +446,27 @@ components:
           schema:
             $ref: '#/components/schemas/apiV3error500'
       description: InternalError
-    errorV3Unauthenticated:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/apiV3error401'
-      description: Unauthenticated
+  parameters:
+    OAuthFlow:
+      description: Выбранный флоу авторизации по протоколу OAuth 2.0
+      in: header
+      name: x-oauth-flow
+      required: true
+      schema:
+        type: string
+    OAuthAuthenticatedUserId:
+      description: Avito-ID пользователя
+      in: header
+      name: x-authenticated-userid
+      required: true
+      schema:
+        type: string
+    OAuthScopes:
+      description: Список зон доступа
+      in: header
+      name: x-oauth-scopes
+      schema:
+        type: string
   securitySchemes:
     AuthorizationCode:
       description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](#tag/ApplicationAccess)

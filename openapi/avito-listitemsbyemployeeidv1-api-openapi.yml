@@ -68,6 +68,22 @@ paths:
       - ListItemsByEmployeeIdV1
 components:
   schemas:
+    ListItemsByEmployeeIdResult:
+      description: Список объявлений по сотруднику компании
+      properties:
+        hasNext:
+          description: Можно пагинировать дальше по списку
+          type: boolean
+        items:
+          description: Список идентификаторов объявлений
+          items:
+            description: Идентификатор объявления
+            type: integer
+          type: array
+      required:
+      - hasNext
+      - items
+      type: object
     ListItemsByEmployeeIdBody:
       properties:
         categoryId:
@@ -111,34 +127,7 @@ components:
       required:
       - error
       type: object
-    ListItemsByEmployeeIdResult:
-      description: Список объявлений по сотруднику компании
-      properties:
-        hasNext:
-          description: Можно пагинировать дальше по списку
-          type: boolean
-        items:
-          description: Список идентификаторов объявлений
-          items:
-            description: Идентификатор объявления
-            type: integer
-          type: array
-      required:
-      - hasNext
-      - items
-      type: object
   parameters:
-    XIsEmployee:
-      deprecated: true
-      description: 'Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании.
-
-        '
-      in: header
-      name: X-Is-Employee
-      schema:
-        type:
-        - boolean
-        - 'null'
     X-Oauth-Scopes:
       description: Список зон доступа, полученных приложением
       example: ah:access
@@ -153,14 +142,6 @@ components:
       name: X-Oauth-Flow
       schema:
         type: string
-    authHeader:
-      description: Токен для авторизации
-      in: header
-      name: Authorization
-      required: true
-      schema:
-        example: Bearer ACCESS_TOKEN
-        type: string
     XEmployeeOf:
       description: Идентификатор компании, от имени которой работает сотрудник.
       in: header
@@ -169,6 +150,25 @@ components:
         minimum: 1
         type:
         - integer
+        - 'null'
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
+    XIsEmployee:
+      deprecated: true
+      description: 'Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании.
+
+        '
+      in: header
+      name: X-Is-Employee
+      schema:
+        type:
+        - boolean
         - 'null'
   securitySchemes:
     AuthorizationCode:

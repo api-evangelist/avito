@@ -259,20 +259,104 @@ paths:
       - Promotion
 components:
   schemas:
-    OrderBrief:
-      description: Информация о заявке на подключение услуг продвижения
+    ServicesByItemV1:
+      description: Информация об услуге продвижения
       properties:
-        createdAt:
-          description: Дата создания заявки
-          example: '2025-11-10T13:46:15.000Z'
-          format: date-time
+        itemId:
+          description: Идентификатор объявления
+          format: int64
+          type: integer
+        services:
+          description: Список услуг по объявлению
+          items:
+            $ref: '#/components/schemas/ServiceV1'
+          type: array
+      type: object
+    GetServicesByItemsV1Req:
+      properties:
+        itemIds:
+          description: Идентификаторы объявлений
+          items:
+            format: int64
+            type: integer
+          maxItems: 100
+          minItems: 1
+          type: array
+      type: object
+    ServiceInfoV1:
+      description: Информация об услуге продвижения
+      properties:
+        isDeprecated:
+          description: Признак, что тип услуги устарел и более недоступен для подключения
+          type: boolean
+        name:
+          description: Наименование типа услуги
           type: string
-        id:
-          description: Идентификатор заявки
+        slug:
+          description: Идентификатор типа услуги
+          type: string
+      required:
+      - slug
+      - name
+      type: object
+    OrderStatus:
+      description: "Статус заявки, возможные значения: \n- `unknown` - Неизвестный статус заявки\n- `initialized` - Заявка создана и инициализирована\n- `waiting` - Заявка ожидает выполнения\n- `in_process` - Заявка находится в обработке\n- `processed` - Обработка заявки завершена\n"
+      enum:
+      - unknown
+      - initialized
+      - waiting
+      - in_process
+      - processed
+      type: string
+    ListOrdersByUserV1Req:
+      properties:
+        pagination:
+          description: Данные для постраничного чтения
+          properties:
+            page:
+              default: 1
+              description: Номер страницы
+              format: int32
+              type: integer
+            perPage:
+              default: 20
+              description: Количество записей на странице
+              format: int32
+              maximum: 100
+              minimum: 1
+              type: integer
+          type:
+          - object
+          - 'null'
+      type: object
+    ErrorByItemV1:
+      description: Информация об ошибке выполнения операции по объявлению
+      properties:
+        errorCode:
+          description: Код ошибки
+          example: 1005
+          format: int64
+          type: integer
+        errorText:
+          description: Текст ошибки
+          example: Услуга недоступна для объявлений с типом Резюме
+          type: string
+        itemId:
+          description: Идентификатор объявления
+          example: 2
+          format: int64
+          type: integer
+      required:
+      - itemId
+      - errorCode
+      - errorText
+      type: object
+    GetOrderStatusV1Req:
+      properties:
+        orderId:
+          description: Идентификатор заявки на подключение услуг продвижения
           format: uuid
           type: string
-        status:
-          $ref: '#/components/schemas/OrderStatus'
       type: object
     GetOrderStatusV1Resp:
       properties:
@@ -297,27 +381,23 @@ components:
           example: 26166
           type: integer
       type: object
-    ErrorByItemV1:
-      description: Информация об ошибке выполнения операции по объявлению
+    ServiceV1:
+      description: Информация об услуге продвижения
       properties:
-        errorCode:
-          description: Код ошибки
-          example: 1005
-          format: int64
-          type: integer
-        errorText:
-          description: Текст ошибки
-          example: Услуга недоступна для объявлений с типом Резюме
+        endDate:
+          description: Дата и время завершения продвижения
+          format: date-time
           type: string
-        itemId:
-          description: Идентификатор объявления
-          example: 2
-          format: int64
-          type: integer
-      required:
-      - itemId
-      - errorCode
-      - errorText
+        name:
+          description: Наименование услуги
+          type: string
+        slug:
+          description: Тип услуги
+          type: string
+        startDate:
+          description: Дата и время начала продвижения
+          format: date-time
+          type: string
       type: object
     GetServicesByItemsV1Resp:
       properties:
@@ -330,72 +410,6 @@ components:
           description: Информация об услугах продвижения по объявлениям
           items:
             $ref: '#/components/schemas/ServicesByItemV1'
-          type: array
-      type: object
-    GetServicesByItemsV1Req:
-      properties:
-        itemIds:
-          description: Идентификаторы объявлений
-          items:
-            format: int64
-            type: integer
-          maxItems: 100
-          minItems: 1
-          type: array
-      type: object
-    OrderStatusByItemV1:
-      description: Информация об услуге продвижения внутри заявки на подключение
-      properties:
-        errorReason:
-          description: Описание ошибки
-          type:
-          - string
-          - 'null'
-        itemId:
-          description: Идентификатор объявления
-          format: int64
-          type: integer
-        price:
-          description: Цена услуги на момент создания задачи (в копейках)
-          format: int64
-          type: integer
-        slug:
-          description: Тип услуги
-          type: string
-        status:
-          $ref: '#/components/schemas/OrderStatus'
-      type: object
-    ListOrdersByUserV1Resp:
-      properties:
-        orders:
-          description: Список заявок на подключение услуг продвижения по объявлениям
-          items:
-            $ref: '#/components/schemas/OrderBrief'
-          type: array
-        pagination:
-          description: Данные для постраничного чтения
-          properties:
-            hasNextPage:
-              description: Признак наличия следующей страницы
-              type: boolean
-          required:
-          - hasNextPage
-          type: object
-      required:
-      - orders
-      - pagination
-      type: object
-    ServicesByItemV1:
-      description: Информация об услуге продвижения
-      properties:
-        itemId:
-          description: Идентификатор объявления
-          format: int64
-          type: integer
-        services:
-          description: Список услуг по объявлению
-          items:
-            $ref: '#/components/schemas/ServiceV1'
           type: array
       type: object
     CommonError:
@@ -438,83 +452,78 @@ components:
       required:
       - message
       type: object
+    ListOrdersByUserV1Resp:
+      properties:
+        orders:
+          description: Список заявок на подключение услуг продвижения по объявлениям
+          items:
+            $ref: '#/components/schemas/OrderBrief'
+          type: array
+        pagination:
+          description: Данные для постраничного чтения
+          properties:
+            hasNextPage:
+              description: Признак наличия следующей страницы
+              type: boolean
+          required:
+          - hasNextPage
+          type: object
+      required:
+      - orders
+      - pagination
+      type: object
     GetDictOfServicesV1Resp:
       description: Список услуг
       items:
         $ref: '#/components/schemas/ServiceInfoV1'
       type: array
-    ServiceInfoV1:
-      description: Информация об услуге продвижения
+    OrderStatusByItemV1:
+      description: Информация об услуге продвижения внутри заявки на подключение
       properties:
-        isDeprecated:
-          description: Признак, что тип услуги устарел и более недоступен для подключения
-          type: boolean
-        name:
-          description: Наименование типа услуги
-          type: string
-        slug:
-          description: Идентификатор типа услуги
-          type: string
-      required:
-      - slug
-      - name
-      type: object
-    ListOrdersByUserV1Req:
-      properties:
-        pagination:
-          description: Данные для постраничного чтения
-          properties:
-            page:
-              default: 1
-              description: Номер страницы
-              format: int32
-              type: integer
-            perPage:
-              default: 20
-              description: Количество записей на странице
-              format: int32
-              maximum: 100
-              minimum: 1
-              type: integer
+        errorReason:
+          description: Описание ошибки
           type:
-          - object
+          - string
           - 'null'
-      type: object
-    GetOrderStatusV1Req:
-      properties:
-        orderId:
-          description: Идентификатор заявки на подключение услуг продвижения
-          format: uuid
-          type: string
-      type: object
-    OrderStatus:
-      description: "Статус заявки, возможные значения: \n- `unknown` - Неизвестный статус заявки\n- `initialized` - Заявка создана и инициализирована\n- `waiting` - Заявка ожидает выполнения\n- `in_process` - Заявка находится в обработке\n- `processed` - Обработка заявки завершена\n"
-      enum:
-      - unknown
-      - initialized
-      - waiting
-      - in_process
-      - processed
-      type: string
-    ServiceV1:
-      description: Информация об услуге продвижения
-      properties:
-        endDate:
-          description: Дата и время завершения продвижения
-          format: date-time
-          type: string
-        name:
-          description: Наименование услуги
-          type: string
+        itemId:
+          description: Идентификатор объявления
+          format: int64
+          type: integer
+        price:
+          description: Цена услуги на момент создания задачи (в копейках)
+          format: int64
+          type: integer
         slug:
           description: Тип услуги
           type: string
-        startDate:
-          description: Дата и время начала продвижения
+        status:
+          $ref: '#/components/schemas/OrderStatus'
+      type: object
+    OrderBrief:
+      description: Информация о заявке на подключение услуг продвижения
+      properties:
+        createdAt:
+          description: Дата создания заявки
+          example: '2025-11-10T13:46:15.000Z'
           format: date-time
           type: string
+        id:
+          description: Идентификатор заявки
+          format: uuid
+          type: string
+        status:
+          $ref: '#/components/schemas/OrderStatus'
       type: object
   parameters:
+    XEmployeeOf:
+      description: Идентификатор компании, от имени которой работает сотрудник
+      in: header
+      name: X-Employee-Of
+      schema:
+        minimum: 1
+        type:
+        - integer
+        - 'null'
     AuthHeader:
       description: Токен для авторизации
       example: Bearer ACCESS_TOKEN
@@ -532,15 +541,6 @@ components:
       name: X-Is-Employee
       schema:
         type: string
-    XEmployeeOf:
-      description: Идентификатор компании, от имени которой работает сотрудник
-      in: header
-      name: X-Employee-Of
-      schema:
-        minimum: 1
-        type:
-        - integer
-        - 'null'
   securitySchemes:
     AuthorizationCode:
       description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)

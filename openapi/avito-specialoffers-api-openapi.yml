@@ -354,6 +354,158 @@ components:
         example: Bearer ACCESS_TOKEN
         type: string
   schemas:
+    openApiAvailableRequestBody:
+      properties:
+        itemIds:
+          description: список id объявлений
+          items:
+            minimum: 1
+            type: integer
+          type: array
+      required:
+      - itemIds
+      type: object
+    openApiStatsResponseBody:
+      properties:
+        stats:
+          items:
+            properties:
+              accepted:
+                description: Число принятых покупателями предложений
+                type: integer
+              count:
+                description: Число отправленных предложений
+                type: integer
+              discount:
+                description: Размер скидки (может отсутствовать)
+                type: integer
+              expiresAt:
+                description: Дата окончания срока действия предложения
+                type: string
+              itemId:
+                minimum: 1
+                type: integer
+              offerSlug:
+                description: Тип предложения
+                type: string
+              price:
+                description: Общая стоимость рассылки. Приходит 0 при рассылках из тарифа или бесплатных рассылках
+                type: integer
+              sentAt:
+                description: Дата отправки рассылки
+                type: string
+            required:
+            - itemId
+            - offerSlug
+            - price
+            - sentAt
+            - expiresAt
+            - count
+            - accepted
+            type:
+            - object
+            - 'null'
+          type: array
+      type: object
+    openApiAvailableResponseBody:
+      properties:
+        items:
+          description: Список объявлений и признаков доступности для них услуги
+          items:
+            properties:
+              isAvailable:
+                description: доступна ли услуга
+                type: boolean
+              itemId:
+                minimum: 1
+                type: integer
+              reason:
+                description: заполняется, если isAvailable = false
+                type:
+                - string
+                - 'null'
+            required:
+            - itemId
+            - isAvailable
+            type: object
+          type: array
+      type: object
+    openApiMultiConfirmRequestBody:
+      properties:
+        dispatches:
+          items:
+            properties:
+              discountValue:
+                description: Финальный размер скидки (в случае предложения скидки от стоимости)
+                type:
+                - integer
+                - 'null'
+              dispatchId:
+                description: ID рассылки
+                minimum: 1
+                type: integer
+              offerSlug:
+                description: Slug выбранного варианта предложения для рассылки
+                minLength: 1
+                type: string
+              recipientsCount:
+                description: Число получателей рассылки
+                minimum: 1
+                type: integer
+            required:
+            - dispatchId
+            - recipientsCount
+            - offerSlug
+            type: object
+          type: array
+        expiresAt:
+          description: Дата окончания предложения
+          minimum: 1
+          type:
+          - integer
+          - 'null'
+      type: object
+    openApiUnauthorizedError:
+      properties:
+        error:
+          properties:
+            code:
+              default: 401
+              example: 401
+              type: integer
+            message:
+              example: Unauthorized access
+              type: string
+          required:
+          - message
+          - code
+          type: object
+      required:
+      - error
+      type: object
+    openApiMultiConfirmResponseBody:
+      properties:
+        ok:
+          type: boolean
+      type: object
+    openApiBadRequestError:
+      properties:
+        error:
+          properties:
+            code:
+              default: 400
+              example: 400
+              type: integer
+            message:
+              example: Bad request
+              type: string
+          required:
+          - message
+          - code
+          type: object
+      required:
+      - error
+      type: object
     openApiMultiCreateResponseBody:
       properties:
         common:
@@ -496,118 +648,27 @@ components:
       - common
       - dispatches
       type: object
-    openApiStatsResponseBody:
+    openApiMultiCreateRequestBody:
       properties:
-        stats:
+        itemIds:
+          description: Список id выбранных для рассылки объявлений
           items:
-            properties:
-              accepted:
-                description: Число принятых покупателями предложений
-                type: integer
-              count:
-                description: Число отправленных предложений
-                type: integer
-              discount:
-                description: Размер скидки (может отсутствовать)
-                type: integer
-              expiresAt:
-                description: Дата окончания срока действия предложения
-                type: string
-              itemId:
-                minimum: 1
-                type: integer
-              offerSlug:
-                description: Тип предложения
-                type: string
-              price:
-                description: Общая стоимость рассылки. Приходит 0 при рассылках из тарифа или бесплатных рассылках
-                type: integer
-              sentAt:
-                description: Дата отправки рассылки
-                type: string
-            required:
-            - itemId
-            - offerSlug
-            - price
-            - sentAt
-            - expiresAt
-            - count
-            - accepted
-            type:
-            - object
-            - 'null'
+            minimum: 1
+            type: integer
           type: array
+      required:
+      - itemIds
       type: object
-    openApiAvailableResponseBody:
-      properties:
-        items:
-          description: Список объявлений и признаков доступности для них услуги
-          items:
-            properties:
-              isAvailable:
-                description: доступна ли услуга
-                type: boolean
-              itemId:
-                minimum: 1
-                type: integer
-              reason:
-                description: заполняется, если isAvailable = false
-                type:
-                - string
-                - 'null'
-            required:
-            - itemId
-            - isAvailable
-            type: object
-          type: array
-      type: object
-    openApiUnauthorizedError:
+    openApiInternalError:
       properties:
         error:
           properties:
             code:
-              default: 401
-              example: 401
+              default: 500
+              example: 500
               type: integer
             message:
-              example: Unauthorized access
-              type: string
-          required:
-          - message
-          - code
-          type: object
-      required:
-      - error
-      type: object
-    openApiStatsRequestBody:
-      properties:
-        dateTimeFrom:
-          description: Время выборки От. RFC3339
-          minLength: 1
-          type: string
-        dateTimeTo:
-          description: Время выборки До. RFC3339
-          minLength: 1
-          type: string
-      required:
-      - dateTimeFrom
-      - dateTimeTo
-      type: object
-    openApiMultiConfirmResponseBody:
-      properties:
-        ok:
-          type: boolean
-      type: object
-    openApiBadRequestError:
-      properties:
-        error:
-          properties:
-            code:
-              default: 400
-              example: 400
-              type: integer
-            message:
-              example: Bad request
+              example: Internal error
               type: string
           required:
           - message
@@ -636,16 +697,19 @@ components:
           - object
           - 'null'
       type: object
-    openApiMultiCreateRequestBody:
+    openApiStatsRequestBody:
       properties:
-        itemIds:
-          description: Список id выбранных для рассылки объявлений
-          items:
-            minimum: 1
-            type: integer
-          type: array
+        dateTimeFrom:
+          description: Время выборки От. RFC3339
+          minLength: 1
+          type: string
+        dateTimeTo:
+          description: Время выборки До. RFC3339
+          minLength: 1
+          type: string
       required:
-      - itemIds
+      - dateTimeFrom
+      - dateTimeTo
       type: object
     openApiForbiddenError:
       properties:
@@ -664,70 +728,6 @@ components:
           type: object
       required:
       - error
-      type: object
-    openApiAvailableRequestBody:
-      properties:
-        itemIds:
-          description: список id объявлений
-          items:
-            minimum: 1
-            type: integer
-          type: array
-      required:
-      - itemIds
-      type: object
-    openApiInternalError:
-      properties:
-        error:
-          properties:
-            code:
-              default: 500
-              example: 500
-              type: integer
-            message:
-              example: Internal error
-              type: string
-          required:
-          - message
-          - code
-          type: object
-      required:
-      - error
-      type: object
-    openApiMultiConfirmRequestBody:
-      properties:
-        dispatches:
-          items:
-            properties:
-              discountValue:
-                description: Финальный размер скидки (в случае предложения скидки от стоимости)
-                type:
-                - integer
-                - 'null'
-              dispatchId:
-                description: ID рассылки
-                minimum: 1
-                type: integer
-              offerSlug:
-                description: Slug выбранного варианта предложения для рассылки
-                minLength: 1
-                type: string
-              recipientsCount:
-                description: Число получателей рассылки
-                minimum: 1
-                type: integer
-            required:
-            - dispatchId
-            - recipientsCount
-            - offerSlug
-            type: object
-          type: array
-        expiresAt:
-          description: Дата окончания предложения
-          minimum: 1
-          type:
-          - integer
-          - 'null'
       type: object
   securitySchemes:
     AuthorizationCode:

@@ -106,6 +106,24 @@ paths:
       - Tariff
 components:
   schemas:
+    authError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 401
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Unauthorized
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
     TariffContractPackage:
       properties:
         categories:
@@ -180,24 +198,6 @@ components:
           - message
           type: object
       type: object
-    authError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 401
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Unauthorized
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
     serviceError:
       properties:
         error:
@@ -215,14 +215,6 @@ components:
           - code
           - message
           type: object
-      type: object
-    TariffInfo:
-      description: Информация по текущему и запланированному контракту
-      properties:
-        current:
-          $ref: '#/components/schemas/TariffContract'
-        scheduled:
-          $ref: '#/components/schemas/TariffContract'
       type: object
     TariffContract:
       properties:
@@ -260,6 +252,14 @@ components:
           description: Дата и время начала в формате Unix time
           example: 1613997821
           type: integer
+    TariffInfo:
+      description: Информация по текущему и запланированному контракту
+      properties:
+        current:
+          $ref: '#/components/schemas/TariffContract'
+        scheduled:
+          $ref: '#/components/schemas/TariffContract'
+      type: object
   parameters:
     authHeader:
       description: Токен для авторизации
