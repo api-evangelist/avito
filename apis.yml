@@ -1190,6 +1190,8 @@ apis:
   humanURL: https://developers.avito.ru/api-catalog/accounts-hierarchy/documentation
   baseURL: https://api.avito.ru/
   tags:
+  - CPA
+  tags_raw:
   - Cpa
   properties:
   - type: OpenAPI
