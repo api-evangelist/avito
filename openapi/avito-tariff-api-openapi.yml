@@ -106,6 +106,60 @@ paths:
       - Tariff
 components:
   schemas:
+    serviceError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 500
+              format: int32
+              type: integer
+            message:
+              description: Описание ошибки
+              example: Error while processing request. Please, contact support
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    TariffContract:
+      properties:
+        bonus:
+          description: Количество бонусов на продвижение по тарифу
+          type: integer
+        closeTime:
+          description: Дата и время окончания в формате Unix time. Для неактивных тарифов значение поля будет null
+          example: 1616589821
+          type: integer
+        isActive:
+          description: Признак активности
+          example: true
+          type: boolean
+        level:
+          description: Уровень тарифа
+          example: Тариф «Максимальный +»
+          type: string
+        packages:
+          description: Пакеты размещений, доступные в рамках тарифа
+          items:
+            $ref: '#/components/schemas/TariffContractPackage'
+          type: array
+        price:
+          description: Стоимость тарифа
+          properties:
+            originalPrice:
+              description: Цена тарифа без учёта скидки
+              type: number
+            price:
+              description: Цена тарифа со скидкой
+              type: number
+          type: object
+        startTime:
+          description: Дата и время начала в формате Unix time
+          example: 1613997821
+          type: integer
     authError:
       properties:
         error:
@@ -118,6 +172,24 @@ components:
             message:
               description: Сообщение об ошибке
               example: Unauthorized
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    notFoundError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 404
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Not found
               type: string
           required:
           - code
@@ -180,78 +252,6 @@ components:
           description: Размер пакета
           type: integer
       type: object
-    notFoundError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 404
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Not found
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    serviceError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 500
-              format: int32
-              type: integer
-            message:
-              description: Описание ошибки
-              example: Error while processing request. Please, contact support
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    TariffContract:
-      properties:
-        bonus:
-          description: Количество бонусов на продвижение по тарифу
-          type: integer
-        closeTime:
-          description: Дата и время окончания в формате Unix time. Для неактивных тарифов значение поля будет null
-          example: 1616589821
-          type: integer
-        isActive:
-          description: Признак активности
-          example: true
-          type: boolean
-        level:
-          description: Уровень тарифа
-          example: Тариф «Максимальный +»
-          type: string
-        packages:
-          description: Пакеты размещений, доступные в рамках тарифа
-          items:
-            $ref: '#/components/schemas/TariffContractPackage'
-          type: array
-        price:
-          description: Стоимость тарифа
-          properties:
-            originalPrice:
-              description: Цена тарифа без учёта скидки
-              type: number
-            price:
-              description: Цена тарифа со скидкой
-              type: number
-          type: object
-        startTime:
-          description: Дата и время начала в формате Unix time
-          example: 1613997821
-          type: integer
     TariffInfo:
       description: Информация по текущему и запланированному контракту
       properties:

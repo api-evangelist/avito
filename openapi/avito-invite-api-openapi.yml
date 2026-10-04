@@ -260,6 +260,18 @@ paths:
       - Invite
 components:
   responses:
+    forbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorResponse'
+      description: Действие запрещено
+    defaultInternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Ошибка сервера
     unauthorized:
       content:
         application/json:
@@ -281,39 +293,6 @@ components:
             - result
             type: object
       description: Неверный запрос
-    badRequestFieldsWithStatus:
-      content:
-        application/json:
-          schema:
-            additionalProperties: false
-            properties:
-              result:
-                $ref: '#/components/schemas/errorFields'
-              status:
-                $ref: '#/components/schemas/badRequestResponseStatus'
-            required:
-            - status
-            - result
-            type: object
-      description: Неверный запрос
-    defaultInternalServerError:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Ошибка сервера
-    defaultTooManyRequests:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Превышено количество запросов
-    forbidden:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/errorResponse'
-      description: Действие запрещено
     notFoundWithStatus:
       content:
         application/json:
@@ -329,7 +308,32 @@ components:
             - result
             type: object
       description: Не найдено
+    badRequestFieldsWithStatus:
+      content:
+        application/json:
+          schema:
+            additionalProperties: false
+            properties:
+              result:
+                $ref: '#/components/schemas/errorFields'
+              status:
+                $ref: '#/components/schemas/badRequestResponseStatus'
+            required:
+            - status
+            - result
+            type: object
+      description: Неверный запрос
+    defaultTooManyRequests:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Превышено количество запросов
   schemas:
+    errorMessage:
+      description: Сообщение об ошибке
+      example: Ошибка
+      type: string
     errorResponse:
       additionalProperties: false
       properties:
@@ -338,9 +342,44 @@ components:
       required:
       - result
       type: object
-    errorMessage:
-      description: Сообщение об ошибке
-      example: Ошибка
+    errorField:
+      description: Наименование поля
+      example: userId
+      type: string
+    okResponseStatus:
+      description: Статус результата ответа
+      enum:
+      - ok
+      example: ok
+      type: string
+    id:
+      description: Идентификатор
+      example: 123456
+      minimum: 1
+      type: integer
+    inviteId:
+      additionalProperties: false
+      description: Идентификатор приглашения нового клиента
+      properties:
+        inviteId:
+          $ref: '#/components/schemas/id'
+      required:
+      - inviteId
+      type: object
+    errorResult:
+      additionalProperties: false
+      description: Результат с ошибкой
+      properties:
+        message:
+          $ref: '#/components/schemas/errorMessage'
+      required:
+      - message
+      type: object
+    notFoundResponseStatus:
+      description: Статус ответа
+      enum:
+      - not-found
+      example: not-found
       type: string
     defaultErrorResponse:
       additionalProperties: false
@@ -362,46 +401,6 @@ components:
       required:
       - error
       type: object
-    errorField:
-      description: Наименование поля
-      example: userId
-      type: string
-    linkType:
-      description: Тип связи с клиентом
-      enum:
-      - adv
-      - trx
-      example: adv
-      type: string
-    notFoundResponseStatus:
-      description: Статус ответа
-      enum:
-      - not-found
-      example: not-found
-      type: string
-    errorResult:
-      additionalProperties: false
-      description: Результат с ошибкой
-      properties:
-        message:
-          $ref: '#/components/schemas/errorMessage'
-      required:
-      - message
-      type: object
-    id:
-      description: Идентификатор
-      example: 123456
-      minimum: 1
-      type: integer
-    inviteId:
-      additionalProperties: false
-      description: Идентификатор приглашения нового клиента
-      properties:
-        inviteId:
-          $ref: '#/components/schemas/id'
-      required:
-      - inviteId
-      type: object
     errorFields:
       description: Ошибки валидации
       items:
@@ -417,11 +416,12 @@ components:
         - message
         type: object
       type: array
-    okResponseStatus:
-      description: Статус результата ответа
+    linkType:
+      description: Тип связи с клиентом
       enum:
-      - ok
-      example: ok
+      - adv
+      - trx
+      example: adv
       type: string
     badRequestResponseStatus:
       description: Статус ответа

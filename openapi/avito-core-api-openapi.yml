@@ -80,6 +80,8 @@ components:
       required:
       - result
       type: object
+    tooManyRequests:
+      type: object
     authError:
       properties:
         error:
@@ -92,24 +94,6 @@ components:
             message:
               description: Сообщение об ошибке
               example: Unauthorized
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    badRequestError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 400
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Bad Request
               type: string
           required:
           - code
@@ -143,7 +127,23 @@ components:
           - message
           type: object
       type: object
-    tooManyRequests:
+    badRequestError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 400
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Bad Request
+              type: string
+          required:
+          - code
+          - message
+          type: object
       type: object
   parameters:
     pathItemId:

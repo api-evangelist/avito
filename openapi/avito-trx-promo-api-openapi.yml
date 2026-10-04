@@ -176,6 +176,44 @@ paths:
       - Trx Promo
 components:
   schemas:
+    CancelResponse:
+      additionalProperties: false
+      properties:
+        success:
+          additionalProperties: false
+          properties:
+            result:
+              items:
+                properties:
+                  error:
+                    properties:
+                      code:
+                        enum:
+                        - 1001
+                        - 1002
+                        type: integer
+                      message:
+                        type: string
+                    required:
+                    - code
+                    - message
+                    type: object
+                  itemID:
+                    type: integer
+                  success:
+                    type: boolean
+                required:
+                - itemID
+                - success
+                type: object
+              type: array
+          required:
+          - result
+          type: object
+      required:
+      - success
+      title: okResponse
+      type: object
     ApplyReq:
       additionalProperties: false
       properties:
@@ -207,6 +245,63 @@ components:
       - items
       title: requestBody
       type: object
+    ApplyResponse:
+      additionalProperties: false
+      properties:
+        success:
+          additionalProperties: false
+          properties:
+            result:
+              items:
+                properties:
+                  error:
+                    properties:
+                      code:
+                        enum:
+                        - 1001
+                        - 1002
+                        type: integer
+                      message:
+                        type: string
+                    required:
+                    - code
+                    - message
+                    type: object
+                  itemID:
+                    type: integer
+                  success:
+                    type: boolean
+                  validCommissionRange:
+                    properties:
+                      step:
+                        description: Шаг изменения комиссии в сотых долях 100 - 1%
+                        example: 100
+                        type: integer
+                      valueMax:
+                        description: Максимальный размер комиссии в сотых долях 100 - 1%
+                        example: 1500
+                        type: integer
+                      valueMin:
+                        description: Минимальный размер комиссии в сотых долях 100 - 1%
+                        example: 100
+                        type: integer
+                    required:
+                    - valueMin
+                    - valueMax
+                    - step
+                    type: object
+                required:
+                - itemID
+                - success
+                type: object
+              type: array
+          required:
+          - result
+          type: object
+      required:
+      - success
+      title: okResponse
+      type: object
     apiV3error500:
       additionalProperties: false
       properties:
@@ -222,10 +317,10 @@ components:
       - internal-error
       title: InternalErrorResponse
       type: object
-    apiV3error400:
+    apiV3error403:
       additionalProperties: false
       properties:
-        bad-request:
+        forbidden:
           additionalProperties: false
           properties:
             message:
@@ -234,8 +329,8 @@ components:
           - message
           type: object
       required:
-      - bad-request
-      title: BadRequestResponse
+      - forbidden
+      title: ForbiddenResponse
       type: object
     CommissionResponse:
       additionalProperties: false
@@ -296,116 +391,6 @@ components:
       - success
       title: okResponse
       type: object
-    ApplyResponse:
-      additionalProperties: false
-      properties:
-        success:
-          additionalProperties: false
-          properties:
-            result:
-              items:
-                properties:
-                  error:
-                    properties:
-                      code:
-                        enum:
-                        - 1001
-                        - 1002
-                        type: integer
-                      message:
-                        type: string
-                    required:
-                    - code
-                    - message
-                    type: object
-                  itemID:
-                    type: integer
-                  success:
-                    type: boolean
-                  validCommissionRange:
-                    properties:
-                      step:
-                        description: Шаг изменения комиссии в сотых долях 100 - 1%
-                        example: 100
-                        type: integer
-                      valueMax:
-                        description: Максимальный размер комиссии в сотых долях 100 - 1%
-                        example: 1500
-                        type: integer
-                      valueMin:
-                        description: Минимальный размер комиссии в сотых долях 100 - 1%
-                        example: 100
-                        type: integer
-                    required:
-                    - valueMin
-                    - valueMax
-                    - step
-                    type: object
-                required:
-                - itemID
-                - success
-                type: object
-              type: array
-          required:
-          - result
-          type: object
-      required:
-      - success
-      title: okResponse
-      type: object
-    apiV3error403:
-      additionalProperties: false
-      properties:
-        forbidden:
-          additionalProperties: false
-          properties:
-            message:
-              type: string
-          required:
-          - message
-          type: object
-      required:
-      - forbidden
-      title: ForbiddenResponse
-      type: object
-    CancelResponse:
-      additionalProperties: false
-      properties:
-        success:
-          additionalProperties: false
-          properties:
-            result:
-              items:
-                properties:
-                  error:
-                    properties:
-                      code:
-                        enum:
-                        - 1001
-                        - 1002
-                        type: integer
-                      message:
-                        type: string
-                    required:
-                    - code
-                    - message
-                    type: object
-                  itemID:
-                    type: integer
-                  success:
-                    type: boolean
-                required:
-                - itemID
-                - success
-                type: object
-              type: array
-          required:
-          - result
-          type: object
-      required:
-      - success
-      title: okResponse
-      type: object
     apiV3error401:
       additionalProperties: false
       properties:
@@ -421,31 +406,21 @@ components:
       - unauthenticated
       title: UnauthenticatedResponse
       type: object
-  responses:
-    errorV3Forbidden:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/apiV3error403'
-      description: Forbidden
-    errorV3Unauthenticated:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/apiV3error401'
-      description: Unauthenticated
-    errorV3BadRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/apiV3error400'
-      description: BadRequest
-    errorV3InternalError:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/apiV3error500'
-      description: InternalError
+    apiV3error400:
+      additionalProperties: false
+      properties:
+        bad-request:
+          additionalProperties: false
+          properties:
+            message:
+              type: string
+          required:
+          - message
+          type: object
+      required:
+      - bad-request
+      title: BadRequestResponse
+      type: object
   parameters:
     OAuthFlow:
       description: Выбранный флоу авторизации по протоколу OAuth 2.0
@@ -467,6 +442,31 @@ components:
       name: x-oauth-scopes
       schema:
         type: string
+  responses:
+    errorV3BadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/apiV3error400'
+      description: BadRequest
+    errorV3Forbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/apiV3error403'
+      description: Forbidden
+    errorV3InternalError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/apiV3error500'
+      description: InternalError
+    errorV3Unauthenticated:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/apiV3error401'
+      description: Unauthenticated
   securitySchemes:
     AuthorizationCode:
       description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](#tag/ApplicationAccess)

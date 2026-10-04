@@ -313,69 +313,39 @@ paths:
       tags:
       - Profile
 components:
-  responses:
-    badRequestFieldsWithStatus:
-      content:
-        application/json:
-          schema:
-            additionalProperties: false
-            properties:
-              result:
-                $ref: '#/components/schemas/errorFields'
-              status:
-                $ref: '#/components/schemas/badRequestResponseStatus'
-            required:
-            - status
-            - result
-            type: object
-      description: Неверный запрос
-    defaultInternalServerError:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Ошибка сервера
-    defaultTooManyRequests:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Превышено количество запросов
-    unauthorizedWithStatus:
-      content:
-        application/json:
-          schema:
-            additionalProperties: false
-            properties:
-              result:
-                $ref: '#/components/schemas/errorResult'
-              status:
-                $ref: '#/components/schemas/unauthorizedResponseStatus'
-            required:
-            - status
-            - result
-            type: object
-      description: Требуется авторизация
-    forbiddenWithStatus:
-      content:
-        application/json:
-          schema:
-            additionalProperties: false
-            properties:
-              result:
-                $ref: '#/components/schemas/errorResult'
-              status:
-                $ref: '#/components/schemas/forbiddenResponseStatus'
-            required:
-            - status
-            - result
-            type: object
-      description: Действие запрещено
   schemas:
     errorMessage:
       description: Сообщение об ошибке
       example: Ошибка
       type: string
+    errorField:
+      description: Наименование поля
+      example: userId
+      type: string
+    okResponseStatus:
+      description: Статус результата ответа
+      enum:
+      - ok
+      example: ok
+      type: string
+    id:
+      description: Идентификатор
+      example: 123456
+      minimum: 1
+      type: integer
+    toggle:
+      description: Переключатель
+      example: true
+      type: boolean
+    errorResult:
+      additionalProperties: false
+      description: Результат с ошибкой
+      properties:
+        message:
+          $ref: '#/components/schemas/errorMessage'
+      required:
+      - message
+      type: object
     defaultErrorResponse:
       additionalProperties: false
       properties:
@@ -396,56 +366,11 @@ components:
       required:
       - error
       type: object
-    errorField:
-      description: Наименование поля
-      example: userId
+    dateTime:
+      description: Дата в формате RFC3339
+      example: '2025-05-02T11:00:00+03:00'
+      format: date-time
       type: string
-    linkType:
-      description: Тип связи с клиентом
-      enum:
-      - adv
-      - trx
-      example: adv
-      type: string
-    errorResult:
-      additionalProperties: false
-      description: Результат с ошибкой
-      properties:
-        message:
-          $ref: '#/components/schemas/errorMessage'
-      required:
-      - message
-      type: object
-    id:
-      description: Идентификатор
-      example: 123456
-      minimum: 1
-      type: integer
-    unauthorizedResponseStatus:
-      description: Статус ответа
-      enum:
-      - unauthorized
-      example: unauthorized
-      type: string
-    forbiddenResponseStatus:
-      description: Статус ответа
-      enum:
-      - forbidden
-      example: forbidden
-      type: string
-    offset:
-      description: Смещение, с которого начинается выборка
-      example: 10
-      minimum: 0
-      type: integer
-    amountKopecks:
-      description: Сумма в копейках
-      example: 100000
-      type: integer
-    counter:
-      description: Счетчик
-      example: 123
-      type: integer
     errorFields:
       description: Ошибки валидации
       items:
@@ -461,27 +386,102 @@ components:
         - message
         type: object
       type: array
-    okResponseStatus:
-      description: Статус результата ответа
+    linkType:
+      description: Тип связи с клиентом
       enum:
-      - ok
-      example: ok
+      - adv
+      - trx
+      example: adv
       type: string
-    dateTime:
-      description: Дата в формате RFC3339
-      example: '2025-05-02T11:00:00+03:00'
-      format: date-time
-      type: string
-    toggle:
-      description: Переключатель
-      example: true
-      type: boolean
+    amountKopecks:
+      description: Сумма в копейках
+      example: 100000
+      type: integer
+    counter:
+      description: Счетчик
+      example: 123
+      type: integer
     badRequestResponseStatus:
       description: Статус ответа
       enum:
       - bad-request
       example: bad-request
       type: string
+    offset:
+      description: Смещение, с которого начинается выборка
+      example: 10
+      minimum: 0
+      type: integer
+    unauthorizedResponseStatus:
+      description: Статус ответа
+      enum:
+      - unauthorized
+      example: unauthorized
+      type: string
+    forbiddenResponseStatus:
+      description: Статус ответа
+      enum:
+      - forbidden
+      example: forbidden
+      type: string
+  responses:
+    unauthorizedWithStatus:
+      content:
+        application/json:
+          schema:
+            additionalProperties: false
+            properties:
+              result:
+                $ref: '#/components/schemas/errorResult'
+              status:
+                $ref: '#/components/schemas/unauthorizedResponseStatus'
+            required:
+            - status
+            - result
+            type: object
+      description: Требуется авторизация
+    defaultInternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Ошибка сервера
+    forbiddenWithStatus:
+      content:
+        application/json:
+          schema:
+            additionalProperties: false
+            properties:
+              result:
+                $ref: '#/components/schemas/errorResult'
+              status:
+                $ref: '#/components/schemas/forbiddenResponseStatus'
+            required:
+            - status
+            - result
+            type: object
+      description: Действие запрещено
+    badRequestFieldsWithStatus:
+      content:
+        application/json:
+          schema:
+            additionalProperties: false
+            properties:
+              result:
+                $ref: '#/components/schemas/errorFields'
+              status:
+                $ref: '#/components/schemas/badRequestResponseStatus'
+            required:
+            - status
+            - result
+            type: object
+      description: Неверный запрос
+    defaultTooManyRequests:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Превышено количество запросов
   parameters:
     authHeader:
       description: Токен для авторизации

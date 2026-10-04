@@ -106,13 +106,6 @@ paths:
       - ListCompanyPhonesV1
 components:
   parameters:
-    X-Oauth-Scopes:
-      description: Список зон доступа, полученных приложением
-      example: ah:access
-      in: header
-      name: X-Oauth-Scopes
-      schema:
-        type: string
     X-Oauth-Flow:
       description: Выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)
       example: authorization_code
@@ -120,15 +113,6 @@ components:
       name: X-Oauth-Flow
       schema:
         type: string
-    XEmployeeOf:
-      description: Идентификатор компании, от имени которой работает сотрудник.
-      in: header
-      name: X-Employee-Of
-      schema:
-        minimum: 1
-        type:
-        - integer
-        - 'null'
     authHeader:
       description: Токен для авторизации
       in: header
@@ -148,6 +132,22 @@ components:
         type:
         - boolean
         - 'null'
+    XEmployeeOf:
+      description: Идентификатор компании, от имени которой работает сотрудник.
+      in: header
+      name: X-Employee-Of
+      schema:
+        minimum: 1
+        type:
+        - integer
+        - 'null'
+    X-Oauth-Scopes:
+      description: Список зон доступа, полученных приложением
+      example: ah:access
+      in: header
+      name: X-Oauth-Scopes
+      schema:
+        type: string
   schemas:
     OpenApiError:
       properties:

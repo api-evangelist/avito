@@ -344,26 +344,22 @@ paths:
       tags:
       - SpecialOffers
 components:
-  parameters:
-    openApiAuthHeader:
-      description: Токен для авторизации
-      in: header
-      name: Authorization
-      required: true
-      schema:
-        example: Bearer ACCESS_TOKEN
-        type: string
   schemas:
-    openApiAvailableRequestBody:
+    openApiMultiCreateRequestBody:
       properties:
         itemIds:
-          description: список id объявлений
+          description: Список id выбранных для рассылки объявлений
           items:
             minimum: 1
             type: integer
           type: array
       required:
       - itemIds
+      type: object
+    openApiMultiConfirmResponseBody:
+      properties:
+        ok:
+          type: boolean
       type: object
     openApiStatsResponseBody:
       properties:
@@ -407,6 +403,24 @@ components:
             - 'null'
           type: array
       type: object
+    openApiInternalError:
+      properties:
+        error:
+          properties:
+            code:
+              default: 500
+              example: 500
+              type: integer
+            message:
+              example: Internal error
+              type: string
+          required:
+          - message
+          - code
+          type: object
+      required:
+      - error
+      type: object
     openApiAvailableResponseBody:
       properties:
         items:
@@ -430,64 +444,6 @@ components:
             type: object
           type: array
       type: object
-    openApiMultiConfirmRequestBody:
-      properties:
-        dispatches:
-          items:
-            properties:
-              discountValue:
-                description: Финальный размер скидки (в случае предложения скидки от стоимости)
-                type:
-                - integer
-                - 'null'
-              dispatchId:
-                description: ID рассылки
-                minimum: 1
-                type: integer
-              offerSlug:
-                description: Slug выбранного варианта предложения для рассылки
-                minLength: 1
-                type: string
-              recipientsCount:
-                description: Число получателей рассылки
-                minimum: 1
-                type: integer
-            required:
-            - dispatchId
-            - recipientsCount
-            - offerSlug
-            type: object
-          type: array
-        expiresAt:
-          description: Дата окончания предложения
-          minimum: 1
-          type:
-          - integer
-          - 'null'
-      type: object
-    openApiUnauthorizedError:
-      properties:
-        error:
-          properties:
-            code:
-              default: 401
-              example: 401
-              type: integer
-            message:
-              example: Unauthorized access
-              type: string
-          required:
-          - message
-          - code
-          type: object
-      required:
-      - error
-      type: object
-    openApiMultiConfirmResponseBody:
-      properties:
-        ok:
-          type: boolean
-      type: object
     openApiBadRequestError:
       properties:
         error:
@@ -505,6 +461,40 @@ components:
           type: object
       required:
       - error
+      type: object
+    openApiStatsRequestBody:
+      properties:
+        dateTimeFrom:
+          description: Время выборки От. RFC3339
+          minLength: 1
+          type: string
+        dateTimeTo:
+          description: Время выборки До. RFC3339
+          minLength: 1
+          type: string
+      required:
+      - dateTimeFrom
+      - dateTimeTo
+      type: object
+    openApiTariffInfoResponseBody:
+      properties:
+        tariffInfo:
+          description: Информация о текущем тарифе
+          properties:
+            sendsLeft:
+              description: Сколько осталось рассылок в тарифе
+              minimum: 0
+              type: integer
+            totalSends:
+              description: Сколько всего рассылок в тарифе (было изначально)
+              minimum: 0
+              type: integer
+          required:
+          - totalSends
+          - sendsLeft
+          type:
+          - object
+          - 'null'
       type: object
     openApiMultiCreateResponseBody:
       properties:
@@ -648,68 +638,40 @@ components:
       - common
       - dispatches
       type: object
-    openApiMultiCreateRequestBody:
+    openApiMultiConfirmRequestBody:
       properties:
-        itemIds:
-          description: Список id выбранных для рассылки объявлений
+        dispatches:
           items:
-            minimum: 1
-            type: integer
+            properties:
+              discountValue:
+                description: Финальный размер скидки (в случае предложения скидки от стоимости)
+                type:
+                - integer
+                - 'null'
+              dispatchId:
+                description: ID рассылки
+                minimum: 1
+                type: integer
+              offerSlug:
+                description: Slug выбранного варианта предложения для рассылки
+                minLength: 1
+                type: string
+              recipientsCount:
+                description: Число получателей рассылки
+                minimum: 1
+                type: integer
+            required:
+            - dispatchId
+            - recipientsCount
+            - offerSlug
+            type: object
           type: array
-      required:
-      - itemIds
-      type: object
-    openApiInternalError:
-      properties:
-        error:
-          properties:
-            code:
-              default: 500
-              example: 500
-              type: integer
-            message:
-              example: Internal error
-              type: string
-          required:
-          - message
-          - code
-          type: object
-      required:
-      - error
-      type: object
-    openApiTariffInfoResponseBody:
-      properties:
-        tariffInfo:
-          description: Информация о текущем тарифе
-          properties:
-            sendsLeft:
-              description: Сколько осталось рассылок в тарифе
-              minimum: 0
-              type: integer
-            totalSends:
-              description: Сколько всего рассылок в тарифе (было изначально)
-              minimum: 0
-              type: integer
-          required:
-          - totalSends
-          - sendsLeft
+        expiresAt:
+          description: Дата окончания предложения
+          minimum: 1
           type:
-          - object
+          - integer
           - 'null'
-      type: object
-    openApiStatsRequestBody:
-      properties:
-        dateTimeFrom:
-          description: Время выборки От. RFC3339
-          minLength: 1
-          type: string
-        dateTimeTo:
-          description: Время выборки До. RFC3339
-          minLength: 1
-          type: string
-      required:
-      - dateTimeFrom
-      - dateTimeTo
       type: object
     openApiForbiddenError:
       properties:
@@ -729,6 +691,44 @@ components:
       required:
       - error
       type: object
+    openApiAvailableRequestBody:
+      properties:
+        itemIds:
+          description: список id объявлений
+          items:
+            minimum: 1
+            type: integer
+          type: array
+      required:
+      - itemIds
+      type: object
+    openApiUnauthorizedError:
+      properties:
+        error:
+          properties:
+            code:
+              default: 401
+              example: 401
+              type: integer
+            message:
+              example: Unauthorized access
+              type: string
+          required:
+          - message
+          - code
+          type: object
+      required:
+      - error
+      type: object
+  parameters:
+    openApiAuthHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
   securitySchemes:
     AuthorizationCode:
       description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)

@@ -136,400 +136,43 @@ paths:
       x-trailing-slash: true
 components:
   schemas:
-    forbiddenError:
+    CreateScoringResponseDataAutoteka:
       properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 403
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Forbidden
-              type: string
-          required:
-          - code
-          - message
-          type: object
+        scoring:
+          $ref: '#/components/schemas/ScoringIdResultAutoteka'
       type: object
-    ScoringSeriousDamage:
-      description: Серьезные повреждения
+    ScoringNormalizedValue:
+      description: Нормализованное значение
+      properties:
+        value:
+          type: string
+        valueId:
+          description: Идентификатор значения из каталога Авито
+          minimum: 1
+          type:
+          - integer
+          - 'null'
+      required:
+      - value
+      - valueId
+      type:
+      - object
+      - 'null'
+    ScoringAccidents:
+      description: ДТП
       properties:
         relevanceDate:
           description: Дата актуальности данных
           example: 1699882792
           format: int64
           type: integer
-        salvageCarAuctions:
-          description: Аукционы аварийных автомобилей
-          properties:
-            auctionsCount:
-              description: Количество аукционов
-              example: 2
-              format: int64
-              type: integer
-            lastAuctionDate:
-              description: Дата последнего аукциона
-              example: 1678599575
-              format: int64
-              type: integer
-            relevanceDate:
-              description: Дата актуальности данных
-              example: 1699882792
-              format: int64
-              type: integer
-          required:
-          - relevanceDate
-          - auctionsCount
-          - lastAuctionDate
-          type:
-          - object
-          - 'null'
         value:
-          description: Признак наличия серьезных повреждений
+          description: Признак наличия ДТП
           example: true
           type: boolean
       required:
       - relevanceDate
       - value
-      type:
-      - object
-      - 'null'
-    GetScoringResult:
-      properties:
-        risksAssessment:
-          $ref: '#/components/schemas/ScoringAutoteka'
-      type: object
-    ScoringIdResultAutoteka:
-      properties:
-        scoringId:
-          description: Идентификатор скоринга, по которому его можно получить
-          example: 1
-          format: int64
-          minimum: 1
-          type: integer
-      required:
-      - scoringId
-      type: object
-    GetScoring:
-      properties:
-        result:
-          $ref: '#/components/schemas/GetScoringResult'
-      type: object
-    CreateScoringResponseDataAutoteka:
-      properties:
-        scoring:
-          $ref: '#/components/schemas/ScoringIdResultAutoteka'
-      type: object
-    notFoundError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 404
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Not found
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    RequestReportByVehicleIdAutoteka:
-      properties:
-        vehicleId:
-          description: Идентификатор запрашиваемого авто (vin/frame).
-          minLength: 1
-          type: string
-      required:
-      - vehicleId
-      type: object
-    validatingError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 400
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Validation error
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    internalError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 500
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Service is temporary unavailable
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    ScoringAutoteka:
-      properties:
-        createdAt:
-          description: Дата формирования отчета
-          example: 1699882792
-          format: int64
-          type: integer
-        data:
-          $ref: '#/components/schemas/ScoringDataAutoteka'
-        isCompleted:
-          description: Признак, что формирование всех блоков скоринга завершено
-          example: true
-          type: boolean
-        scoringId:
-          description: Идентификатор скоринга, по которому его можно получить
-          example: 1
-          format: int64
-          minimum: 1
-          type: integer
-      required:
-      - scoringId
-      - isCompleted
-      - createdAt
-      type: object
-    tooManyRequestsError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 429
-              format: int32
-              type: integer
-          required:
-          - code
-          type: object
-      type: object
-    ScoringTechSpecification:
-      properties:
-        bodyNumber:
-          properties:
-            gibddValue:
-              description: Строковое значение
-              type: string
-          required:
-          - gibddValue
-          type:
-          - object
-          - 'null'
-        brand:
-          description: Бренд
-          properties:
-            gibddValue:
-              description: Текстовое значение
-              example: BMW
-              type:
-              - string
-              - 'null'
-            normalizedValue:
-              $ref: '#/components/schemas/ScoringNormalizedValue'
-          type:
-          - object
-          - 'null'
-        chasisNumber:
-          properties:
-            gibddValue:
-              description: Строковое значение
-              type: string
-          required:
-          - gibddValue
-          type:
-          - object
-          - 'null'
-        color:
-          description: Цвет кузова
-          properties:
-            gibddValue:
-              description: Текстовое значение
-              example: Синий
-              type: string
-          type:
-          - object
-          - 'null'
-        engineNumber:
-          properties:
-            gibddValue:
-              description: Строковое значение
-              type: string
-          required:
-          - gibddValue
-          type:
-          - object
-          - 'null'
-        engineType:
-          description: Тип двигателя
-          properties:
-            gibddValue:
-              description: Текстовое значение
-              example: Бензиновый
-              type:
-              - string
-              - 'null'
-            normalizedValue:
-              $ref: '#/components/schemas/ScoringNormalizedValue'
-          type:
-          - object
-          - 'null'
-        horsepower:
-          description: Количество лошадиных сил
-          properties:
-            gibddValue:
-              description: Числовое значение
-              example: 265
-              format: int64
-              type:
-              - integer
-              - 'null'
-            normalizedValue:
-              $ref: '#/components/schemas/ScoringNormalizedValue'
-          type:
-          - object
-          - 'null'
-        maxWeight:
-          description: Разрешенная максимальная масса
-          properties:
-            gibddValue:
-              description: Числовое значение
-              example: 1645
-              format: int64
-              type: integer
-          type:
-          - object
-          - 'null'
-        model:
-          description: Модель
-          properties:
-            gibddValue:
-              description: Текстовое значение
-              example: Serie 1
-              type:
-              - string
-              - 'null'
-            normalizedValue:
-              $ref: '#/components/schemas/ScoringNormalizedValue'
-          type:
-          - object
-          - 'null'
-        netWeight:
-          description: Масса без нагрузки
-          properties:
-            gibddValue:
-              description: Числовое значение
-              example: 1245
-              format: int64
-              type: integer
-          type:
-          - object
-          - 'null'
-        vehicleCategory:
-          description: Категория ТС
-          properties:
-            gibddValue:
-              description: Текстовое значение
-              enum:
-              - A
-              - B
-              - C
-              - D
-              - E
-              - O
-              - M1
-              - M1G
-              - N1
-              example: D
-              type: string
-          type:
-          - object
-          - 'null'
-        vehicleType:
-          description: Тип ТС
-          properties:
-            gibddValue:
-              description: Текстовое значение
-              enum:
-              - Автобусы прочие
-              - Грузовой бортовой
-              - Грузовой прочий
-              - Грузовой фургон
-              - Грузовые автомобили бортовые
-              - Грузовые автомобили фургоны
-              - Легковое купе
-              - Легковой прочий
-              - Легковой седан
-              - Легковой универсал
-              - Легковой хэтчбек (комби)
-              - Легковые автомобили кабриолет
-              - Легковые автомобили комби (хэтчбек)
-              - Легковые автомобили купе
-              - Легковые автомобили прочие
-              - Легковые автомобили седан
-              - Легковые автомобили универсал
-              - Мотоциклы
-              type:
-              - string
-              - 'null'
-            normalizedValue:
-              $ref: '#/components/schemas/ScoringNormalizedValue'
-          type:
-          - object
-          - 'null'
-        volume:
-          description: Объем двигателя
-          properties:
-            gibddValue:
-              description: Числовое значение
-              example: 2996
-              format: int64
-              type:
-              - integer
-              - 'null'
-            normalizedValue:
-              $ref: '#/components/schemas/ScoringNormalizedValue'
-          required:
-          - gibddValue
-          type:
-          - object
-          - 'null'
-        year:
-          description: Год выпуска
-          properties:
-            gibddValue:
-              description: Числовое значение
-              example: 2008
-              format: int64
-              type:
-              - integer
-              - 'null'
-            normalizedValue:
-              $ref: '#/components/schemas/ScoringNormalizedValue'
-          required:
-          - gibddValue
-          type:
-          - object
-          - 'null'
       type:
       - object
       - 'null'
@@ -593,27 +236,27 @@ components:
       type:
       - object
       - 'null'
-    ScoringNormalizedValue:
-      description: Нормализованное значение
+    RequestReportByVehicleIdAutoteka:
       properties:
-        value:
+        vehicleId:
+          description: Идентификатор запрашиваемого авто (vin/frame).
+          minLength: 1
           type: string
-        valueId:
-          description: Идентификатор значения из каталога Авито
-          minimum: 1
-          type:
-          - integer
-          - 'null'
       required:
-      - value
-      - valueId
-      type:
-      - object
-      - 'null'
-    CreateScoringResponseBodyAutoteka:
+      - vehicleId
+      type: object
+    tooManyRequestsError:
       properties:
-        result:
-          $ref: '#/components/schemas/CreateScoringResponseDataAutoteka'
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 429
+              format: int32
+              type: integer
+          required:
+          - code
+          type: object
       type: object
     ScoringDataAutoteka:
       description: Представление скоринга для партнерского API
@@ -892,16 +535,46 @@ components:
       type:
       - object
       - 'null'
-    ScoringAccidents:
-      description: ДТП
+    GetScoringResult:
+      properties:
+        risksAssessment:
+          $ref: '#/components/schemas/ScoringAutoteka'
+      type: object
+    ScoringSeriousDamage:
+      description: Серьезные повреждения
       properties:
         relevanceDate:
           description: Дата актуальности данных
           example: 1699882792
           format: int64
           type: integer
+        salvageCarAuctions:
+          description: Аукционы аварийных автомобилей
+          properties:
+            auctionsCount:
+              description: Количество аукционов
+              example: 2
+              format: int64
+              type: integer
+            lastAuctionDate:
+              description: Дата последнего аукциона
+              example: 1678599575
+              format: int64
+              type: integer
+            relevanceDate:
+              description: Дата актуальности данных
+              example: 1699882792
+              format: int64
+              type: integer
+          required:
+          - relevanceDate
+          - auctionsCount
+          - lastAuctionDate
+          type:
+          - object
+          - 'null'
         value:
-          description: Признак наличия ДТП
+          description: Признак наличия серьезных повреждений
           example: true
           type: boolean
       required:
@@ -910,14 +583,333 @@ components:
       type:
       - object
       - 'null'
-  parameters:
-    authHeader:
-      description: Токен для авторизации
-      example: Bearer ACCESS_TOKEN
-      in: header
-      name: Authorization
-      schema:
-        type: string
+    ScoringAutoteka:
+      properties:
+        createdAt:
+          description: Дата формирования отчета
+          example: 1699882792
+          format: int64
+          type: integer
+        data:
+          $ref: '#/components/schemas/ScoringDataAutoteka'
+        isCompleted:
+          description: Признак, что формирование всех блоков скоринга завершено
+          example: true
+          type: boolean
+        scoringId:
+          description: Идентификатор скоринга, по которому его можно получить
+          example: 1
+          format: int64
+          minimum: 1
+          type: integer
+      required:
+      - scoringId
+      - isCompleted
+      - createdAt
+      type: object
+    GetScoring:
+      properties:
+        result:
+          $ref: '#/components/schemas/GetScoringResult'
+      type: object
+    ScoringIdResultAutoteka:
+      properties:
+        scoringId:
+          description: Идентификатор скоринга, по которому его можно получить
+          example: 1
+          format: int64
+          minimum: 1
+          type: integer
+      required:
+      - scoringId
+      type: object
+    validatingError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 400
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Validation error
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    internalError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 500
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Service is temporary unavailable
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    ScoringTechSpecification:
+      properties:
+        bodyNumber:
+          properties:
+            gibddValue:
+              description: Строковое значение
+              type: string
+          required:
+          - gibddValue
+          type:
+          - object
+          - 'null'
+        brand:
+          description: Бренд
+          properties:
+            gibddValue:
+              description: Текстовое значение
+              example: BMW
+              type:
+              - string
+              - 'null'
+            normalizedValue:
+              $ref: '#/components/schemas/ScoringNormalizedValue'
+          type:
+          - object
+          - 'null'
+        chasisNumber:
+          properties:
+            gibddValue:
+              description: Строковое значение
+              type: string
+          required:
+          - gibddValue
+          type:
+          - object
+          - 'null'
+        color:
+          description: Цвет кузова
+          properties:
+            gibddValue:
+              description: Текстовое значение
+              example: Синий
+              type: string
+          type:
+          - object
+          - 'null'
+        engineNumber:
+          properties:
+            gibddValue:
+              description: Строковое значение
+              type: string
+          required:
+          - gibddValue
+          type:
+          - object
+          - 'null'
+        engineType:
+          description: Тип двигателя
+          properties:
+            gibddValue:
+              description: Текстовое значение
+              example: Бензиновый
+              type:
+              - string
+              - 'null'
+            normalizedValue:
+              $ref: '#/components/schemas/ScoringNormalizedValue'
+          type:
+          - object
+          - 'null'
+        horsepower:
+          description: Количество лошадиных сил
+          properties:
+            gibddValue:
+              description: Числовое значение
+              example: 265
+              format: int64
+              type:
+              - integer
+              - 'null'
+            normalizedValue:
+              $ref: '#/components/schemas/ScoringNormalizedValue'
+          type:
+          - object
+          - 'null'
+        maxWeight:
+          description: Разрешенная максимальная масса
+          properties:
+            gibddValue:
+              description: Числовое значение
+              example: 1645
+              format: int64
+              type: integer
+          type:
+          - object
+          - 'null'
+        model:
+          description: Модель
+          properties:
+            gibddValue:
+              description: Текстовое значение
+              example: Serie 1
+              type:
+              - string
+              - 'null'
+            normalizedValue:
+              $ref: '#/components/schemas/ScoringNormalizedValue'
+          type:
+          - object
+          - 'null'
+        netWeight:
+          description: Масса без нагрузки
+          properties:
+            gibddValue:
+              description: Числовое значение
+              example: 1245
+              format: int64
+              type: integer
+          type:
+          - object
+          - 'null'
+        vehicleCategory:
+          description: Категория ТС
+          properties:
+            gibddValue:
+              description: Текстовое значение
+              enum:
+              - A
+              - B
+              - C
+              - D
+              - E
+              - O
+              - M1
+              - M1G
+              - N1
+              example: D
+              type: string
+          type:
+          - object
+          - 'null'
+        vehicleType:
+          description: Тип ТС
+          properties:
+            gibddValue:
+              description: Текстовое значение
+              enum:
+              - Автобусы прочие
+              - Грузовой бортовой
+              - Грузовой прочий
+              - Грузовой фургон
+              - Грузовые автомобили бортовые
+              - Грузовые автомобили фургоны
+              - Легковое купе
+              - Легковой прочий
+              - Легковой седан
+              - Легковой универсал
+              - Легковой хэтчбек (комби)
+              - Легковые автомобили кабриолет
+              - Легковые автомобили комби (хэтчбек)
+              - Легковые автомобили купе
+              - Легковые автомобили прочие
+              - Легковые автомобили седан
+              - Легковые автомобили универсал
+              - Мотоциклы
+              type:
+              - string
+              - 'null'
+            normalizedValue:
+              $ref: '#/components/schemas/ScoringNormalizedValue'
+          type:
+          - object
+          - 'null'
+        volume:
+          description: Объем двигателя
+          properties:
+            gibddValue:
+              description: Числовое значение
+              example: 2996
+              format: int64
+              type:
+              - integer
+              - 'null'
+            normalizedValue:
+              $ref: '#/components/schemas/ScoringNormalizedValue'
+          required:
+          - gibddValue
+          type:
+          - object
+          - 'null'
+        year:
+          description: Год выпуска
+          properties:
+            gibddValue:
+              description: Числовое значение
+              example: 2008
+              format: int64
+              type:
+              - integer
+              - 'null'
+            normalizedValue:
+              $ref: '#/components/schemas/ScoringNormalizedValue'
+          required:
+          - gibddValue
+          type:
+          - object
+          - 'null'
+      type:
+      - object
+      - 'null'
+    CreateScoringResponseBodyAutoteka:
+      properties:
+        result:
+          $ref: '#/components/schemas/CreateScoringResponseDataAutoteka'
+      type: object
+    notFoundError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 404
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Not found
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    forbiddenError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 403
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Forbidden
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
   headers:
     X-RateLimit-Limit:
       description: Количество запросов в минуту
@@ -929,6 +921,14 @@ components:
       schema:
         format: int32
         type: integer
+  parameters:
+    authHeader:
+      description: Токен для авторизации
+      example: Bearer ACCESS_TOKEN
+      in: header
+      name: Authorization
+      schema:
+        type: string
   securitySchemes:
     ClientCredentials:
       description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)

@@ -356,300 +356,6 @@ components:
       - sat
       - sun
       type: object
-    SortingCenterGetData:
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        deliveryProviderId:
-          $ref: '#/components/schemas/SortingCenterID'
-        itinerary:
-          description: Описание как пройти/проехать
-          example: Выход из последнего вагона, сначала прямо потом налево
-          type: string
-        name:
-          description: Человекопонятное название ХАБа (будет использоваться в интефейсной части)
-          example: 1234-dffg
-          title: Название ХАБа
-          type: string
-        phones:
-          $ref: '#/components/schemas/Delivery-phones'
-        photos:
-          description: Список ссылок на фотографии
-          items:
-            example: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png
-            type: string
-          type: array
-        restriction:
-          $ref: '#/components/schemas/Restriction'
-        schedule:
-          $ref: '#/components/schemas/Schedule'
-      required:
-      - deliveryProviderId
-      - name
-      - address
-      - phones
-      - itinerary
-      - photos
-      - schedule
-      - restriction
-      type: object
-    AnnouncementPackage:
-      properties:
-        id:
-          description: Идентификатор грузоместа (ШК грузоместа)
-          example: '0001234'
-          type: string
-        parcelIDs:
-          description: Список посылок
-          example:
-          - P000123
-          - P000345
-          items:
-            type: string
-          type: array
-        sealID:
-          description: Номер пломбы
-          example: 1234-5678
-          type: string
-      required:
-      - id
-      - parcelIDs
-      type: object
-    DeliveryError:
-      properties:
-        code:
-          description: код ошибки
-          example: fail
-          title: код ошибки
-          type: string
-        message:
-          description: Человекопонятное описание ошибки
-          example: something went wrong
-          title: описание ошибки
-          type: string
-      required:
-      - code
-      - message
-      type:
-      - object
-      - 'null'
-    TaggedSortingCenterRequest:
-      items:
-        $ref: '#/components/schemas/TaggedSortingCenter'
-      type: array
-    SortingCenterID:
-      properties:
-        deliveryProviderId:
-          description: Уникальный идентификатор ХАБа на стороне службы доставки
-          example: 1234-dffg
-          maxLength: 64
-          title: id ХАБа в службе доставки
-          type: string
-        provider:
-          description: '### Справочник служб доставки
-
-            |    код    |    Название  |
-
-            |-----------|--------------|
-
-            |   pochta  | Почта России |
-
-            |   exmail  | ExMail       |
-
-            |     bb    | Boxberyy     |
-
-            |     pp    | PickPoint    |
-
-            |    dpd    | DPD          |
-
-            '
-          example: 7989jgftyf-jkghtd
-          maxLength: 128
-          minLength: 1
-          title: код службы доставки в платформе Авито
-          type: string
-      type: object
-    AnnouncementsCreateRequest:
-      properties:
-        announcementID:
-          $ref: '#/components/schemas/UUID'
-        announcementType:
-          description: Тип анонса
-          enum:
-          - DELIVERY
-          - PICKUP
-          type: string
-        barcode:
-          description: Уникальный ШК анонса. Должен быть напечатан на бумажных сопроводительных документах (акте приема передачи). Данный ШК необходимо использовать для установки соответствия принимаемой партии грузомест/посылок с анонсом переданным в электронном виде через инфообмен
-          example: 000987654321
-          type: string
-        date:
-          allOf:
-          - $ref: '#/components/schemas/DateWithTz'
-          description: Дата и время создания анонса в формате RFC 3339 в UTC
-        packages:
-          description: Список грузомест
-          items:
-            allOf:
-            - $ref: '#/components/schemas/AnnouncementPackage'
-          type: array
-        receiver:
-          allOf:
-          - $ref: '#/components/schemas/AnnouncementDeliveryParticipant'
-          example:
-            delivery:
-              sortingCenter:
-                accuracy: EXACT
-                id: '19310'
-                provider: exmail
-              type: SORTING_CENTER
-            email: mail@pochta.ru
-            name: Почта России
-            phones:
-            - 8-800-300-00-00
-            type: 3PL
-        sender:
-          allOf:
-          - $ref: '#/components/schemas/AnnouncementDeliveryParticipant'
-          example:
-            delivery:
-              sortingCenter:
-                accuracy: EXACT
-                id: '010'
-                provider: exmail
-              type: SORTING_CENTER
-            email: mail@exmail.ru
-            name: ExMail
-            phones:
-            - 8-800-200-00-00
-            type: 3PL
-      required:
-      - announcementID
-      - barcode
-      - sender
-      - receiver
-      - announcementType
-      - date
-      - packages
-      type: object
-    AnnouncementsCreateRequest3PL:
-      properties:
-        announcementID:
-          $ref: '#/components/schemas/UUID'
-        announcementType:
-          description: Тип анонса
-          enum:
-          - DELIVERY
-          - PICKUP
-          type: string
-        barcode:
-          description: Уникальный ШК анонса. Должен быть напечатан на бумажных сопроводительных документах (акте приема передачи). Данный ШК необходимо использовать для установки соответствия принимаемой партии грузомест/посылок с анонсом переданным в электронном виде через инфообмен.
-          example: 000987654321
-          type: string
-        date:
-          allOf:
-          - $ref: '#/components/schemas/DateWithTz'
-          description: Дата и время создания анонса в формате RFC 3339 в UTC
-        packages:
-          description: Список грузомест
-          items:
-            allOf:
-            - $ref: '#/components/schemas/AnnouncementsPackage3PL'
-          type: array
-        receiver:
-          allOf:
-          - $ref: '#/components/schemas/AnnouncementDeliveryParticipant'
-          example:
-            delivery:
-              sortingCenter:
-                accuracy: EXACT
-                id: '19310'
-                provider: exmail
-              type: SORTING_CENTER
-            email: mail@pochta.ru
-            name: Почта России
-            phones:
-            - 8-800-300-00-00
-            type: 3PL
-        sender:
-          allOf:
-          - $ref: '#/components/schemas/AnnouncementDeliveryParticipant'
-          example:
-            delivery:
-              sortingCenter:
-                accuracy: EXACT
-                id: '010'
-                provider: exmail
-              type: SORTING_CENTER
-            email: mail@exmail.ru
-            name: ExMail
-            phones:
-            - 8-800-200-00-00
-            type: 3PL
-      required:
-      - announcementID
-      - barcode
-      - sender
-      - receiver
-      - announcementType
-      - date
-      - packages
-      type: object
-    Delivery-directionTag:
-      description: "Тэг направления, к которому привязывается пункт_самовывоза / индекс (область доставки).\n<br />\nИспользуется для связки в направлениях тарифа. Поля:\n  - `directionTagFrom`\n  - `directionTagTo`\n"
-      example: moscow-2020-12-12
-      title: Тэг направления
-      type: string
-    AnnouncementsPackage3PL:
-      properties:
-        id:
-          description: Идентификатор грузоместа (ШК грузоместа)
-          example: 000123456789
-          type: string
-        parcels:
-          description: Список посылок
-          items:
-            $ref: '#/components/schemas/AnnouncementsParcel3PL'
-          type: array
-        sealID:
-          description: Номер пломбы
-          example: 1234-5678
-          type: string
-      required:
-      - id
-      - parcels
-      type: object
-    Delivery-phones:
-      description: Список номеров телефонов
-      items:
-        example: 79ХXXXXXXX
-        pattern: ^7[0-9]{10}$
-        type: string
-      type: array
-    Delivery-zipCode:
-      example: '324654'
-      title: Почтовый индекс. Не может быть пустым. Должен содержать 6 цифр.
-      type: string
-    AnnouncementsTrackAnnouncementRequest:
-      properties:
-        announcementID:
-          $ref: '#/components/schemas/UUID'
-        date:
-          allOf:
-          - $ref: '#/components/schemas/DateWithTz'
-          description: Дата события
-        event:
-          enum:
-          - ACCEPTANCE_DONE
-          - CANCELLED
-          - DELIVERED
-          - RECEIVED
-          type: string
-      required:
-      - announcementID
-      - date
-      - event
-      type: object
     Restriction:
       properties:
         dimensionalFactor:
@@ -697,78 +403,6 @@ components:
       - maxDimensions
       - maxDeclaredCost
       type: object
-    AnnouncementsParcel3PL:
-      properties:
-        barcode:
-          description: ШК посылки в системе получателя анонса
-          example: '000012345'
-          type: string
-        id:
-          description: Идентификатор посылки Авито в системе получателя анонса
-          example: P000777
-          type: string
-        senderBarcode:
-          description: ШК посылки в системе инициатора анонса
-          example: '123450000'
-          type: string
-        senderID:
-          description: Идентификатор посылки Авито в системе инициатора анонса
-          example: P000776
-          type: string
-      required:
-      - id
-      - barcode
-      type: object
-    DateWithTz:
-      example: '2023-09-20T10:00:00.52Z'
-      type: string
-    AnnouncementsCancelRequest:
-      properties:
-        announcementID:
-          $ref: '#/components/schemas/UUID'
-        reason:
-          description: Причина омены анонса
-          enum:
-          - CANCELED_BY_DELIVERY_PROVIDER
-          - CANCELED_BY_AVITO
-          type: string
-      required:
-      - announcementID
-      type: object
-    SortingCenterGet:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/SortingCenterGetData'
-          type:
-          - array
-          - 'null'
-        error:
-          properties:
-            code:
-              description: код ошибки
-              example: fail
-              title: код ошибки
-              type: string
-            message:
-              description: человекопонятное описание ошибки
-              example: something went wrong
-              title: описание ошибки
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    DeliveryDayTimeIntervals:
-      description: 'Список интервалов времени внутри одного дня, в формате - `hh:mm:ss/hh:mm:ss`
-
-        Время локальное для региона загружаемых данных.
-
-        '
-      items:
-        $ref: '#/components/schemas/DeliveryDayTimeInterval'
-      type: array
     AnnouncementDeliveryParticipant:
       properties:
         delivery:
@@ -823,44 +457,13 @@ components:
       - phones
       - delivery
       type: object
-    AddSortingCentersRequest:
+    Delivery-phones:
+      description: Список номеров телефонов
       items:
-        $ref: '#/components/schemas/SortingCenterPost'
+        example: 79ХXXXXXXX
+        pattern: ^7[0-9]{10}$
+        type: string
       type: array
-    AnnouncementsSuccessResponse:
-      properties:
-        data:
-          properties:
-            status:
-              description: Статус выполнения запроса.
-              enum:
-              - success
-              type: string
-          type:
-          - object
-          - 'null'
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: VALIDATION_ERROR
-              type: string
-            message:
-              description: Текстовое описание ошибки
-              example: Текст ошибки
-              type: string
-          type:
-          - object
-          - 'null'
-      type: object
-    DeliveryDayTimeInterval:
-      description: Интервал времени внутри одного дня `hh:mm:ss/hh:mm:ss`
-      example: 09:00:00/12:00:00
-      type: string
-    UUID:
-      description: Уникальный UUID-идентификатор
-      example: 55fefb84-fa30-47ee-bf29-9c860823ea79
-      type: string
     Address:
       properties:
         addressRow:
@@ -946,24 +549,125 @@ components:
       - lat
       - lng
       type: object
-    DeliveryError4XX:
+    SortingCenterGetData:
       properties:
-        message:
-          description: Человекопонятное описание ошибки
-          example: something went wrong
-          title: Описание ошибки
+        address:
+          $ref: '#/components/schemas/Address'
+        deliveryProviderId:
+          $ref: '#/components/schemas/SortingCenterID'
+        itinerary:
+          description: Описание как пройти/проехать
+          example: Выход из последнего вагона, сначала прямо потом налево
           type: string
-        status:
-          description: false – в случае возникновения ошибки
-          example: false
-          title: статус
-          type: boolean
+        name:
+          description: Человекопонятное название ХАБа (будет использоваться в интефейсной части)
+          example: 1234-dffg
+          title: Название ХАБа
+          type: string
+        phones:
+          $ref: '#/components/schemas/Delivery-phones'
+        photos:
+          description: Список ссылок на фотографии
+          items:
+            example: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png
+            type: string
+          type: array
+        restriction:
+          $ref: '#/components/schemas/Restriction'
+        schedule:
+          $ref: '#/components/schemas/Schedule'
       required:
-      - code
-      - message
-      type:
-      - object
-      - 'null'
+      - deliveryProviderId
+      - name
+      - address
+      - phones
+      - itinerary
+      - photos
+      - schedule
+      - restriction
+      type: object
+    AnnouncementsParcel3PL:
+      properties:
+        barcode:
+          description: ШК посылки в системе получателя анонса
+          example: '000012345'
+          type: string
+        id:
+          description: Идентификатор посылки Авито в системе получателя анонса
+          example: P000777
+          type: string
+        senderBarcode:
+          description: ШК посылки в системе инициатора анонса
+          example: '123450000'
+          type: string
+        senderID:
+          description: Идентификатор посылки Авито в системе инициатора анонса
+          example: P000776
+          type: string
+      required:
+      - id
+      - barcode
+      type: object
+    Delivery-directionTag:
+      description: "Тэг направления, к которому привязывается пункт_самовывоза / индекс (область доставки).\n<br />\nИспользуется для связки в направлениях тарифа. Поля:\n  - `directionTagFrom`\n  - `directionTagTo`\n"
+      example: moscow-2020-12-12
+      title: Тэг направления
+      type: string
+    Delivery-zipCode:
+      example: '324654'
+      title: Почтовый индекс. Не может быть пустым. Должен содержать 6 цифр.
+      type: string
+    AnnouncementsCancelRequest:
+      properties:
+        announcementID:
+          $ref: '#/components/schemas/UUID'
+        reason:
+          description: Причина омены анонса
+          enum:
+          - CANCELED_BY_DELIVERY_PROVIDER
+          - CANCELED_BY_AVITO
+          type: string
+      required:
+      - announcementID
+      type: object
+    AnnouncementsSuccessResponse:
+      properties:
+        data:
+          properties:
+            status:
+              description: Статус выполнения запроса.
+              enum:
+              - success
+              type: string
+          type:
+          - object
+          - 'null'
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: VALIDATION_ERROR
+              type: string
+            message:
+              description: Текстовое описание ошибки
+              example: Текст ошибки
+              type: string
+          type:
+          - object
+          - 'null'
+      type: object
+    DeliveryDayTimeIntervals:
+      description: 'Список интервалов времени внутри одного дня, в формате - `hh:mm:ss/hh:mm:ss`
+
+        Время локальное для региона загружаемых данных.
+
+        '
+      items:
+        $ref: '#/components/schemas/DeliveryDayTimeInterval'
+      type: array
+    DateWithTz:
+      example: '2023-09-20T10:00:00.52Z'
+      type: string
     TaggedSortingCenter:
       properties:
         deliveryProviderId:
@@ -974,6 +678,291 @@ components:
       - deliveryProviderId
       - directionTag
       type: object
+    AddTaskReply:
+      properties:
+        data:
+          properties:
+            taskId:
+              description: "id задачи, по которому можно узнать результат выполнения операции используя \n[метод получения результата выполнения задачи](#operation/GetTask)\n"
+              format: int64
+              type: integer
+          type:
+          - object
+          - 'null'
+        error:
+          properties:
+            code:
+              description: код ошибки
+              example: fail
+              title: код ошибки
+              type: string
+            message:
+              description: человекопонятное описание ошибки
+              example: something went wrong
+              title: описание ошибки
+              type: string
+          required:
+          - code
+          - message
+          type:
+          - object
+          - 'null'
+      type: object
+    DeliveryDayTimeInterval:
+      description: Интервал времени внутри одного дня `hh:mm:ss/hh:mm:ss`
+      example: 09:00:00/12:00:00
+      type: string
+    AnnouncementsCreateRequest3PL:
+      properties:
+        announcementID:
+          $ref: '#/components/schemas/UUID'
+        announcementType:
+          description: Тип анонса
+          enum:
+          - DELIVERY
+          - PICKUP
+          type: string
+        barcode:
+          description: Уникальный ШК анонса. Должен быть напечатан на бумажных сопроводительных документах (акте приема передачи). Данный ШК необходимо использовать для установки соответствия принимаемой партии грузомест/посылок с анонсом переданным в электронном виде через инфообмен.
+          example: 000987654321
+          type: string
+        date:
+          allOf:
+          - $ref: '#/components/schemas/DateWithTz'
+          description: Дата и время создания анонса в формате RFC 3339 в UTC
+        packages:
+          description: Список грузомест
+          items:
+            allOf:
+            - $ref: '#/components/schemas/AnnouncementsPackage3PL'
+          type: array
+        receiver:
+          allOf:
+          - $ref: '#/components/schemas/AnnouncementDeliveryParticipant'
+          example:
+            delivery:
+              sortingCenter:
+                accuracy: EXACT
+                id: '19310'
+                provider: exmail
+              type: SORTING_CENTER
+            email: mail@pochta.ru
+            name: Почта России
+            phones:
+            - 8-800-300-00-00
+            type: 3PL
+        sender:
+          allOf:
+          - $ref: '#/components/schemas/AnnouncementDeliveryParticipant'
+          example:
+            delivery:
+              sortingCenter:
+                accuracy: EXACT
+                id: '010'
+                provider: exmail
+              type: SORTING_CENTER
+            email: mail@exmail.ru
+            name: ExMail
+            phones:
+            - 8-800-200-00-00
+            type: 3PL
+      required:
+      - announcementID
+      - barcode
+      - sender
+      - receiver
+      - announcementType
+      - date
+      - packages
+      type: object
+    SortingCenterGet:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/SortingCenterGetData'
+          type:
+          - array
+          - 'null'
+        error:
+          properties:
+            code:
+              description: код ошибки
+              example: fail
+              title: код ошибки
+              type: string
+            message:
+              description: человекопонятное описание ошибки
+              example: something went wrong
+              title: описание ошибки
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    SortingCenterID:
+      properties:
+        deliveryProviderId:
+          description: Уникальный идентификатор ХАБа на стороне службы доставки
+          example: 1234-dffg
+          maxLength: 64
+          title: id ХАБа в службе доставки
+          type: string
+        provider:
+          description: '### Справочник служб доставки
+
+            |    код    |    Название  |
+
+            |-----------|--------------|
+
+            |   pochta  | Почта России |
+
+            |   exmail  | ExMail       |
+
+            |     bb    | Boxberyy     |
+
+            |     pp    | PickPoint    |
+
+            |    dpd    | DPD          |
+
+            '
+          example: 7989jgftyf-jkghtd
+          maxLength: 128
+          minLength: 1
+          title: код службы доставки в платформе Авито
+          type: string
+      type: object
+    AnnouncementPackage:
+      properties:
+        id:
+          description: Идентификатор грузоместа (ШК грузоместа)
+          example: '0001234'
+          type: string
+        parcelIDs:
+          description: Список посылок
+          example:
+          - P000123
+          - P000345
+          items:
+            type: string
+          type: array
+        sealID:
+          description: Номер пломбы
+          example: 1234-5678
+          type: string
+      required:
+      - id
+      - parcelIDs
+      type: object
+    DeliveryError:
+      properties:
+        code:
+          description: код ошибки
+          example: fail
+          title: код ошибки
+          type: string
+        message:
+          description: Человекопонятное описание ошибки
+          example: something went wrong
+          title: описание ошибки
+          type: string
+      required:
+      - code
+      - message
+      type:
+      - object
+      - 'null'
+    UUID:
+      description: Уникальный UUID-идентификатор
+      example: 55fefb84-fa30-47ee-bf29-9c860823ea79
+      type: string
+    AnnouncementsCreateRequest:
+      properties:
+        announcementID:
+          $ref: '#/components/schemas/UUID'
+        announcementType:
+          description: Тип анонса
+          enum:
+          - DELIVERY
+          - PICKUP
+          type: string
+        barcode:
+          description: Уникальный ШК анонса. Должен быть напечатан на бумажных сопроводительных документах (акте приема передачи). Данный ШК необходимо использовать для установки соответствия принимаемой партии грузомест/посылок с анонсом переданным в электронном виде через инфообмен
+          example: 000987654321
+          type: string
+        date:
+          allOf:
+          - $ref: '#/components/schemas/DateWithTz'
+          description: Дата и время создания анонса в формате RFC 3339 в UTC
+        packages:
+          description: Список грузомест
+          items:
+            allOf:
+            - $ref: '#/components/schemas/AnnouncementPackage'
+          type: array
+        receiver:
+          allOf:
+          - $ref: '#/components/schemas/AnnouncementDeliveryParticipant'
+          example:
+            delivery:
+              sortingCenter:
+                accuracy: EXACT
+                id: '19310'
+                provider: exmail
+              type: SORTING_CENTER
+            email: mail@pochta.ru
+            name: Почта России
+            phones:
+            - 8-800-300-00-00
+            type: 3PL
+        sender:
+          allOf:
+          - $ref: '#/components/schemas/AnnouncementDeliveryParticipant'
+          example:
+            delivery:
+              sortingCenter:
+                accuracy: EXACT
+                id: '010'
+                provider: exmail
+              type: SORTING_CENTER
+            email: mail@exmail.ru
+            name: ExMail
+            phones:
+            - 8-800-200-00-00
+            type: 3PL
+      required:
+      - announcementID
+      - barcode
+      - sender
+      - receiver
+      - announcementType
+      - date
+      - packages
+      type: object
+    AnnouncementsTrackAnnouncementRequest:
+      properties:
+        announcementID:
+          $ref: '#/components/schemas/UUID'
+        date:
+          allOf:
+          - $ref: '#/components/schemas/DateWithTz'
+          description: Дата события
+        event:
+          enum:
+          - ACCEPTANCE_DONE
+          - CANCELLED
+          - DELIVERED
+          - RECEIVED
+          type: string
+      required:
+      - announcementID
+      - date
+      - event
+      type: object
+    AddSortingCentersRequest:
+      items:
+        $ref: '#/components/schemas/SortingCenterPost'
+      type: array
     SortingCenterPost:
       properties:
         address:
@@ -1022,53 +1011,48 @@ components:
       - schedule
       - restriction
       type: object
-    AddTaskReply:
+    DeliveryError4XX:
       properties:
-        data:
-          properties:
-            taskId:
-              description: "id задачи, по которому можно узнать результат выполнения операции используя \n[метод получения результата выполнения задачи](#operation/GetTask)\n"
-              format: int64
-              type: integer
-          type:
-          - object
-          - 'null'
-        error:
-          properties:
-            code:
-              description: код ошибки
-              example: fail
-              title: код ошибки
-              type: string
-            message:
-              description: человекопонятное описание ошибки
-              example: something went wrong
-              title: описание ошибки
-              type: string
-          required:
-          - code
-          - message
-          type:
-          - object
-          - 'null'
+        message:
+          description: Человекопонятное описание ошибки
+          example: something went wrong
+          title: Описание ошибки
+          type: string
+        status:
+          description: false – в случае возникновения ошибки
+          example: false
+          title: статус
+          type: boolean
+      required:
+      - code
+      - message
+      type:
+      - object
+      - 'null'
+    AnnouncementsPackage3PL:
+      properties:
+        id:
+          description: Идентификатор грузоместа (ШК грузоместа)
+          example: 000123456789
+          type: string
+        parcels:
+          description: Список посылок
+          items:
+            $ref: '#/components/schemas/AnnouncementsParcel3PL'
+          type: array
+        sealID:
+          description: Номер пломбы
+          example: 1234-5678
+          type: string
+      required:
+      - id
+      - parcels
       type: object
-  parameters:
-    authHeader:
-      description: Токен для авторизации
-      example: Bearer ACCESS_TOKEN
-      in: header
-      name: Authorization
-      required: true
+    TaggedSortingCenterRequest:
+      items:
+        $ref: '#/components/schemas/TaggedSortingCenter'
+      type: array
   responses:
-    DeliveryInternalServerError:
-      content:
-        application/json:
-          schema:
-            properties:
-              error:
-                $ref: '#/components/schemas/DeliveryError'
-            type: object
-      description: internal server error
     DeliveryForbidden:
       content:
         application/json:
@@ -1078,6 +1062,15 @@ components:
                 $ref: '#/components/schemas/DeliveryError4XX'
             type: object
       description: Ошибка авторизации. Например, нет прав для выполнения операции.
+    DeliveryInternalServerError:
+      content:
+        application/json:
+          schema:
+            properties:
+              error:
+                $ref: '#/components/schemas/DeliveryError'
+            type: object
+      description: internal server error
     DeliveryUnauthorized:
       content:
         application/json:
@@ -1087,6 +1080,13 @@ components:
                 $ref: '#/components/schemas/DeliveryError4XX'
             type: object
       description: Ошибка аутентификации. Например, некорректный токен.
+  parameters:
+    authHeader:
+      description: Токен для авторизации
+      example: Bearer ACCESS_TOKEN
+      in: header
+      name: Authorization
+      required: true
   securitySchemes:
     AuthorizationCode:
       description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)

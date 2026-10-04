@@ -169,13 +169,6 @@ components:
       - employeeId
       type: object
   parameters:
-    X-Oauth-Scopes:
-      description: Список зон доступа, полученных приложением
-      example: ah:access
-      in: header
-      name: X-Oauth-Scopes
-      schema:
-        type: string
     X-Oauth-Flow:
       description: Выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)
       example: authorization_code
@@ -190,6 +183,13 @@ components:
       required: true
       schema:
         example: Bearer ACCESS_TOKEN
+        type: string
+    X-Oauth-Scopes:
+      description: Список зон доступа, полученных приложением
+      example: ah:access
+      in: header
+      name: X-Oauth-Scopes
+      schema:
         type: string
   securitySchemes:
     AuthorizationCode:

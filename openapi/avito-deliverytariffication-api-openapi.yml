@@ -181,6 +181,183 @@ paths:
       - DeliveryTariffication
 components:
   schemas:
+    Schedule:
+      description: "Значения интервала времени в течение дня должны быть в диапазоне от `00:00:00` до `23:59:59`.\nИнтервал работы после полуночи необходимо переносить в следующий день недели.\n\nПравильно:\n  - `\"fri\": [\"09:00:00/12:00:00\", \"13:00:00/18:00:00\"]` – расписание в пятницу с 9 до 18 с перерывом с 12 до 13\n  - `\"sun\": []` – выходной в воскресенье\n\nНеправильно:\n  - `\"mon\": [\"09:00/18:00\"]` – не хватает значения секунд\n  - `\"tue\": [\"09:00:00/01:00:00\"]` – интервал заходит на следующий день\n  - `\"wen\": [\"09:00:00/00:00:00\"]` – максимальное значение границы должно быть `23:59:59`\n"
+      properties:
+        fri:
+          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
+        mon:
+          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
+        sat:
+          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
+        sun:
+          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
+        thu:
+          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
+        tue:
+          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
+        wed:
+          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
+      required:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+      - sun
+      type: object
+    DirectionV2:
+      properties:
+        providerDirectionId:
+          description: Идентификатор или человекопонятное название направления доставки на стороне службы доставки
+          example: 12-34
+          title: id направления доставки
+          type: string
+        tagFrom:
+          description: Тэг направления адресных объектов (ПВЗ) из которых доступна доставка на условиях приведенных в данном направление
+          example: moscow
+          title: Тэг направления "откуда"
+          type: string
+        tagTo:
+          description: Тэг направления адресных объектов (ПВЗ) в которые доступна доставка на условиях приведенных в данном направление
+          example: kazan
+          title: Список тэгов направлений "куда"
+          type: string
+        zones:
+          items:
+            $ref: '#/components/schemas/Zone'
+          title: Список возможных типов доставки и их условий
+          type: array
+      required:
+      - providerDirectionId
+      - tagFrom
+      - tagTo
+      - zones
+      type: object
+    Restriction:
+      properties:
+        dimensionalFactor:
+          description: "Используется при подсчете ограничения по объемному весу в пункте выдачи по формуле: Д * Ш * В / dimensionalFactor = объемный вес. \nЕсли задан maxDimensionalWeight, то dimensionalFactor должен быть обязательно передан.\n"
+          example: 1000
+          format: int32
+          maximum: 100000
+          minimum: 1000
+          type: integer
+        maxDeclaredCost:
+          description: "Максимальное ограничения по объявленной стоимости товара, который можно получить/отправить в пункте выдачи. Значение указывается в копейках.  \nЕсли объявленная стоимость товара будет больше этого значения, Авито посчитает невозможным отправку/получение товара через этот пункт\nи не даст покупателю выбрать его как точку доставки/сдачи посылки.\n"
+          example: 1000
+          format: int32
+          maximum: 15000000
+          minimum: 1000
+          type: integer
+        maxDimensionalWeight:
+          description: "Максимальное ограничения по объемному весу товара, который можно получить/отправить в пункте выдачи. \nЕсли объемный вес товара будет больше этого значения, Авито посчитает невозможным отправку/получение товара через этот пункт\nи не даст покупателю выбрать его как точку доставки/сдачи посылки.\n"
+          example: 1000
+          format: int32
+          maximum: 100000000000
+          minimum: 1000
+          type: integer
+        maxDimensions:
+          description: "Максимальные ограничения по габаритам товара, который можно получить/отправить в пункте выдачи. Значение указывается в сантиметрах.  \nЕсли габариты товара будет больше этого значения, Авито посчитает невозможным отправку/получение товара через этот пункт\nи не даст покупателю выбрать его как точку доставки/сдачи посылки.\n"
+          example:
+          - 200
+          - 50
+          - 30
+          items:
+            format: int32
+            maximum: 3000
+            minimum: 0
+            type: integer
+          type: array
+        maxWeight:
+          description: "Максимальный вес товара, который можно получить или отправить в пункте выдачи. Значение указывается в граммах.  \nЕсли вес товара будет больше этого значения, Авито посчитает невозможным отправку/получение товара через этот пункт \nи не даст покупателю выбрать его как точку доставки/сдачи посылки.\n"
+          example: 1000
+          format: int32
+          maximum: 100000000000
+          minimum: 1000
+          type: integer
+      required:
+      - maxWeight
+      - maxDimensions
+      - maxDeclaredCost
+      type: object
+    AddAreasRequest:
+      items:
+        $ref: '#/components/schemas/Area'
+      type: array
+    DeliveryTariffZone-ServiceDeliveryC2CWithStepMinCost:
+      description: Описание модели тарификации какой-либо из услуг доставки
+      properties:
+        calculationMechanic:
+          description: 'Механика расчета стоимости, при которой указывается диапазон с начальной стоимостью, шагом и ценой за шаг, а также минимальной ценой за доставку.
+
+            '
+          enum:
+          - WEIGHT_INTERVALS_WITH_MIN_COST
+          type: string
+        chargeableParameter:
+          description: 'При значении `WEIGHT` или `PAID_WEIGHT` работает такая логика подсчета цены: cost + ((Платный вес товара - minWeight) / step с округлением вверх) * costPerStep
+
+            '
+          enum:
+          - WEIGHT
+          - PAID_WEIGHT
+          type: string
+        minCost:
+          description: Минимальная цена за доставку в копейках. Применяется, если посчитанная цена за доставку на основе values оказалась ниже minCost
+          format: int32
+          type: integer
+        serviceName:
+          description: Услуга доставки
+          enum:
+          - DELIVERY
+          example: DELIVERY
+          type: string
+        values:
+          description: Список диапазонов весов с начальной стоимостью, шагом и ценой за шаг.
+          items:
+            properties:
+              cost:
+                description: Начальная стоимость доставки отправления в копейках, соответствующая диапазону весов от предыдущего значения maxWeight до текущего.
+                example: 20000
+                format: int32
+                type: integer
+              costPerStep:
+                description: Цена одного шага в копейках.
+                example: 5000
+                format: int32
+                type: integer
+              maxWeight:
+                description: Верхняя граница веса отправления (включительно) в граммах, до которой услуга доставки отправления не превышающего данный вес будет тарифицироваться.
+                example: 2000
+                format: int32
+                type: integer
+              minWeight:
+                description: Нижняя граница веса отправления в граммах, от которой отсчитывается количество шагов, цену которых необходимо добавить к начальной стоимости.
+                example: 1000
+                format: int32
+                type: integer
+              step:
+                description: Шаг веса в граммах, за который прибавляется значение `costPerStep` к конечной сумме доставки.
+                example: 100
+                format: int32
+                type: integer
+            type: object
+          type: array
+      required:
+      - serviceName
+      - calculationMechanic
+      - chargeableParameter
+      - minCost
+      - values
+      title: Доставка C2C с шаговой ценой и минимальной ценой
+      type: object
+    Delivery-directionTag:
+      description: "Тэг направления, к которому привязывается пункт_самовывоза / индекс (область доставки).\n<br />\nИспользуется для связки в направлениях тарифа. Поля:\n  - `directionTagFrom`\n  - `directionTagTo`\n"
+      example: moscow-2020-12-12
+      title: Тэг направления
+      type: string
     DeliveryTariffZone-ServiceDeliveryC2C:
       description: Описание модели тарификации какой-либо из услуг доставки
       discriminator:
@@ -219,71 +396,114 @@ components:
       - chargeableParameter
       title: Доставка C2C
       type: object
-    Schedule:
-      description: "Значения интервала времени в течение дня должны быть в диапазоне от `00:00:00` до `23:59:59`.\nИнтервал работы после полуночи необходимо переносить в следующий день недели.\n\nПравильно:\n  - `\"fri\": [\"09:00:00/12:00:00\", \"13:00:00/18:00:00\"]` – расписание в пятницу с 9 до 18 с перерывом с 12 до 13\n  - `\"sun\": []` – выходной в воскресенье\n\nНеправильно:\n  - `\"mon\": [\"09:00/18:00\"]` – не хватает значения секунд\n  - `\"tue\": [\"09:00:00/01:00:00\"]` – интервал заходит на следующий день\n  - `\"wen\": [\"09:00:00/00:00:00\"]` – максимальное значение границы должно быть `23:59:59`\n"
+    Delivery-zipCode:
+      example: '324654'
+      title: Почтовый индекс. Не может быть пустым. Должен содержать 6 цифр.
+      type: string
+    AddTariffRequestV2:
       properties:
-        fri:
-          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
-        mon:
-          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
-        sat:
-          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
-        sun:
-          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
-        thu:
-          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
-        tue:
-          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
-        wed:
-          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
-      required:
-      - mon
-      - tue
-      - wed
-      - thu
-      - fri
-      - sat
-      - sun
-      type: object
-    TermsZone:
-      properties:
-        deliveryProviderZoneId:
-          description: Id зоны сроков на стороне службы доставки
-          example: z42
+        deliveryProviderTariffId:
+          description: 'Идентификатор тарифного плана на стороне службы доставки - должен быть уникален.
+
+            '
+          example: FAST_FROM_2020-02-10
+          title: id тарифного плана на стороне службы доставки
           type: string
-        maxTerm:
-          description: Максимальный срок доставки в рабочих днях
-          example: 2
-          format: int32
-          type: integer
-        minTerm:
-          description: Минимальный срок доставки в рабочих днях
-          example: 1
-          format: int32
-          type: integer
+        directions:
+          items:
+            $ref: '#/components/schemas/DirectionV2'
+          title: Список направлений доставки в тарифном плане
+          type: array
         name:
-          description: Человекопонятное название зоны (будет использоваться в интерфейсной части)
-          example: зона z42
+          description: Человекопонятное название тарифного плана
+          example: Быстрый от 2020-02-10
+          title: Название тарифного плана
           type: string
-      type: object
-    DeliveryError:
-      properties:
-        code:
-          description: код ошибки
-          example: fail
-          title: код ошибки
+        tariffType:
+          description: 'Тип разделения тарифа по габаритам товаров.
+
+            - MGT - малогабаритные товары
+
+            - KGT - крупногабаритные товары
+
+            Если поле не указано, то тариф должен содержать оба типа разделения (для обратной совместимости со старыми тарифами).
+
+            '
+          enum:
+          - MGT
+          - KGT
+          title: Тип тарифа
           type: string
-        message:
-          description: Человекопонятное описание ошибки
-          example: something went wrong
-          title: описание ошибки
-          type: string
+        tariffZones:
+          items:
+            $ref: '#/components/schemas/TariffZone'
+          title: Список тарифных зон
+          type: array
+        termsZones:
+          items:
+            $ref: '#/components/schemas/TermsZone'
+          title: Список зон сроков
+          type: array
       required:
-      - code
-      - message
-      type:
-      - object
-      - 'null'
+      - name
+      - deliveryProviderTariffId
+      - directions
+      - tariffZones
+      - termsZones
+      type: object
+    Area:
+      properties:
+        deliverySchedule:
+          allOf:
+          - $ref: '#/components/schemas/cutoffAndSchedule'
+          - description: описание регулярного расписания по доставке заказов в текущей области
+        directionTag:
+          $ref: '#/components/schemas/Delivery-directionTag'
+        intakeSchedule:
+          allOf:
+          - $ref: '#/components/schemas/cutoffAndSchedule'
+          - description: описание регулярного расписания по доставке заказов в текущей области
+        providerAreaNumber:
+          $ref: '#/components/schemas/DeliveryProviderAreaNumber'
+        restrictions:
+          allOf:
+          - $ref: '#/components/schemas/Restriction'
+          - description: Максимальные ограничения для данной области для услуг доставки/забора заказа
+        services:
+          description: Доступные в области услуги. Забор (intake), доставка (delivery)
+          items:
+            enum:
+            - intake
+            - delivery
+            type: string
+          type: array
+        utcTimezone:
+          description: UTC зона области досатвки
+          example: 1
+          type: string
+        zipCodes:
+          description: список почтовых индексов входящих в данную зону доставки (область курьерской доставки/забора)
+          items:
+            $ref: '#/components/schemas/Delivery-zipCode'
+          minLength: 1
+          type: array
+      required:
+      - directionTag
+      - providerAreaNumber
+      - services
+      - utcTimezone
+      - zipCodes
+      - restrictions
+      type: object
+    DeliveryDayTimeIntervals:
+      description: 'Список интервалов времени внутри одного дня, в формате - `hh:mm:ss/hh:mm:ss`
+
+        Время локальное для региона загружаемых данных.
+
+        '
+      items:
+        $ref: '#/components/schemas/DeliveryDayTimeInterval'
+      type: array
     TariffZone:
       properties:
         deliveryProviderZoneId:
@@ -357,33 +577,60 @@ components:
       - deliveryProviderTariffZoneId
       - items
       type: object
-    DirectionV2:
+    AddTaskReply:
       properties:
-        providerDirectionId:
-          description: Идентификатор или человекопонятное название направления доставки на стороне службы доставки
-          example: 12-34
-          title: id направления доставки
+        data:
+          properties:
+            taskId:
+              description: "id задачи, по которому можно узнать результат выполнения операции используя \n[метод получения результата выполнения задачи](#operation/GetTask)\n"
+              format: int64
+              type: integer
+          type:
+          - object
+          - 'null'
+        error:
+          properties:
+            code:
+              description: код ошибки
+              example: fail
+              title: код ошибки
+              type: string
+            message:
+              description: человекопонятное описание ошибки
+              example: something went wrong
+              title: описание ошибки
+              type: string
+          required:
+          - code
+          - message
+          type:
+          - object
+          - 'null'
+      type: object
+    DeliveryDayTimeInterval:
+      description: Интервал времени внутри одного дня `hh:mm:ss/hh:mm:ss`
+      example: 09:00:00/12:00:00
+      type: string
+    TermsZone:
+      properties:
+        deliveryProviderZoneId:
+          description: Id зоны сроков на стороне службы доставки
+          example: z42
           type: string
-        tagFrom:
-          description: Тэг направления адресных объектов (ПВЗ) из которых доступна доставка на условиях приведенных в данном направление
-          example: moscow
-          title: Тэг направления "откуда"
+        maxTerm:
+          description: Максимальный срок доставки в рабочих днях
+          example: 2
+          format: int32
+          type: integer
+        minTerm:
+          description: Минимальный срок доставки в рабочих днях
+          example: 1
+          format: int32
+          type: integer
+        name:
+          description: Человекопонятное название зоны (будет использоваться в интерфейсной части)
+          example: зона z42
           type: string
-        tagTo:
-          description: Тэг направления адресных объектов (ПВЗ) в которые доступна доставка на условиях приведенных в данном направление
-          example: kazan
-          title: Список тэгов направлений "куда"
-          type: string
-        zones:
-          items:
-            $ref: '#/components/schemas/Zone'
-          title: Список возможных типов доставки и их условий
-          type: array
-      required:
-      - providerDirectionId
-      - tagFrom
-      - tagTo
-      - zones
       type: object
     cutoffAndSchedule:
       properties:
@@ -421,6 +668,65 @@ components:
       - cutoff
       - regularSchedule
       type: object
+    DeliveryTariffZone-ServiceInsuranceB2C:
+      description: Описание модели тарификации какой-либо из услуг доставки
+      properties:
+        calculationMechanic:
+          description: Механика расчета стоимости
+          enum:
+          - GAP_TO_PERCENT
+          type: string
+        chargeableParameter:
+          enum:
+          - DECLARED_COST
+          example: DECLARED_COST
+          type: string
+        serviceName:
+          enum:
+          - INSURANCE_B2C
+          example: INSURANCE_B2C
+          type: string
+        values:
+          description: Список значений для рассчета страховки.
+          items:
+            properties:
+              maxDeclaredCost:
+                description: Верхняя граница объявленной стоимости отправления (в копейках), до которой (не включительно) услуга страховки отправления не превышающего данную стоимость будет тарифицироваться в соответствии со значением указанным в поле percent
+                example: 10000
+                format: int32
+                type: integer
+              percent:
+                description: Процент от объявленной стоимости, по которому рассчитывается стоимость страховки отправления в диапазоне от предыдущего maxDeclaredCost до текущего
+                example: 1
+                format: float
+                type: number
+            type: object
+          type: array
+      required:
+      - serviceName
+      - calculationMechanic
+      - chargeableParameter
+      - values
+      title: Страховка B2C
+      type: object
+    DeliveryError:
+      properties:
+        code:
+          description: код ошибки
+          example: fail
+          title: код ошибки
+          type: string
+        message:
+          description: Человекопонятное описание ошибки
+          example: something went wrong
+          title: описание ошибки
+          type: string
+      required:
+      - code
+      - message
+      type:
+      - object
+      - 'null'
     DeliveryTariffZone-ServiceInsuranceC2C:
       description: Описание модели тарификации какой-либо из услуг доставки
       properties:
@@ -462,84 +768,32 @@ components:
       - values
       title: Страховка C2C
       type: object
-    DeliveryTariffZone-ServiceDeliveryC2CWithStepMinCost:
-      description: Описание модели тарификации какой-либо из услуг доставки
+    Zone:
       properties:
-        calculationMechanic:
-          description: 'Механика расчета стоимости, при которой указывается диапазон с начальной стоимостью, шагом и ценой за шаг, а также минимальной ценой за доставку.
-
-            '
-          enum:
-          - WEIGHT_INTERVALS_WITH_MIN_COST
+        tariffZoneId:
+          description: Идентификатор [тарифной зоны](#tag/AvitoDeliveryTariffZone); ссылается на один из объектов в поле tariffZones
+          example: t42
           type: string
-        chargeableParameter:
-          description: 'При значении `WEIGHT` или `PAID_WEIGHT` работает такая логика подсчета цены: cost + ((Платный вес товара - minWeight) / step с округлением вверх) * costPerStep
-
-            '
-          enum:
-          - WEIGHT
-          - PAID_WEIGHT
+        termsZoneId:
+          description: Идентификатор [зоны сроков](#tag/AvitoDeliveryTariffZone); ссылается на один из объектов в поле termsZones
+          example: z42
           type: string
-        minCost:
-          description: Минимальная цена за доставку в копейках. Применяется, если посчитанная цена за доставку на основе values оказалась ниже minCost
-          format: int32
-          type: integer
-        serviceName:
-          description: Услуга доставки
+        type:
+          description: "Буквенные обозначения типа являются DEPRECATED, используйте числовые обозначения.<br /><br />\nТип доставки, которую описывают данные условия\n<br />\n  `0` - `S-PUDO2S-PUDO`: Доставка из собственных ПВЗ в собственные ПВЗ. Обратите внимание, что если существует направление `тег 1` -> `тег 2` S-PUDO2S-PUDO, то **обязательно** должно существовать направление `тег 2` -> `тег 1` S-PUDO2S-PUDO для возможности возврата товара<br /><br />\n  `3` - `S-AREA2S-AREA`: Доставка из собственной области доставки в собственную область доставки<br /><br />\n  `4` - `S-PUDO2S-AREA`: Доставка из собственных ПВЗ в собственные области доставки<br /><br />\n  `5` - `S-PUDO-BTW-F-HUB`: Доставка из своего ПВЗ в чужой ХАБ на прямом потоке или из чужого ХАБа в свой ПВЗ на обратном потоке<br />\n                  (тут важно обратить внимание, что только одна зона может быть установлена для одного tagFrom, \n                  что эквивалентно тому, что один свой ПВЗ может быть связан только с одним ХАБом чужой службы доставки)<br /><br />\n  `6` - `S-HUB-BTW-S-PUDO`: Доставка из своего ХАБа в свой ПВЗ на прямом потоке или из своего ПВЗ в свой ХАБ на обратном потоке<br /><br />\n"
           enum:
-          - DELIVERY
-          example: DELIVERY
+          - '0'
+          - '3'
+          - '4'
+          - '5'
+          - '6'
+          - S-PUDO2S-PUDO
+          - S-AREA2S-AREA
+          - S-PUDO2S-AREA
+          - S-PUDO-BTW-F-HUB
+          - S-HUB-BTW-S-PUDO
+          example: '0'
           type: string
-        values:
-          description: Список диапазонов весов с начальной стоимостью, шагом и ценой за шаг.
-          items:
-            properties:
-              cost:
-                description: Начальная стоимость доставки отправления в копейках, соответствующая диапазону весов от предыдущего значения maxWeight до текущего.
-                example: 20000
-                format: int32
-                type: integer
-              costPerStep:
-                description: Цена одного шага в копейках.
-                example: 5000
-                format: int32
-                type: integer
-              maxWeight:
-                description: Верхняя граница веса отправления (включительно) в граммах, до которой услуга доставки отправления не превышающего данный вес будет тарифицироваться.
-                example: 2000
-                format: int32
-                type: integer
-              minWeight:
-                description: Нижняя граница веса отправления в граммах, от которой отсчитывается количество шагов, цену которых необходимо добавить к начальной стоимости.
-                example: 1000
-                format: int32
-                type: integer
-              step:
-                description: Шаг веса в граммах, за который прибавляется значение `costPerStep` к конечной сумме доставки.
-                example: 100
-                format: int32
-                type: integer
-            type: object
-          type: array
-      required:
-      - serviceName
-      - calculationMechanic
-      - chargeableParameter
-      - minCost
-      - values
-      title: Доставка C2C с шаговой ценой и минимальной ценой
       type: object
-    Delivery-directionTag:
-      description: "Тэг направления, к которому привязывается пункт_самовывоза / индекс (область доставки).\n<br />\nИспользуется для связки в направлениях тарифа. Поля:\n  - `directionTagFrom`\n  - `directionTagTo`\n"
-      example: moscow-2020-12-12
-      title: Тэг направления
-      type: string
-    DeliveryProviderAreaNumber:
-      description: "id области доставки на стороне службы доставки \n(передается при загрузке областей доставки и будет использоваться при создании заказа \nв качестве идентификатора адресного объекта забора/доставки отправления)\n"
-      example: 7989jgftyf-jkghtd
-      maxLength: 128
-      minLength: 1
-      type: string
     DeliveryTariffZone-ServiceDeliveryB2CWithStepMinCost:
       description: Описание модели тарификации какой-либо из услуг доставки
       properties:
@@ -607,213 +861,6 @@ components:
       - values
       title: Доставка B2C с шаговой ценой и минимальной ценой
       type: object
-    AddAreasRequest:
-      items:
-        $ref: '#/components/schemas/Area'
-      type: array
-    Delivery-zipCode:
-      example: '324654'
-      title: Почтовый индекс. Не может быть пустым. Должен содержать 6 цифр.
-      type: string
-    Restriction:
-      properties:
-        dimensionalFactor:
-          description: "Используется при подсчете ограничения по объемному весу в пункте выдачи по формуле: Д * Ш * В / dimensionalFactor = объемный вес. \nЕсли задан maxDimensionalWeight, то dimensionalFactor должен быть обязательно передан.\n"
-          example: 1000
-          format: int32
-          maximum: 100000
-          minimum: 1000
-          type: integer
-        maxDeclaredCost:
-          description: "Максимальное ограничения по объявленной стоимости товара, который можно получить/отправить в пункте выдачи. Значение указывается в копейках.  \nЕсли объявленная стоимость товара будет больше этого значения, Авито посчитает невозможным отправку/получение товара через этот пункт\nи не даст покупателю выбрать его как точку доставки/сдачи посылки.\n"
-          example: 1000
-          format: int32
-          maximum: 15000000
-          minimum: 1000
-          type: integer
-        maxDimensionalWeight:
-          description: "Максимальное ограничения по объемному весу товара, который можно получить/отправить в пункте выдачи. \nЕсли объемный вес товара будет больше этого значения, Авито посчитает невозможным отправку/получение товара через этот пункт\nи не даст покупателю выбрать его как точку доставки/сдачи посылки.\n"
-          example: 1000
-          format: int32
-          maximum: 100000000000
-          minimum: 1000
-          type: integer
-        maxDimensions:
-          description: "Максимальные ограничения по габаритам товара, который можно получить/отправить в пункте выдачи. Значение указывается в сантиметрах.  \nЕсли габариты товара будет больше этого значения, Авито посчитает невозможным отправку/получение товара через этот пункт\nи не даст покупателю выбрать его как точку доставки/сдачи посылки.\n"
-          example:
-          - 200
-          - 50
-          - 30
-          items:
-            format: int32
-            maximum: 3000
-            minimum: 0
-            type: integer
-          type: array
-        maxWeight:
-          description: "Максимальный вес товара, который можно получить или отправить в пункте выдачи. Значение указывается в граммах.  \nЕсли вес товара будет больше этого значения, Авито посчитает невозможным отправку/получение товара через этот пункт \nи не даст покупателю выбрать его как точку доставки/сдачи посылки.\n"
-          example: 1000
-          format: int32
-          maximum: 100000000000
-          minimum: 1000
-          type: integer
-      required:
-      - maxWeight
-      - maxDimensions
-      - maxDeclaredCost
-      type: object
-    Zone:
-      properties:
-        tariffZoneId:
-          description: Идентификатор [тарифной зоны](#tag/AvitoDeliveryTariffZone); ссылается на один из объектов в поле tariffZones
-          example: t42
-          type: string
-        termsZoneId:
-          description: Идентификатор [зоны сроков](#tag/AvitoDeliveryTariffZone); ссылается на один из объектов в поле termsZones
-          example: z42
-          type: string
-        type:
-          description: "Буквенные обозначения типа являются DEPRECATED, используйте числовые обозначения.<br /><br />\nТип доставки, которую описывают данные условия\n<br />\n  `0` - `S-PUDO2S-PUDO`: Доставка из собственных ПВЗ в собственные ПВЗ. Обратите внимание, что если существует направление `тег 1` -> `тег 2` S-PUDO2S-PUDO, то **обязательно** должно существовать направление `тег 2` -> `тег 1` S-PUDO2S-PUDO для возможности возврата товара<br /><br />\n  `3` - `S-AREA2S-AREA`: Доставка из собственной области доставки в собственную область доставки<br /><br />\n  `4` - `S-PUDO2S-AREA`: Доставка из собственных ПВЗ в собственные области доставки<br /><br />\n  `5` - `S-PUDO-BTW-F-HUB`: Доставка из своего ПВЗ в чужой ХАБ на прямом потоке или из чужого ХАБа в свой ПВЗ на обратном потоке<br />\n                  (тут важно обратить внимание, что только одна зона может быть установлена для одного tagFrom, \n                  что эквивалентно тому, что один свой ПВЗ может быть связан только с одним ХАБом чужой службы доставки)<br /><br />\n  `6` - `S-HUB-BTW-S-PUDO`: Доставка из своего ХАБа в свой ПВЗ на прямом потоке или из своего ПВЗ в свой ХАБ на обратном потоке<br /><br />\n"
-          enum:
-          - '0'
-          - '3'
-          - '4'
-          - '5'
-          - '6'
-          - S-PUDO2S-PUDO
-          - S-AREA2S-AREA
-          - S-PUDO2S-AREA
-          - S-PUDO-BTW-F-HUB
-          - S-HUB-BTW-S-PUDO
-          example: '0'
-          type: string
-      type: object
-    UpdateTermsReply:
-      properties:
-        data:
-          properties:
-            taskId:
-              format: int32
-              type: integer
-          required:
-          - taskId
-          type: object
-        error:
-          $ref: '#/components/schemas/DeliveryError'
-      type: object
-    UpdateTermsRequest:
-      description: Список зон сроков
-      items:
-        $ref: '#/components/schemas/TermsZone'
-      type: array
-    DeliveryDayTimeIntervals:
-      description: 'Список интервалов времени внутри одного дня, в формате - `hh:mm:ss/hh:mm:ss`
-
-        Время локальное для региона загружаемых данных.
-
-        '
-      items:
-        $ref: '#/components/schemas/DeliveryDayTimeInterval'
-      type: array
-    DeliveryTariffZone-ServiceDeliveryB2C:
-      description: Описание модели тарификации какой-либо из услуг доставки
-      discriminator:
-        mapping:
-          DIMENSIONS: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryB2CByDimension'
-          PAID_WEIGHT: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryB2CByPaidWeight'
-          WEIGHT: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryB2CByWeight'
-        propertyName: chargeableParameter
-      properties:
-        calculationMechanic:
-          description: 'Механика расчета стоимости <br />
-
-            `GAP_TO_COST` - Механизм расчета при которой в зависимости от параметров отправления подбирается минимально возможное значение параметра `chargeableParameter` и соответствующая ему стоимость доставки
-
-            '
-          enum:
-          - GAP_TO_COST
-          type: string
-        chargeableParameter:
-          description: "Параметр, относительно которого расчитывается стоимость доставки отправления\n<br />\n  `WEIGHT` - Расчет относительно веса отправления<br />\n  `DIMENSIONS` - Расчет относительно габаритов отправления<br />\n  `PAID_WEIGHT` - Расчет относительно платного веса (большего из реального и объемного весов)<br />\n"
-          enum:
-          - WEIGHT
-          - DIMENSIONS
-          - PAID_WEIGHT
-          example: WEIGHT
-          type: string
-        serviceName:
-          description: Услуга доставки B2C
-          enum:
-          - DELIVERY_B2C
-          example: DELIVERY_B2C
-          type: string
-      required:
-      - serviceName
-      - calculationMechanic
-      - chargeableParameter
-      title: Доставка B2C
-      type: object
-    DeliveryTariffZone-ServiceDeliveryB2CWithStepCost:
-      description: Описание модели тарификации какой-либо из услуг доставки
-      properties:
-        calculationMechanic:
-          description: 'Механика расчета стоимости, при которой указывается диапазон с начальной стоимостью, шагом и ценой за шаг.
-
-            '
-          enum:
-          - WEIGHT_INTERVALS
-          type: string
-        chargeableParameter:
-          description: 'При значении `WEIGHT` работает такая логика подсчета цены: cost + ((Вес товара - minWeight) / step с округлением вверх) * costPerStep
-
-            '
-          enum:
-          - WEIGHT
-          type: string
-        serviceName:
-          description: Услуга доставки
-          enum:
-          - DELIVERY_B2C
-          example: DELIVERY_B2C
-          type: string
-        values:
-          description: Список диапазонов весов с начальной стоимостью, шагом и ценой за шаг.
-          items:
-            properties:
-              cost:
-                description: Начальная стоимость доставки отправления в копейках, соответствующая диапазону весов от предыдущего значения maxWeight до текущего.
-                example: 20000
-                format: int32
-                type: integer
-              costPerStep:
-                description: Цена одного шага в копейках.
-                example: 5000
-                format: int32
-                type: integer
-              maxWeight:
-                description: Верхняя граница веса отправления (включительно) в граммах, до которой услуга доставки отправления не превышающего данный вес будет тарифицироваться.
-                example: 2000
-                format: int32
-                type: integer
-              minWeight:
-                description: Нижняя граница веса отправления в граммах, от которой отсчитывается количество шагов, цену которых необходимо добавить к начальной стоимости.
-                example: 1000
-                format: int32
-                type: integer
-              step:
-                description: Шаг веса в граммах, за который прибавляется значение `costPerStep` к конечной сумме доставки.
-                example: 100
-                format: int32
-                type: integer
-            type: object
-          type: array
-      required:
-      - serviceName
-      - calculationMechanic
-      - chargeableParameter
-      - values
-      title: Доставка B2C с шаговой ценой
-      type: object
     DeliveryTariffZone-ServiceDeliveryC2CWithStepCost:
       description: Описание модели тарификации какой-либо из услуг доставки
       properties:
@@ -875,60 +922,43 @@ components:
       - values
       title: Доставка C2C с шаговой ценой
       type: object
-    DeliveryDayTimeInterval:
-      description: Интервал времени внутри одного дня `hh:mm:ss/hh:mm:ss`
-      example: 09:00:00/12:00:00
-      type: string
-    AddTariffRequestV2:
+    DeliveryTariffZone-ServiceDeliveryB2C:
+      description: Описание модели тарификации какой-либо из услуг доставки
+      discriminator:
+        mapping:
+          DIMENSIONS: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryB2CByDimension'
+          PAID_WEIGHT: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryB2CByPaidWeight'
+          WEIGHT: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryB2CByWeight'
+        propertyName: chargeableParameter
       properties:
-        deliveryProviderTariffId:
-          description: 'Идентификатор тарифного плана на стороне службы доставки - должен быть уникален.
+        calculationMechanic:
+          description: 'Механика расчета стоимости <br />
 
-            '
-          example: FAST_FROM_2020-02-10
-          title: id тарифного плана на стороне службы доставки
-          type: string
-        directions:
-          items:
-            $ref: '#/components/schemas/DirectionV2'
-          title: Список направлений доставки в тарифном плане
-          type: array
-        name:
-          description: Человекопонятное название тарифного плана
-          example: Быстрый от 2020-02-10
-          title: Название тарифного плана
-          type: string
-        tariffType:
-          description: 'Тип разделения тарифа по габаритам товаров.
-
-            - MGT - малогабаритные товары
-
-            - KGT - крупногабаритные товары
-
-            Если поле не указано, то тариф должен содержать оба типа разделения (для обратной совместимости со старыми тарифами).
+            `GAP_TO_COST` - Механизм расчета при которой в зависимости от параметров отправления подбирается минимально возможное значение параметра `chargeableParameter` и соответствующая ему стоимость доставки
 
             '
           enum:
-          - MGT
-          - KGT
-          title: Тип тарифа
+          - GAP_TO_COST
           type: string
-        tariffZones:
-          items:
-            $ref: '#/components/schemas/TariffZone'
-          title: Список тарифных зон
-          type: array
-        termsZones:
-          items:
-            $ref: '#/components/schemas/TermsZone'
-          title: Список зон сроков
-          type: array
+        chargeableParameter:
+          description: "Параметр, относительно которого расчитывается стоимость доставки отправления\n<br />\n  `WEIGHT` - Расчет относительно веса отправления<br />\n  `DIMENSIONS` - Расчет относительно габаритов отправления<br />\n  `PAID_WEIGHT` - Расчет относительно платного веса (большего из реального и объемного весов)<br />\n"
+          enum:
+          - WEIGHT
+          - DIMENSIONS
+          - PAID_WEIGHT
+          example: WEIGHT
+          type: string
+        serviceName:
+          description: Услуга доставки B2C
+          enum:
+          - DELIVERY_B2C
+          example: DELIVERY_B2C
+          type: string
       required:
-      - name
-      - deliveryProviderTariffId
-      - directions
-      - tariffZones
-      - termsZones
+      - serviceName
+      - calculationMechanic
+      - chargeableParameter
+      title: Доставка B2C
       type: object
     AddTariffReply:
       properties:
@@ -944,47 +974,25 @@ components:
         error:
           $ref: '#/components/schemas/DeliveryError'
       type: object
-    DeliveryTariffZone-ServiceInsuranceB2C:
-      description: Описание модели тарификации какой-либо из услуг доставки
+    UpdateTermsReply:
       properties:
-        calculationMechanic:
-          description: Механика расчета стоимости
-          enum:
-          - GAP_TO_PERCENT
-          type: string
-        chargeableParameter:
-          enum:
-          - DECLARED_COST
-          example: DECLARED_COST
-          type: string
-        serviceName:
-          enum:
-          - INSURANCE_B2C
-          example: INSURANCE_B2C
-          type: string
-        values:
-          description: Список значений для рассчета страховки.
-          items:
-            properties:
-              maxDeclaredCost:
-                description: Верхняя граница объявленной стоимости отправления (в копейках), до которой (не включительно) услуга страховки отправления не превышающего данную стоимость будет тарифицироваться в соответствии со значением указанным в поле percent
-                example: 10000
-                format: int32
-                type: integer
-              percent:
-                description: Процент от объявленной стоимости, по которому рассчитывается стоимость страховки отправления в диапазоне от предыдущего maxDeclaredCost до текущего
-                example: 1
-                format: float
-                type: number
-            type: object
-          type: array
-      required:
-      - serviceName
-      - calculationMechanic
-      - chargeableParameter
-      - values
-      title: Страховка B2C
+        data:
+          properties:
+            taskId:
+              format: int32
+              type: integer
+          required:
+          - taskId
+          type: object
+        error:
+          $ref: '#/components/schemas/DeliveryError'
       type: object
+    DeliveryProviderAreaNumber:
+      description: "id области доставки на стороне службы доставки \n(передается при загрузке областей доставки и будет использоваться при создании заказа \nв качестве идентификатора адресного объекта забора/доставки отправления)\n"
+      example: 7989jgftyf-jkghtd
+      maxLength: 128
+      minLength: 1
+      type: string
     DeliveryError4XX:
       properties:
         message:
@@ -1003,97 +1011,73 @@ components:
       type:
       - object
       - 'null'
-    AddTaskReply:
+    UpdateTermsRequest:
+      description: Список зон сроков
+      items:
+        $ref: '#/components/schemas/TermsZone'
+      type: array
+    DeliveryTariffZone-ServiceDeliveryB2CWithStepCost:
+      description: Описание модели тарификации какой-либо из услуг доставки
       properties:
-        data:
-          properties:
-            taskId:
-              description: "id задачи, по которому можно узнать результат выполнения операции используя \n[метод получения результата выполнения задачи](#operation/GetTask)\n"
-              format: int64
-              type: integer
-          type:
-          - object
-          - 'null'
-        error:
-          properties:
-            code:
-              description: код ошибки
-              example: fail
-              title: код ошибки
-              type: string
-            message:
-              description: человекопонятное описание ошибки
-              example: something went wrong
-              title: описание ошибки
-              type: string
-          required:
-          - code
-          - message
-          type:
-          - object
-          - 'null'
-      type: object
-    Area:
-      properties:
-        deliverySchedule:
-          allOf:
-          - $ref: '#/components/schemas/cutoffAndSchedule'
-          - description: описание регулярного расписания по доставке заказов в текущей области
-        directionTag:
-          $ref: '#/components/schemas/Delivery-directionTag'
-        intakeSchedule:
-          allOf:
-          - $ref: '#/components/schemas/cutoffAndSchedule'
-          - description: описание регулярного расписания по доставке заказов в текущей области
-        providerAreaNumber:
-          $ref: '#/components/schemas/DeliveryProviderAreaNumber'
-        restrictions:
-          allOf:
-          - $ref: '#/components/schemas/Restriction'
-          - description: Максимальные ограничения для данной области для услуг доставки/забора заказа
-        services:
-          description: Доступные в области услуги. Забор (intake), доставка (delivery)
-          items:
-            enum:
-            - intake
-            - delivery
-            type: string
-          type: array
-        utcTimezone:
-          description: UTC зона области досатвки
-          example: 1
+        calculationMechanic:
+          description: 'Механика расчета стоимости, при которой указывается диапазон с начальной стоимостью, шагом и ценой за шаг.
+
+            '
+          enum:
+          - WEIGHT_INTERVALS
           type: string
-        zipCodes:
-          description: список почтовых индексов входящих в данную зону доставки (область курьерской доставки/забора)
+        chargeableParameter:
+          description: 'При значении `WEIGHT` работает такая логика подсчета цены: cost + ((Вес товара - minWeight) / step с округлением вверх) * costPerStep
+
+            '
+          enum:
+          - WEIGHT
+          type: string
+        serviceName:
+          description: Услуга доставки
+          enum:
+          - DELIVERY_B2C
+          example: DELIVERY_B2C
+          type: string
+        values:
+          description: Список диапазонов весов с начальной стоимостью, шагом и ценой за шаг.
           items:
-            $ref: '#/components/schemas/Delivery-zipCode'
-          minLength: 1
+            properties:
+              cost:
+                description: Начальная стоимость доставки отправления в копейках, соответствующая диапазону весов от предыдущего значения maxWeight до текущего.
+                example: 20000
+                format: int32
+                type: integer
+              costPerStep:
+                description: Цена одного шага в копейках.
+                example: 5000
+                format: int32
+                type: integer
+              maxWeight:
+                description: Верхняя граница веса отправления (включительно) в граммах, до которой услуга доставки отправления не превышающего данный вес будет тарифицироваться.
+                example: 2000
+                format: int32
+                type: integer
+              minWeight:
+                description: Нижняя граница веса отправления в граммах, от которой отсчитывается количество шагов, цену которых необходимо добавить к начальной стоимости.
+                example: 1000
+                format: int32
+                type: integer
+              step:
+                description: Шаг веса в граммах, за который прибавляется значение `costPerStep` к конечной сумме доставки.
+                example: 100
+                format: int32
+                type: integer
+            type: object
           type: array
       required:
-      - directionTag
-      - providerAreaNumber
-      - services
-      - utcTimezone
-      - zipCodes
-      - restrictions
+      - serviceName
+      - calculationMechanic
+      - chargeableParameter
+      - values
+      title: Доставка B2C с шаговой ценой
       type: object
-  parameters:
-    authHeader:
-      description: Токен для авторизации
-      example: Bearer ACCESS_TOKEN
-      in: header
-      name: Authorization
-      required: true
   responses:
-    DeliveryInternalServerError:
-      content:
-        application/json:
-          schema:
-            properties:
-              error:
-                $ref: '#/components/schemas/DeliveryError'
-            type: object
-      description: internal server error
     DeliveryForbidden:
       content:
         application/json:
@@ -1103,6 +1087,15 @@ components:
                 $ref: '#/components/schemas/DeliveryError4XX'
             type: object
       description: Ошибка авторизации. Например, нет прав для выполнения операции.
+    DeliveryInternalServerError:
+      content:
+        application/json:
+          schema:
+            properties:
+              error:
+                $ref: '#/components/schemas/DeliveryError'
+            type: object
+      description: internal server error
     DeliveryUnauthorized:
       content:
         application/json:
@@ -1112,6 +1105,13 @@ components:
                 $ref: '#/components/schemas/DeliveryError4XX'
             type: object
       description: Ошибка аутентификации. Например, некорректный токен.
+  parameters:
+    authHeader:
+      description: Токен для авторизации
+      example: Bearer ACCESS_TOKEN
+      in: header
+      name: Authorization
+      required: true
   securitySchemes:
     AuthorizationCode:
       description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)

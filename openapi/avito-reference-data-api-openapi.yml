@@ -100,6 +100,15 @@ paths:
       x-trailing-slash: true
 components:
   schemas:
+    GetReportsListResponseDataAutoteka:
+      properties:
+        result:
+          items:
+            $ref: '#/components/schemas/ReportItem_autoteka'
+          type: array
+      required:
+      - result
+      type: object
     PackageAutoteka:
       properties:
         createdTime:
@@ -126,69 +135,6 @@ components:
       - reportsCnt
       - reportsCntRemain
       type: object
-    GetReportsListResponseDataAutoteka:
-      properties:
-        result:
-          items:
-            $ref: '#/components/schemas/ReportItem_autoteka'
-          type: array
-      required:
-      - result
-      type: object
-    validatingError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 400
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Validation error
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    forbiddenError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 403
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Forbidden
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    internalError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 500
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Service is temporary unavailable
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
     ReportItem_autoteka:
       properties:
         createdAt:
@@ -209,15 +155,69 @@ components:
       - createdAt
       - reportId
       type: object
-    GetActivePackageResponseBodyAutoteka:
+    forbiddenError:
       properties:
-        result:
-          $ref: '#/components/schemas/GetActivePackageResponseDataAutoteka'
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 403
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Forbidden
+              type: string
+          required:
+          - code
+          - message
+          type: object
       type: object
     GetActivePackageResponseDataAutoteka:
       properties:
         package:
           $ref: '#/components/schemas/PackageAutoteka'
+      type: object
+    validatingError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 400
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Validation error
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    GetActivePackageResponseBodyAutoteka:
+      properties:
+        result:
+          $ref: '#/components/schemas/GetActivePackageResponseDataAutoteka'
+      type: object
+    internalError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 500
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Service is temporary unavailable
+              type: string
+          required:
+          - code
+          - message
+          type: object
       type: object
   parameters:
     authHeader:

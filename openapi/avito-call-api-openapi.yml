@@ -212,17 +212,35 @@ paths:
       - Call
 components:
   schemas:
-    tooManyRequestsError:
+    CreateComplaint:
+      properties:
+        callId:
+          description: Идентификатор звонка
+          format: int64
+          type: integer
+        message:
+          description: Текст жалобы
+          type: string
+      required:
+      - callId
+      - message
+      type: object
+    serviceError:
       properties:
         error:
           properties:
             code:
               description: Код ошибки
-              example: 429
+              example: 500
               format: int32
               type: integer
+            message:
+              description: Описание ошибки
+              example: Error while processing request. Please, contact support
+              type: string
           required:
           - code
+          - message
           type: object
       type: object
     CpaError:
@@ -251,18 +269,23 @@ components:
           example: ЦД недоступно для обжалования
           type: string
       type: object
-    CreateComplaint:
+    notFoundError:
       properties:
-        callId:
-          description: Идентификатор звонка
-          format: int64
-          type: integer
-        message:
-          description: Текст жалобы
-          type: string
-      required:
-      - callId
-      - message
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 404
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Not found
+              type: string
+          required:
+          - code
+          - message
+          type: object
       type: object
     CallById:
       properties:
@@ -272,6 +295,19 @@ components:
           type: integer
       required:
       - callId
+      type: object
+    tooManyRequestsError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 429
+              format: int32
+              type: integer
+          required:
+          - code
+          type: object
       type: object
     CallV2:
       properties:
@@ -344,42 +380,6 @@ components:
           example: '0.0109999'
           type: number
       type: object
-    notFoundError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 404
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Not found
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    serviceError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 500
-              format: int32
-              type: integer
-            message:
-              description: Описание ошибки
-              example: Error while processing request. Please, contact support
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
     CallsByTime:
       properties:
         dateTimeFrom:
@@ -402,15 +402,18 @@ components:
       - dateTimeFrom
       - limit
       type: object
-  parameters:
-    sourceHeader:
-      description: Имя сервиса, отправляющего запрос
-      in: header
-      name: X-Source
-      required: true
+  headers:
+    X-RateLimit-Remaining:
+      description: Доступное количество запросов в текущем временном окне
       schema:
-        example: someName
-        type: string
+        format: int32
+        type: integer
+    X-RateLimit-Limit:
+      description: Количество запросов в минуту
+      schema:
+        format: int32
+        type: integer
+  parameters:
     authHeader:
       description: Токен для авторизации
       in: header
@@ -419,17 +422,14 @@ components:
       schema:
         example: Bearer ACCESS_TOKEN
         type: string
-  headers:
-    X-RateLimit-Limit:
-      description: Количество запросов в минуту
+    sourceHeader:
+      description: Имя сервиса, отправляющего запрос
+      in: header
+      name: X-Source
+      required: true
       schema:
-        format: int32
-        type: integer
-    X-RateLimit-Remaining:
-      description: Доступное количество запросов в текущем временном окне
-      schema:
-        format: int32
-        type: integer
+        example: someName
+        type: string
   securitySchemes:
     AuthorizationCode:
       description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)

@@ -87,6 +87,27 @@ paths:
       tags:
       - CheckAhUserV2
 components:
+  parameters:
+    XIsEmployee:
+      deprecated: true
+      description: 'Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании.
+
+        '
+      in: header
+      name: X-Is-Employee
+      schema:
+        type:
+        - boolean
+        - 'null'
+    XEmployeeOf:
+      description: Идентификатор компании, от имени которой работает сотрудник.
+      in: header
+      name: X-Employee-Of
+      schema:
+        minimum: 1
+        type:
+        - integer
+        - 'null'
   schemas:
     OpenApiError:
       properties:
@@ -111,27 +132,6 @@ components:
       required:
       - error
       type: object
-  parameters:
-    XEmployeeOf:
-      description: Идентификатор компании, от имени которой работает сотрудник.
-      in: header
-      name: X-Employee-Of
-      schema:
-        minimum: 1
-        type:
-        - integer
-        - 'null'
-    XIsEmployee:
-      deprecated: true
-      description: 'Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании.
-
-        '
-      in: header
-      name: X-Is-Employee
-      schema:
-        type:
-        - boolean
-        - 'null'
   securitySchemes:
     AuthorizationCode:
       description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)

@@ -198,10 +198,6 @@ paths:
       - TerminalManagement
 components:
   schemas:
-    AddTerminalsRequest:
-      items:
-        $ref: '#/components/schemas/Terminal'
-      type: array
     Schedule:
       description: "Значения интервала времени в течение дня должны быть в диапазоне от `00:00:00` до `23:59:59`.\nИнтервал работы после полуночи необходимо переносить в следующий день недели.\n\nПравильно:\n  - `\"fri\": [\"09:00:00/12:00:00\", \"13:00:00/18:00:00\"]` – расписание в пятницу с 9 до 18 с перерывом с 12 до 13\n  - `\"sun\": []` – выходной в воскресенье\n\nНеправильно:\n  - `\"mon\": [\"09:00/18:00\"]` – не хватает значения секунд\n  - `\"tue\": [\"09:00:00/01:00:00\"]` – интервал заходит на следующий день\n  - `\"wen\": [\"09:00:00/00:00:00\"]` – максимальное значение границы должно быть `23:59:59`\n"
       properties:
@@ -228,120 +224,52 @@ components:
       - sat
       - sun
       type: object
-    DeliveryError:
+    Restriction:
       properties:
-        code:
-          description: код ошибки
-          example: fail
-          title: код ошибки
-          type: string
-        message:
-          description: Человекопонятное описание ошибки
-          example: something went wrong
-          title: описание ошибки
-          type: string
+        dimensionalFactor:
+          description: "Используется при подсчете ограничения по объемному весу в пункте выдачи по формуле: Д * Ш * В / dimensionalFactor = объемный вес. \nЕсли задан maxDimensionalWeight, то dimensionalFactor должен быть обязательно передан.\n"
+          example: 1000
+          format: int32
+          maximum: 100000
+          minimum: 1000
+          type: integer
+        maxDeclaredCost:
+          description: "Максимальное ограничения по объявленной стоимости товара, который можно получить/отправить в пункте выдачи. Значение указывается в копейках.  \nЕсли объявленная стоимость товара будет больше этого значения, Авито посчитает невозможным отправку/получение товара через этот пункт\nи не даст покупателю выбрать его как точку доставки/сдачи посылки.\n"
+          example: 1000
+          format: int32
+          maximum: 15000000
+          minimum: 1000
+          type: integer
+        maxDimensionalWeight:
+          description: "Максимальное ограничения по объемному весу товара, который можно получить/отправить в пункте выдачи. \nЕсли объемный вес товара будет больше этого значения, Авито посчитает невозможным отправку/получение товара через этот пункт\nи не даст покупателю выбрать его как точку доставки/сдачи посылки.\n"
+          example: 1000
+          format: int32
+          maximum: 100000000000
+          minimum: 1000
+          type: integer
+        maxDimensions:
+          description: "Максимальные ограничения по габаритам товара, который можно получить/отправить в пункте выдачи. Значение указывается в сантиметрах.  \nЕсли габариты товара будет больше этого значения, Авито посчитает невозможным отправку/получение товара через этот пункт\nи не даст покупателю выбрать его как точку доставки/сдачи посылки.\n"
+          example:
+          - 200
+          - 50
+          - 30
+          items:
+            format: int32
+            maximum: 3000
+            minimum: 0
+            type: integer
+          type: array
+        maxWeight:
+          description: "Максимальный вес товара, который можно получить или отправить в пункте выдачи. Значение указывается в граммах.  \nЕсли вес товара будет больше этого значения, Авито посчитает невозможным отправку/получение товара через этот пункт \nи не даст покупателю выбрать его как точку доставки/сдачи посылки.\n"
+          example: 1000
+          format: int32
+          maximum: 100000000000
+          minimum: 1000
+          type: integer
       required:
-      - code
-      - message
-      type:
-      - object
-      - 'null'
-    TerminalsTaskResult:
-      description: 'Результат загрузки терминалов.
-
-
-        При статусе `success` заполняются поля `upserted`, `deleted`, `total`.
-
-
-        При статусе `pending_approval` заполняются поля `diff_added`, `diff_deleted`, `diff_modified`, `diff_critical`, `diff_total`
-
-        с информацией об изменениях, которые требуют одобрения.
-
-        '
-      properties:
-        count:
-          deprecated: true
-          description: Количество терминалов, которые были успешно загружены
-          type: string
-        deleted:
-          description: Количество удаленных терминалов
-          type: string
-        diff_added:
-          description: Количество добавленных терминалов (заполняется при статусе pending_approval)
-          type:
-          - string
-          - 'null'
-        diff_critical:
-          description: Количество критичных изменений (заполняется при статусе pending_approval)
-          type:
-          - string
-          - 'null'
-        diff_deleted:
-          description: Количество удалённых терминалов (заполняется при статусе pending_approval)
-          type:
-          - string
-          - 'null'
-        diff_modified:
-          description: Количество изменённых терминалов (заполняется при статусе pending_approval)
-          type:
-          - string
-          - 'null'
-        diff_total:
-          description: Общее количество терминалов (заполняется при статусе pending_approval)
-          type:
-          - string
-          - 'null'
-        total:
-          description: Количество терминалов активных на тарифе
-          type: string
-        upserted:
-          description: Количество добавленных или обновленных терминалов
-          type: string
-      title: Загрузка терминалов
-      type: object
-    AreasCustomScheduleTaskResult:
-      properties:
-        uploaded:
-          type: string
-      required:
-      - uploaded
-      title: Кастомное расписание областей доставки
-      type: object
-    TariffTaskResult:
-      properties:
-        tariffId:
-          description: id добавленного тарифа
-          type: string
-      required:
-      - tariffId
-      title: Загрузка тарифа
-      type: object
-    SortingCentersTaskResult:
-      properties:
-        count:
-          description: Количество успешно загруженных сортировочных центров
-          type: string
-      required:
-      - count
-      title: Загрузка сортировочных центров
-      type: object
-    DeliveryProviderAreaNumber:
-      description: "id области доставки на стороне службы доставки \n(передается при загрузке областей доставки и будет использоваться при создании заказа \nв качестве идентификатора адресного объекта забора/доставки отправления)\n"
-      example: 7989jgftyf-jkghtd
-      maxLength: 128
-      minLength: 1
-      type: string
-    Delivery-directionTag:
-      description: "Тэг направления, к которому привязывается пункт_самовывоза / индекс (область доставки).\n<br />\nИспользуется для связки в направлениях тарифа. Поля:\n  - `directionTagFrom`\n  - `directionTagTo`\n"
-      example: moscow-2020-12-12
-      title: Тэг направления
-      type: string
-    GetTaskReply:
-      properties:
-        data:
-          $ref: '#/components/schemas/GetTaskData'
-        error:
-          $ref: '#/components/schemas/DeliveryError'
+      - maxWeight
+      - maxDimensions
+      - maxDeclaredCost
       type: object
     AddTerminalsReply:
       properties:
@@ -364,20 +292,126 @@ components:
         pattern: ^7[0-9]{10}$
         type: string
       type: array
-    DeliveryIntervalInDate:
-      description: дата и вреся доставки/забора (дата и время локальные, таймзона соотвествует таймзоне, в которой происходит событие)
+    Address:
       properties:
-        date:
-          description: дата доставки/забора
-          example: '2006-01-04'
-          format: date
+        addressRow:
+          description: Человекочитаемое представление адреса
+          example: Челябинская обл, Магнитогорск, Герцена ул, д.6
           type: string
-        intervals:
-          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
+        building:
+          description: Строение
+          example: '2'
+          type: string
+        country:
+          description: Страна
+          example: Российская Федерация
+          type: string
+        fias:
+          description: ФИАС идентификатор населенного пункта, в котором расположен ПВЗ. Не может быть пустым. Должен иметь формат UUID.
+          example: 0c5b2444-70a0-4932-980c-b4dc0d3f02b5
+          type: string
+        floor:
+          description: Этаж
+          example: 1
+          type: integer
+        house:
+          description: Дом
+          example: 2
+          type: string
+        housing:
+          description: Корпус
+          example: 4
+          type: string
+        lat:
+          description: Географическая широта, в градусах.
+          example: 52.3295026
+          maximum: 81.8
+          minimum: 41.1
+          type: number
+        lng:
+          description: Географическая долгота, в градусах.
+          example: 55.697951
+          maximum: 180
+          minimum: -180
+          type: number
+        locality:
+          description: Населенный пункт. Не может быть пустым.
+          example: Набережные Челны
+          type: string
+        localityType:
+          description: Тип населенного пункта
+          example: город
+          type: string
+        porch:
+          description: Подъезд
+          example: 3
+          type: string
+        region:
+          description: "Субъект Российской Федерации.  \nВозможные типы субъектов: республики, края, области, города федерального значения, автономные области и автономные округа\n"
+          example: Республика Татарстан
+          type: string
+        room:
+          description: Квартира (офис).
+          example: 4
+          type: string
+        street:
+          description: Улица
+          example: ленина
+          type: string
+        subRegion:
+          description: Субрегион
+          example: Набережные Челны
+          type: string
+        subRegionType:
+          description: Тип субрегиона - муниципальный район/городской округ
+          example: городской округ
+          type: string
+        zipCode:
+          $ref: '#/components/schemas/Delivery-zipCode'
       required:
-      - date
-      - intervals
+      - conuntry
+      - region
+      - locality
+      - fias
+      - zipCode
+      - lat
+      - lng
       type: object
+    Delivery-directionTag:
+      description: "Тэг направления, к которому привязывается пункт_самовывоза / индекс (область доставки).\n<br />\nИспользуется для связки в направлениях тарифа. Поля:\n  - `directionTagFrom`\n  - `directionTagTo`\n"
+      example: moscow-2020-12-12
+      title: Тэг направления
+      type: string
+    SortingCentersTaskResult:
+      properties:
+        count:
+          description: Количество успешно загруженных сортировочных центров
+          type: string
+      required:
+      - count
+      title: Загрузка сортировочных центров
+      type: object
+    TariffTaskResult:
+      properties:
+        tariffId:
+          description: id добавленного тарифа
+          type: string
+      required:
+      - tariffId
+      title: Загрузка тарифа
+      type: object
+    AreasCustomScheduleTaskResult:
+      properties:
+        uploaded:
+          type: string
+      required:
+      - uploaded
+      title: Кастомное расписание областей доставки
+      type: object
+    Delivery-zipCode:
+      example: '324654'
+      title: Почтовый индекс. Не может быть пустым. Должен содержать 6 цифр.
+      type: string
     Terminal:
       properties:
         address:
@@ -489,67 +523,19 @@ components:
       - schedule
       - restriction
       type: object
-    Delivery-zipCode:
-      example: '324654'
-      title: Почтовый индекс. Не может быть пустым. Должен содержать 6 цифр.
-      type: string
-    Restriction:
+    DeliveryIntervalInDate:
+      description: дата и вреся доставки/забора (дата и время локальные, таймзона соотвествует таймзоне, в которой происходит событие)
       properties:
-        dimensionalFactor:
-          description: "Используется при подсчете ограничения по объемному весу в пункте выдачи по формуле: Д * Ш * В / dimensionalFactor = объемный вес. \nЕсли задан maxDimensionalWeight, то dimensionalFactor должен быть обязательно передан.\n"
-          example: 1000
-          format: int32
-          maximum: 100000
-          minimum: 1000
-          type: integer
-        maxDeclaredCost:
-          description: "Максимальное ограничения по объявленной стоимости товара, который можно получить/отправить в пункте выдачи. Значение указывается в копейках.  \nЕсли объявленная стоимость товара будет больше этого значения, Авито посчитает невозможным отправку/получение товара через этот пункт\nи не даст покупателю выбрать его как точку доставки/сдачи посылки.\n"
-          example: 1000
-          format: int32
-          maximum: 15000000
-          minimum: 1000
-          type: integer
-        maxDimensionalWeight:
-          description: "Максимальное ограничения по объемному весу товара, который можно получить/отправить в пункте выдачи. \nЕсли объемный вес товара будет больше этого значения, Авито посчитает невозможным отправку/получение товара через этот пункт\nи не даст покупателю выбрать его как точку доставки/сдачи посылки.\n"
-          example: 1000
-          format: int32
-          maximum: 100000000000
-          minimum: 1000
-          type: integer
-        maxDimensions:
-          description: "Максимальные ограничения по габаритам товара, который можно получить/отправить в пункте выдачи. Значение указывается в сантиметрах.  \nЕсли габариты товара будет больше этого значения, Авито посчитает невозможным отправку/получение товара через этот пункт\nи не даст покупателю выбрать его как точку доставки/сдачи посылки.\n"
-          example:
-          - 200
-          - 50
-          - 30
-          items:
-            format: int32
-            maximum: 3000
-            minimum: 0
-            type: integer
-          type: array
-        maxWeight:
-          description: "Максимальный вес товара, который можно получить или отправить в пункте выдачи. Значение указывается в граммах.  \nЕсли вес товара будет больше этого значения, Авито посчитает невозможным отправку/получение товара через этот пункт \nи не даст покупателю выбрать его как точку доставки/сдачи посылки.\n"
-          example: 1000
-          format: int32
-          maximum: 100000000000
-          minimum: 1000
-          type: integer
-      required:
-      - maxWeight
-      - maxDimensions
-      - maxDeclaredCost
-      type: object
-    AreasTaskResult:
-      properties:
-        edited:
+        date:
+          description: дата доставки/забора
+          example: '2006-01-04'
+          format: date
           type: string
-        incoming:
-          type: string
+        intervals:
+          $ref: '#/components/schemas/DeliveryDayTimeIntervals'
       required:
-      - edited
-      - incoming
-      title: Области доставки
+      - date
+      - intervals
       type: object
     DeliveryDayTimeIntervals:
       description: 'Список интервалов времени внутри одного дня, в формате - `hh:mm:ss/hh:mm:ss`
@@ -569,150 +555,16 @@ components:
       - count
       title: Привязка тегов к сортировочным центрам
       type: object
-    DeliveryDayTimeInterval:
-      description: Интервал времени внутри одного дня `hh:mm:ss/hh:mm:ss`
-      example: 09:00:00/12:00:00
-      type: string
-    customAreaScheduleRequest:
-      description: "Список уникальных кастомных расписаний. \nОбратите внимание, повторная заливка расписания перезаписывает старое для одного и того же сочетания область, дата, услуга.\n"
-      items:
-        $ref: '#/components/schemas/customAreaScheduleRequestObject'
-      minItems: 1
-      type: array
-    DeliveryError4XX:
+    AreasTaskResult:
       properties:
-        message:
-          description: Человекопонятное описание ошибки
-          example: something went wrong
-          title: Описание ошибки
+        edited:
           type: string
-        status:
-          description: false – в случае возникновения ошибки
-          example: false
-          title: статус
-          type: boolean
+        incoming:
+          type: string
       required:
-      - code
-      - message
-      type:
-      - object
-      - 'null'
-    Address:
-      properties:
-        addressRow:
-          description: Человекочитаемое представление адреса
-          example: Челябинская обл, Магнитогорск, Герцена ул, д.6
-          type: string
-        building:
-          description: Строение
-          example: '2'
-          type: string
-        country:
-          description: Страна
-          example: Российская Федерация
-          type: string
-        fias:
-          description: ФИАС идентификатор населенного пункта, в котором расположен ПВЗ. Не может быть пустым. Должен иметь формат UUID.
-          example: 0c5b2444-70a0-4932-980c-b4dc0d3f02b5
-          type: string
-        floor:
-          description: Этаж
-          example: 1
-          type: integer
-        house:
-          description: Дом
-          example: 2
-          type: string
-        housing:
-          description: Корпус
-          example: 4
-          type: string
-        lat:
-          description: Географическая широта, в градусах.
-          example: 52.3295026
-          maximum: 81.8
-          minimum: 41.1
-          type: number
-        lng:
-          description: Географическая долгота, в градусах.
-          example: 55.697951
-          maximum: 180
-          minimum: -180
-          type: number
-        locality:
-          description: Населенный пункт. Не может быть пустым.
-          example: Набережные Челны
-          type: string
-        localityType:
-          description: Тип населенного пункта
-          example: город
-          type: string
-        porch:
-          description: Подъезд
-          example: 3
-          type: string
-        region:
-          description: "Субъект Российской Федерации.  \nВозможные типы субъектов: республики, края, области, города федерального значения, автономные области и автономные округа\n"
-          example: Республика Татарстан
-          type: string
-        room:
-          description: Квартира (офис).
-          example: 4
-          type: string
-        street:
-          description: Улица
-          example: ленина
-          type: string
-        subRegion:
-          description: Субрегион
-          example: Набережные Челны
-          type: string
-        subRegionType:
-          description: Тип субрегиона - муниципальный район/городской округ
-          example: городской округ
-          type: string
-        zipCode:
-          $ref: '#/components/schemas/Delivery-zipCode'
-      required:
-      - conuntry
-      - region
-      - locality
-      - fias
-      - zipCode
-      - lat
-      - lng
-      type: object
-    GetTaskData:
-      properties:
-        errors:
-          items:
-            $ref: '#/components/schemas/DeliveryError'
-          type:
-          - array
-          - 'null'
-        result:
-          oneOf:
-          - $ref: '#/components/schemas/AreasTaskResult'
-          - $ref: '#/components/schemas/AreasCustomScheduleTaskResult'
-          - $ref: '#/components/schemas/TerminalsTaskResult'
-          - $ref: '#/components/schemas/TariffTaskResult'
-          - $ref: '#/components/schemas/SortingCentersTaskResult'
-          - $ref: '#/components/schemas/SortingCentersTagsTaskResult'
-        state:
-          description: Статус задачи
-          enum:
-          - processing
-          - success
-          - failed
-          - pending_approval
-          - declined
-          type: string
-        taskId:
-          format: int32
-          type: integer
-      required:
-      - taskId
-      - state
+      - edited
+      - incoming
+      title: Области доставки
       type: object
     AddTaskReply:
       properties:
@@ -743,6 +595,63 @@ components:
           type:
           - object
           - 'null'
+      type: object
+    DeliveryDayTimeInterval:
+      description: Интервал времени внутри одного дня `hh:mm:ss/hh:mm:ss`
+      example: 09:00:00/12:00:00
+      type: string
+    TerminalsTaskResult:
+      description: 'Результат загрузки терминалов.
+
+
+        При статусе `success` заполняются поля `upserted`, `deleted`, `total`.
+
+
+        При статусе `pending_approval` заполняются поля `diff_added`, `diff_deleted`, `diff_modified`, `diff_critical`, `diff_total`
+
+        с информацией об изменениях, которые требуют одобрения.
+
+        '
+      properties:
+        count:
+          deprecated: true
+          description: Количество терминалов, которые были успешно загружены
+          type: string
+        deleted:
+          description: Количество удаленных терминалов
+          type: string
+        diff_added:
+          description: Количество добавленных терминалов (заполняется при статусе pending_approval)
+          type:
+          - string
+          - 'null'
+        diff_critical:
+          description: Количество критичных изменений (заполняется при статусе pending_approval)
+          type:
+          - string
+          - 'null'
+        diff_deleted:
+          description: Количество удалённых терминалов (заполняется при статусе pending_approval)
+          type:
+          - string
+          - 'null'
+        diff_modified:
+          description: Количество изменённых терминалов (заполняется при статусе pending_approval)
+          type:
+          - string
+          - 'null'
+        diff_total:
+          description: Общее количество терминалов (заполняется при статусе pending_approval)
+          type:
+          - string
+          - 'null'
+        total:
+          description: Количество терминалов активных на тарифе
+          type: string
+        upserted:
+          description: Количество добавленных или обновленных терминалов
+          type: string
+      title: Загрузка терминалов
       type: object
     customAreaScheduleRequestObject:
       properties:
@@ -778,23 +687,98 @@ components:
       - services
       - customSchedule
       type: object
-  parameters:
-    authHeader:
-      description: Токен для авторизации
-      example: Bearer ACCESS_TOKEN
-      in: header
-      name: Authorization
-      required: true
+    DeliveryError:
+      properties:
+        code:
+          description: код ошибки
+          example: fail
+          title: код ошибки
+          type: string
+        message:
+          description: Человекопонятное описание ошибки
+          example: something went wrong
+          title: описание ошибки
+          type: string
+      required:
+      - code
+      - message
+      type:
+      - object
+      - 'null'
+    AddTerminalsRequest:
+      items:
+        $ref: '#/components/schemas/Terminal'
+      type: array
+    customAreaScheduleRequest:
+      description: "Список уникальных кастомных расписаний. \nОбратите внимание, повторная заливка расписания перезаписывает старое для одного и того же сочетания область, дата, услуга.\n"
+      items:
+        $ref: '#/components/schemas/customAreaScheduleRequestObject'
+      minItems: 1
+      type: array
+    GetTaskReply:
+      properties:
+        data:
+          $ref: '#/components/schemas/GetTaskData'
+        error:
+          $ref: '#/components/schemas/DeliveryError'
+      type: object
+    GetTaskData:
+      properties:
+        errors:
+          items:
+            $ref: '#/components/schemas/DeliveryError'
+          type:
+          - array
+          - 'null'
+        result:
+          oneOf:
+          - $ref: '#/components/schemas/AreasTaskResult'
+          - $ref: '#/components/schemas/AreasCustomScheduleTaskResult'
+          - $ref: '#/components/schemas/TerminalsTaskResult'
+          - $ref: '#/components/schemas/TariffTaskResult'
+          - $ref: '#/components/schemas/SortingCentersTaskResult'
+          - $ref: '#/components/schemas/SortingCentersTagsTaskResult'
+        state:
+          description: Статус задачи
+          enum:
+          - processing
+          - success
+          - failed
+          - pending_approval
+          - declined
+          type: string
+        taskId:
+          format: int32
+          type: integer
+      required:
+      - taskId
+      - state
+      type: object
+    DeliveryProviderAreaNumber:
+      description: "id области доставки на стороне службы доставки \n(передается при загрузке областей доставки и будет использоваться при создании заказа \nв качестве идентификатора адресного объекта забора/доставки отправления)\n"
+      example: 7989jgftyf-jkghtd
+      maxLength: 128
+      minLength: 1
+      type: string
+    DeliveryError4XX:
+      properties:
+        message:
+          description: Человекопонятное описание ошибки
+          example: something went wrong
+          title: Описание ошибки
+          type: string
+        status:
+          description: false – в случае возникновения ошибки
+          example: false
+          title: статус
+          type: boolean
+      required:
+      - code
+      - message
+      type:
+      - object
+      - 'null'
   responses:
-    DeliveryInternalServerError:
-      content:
-        application/json:
-          schema:
-            properties:
-              error:
-                $ref: '#/components/schemas/DeliveryError'
-            type: object
-      description: internal server error
     DeliveryForbidden:
       content:
         application/json:
@@ -804,6 +788,15 @@ components:
                 $ref: '#/components/schemas/DeliveryError4XX'
             type: object
       description: Ошибка авторизации. Например, нет прав для выполнения операции.
+    DeliveryInternalServerError:
+      content:
+        application/json:
+          schema:
+            properties:
+              error:
+                $ref: '#/components/schemas/DeliveryError'
+            type: object
+      description: internal server error
     DeliveryUnauthorized:
       content:
         application/json:
@@ -813,6 +806,13 @@ components:
                 $ref: '#/components/schemas/DeliveryError4XX'
             type: object
       description: Ошибка аутентификации. Например, некорректный токен.
+  parameters:
+    authHeader:
+      description: Токен для авторизации
+      example: Bearer ACCESS_TOKEN
+      in: header
+      name: Authorization
+      required: true
   securitySchemes:
     AuthorizationCode:
       description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)

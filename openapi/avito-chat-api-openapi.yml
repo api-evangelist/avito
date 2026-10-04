@@ -221,23 +221,37 @@ paths:
       x-operation-id-source: normalized
       x-operation-id-original: chatsByTime
 components:
-  parameters:
-    authHeader:
-      description: Токен для авторизации
-      in: header
-      name: Authorization
-      required: true
-      schema:
-        example: Bearer ACCESS_TOKEN
-        type: string
-    sourceHeader:
-      description: Имя сервиса, отправляющего запрос
-      in: header
-      name: X-Source
-      required: true
-      schema:
-        example: someName
-        type: string
+  responses:
+    '403':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CpaErrorChat'
+      description: Forbidden
+    '500':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InternalError'
+      description: Internal Error
+    '400':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OpenApiError'
+      description: Bad Request
+    '404':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CpaError'
+      description: Not Found
+    '401':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CpaError'
+      description: Unauthorized
   schemas:
     OpenAPIChatsByTimeV2In:
       properties:
@@ -258,92 +272,18 @@ components:
       - offset
       - limit
       type: object
-    OpenAPIChatsByTimeIn:
+    tooManyRequestsError:
       properties:
-        dateTimeFrom:
-          description: Время с которого нужно начинать поиск чатов по date (строка в формате RFC3339)
-          example: '2021-01-02T15:04:05Z'
-          type: string
-        limit:
-          description: Размер выборки (значение в поле должно быть не более 100)
-          type: integer
-        offset:
-          description: 'Смещение выборки (по-умолчанию 0). Для улучшения производительности лучше использовать максимальный startTime чата из предыдущей выборки
-
-            '
-          type: integer
-      required:
-      - dateTimeFrom
-      - offset
-      - limit
-      type: object
-    OpenApiChatsComposition:
-      properties:
-        buyer:
-          $ref: '#/components/schemas/OpenApiChatsBuyer'
-        chat:
-          $ref: '#/components/schemas/OpenApiChat'
-        isArbitrageAvailable:
-          description: Доступность опротестования ЦД
-          type: boolean
-        item:
-          $ref: '#/components/schemas/OpenApiChatsItem'
-      required:
-      - chat
-      - item
-      - buyer
-      - isArbitrageAvailable
-      type: object
-    CpaErrorChat:
-      properties:
-        result:
+        error:
           properties:
-            message:
-              description: Текст ошибки
-              example: invalid access token
-              type: string
-            status:
-              example: 'false'
-              type: boolean
-          type: object
-      type: object
-    CreateComplaintV4In:
-      properties:
-        actionId:
-          description: ID действия (action), по которому подаётся жалоба
-          example: 123456789
-          type: integer
-        message:
-          description: Сообщение, прикрепленное к жалобе
-          example: это не был обмен контактами в чате
-          type: string
-      required:
-      - actionId
-      - message
-      type: object
-    InternalError:
-      properties:
-        result:
-          properties:
-            error:
-              properties:
-                code:
-                  example: 1003
-                  title: Код ошибки
-                  type: integer
-                message:
-                  example: не удалось получить результаты поиска чатов
-                  title: Текст ошибки
-                  type: string
-              required:
-              - code
-              - message
-              type: object
+            code:
+              description: Код ошибки
+              example: 429
+              format: int32
+              type: integer
           required:
-          - error
+          - code
           type: object
-      required:
-      - result
       type: object
     OpenApiError:
       properties:
@@ -374,6 +314,51 @@ components:
           type: object
       required:
       - result
+      type: object
+    CpaError:
+      properties:
+        code:
+          description: 'Внутренний код ошибки
+
+
+            Возможные значения:
+
+            - 1000 - пустой запрос
+
+            - 1001 - ошибка валидации
+
+            - 1002 - ошибка авторизации
+
+            - 1003 - внутренняя ошибка
+
+            - 1004 - не найдено
+
+            '
+          format: int64
+          type: integer
+        message:
+          description: Текст ошибки
+          example: ЦД недоступно для обжалования
+          type: string
+      type: object
+    OpenAPIChatsByTimeIn:
+      properties:
+        dateTimeFrom:
+          description: Время с которого нужно начинать поиск чатов по date (строка в формате RFC3339)
+          example: '2021-01-02T15:04:05Z'
+          type: string
+        limit:
+          description: Размер выборки (значение в поле должно быть не более 100)
+          type: integer
+        offset:
+          description: 'Смещение выборки (по-умолчанию 0). Для улучшения производительности лучше использовать максимальный startTime чата из предыдущей выборки
+
+            '
+          type: integer
+      required:
+      - dateTimeFrom
+      - offset
+      - limit
       type: object
     OpenApiChat:
       properties:
@@ -430,44 +415,59 @@ components:
       - contactType
       - targetChatType
       type: object
-    CpaError:
+    CpaErrorChat:
       properties:
-        code:
-          description: 'Внутренний код ошибки
-
-
-            Возможные значения:
-
-            - 1000 - пустой запрос
-
-            - 1001 - ошибка валидации
-
-            - 1002 - ошибка авторизации
-
-            - 1003 - внутренняя ошибка
-
-            - 1004 - не найдено
-
-            '
-          format: int64
-          type: integer
-        message:
-          description: Текст ошибки
-          example: ЦД недоступно для обжалования
-          type: string
-      type: object
-    tooManyRequestsError:
-      properties:
-        error:
+        result:
           properties:
-            code:
-              description: Код ошибки
-              example: 429
-              format: int32
-              type: integer
-          required:
-          - code
+            message:
+              description: Текст ошибки
+              example: invalid access token
+              type: string
+            status:
+              example: 'false'
+              type: boolean
           type: object
+      type: object
+    InternalError:
+      properties:
+        result:
+          properties:
+            error:
+              properties:
+                code:
+                  example: 1003
+                  title: Код ошибки
+                  type: integer
+                message:
+                  example: не удалось получить результаты поиска чатов
+                  title: Текст ошибки
+                  type: string
+              required:
+              - code
+              - message
+              type: object
+          required:
+          - error
+          type: object
+      required:
+      - result
+      type: object
+    OpenApiChatsComposition:
+      properties:
+        buyer:
+          $ref: '#/components/schemas/OpenApiChatsBuyer'
+        chat:
+          $ref: '#/components/schemas/OpenApiChat'
+        isArbitrageAvailable:
+          description: Доступность опротестования ЦД
+          type: boolean
+        item:
+          $ref: '#/components/schemas/OpenApiChatsItem'
+      required:
+      - chat
+      - item
+      - buyer
+      - isArbitrageAvailable
       type: object
     OpenApiChatsItem:
       properties:
@@ -512,6 +512,20 @@ components:
       - name
       - url
       type: object
+    CreateComplaintV4In:
+      properties:
+        actionId:
+          description: ID действия (action), по которому подаётся жалоба
+          example: 123456789
+          type: integer
+        message:
+          description: Сообщение, прикрепленное к жалобе
+          example: это не был обмен контактами в чате
+          type: string
+      required:
+      - actionId
+      - message
+      type: object
   headers:
     X-RateLimit-Limit:
       description: Количество запросов в минуту
@@ -523,37 +537,23 @@ components:
       schema:
         format: int32
         type: integer
-  responses:
-    '401':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CpaError'
-      description: Unauthorized
-    '404':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CpaError'
-      description: Not Found
-    '500':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InternalError'
-      description: Internal Error
-    '403':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CpaErrorChat'
-      description: Forbidden
-    '400':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/OpenApiError'
-      description: Bad Request
+  parameters:
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
+    sourceHeader:
+      description: Имя сервиса, отправляющего запрос
+      in: header
+      name: X-Source
+      required: true
+      schema:
+        example: someName
+        type: string
   securitySchemes:
     AuthorizationCode:
       description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)

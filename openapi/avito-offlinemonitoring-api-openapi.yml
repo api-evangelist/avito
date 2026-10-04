@@ -192,6 +192,72 @@ paths:
       - OfflineMonitoring
 components:
   schemas:
+    ResponseMonitoringRemoveVinBucket:
+      properties:
+        result:
+          properties:
+            invalidVehicles:
+              description: Набор невалидных идентификаторов авто, которые не были приняты
+              items:
+                properties:
+                  description:
+                    description: Описание ошибки
+                    type: string
+                  vehicleID:
+                    description: Идентификатор авто
+                    type: string
+                type: object
+              type: array
+            isOk:
+              type: boolean
+          required:
+          - isOk
+          type: object
+      type: object
+    ResponseMonitoringAddVinBucket:
+      properties:
+        result:
+          properties:
+            invalidVehicles:
+              description: Набор невалидных идентификаторов авто, которые не были приняты
+              items:
+                properties:
+                  description:
+                    description: Описание ошибки
+                    type: string
+                  vehicleID:
+                    description: Идентификатор авто
+                    type: string
+                type: object
+              type: array
+            isOk:
+              type: boolean
+          required:
+          - isOk
+          type: object
+      type: object
+    RequestMonitoringRemoveVinBucket:
+      properties:
+        data:
+          description: Набор VIN-номеров для дальнейшего заполнения реестра
+          items:
+            example: AA*************11
+            type: string
+          maxItems: 10000
+          minItems: 1
+          type: array
+      type: object
+    RequestMonitoringAddVinBucket:
+      properties:
+        data:
+          description: Набор VIN-номеров для дальнейшего заполнения реестра
+          items:
+            example: AA*************11
+            type: string
+          maxItems: 10000
+          minItems: 1
+          type: array
+      type: object
     ResponseMonitoringGetRegActions:
       properties:
         data:
@@ -219,26 +285,68 @@ components:
       - data
       - pagination
       type: object
-    ResponseMonitoringRemoveVinBucket:
+    forbiddenError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 403
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Forbidden
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    validatingError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 400
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Validation error
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    ResponseMonitoringDeleteVinBucket:
       properties:
         result:
           properties:
-            invalidVehicles:
-              description: Набор невалидных идентификаторов авто, которые не были приняты
-              items:
-                properties:
-                  description:
-                    description: Описание ошибки
-                    type: string
-                  vehicleID:
-                    description: Идентификатор авто
-                    type: string
-                type: object
-              type: array
             isOk:
               type: boolean
           required:
           - isOk
+          type: object
+      type: object
+    internalError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 500
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Service is temporary unavailable
+              type: string
+          required:
+          - code
+          - message
           type: object
       type: object
     ResponseMonitoringGetRegAction:
@@ -307,114 +415,6 @@ components:
       required:
       - vin
       - operationCode
-      type: object
-    validatingError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 400
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Validation error
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    internalError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 500
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Service is temporary unavailable
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    ResponseMonitoringDeleteVinBucket:
-      properties:
-        result:
-          properties:
-            isOk:
-              type: boolean
-          required:
-          - isOk
-          type: object
-      type: object
-    RequestMonitoringRemoveVinBucket:
-      properties:
-        data:
-          description: Набор VIN-номеров для дальнейшего заполнения реестра
-          items:
-            example: AA*************11
-            type: string
-          maxItems: 10000
-          minItems: 1
-          type: array
-      type: object
-    RequestMonitoringAddVinBucket:
-      properties:
-        data:
-          description: Набор VIN-номеров для дальнейшего заполнения реестра
-          items:
-            example: AA*************11
-            type: string
-          maxItems: 10000
-          minItems: 1
-          type: array
-      type: object
-    ResponseMonitoringAddVinBucket:
-      properties:
-        result:
-          properties:
-            invalidVehicles:
-              description: Набор невалидных идентификаторов авто, которые не были приняты
-              items:
-                properties:
-                  description:
-                    description: Описание ошибки
-                    type: string
-                  vehicleID:
-                    description: Идентификатор авто
-                    type: string
-                type: object
-              type: array
-            isOk:
-              type: boolean
-          required:
-          - isOk
-          type: object
-      type: object
-    forbiddenError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 403
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Forbidden
-              type: string
-          required:
-          - code
-          - message
-          type: object
       type: object
   parameters:
     authHeader:

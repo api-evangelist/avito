@@ -54,7 +54,69 @@ paths:
       tags:
       - Signal
 components:
+  parameters:
+    authHeader:
+      description: Токен для авторизации
+      example: Bearer ACCESS_TOKEN
+      in: header
+      name: Authorization
+      schema:
+        type: string
   schemas:
+    forbiddenError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 403
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Forbidden
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    validatingError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 400
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Validation error
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    internalError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 500
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Service is temporary unavailable
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
     RequestGetLeads:
       properties:
         lastId:
@@ -254,68 +316,6 @@ components:
             type: object
           type: array
       type: object
-    validatingError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 400
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Validation error
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    internalError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 500
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Service is temporary unavailable
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    forbiddenError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 403
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Forbidden
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-  parameters:
-    authHeader:
-      description: Токен для авторизации
-      example: Bearer ACCESS_TOKEN
-      in: header
-      name: Authorization
-      schema:
-        type: string
   securitySchemes:
     ClientCredentials:
       description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)
