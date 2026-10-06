@@ -43,7 +43,7 @@ x-tier: profiled
 x-tier-reason: public-developer-api
 specificationVersion: '0.23'
 created: '2026-07-17'
-modified: '2026-07-18'
+modified: '2026-10-06'
 tags:
 - Company
 - Consumer
@@ -3599,6 +3599,8 @@ apis:
   - type: Documentation
     url: https://developers.avito.ru/api-catalog/user/documentation
 common:
+- url: https://www.avito.ru/blog/
+  type: Blog
 - type: CapabilityMap
   url: capabilities/avito-capability-edges.yml
   name: Avito Business Capability Map
