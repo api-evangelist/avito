@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/avito/integrations
+- https://n8n.io/integrations/avito/
+- https://composio.dev/toolkits/avito
+- https://monid.ai/tools/avito
+checked:
+- https://composio.dev/toolkits/avito
+- https://monid.ai/tools/avito
+- https://n8n.io/integrations/avito/
+- https://zapier.com/apps/avito/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
