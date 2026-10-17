@@ -228,49 +228,44 @@ components:
           schema:
             $ref: '#/components/schemas/CpaErrorChat'
       description: Forbidden
-    '500':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InternalError'
-      description: Internal Error
-    '400':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/OpenApiError'
-      description: Bad Request
-    '404':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CpaError'
-      description: Not Found
     '401':
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/CpaError'
       description: Unauthorized
+    '500':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InternalError'
+      description: Internal Error
+    '404':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CpaError'
+      description: Not Found
+    '400':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OpenApiError'
+      description: Bad Request
   schemas:
-    OpenAPIChatsByTimeV2In:
+    CreateComplaintV4In:
       properties:
-        dateTimeFrom:
-          description: Время с которого нужно начинать поиск чатов по date (строка в формате RFC3339)
-          example: '2021-01-02T15:04:05Z'
+        actionId:
+          description: ID действия (action), по которому подаётся жалоба
+          example: 123456789
+          type: integer
+        message:
+          description: Сообщение, прикрепленное к жалобе
+          example: это не был обмен контактами в чате
           type: string
-        limit:
-          description: Размер выборки (значение в поле должно быть не более 100)
-          type: integer
-        offset:
-          description: 'Смещение выборки (по-умолчанию 0). Для улучшения производительности лучше использовать максимальный date чата из предыдущей выборки
-
-            '
-          type: integer
       required:
-      - dateTimeFrom
-      - offset
-      - limit
+      - actionId
+      - message
       type: object
     tooManyRequestsError:
       properties:
@@ -285,63 +280,7 @@ components:
           - code
           type: object
       type: object
-    OpenApiError:
-      properties:
-        result:
-          properties:
-            error:
-              properties:
-                code:
-                  example: 1001
-                  title: Код ошибки
-                  type: integer
-                message:
-                  example: Ошибка валидации запроса
-                  title: Текст ошибки
-                  type: string
-                payload:
-                  properties:
-                    error:
-                      example: invalid character  looking for beginning of object key string
-                      type: string
-                  type: object
-              required:
-              - code
-              - message
-              type: object
-          required:
-          - error
-          type: object
-      required:
-      - result
-      type: object
-    CpaError:
-      properties:
-        code:
-          description: 'Внутренний код ошибки
-
-
-            Возможные значения:
-
-            - 1000 - пустой запрос
-
-            - 1001 - ошибка валидации
-
-            - 1002 - ошибка авторизации
-
-            - 1003 - внутренняя ошибка
-
-            - 1004 - не найдено
-
-            '
-          format: int64
-          type: integer
-        message:
-          description: Текст ошибки
-          example: ЦД недоступно для обжалования
-          type: string
-      type: object
-    OpenAPIChatsByTimeIn:
+    OpenAPIChatsByTimeV2In:
       properties:
         dateTimeFrom:
           description: Время с которого нужно начинать поиск чатов по date (строка в формате RFC3339)
@@ -351,7 +290,7 @@ components:
           description: Размер выборки (значение в поле должно быть не более 100)
           type: integer
         offset:
-          description: 'Смещение выборки (по-умолчанию 0). Для улучшения производительности лучше использовать максимальный startTime чата из предыдущей выборки
+          description: 'Смещение выборки (по-умолчанию 0). Для улучшения производительности лучше использовать максимальный date чата из предыдущей выборки
 
             '
           type: integer
@@ -415,33 +354,52 @@ components:
       - contactType
       - targetChatType
       type: object
-    CpaErrorChat:
+    CpaError:
       properties:
-        result:
-          properties:
-            message:
-              description: Текст ошибки
-              example: invalid access token
-              type: string
-            status:
-              example: 'false'
-              type: boolean
-          type: object
+        code:
+          description: 'Внутренний код ошибки
+
+
+            Возможные значения:
+
+            - 1000 - пустой запрос
+
+            - 1001 - ошибка валидации
+
+            - 1002 - ошибка авторизации
+
+            - 1003 - внутренняя ошибка
+
+            - 1004 - не найдено
+
+            '
+          format: int64
+          type: integer
+        message:
+          description: Текст ошибки
+          example: ЦД недоступно для обжалования
+          type: string
       type: object
-    InternalError:
+    OpenApiError:
       properties:
         result:
           properties:
             error:
               properties:
                 code:
-                  example: 1003
+                  example: 1001
                   title: Код ошибки
                   type: integer
                 message:
-                  example: не удалось получить результаты поиска чатов
+                  example: Ошибка валидации запроса
                   title: Текст ошибки
                   type: string
+                payload:
+                  properties:
+                    error:
+                      example: invalid character  looking for beginning of object key string
+                      type: string
+                  type: object
               required:
               - code
               - message
@@ -469,6 +427,57 @@ components:
       - buyer
       - isArbitrageAvailable
       type: object
+    OpenAPIChatsByTimeIn:
+      properties:
+        dateTimeFrom:
+          description: Время с которого нужно начинать поиск чатов по date (строка в формате RFC3339)
+          example: '2021-01-02T15:04:05Z'
+          type: string
+        limit:
+          description: Размер выборки (значение в поле должно быть не более 100)
+          type: integer
+        offset:
+          description: 'Смещение выборки (по-умолчанию 0). Для улучшения производительности лучше использовать максимальный startTime чата из предыдущей выборки
+
+            '
+          type: integer
+      required:
+      - dateTimeFrom
+      - offset
+      - limit
+      type: object
+    OpenApiChatsBuyer:
+      properties:
+        buyerId:
+          description: ID баера
+          example: 251670956
+          type: integer
+        name:
+          description: Имя баера
+          example: Дмитрий
+          type: string
+        url:
+          description: URL до картинки с превью
+          example: https://static.avito.ru/stub_avatars/%D0%90/***_256x256.png
+          type: string
+      required:
+      - buyerId
+      - name
+      - url
+      type: object
+    CpaErrorChat:
+      properties:
+        result:
+          properties:
+            message:
+              description: Текст ошибки
+              example: invalid access token
+              type: string
+            status:
+              example: 'false'
+              type: boolean
+          type: object
+      type: object
     OpenApiChatsItem:
       properties:
         itemId:
@@ -493,59 +502,42 @@ components:
       - pricePenny
       - url
       type: object
-    OpenApiChatsBuyer:
+    InternalError:
       properties:
-        buyerId:
-          description: ID баера
-          example: 251670956
-          type: integer
-        name:
-          description: Имя баера
-          example: Дмитрий
-          type: string
-        url:
-          description: URL до картинки с превью
-          example: https://static.avito.ru/stub_avatars/%D0%90/***_256x256.png
-          type: string
+        result:
+          properties:
+            error:
+              properties:
+                code:
+                  example: 1003
+                  title: Код ошибки
+                  type: integer
+                message:
+                  example: не удалось получить результаты поиска чатов
+                  title: Текст ошибки
+                  type: string
+              required:
+              - code
+              - message
+              type: object
+          required:
+          - error
+          type: object
       required:
-      - buyerId
-      - name
-      - url
-      type: object
-    CreateComplaintV4In:
-      properties:
-        actionId:
-          description: ID действия (action), по которому подаётся жалоба
-          example: 123456789
-          type: integer
-        message:
-          description: Сообщение, прикрепленное к жалобе
-          example: это не был обмен контактами в чате
-          type: string
-      required:
-      - actionId
-      - message
+      - result
       type: object
   headers:
-    X-RateLimit-Limit:
-      description: Количество запросов в минуту
-      schema:
-        format: int32
-        type: integer
     X-RateLimit-Remaining:
       description: Доступное количество запросов в текущем временном окне
       schema:
         format: int32
         type: integer
-  parameters:
-    authHeader:
-      description: Токен для авторизации
-      in: header
-      name: Authorization
-      required: true
+    X-RateLimit-Limit:
+      description: Количество запросов в минуту
       schema:
-        example: Bearer ACCESS_TOKEN
-        type: string
+        format: int32
+        type: integer
+  parameters:
     sourceHeader:
       description: Имя сервиса, отправляющего запрос
       in: header
@@ -553,6 +545,14 @@ components:
       required: true
       schema:
         example: someName
+        type: string
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
         type: string
   securitySchemes:
     AuthorizationCode:

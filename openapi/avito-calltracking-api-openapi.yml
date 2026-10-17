@@ -187,6 +187,26 @@ components:
       - calls
       - error
       type: object
+    Error:
+      properties:
+        code:
+          description: 'Внутренний код ошибки Возможные значения: 0 - нет ошибки 1000 - пустой запрос 1001 - ошибка валидации 1002 - ошибка авторизации 1003 - внутренняя ошибка 1004 - не найдено
+
+            '
+          enum:
+          - 0
+          - 1000
+          - 1001
+          - 1002
+          - 1003
+          - 1004
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
     Call:
       description: модель звонка
       properties:
@@ -247,39 +267,19 @@ components:
       - code
       - message
       type: object
-    Error:
-      properties:
-        code:
-          description: 'Внутренний код ошибки Возможные значения: 0 - нет ошибки 1000 - пустой запрос 1001 - ошибка валидации 1002 - ошибка авторизации 1003 - внутренняя ошибка 1004 - не найдено
-
-            '
-          enum:
-          - 0
-          - 1000
-          - 1001
-          - 1002
-          - 1003
-          - 1004
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
-      type: object
   responses:
-    GetCalls:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GetCallsResponse'
-      description: Успешный ответ или сообщение об ошибке
     GetCallById:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/GetCallByIdResponse'
       description: Успешный ответ
+    GetCalls:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetCallsResponse'
+      description: Успешный ответ или сообщение об ошибке
   securitySchemes:
     ClientCredentials:
       description: Это API использует OAuth 2 с механизмом client_credentials. Используйте его для доступа к возможностям своей личной учетной записи. [Подробнее](#tag/Access)

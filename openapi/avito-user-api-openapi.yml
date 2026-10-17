@@ -171,23 +171,67 @@ paths:
       - User
 components:
   schemas:
-    serviceError:
+    UserInfoSelf:
+      properties:
+        email:
+          description: Email пользователя
+          example: example@domain.com
+          type: string
+        id:
+          description: Идентификатор пользователя
+          example: 94235311
+          format: int32
+          type: integer
+        name:
+          description: Имя пользователя
+          example: Петр
+          type: string
+        phone:
+          description: первый верифицированный телефон пользователя
+          example: 71112223344
+          type: string
+        phones:
+          description: все верифицированные номера телефонов
+          items:
+            example: '71112223344'
+            type: string
+          type: array
+        profile_url:
+          description: Ссылка на профиль пользователя
+          example: https://avito.ru/user/7d04cdc3a12726eee72c6851c953ac54/profile
+          type: string
+      type: object
+    serviceUnavailableError:
       properties:
         error:
           properties:
             code:
               description: Код ошибки
-              example: 500
+              example: 503
               format: int32
               type: integer
             message:
               description: Описание ошибки
-              example: Error while processing request. Please, contact support
+              example: Service temporarily unavailable. Please, contact support
               type: string
           required:
           - code
           - message
           type: object
+      type: object
+    RequestOperationsHistory:
+      properties:
+        dateTimeFrom:
+          description: Время выборки от. Не далее одного года в прошлое от текущего момента.
+          format: date-time
+          type: string
+        dateTimeTo:
+          description: Время выборки до (диапазон между dateTimeFrom и dateTimeTo должен быть не более одной недели)
+          format: date-time
+          type: string
+      required:
+      - dateTimeFrom
+      - dateTimeTo
       type: object
     ResponseOperationsHistoryItem:
       properties:
@@ -262,68 +306,18 @@ components:
               type: array
           type: object
       type: object
-    RequestOperationsHistory:
-      properties:
-        dateTimeFrom:
-          description: Время выборки от. Не далее одного года в прошлое от текущего момента.
-          format: date-time
-          type: string
-        dateTimeTo:
-          description: Время выборки до (диапазон между dateTimeFrom и dateTimeTo должен быть не более одной недели)
-          format: date-time
-          type: string
-      required:
-      - dateTimeFrom
-      - dateTimeTo
-      type: object
-    authError:
+    serviceError:
       properties:
         error:
           properties:
             code:
               description: Код ошибки
-              example: 401
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Unauthorized
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    serviceUnavailableError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 503
+              example: 500
               format: int32
               type: integer
             message:
               description: Описание ошибки
-              example: Service temporarily unavailable. Please, contact support
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    notFoundError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 404
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Not found
+              example: Error while processing request. Please, contact support
               type: string
           required:
           - code
@@ -348,6 +342,24 @@ components:
           - message
           type: object
       type: object
+    authError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 401
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Unauthorized
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
     Balance:
       properties:
         bonus:
@@ -359,45 +371,25 @@ components:
           format: float
           type: number
       type: object
-    UserInfoSelf:
+    notFoundError:
       properties:
-        email:
-          description: Email пользователя
-          example: example@domain.com
-          type: string
-        id:
-          description: Идентификатор пользователя
-          example: 94235311
-          format: int32
-          type: integer
-        name:
-          description: Имя пользователя
-          example: Петр
-          type: string
-        phone:
-          description: первый верифицированный телефон пользователя
-          example: 71112223344
-          type: string
-        phones:
-          description: все верифицированные номера телефонов
-          items:
-            example: '71112223344'
-            type: string
-          type: array
-        profile_url:
-          description: Ссылка на профиль пользователя
-          example: https://avito.ru/user/7d04cdc3a12726eee72c6851c953ac54/profile
-          type: string
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 404
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Not found
+              type: string
+          required:
+          - code
+          - message
+          type: object
       type: object
   parameters:
-    authHeader:
-      description: Токен для авторизации
-      in: header
-      name: Authorization
-      required: true
-      schema:
-        example: Bearer ACCESS_TOKEN
-        type: string
     userId:
       description: Идентификатор пользователя (клиента)
       in: path
@@ -406,6 +398,14 @@ components:
       schema:
         format: int64
         type: integer
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
   securitySchemes:
     AuthorizationCode:
       description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](/api-catalog/auth/documentation#tag/ApplicationAccess)

@@ -345,115 +345,16 @@ paths:
       - SpecialOffers
 components:
   schemas:
-    openApiMultiCreateRequestBody:
-      properties:
-        itemIds:
-          description: Список id выбранных для рассылки объявлений
-          items:
-            minimum: 1
-            type: integer
-          type: array
-      required:
-      - itemIds
-      type: object
-    openApiMultiConfirmResponseBody:
-      properties:
-        ok:
-          type: boolean
-      type: object
-    openApiStatsResponseBody:
-      properties:
-        stats:
-          items:
-            properties:
-              accepted:
-                description: Число принятых покупателями предложений
-                type: integer
-              count:
-                description: Число отправленных предложений
-                type: integer
-              discount:
-                description: Размер скидки (может отсутствовать)
-                type: integer
-              expiresAt:
-                description: Дата окончания срока действия предложения
-                type: string
-              itemId:
-                minimum: 1
-                type: integer
-              offerSlug:
-                description: Тип предложения
-                type: string
-              price:
-                description: Общая стоимость рассылки. Приходит 0 при рассылках из тарифа или бесплатных рассылках
-                type: integer
-              sentAt:
-                description: Дата отправки рассылки
-                type: string
-            required:
-            - itemId
-            - offerSlug
-            - price
-            - sentAt
-            - expiresAt
-            - count
-            - accepted
-            type:
-            - object
-            - 'null'
-          type: array
-      type: object
-    openApiInternalError:
+    openApiForbiddenError:
       properties:
         error:
           properties:
             code:
-              default: 500
-              example: 500
+              default: 403
+              example: 403
               type: integer
             message:
-              example: Internal error
-              type: string
-          required:
-          - message
-          - code
-          type: object
-      required:
-      - error
-      type: object
-    openApiAvailableResponseBody:
-      properties:
-        items:
-          description: Список объявлений и признаков доступности для них услуги
-          items:
-            properties:
-              isAvailable:
-                description: доступна ли услуга
-                type: boolean
-              itemId:
-                minimum: 1
-                type: integer
-              reason:
-                description: заполняется, если isAvailable = false
-                type:
-                - string
-                - 'null'
-            required:
-            - itemId
-            - isAvailable
-            type: object
-          type: array
-      type: object
-    openApiBadRequestError:
-      properties:
-        error:
-          properties:
-            code:
-              default: 400
-              example: 400
-              type: integer
-            message:
-              example: Bad request
+              example: Access denied
               type: string
           required:
           - message
@@ -475,26 +376,6 @@ components:
       required:
       - dateTimeFrom
       - dateTimeTo
-      type: object
-    openApiTariffInfoResponseBody:
-      properties:
-        tariffInfo:
-          description: Информация о текущем тарифе
-          properties:
-            sendsLeft:
-              description: Сколько осталось рассылок в тарифе
-              minimum: 0
-              type: integer
-            totalSends:
-              description: Сколько всего рассылок в тарифе (было изначально)
-              minimum: 0
-              type: integer
-          required:
-          - totalSends
-          - sendsLeft
-          type:
-          - object
-          - 'null'
       type: object
     openApiMultiCreateResponseBody:
       properties:
@@ -673,16 +554,63 @@ components:
           - integer
           - 'null'
       type: object
-    openApiForbiddenError:
+    openApiMultiConfirmResponseBody:
+      properties:
+        ok:
+          type: boolean
+      type: object
+    openApiStatsResponseBody:
+      properties:
+        stats:
+          items:
+            properties:
+              accepted:
+                description: Число принятых покупателями предложений
+                type: integer
+              count:
+                description: Число отправленных предложений
+                type: integer
+              discount:
+                description: Размер скидки (может отсутствовать)
+                type: integer
+              expiresAt:
+                description: Дата окончания срока действия предложения
+                type: string
+              itemId:
+                minimum: 1
+                type: integer
+              offerSlug:
+                description: Тип предложения
+                type: string
+              price:
+                description: Общая стоимость рассылки. Приходит 0 при рассылках из тарифа или бесплатных рассылках
+                type: integer
+              sentAt:
+                description: Дата отправки рассылки
+                type: string
+            required:
+            - itemId
+            - offerSlug
+            - price
+            - sentAt
+            - expiresAt
+            - count
+            - accepted
+            type:
+            - object
+            - 'null'
+          type: array
+      type: object
+    openApiBadRequestError:
       properties:
         error:
           properties:
             code:
-              default: 403
-              example: 403
+              default: 400
+              example: 400
               type: integer
             message:
-              example: Access denied
+              example: Bad request
               type: string
           required:
           - message
@@ -690,17 +618,6 @@ components:
           type: object
       required:
       - error
-      type: object
-    openApiAvailableRequestBody:
-      properties:
-        itemIds:
-          description: список id объявлений
-          items:
-            minimum: 1
-            type: integer
-          type: array
-      required:
-      - itemIds
       type: object
     openApiUnauthorizedError:
       properties:
@@ -719,6 +636,89 @@ components:
           type: object
       required:
       - error
+      type: object
+    openApiMultiCreateRequestBody:
+      properties:
+        itemIds:
+          description: Список id выбранных для рассылки объявлений
+          items:
+            minimum: 1
+            type: integer
+          type: array
+      required:
+      - itemIds
+      type: object
+    openApiInternalError:
+      properties:
+        error:
+          properties:
+            code:
+              default: 500
+              example: 500
+              type: integer
+            message:
+              example: Internal error
+              type: string
+          required:
+          - message
+          - code
+          type: object
+      required:
+      - error
+      type: object
+    openApiTariffInfoResponseBody:
+      properties:
+        tariffInfo:
+          description: Информация о текущем тарифе
+          properties:
+            sendsLeft:
+              description: Сколько осталось рассылок в тарифе
+              minimum: 0
+              type: integer
+            totalSends:
+              description: Сколько всего рассылок в тарифе (было изначально)
+              minimum: 0
+              type: integer
+          required:
+          - totalSends
+          - sendsLeft
+          type:
+          - object
+          - 'null'
+      type: object
+    openApiAvailableRequestBody:
+      properties:
+        itemIds:
+          description: список id объявлений
+          items:
+            minimum: 1
+            type: integer
+          type: array
+      required:
+      - itemIds
+      type: object
+    openApiAvailableResponseBody:
+      properties:
+        items:
+          description: Список объявлений и признаков доступности для них услуги
+          items:
+            properties:
+              isAvailable:
+                description: доступна ли услуга
+                type: boolean
+              itemId:
+                minimum: 1
+                type: integer
+              reason:
+                description: заполняется, если isAvailable = false
+                type:
+                - string
+                - 'null'
+            required:
+            - itemId
+            - isAvailable
+            type: object
+          type: array
       type: object
   parameters:
     openApiAuthHeader:

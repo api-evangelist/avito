@@ -174,30 +174,67 @@ paths:
       tags:
       - Cpa
 components:
+  responses:
+    '500':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InternalError'
+      description: Internal Error
+    '403':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CpaErrorChat'
+      description: Forbidden
+    '400':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OpenApiError'
+      description: Bad Request
+    '401':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CpaError'
+      description: Unauthorized
+    '404':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CpaError'
+      description: Not Found
   schemas:
-    InternalError:
+    OpenAPIPhonesInfoFromChatsOut:
       properties:
-        result:
-          properties:
-            error:
-              properties:
-                code:
-                  example: 1003
-                  title: Код ошибки
-                  type: integer
-                message:
-                  example: не удалось получить результаты поиска чатов
-                  title: Текст ошибки
-                  type: string
-              required:
-              - code
-              - message
-              type: object
-          required:
-          - error
-          type: object
+        date:
+          description: Время отправки сообщения
+          format: string
+          type: string
+        group:
+          description: Прайсинговая группа объявления
+          type: string
+        id:
+          description: ID ЦД
+          type: integer
+        phone_number:
+          description: Номер телефона из сообщения
+          type:
+          - string
+          - 'null'
+        pricePenny:
+          description: Цена ЦД в копейках
+          type: integer
+        url:
+          description: URL до картинки с превью
+          type: string
       required:
-      - result
+      - id
+      - date
+      - pricePenny
+      - group
+      - url
       type: object
     OpenApiError:
       properties:
@@ -229,6 +266,57 @@ components:
       required:
       - result
       type: object
+    OpenAPIPhonesInfoFromChatsIn:
+      properties:
+        dateTimeFrom:
+          description: Время с которого начинается поиск
+          type: string
+        limit:
+          type: integer
+        offset:
+          type: integer
+      required:
+      - dateTimeFrom
+      - offset
+      - limit
+      type: object
+    InternalError:
+      properties:
+        result:
+          properties:
+            error:
+              properties:
+                code:
+                  example: 1003
+                  title: Код ошибки
+                  type: integer
+                message:
+                  example: не удалось получить результаты поиска чатов
+                  title: Текст ошибки
+                  type: string
+              required:
+              - code
+              - message
+              type: object
+          required:
+          - error
+          type: object
+      required:
+      - result
+      type: object
+    tooManyRequestsError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 429
+              format: int32
+              type: integer
+          required:
+          - code
+          type: object
+      type: object
     CpaError:
       properties:
         code:
@@ -255,63 +343,6 @@ components:
           example: ЦД недоступно для обжалования
           type: string
       type: object
-    OpenAPIPhonesInfoFromChatsIn:
-      properties:
-        dateTimeFrom:
-          description: Время с которого начинается поиск
-          type: string
-        limit:
-          type: integer
-        offset:
-          type: integer
-      required:
-      - dateTimeFrom
-      - offset
-      - limit
-      type: object
-    OpenAPIPhonesInfoFromChatsOut:
-      properties:
-        date:
-          description: Время отправки сообщения
-          format: string
-          type: string
-        group:
-          description: Прайсинговая группа объявления
-          type: string
-        id:
-          description: ID ЦД
-          type: integer
-        phone_number:
-          description: Номер телефона из сообщения
-          type:
-          - string
-          - 'null'
-        pricePenny:
-          description: Цена ЦД в копейках
-          type: integer
-        url:
-          description: URL до картинки с превью
-          type: string
-      required:
-      - id
-      - date
-      - pricePenny
-      - group
-      - url
-      type: object
-    tooManyRequestsError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 429
-              format: int32
-              type: integer
-          required:
-          - code
-          type: object
-      type: object
     CpaErrorChat:
       properties:
         result:
@@ -326,47 +357,16 @@ components:
           type: object
       type: object
   headers:
-    X-RateLimit-Remaining:
-      description: Доступное количество запросов в текущем временном окне
-      schema:
-        format: int32
-        type: integer
     X-RateLimit-Limit:
       description: Количество запросов в минуту
       schema:
         format: int32
         type: integer
-  responses:
-    '404':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CpaError'
-      description: Not Found
-    '403':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CpaErrorChat'
-      description: Forbidden
-    '500':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InternalError'
-      description: Internal Error
-    '400':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/OpenApiError'
-      description: Bad Request
-    '401':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CpaError'
-      description: Unauthorized
+    X-RateLimit-Remaining:
+      description: Доступное количество запросов в текущем временном окне
+      schema:
+        format: int32
+        type: integer
   parameters:
     authHeader:
       description: Токен для авторизации

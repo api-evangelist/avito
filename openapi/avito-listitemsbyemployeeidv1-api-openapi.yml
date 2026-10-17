@@ -68,21 +68,15 @@ paths:
       - ListItemsByEmployeeIdV1
 components:
   parameters:
-    X-Oauth-Flow:
-      description: Выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)
-      example: authorization_code
+    XEmployeeOf:
+      description: Идентификатор компании, от имени которой работает сотрудник.
       in: header
-      name: X-Oauth-Flow
+      name: X-Employee-Of
       schema:
-        type: string
-    authHeader:
-      description: Токен для авторизации
-      in: header
-      name: Authorization
-      required: true
-      schema:
-        example: Bearer ACCESS_TOKEN
-        type: string
+        minimum: 1
+        type:
+        - integer
+        - 'null'
     XIsEmployee:
       deprecated: true
       description: 'Устаревший заголовок, используйте X-Employee-Of. Пользователь работает от имени сотрудника компании.
@@ -94,21 +88,27 @@ components:
         type:
         - boolean
         - 'null'
-    XEmployeeOf:
-      description: Идентификатор компании, от имени которой работает сотрудник.
+    X-Oauth-Flow:
+      description: Выбранный флоу авторизации по протоколу OAuth 2.0 (client_credentials/authorization_code)
+      example: authorization_code
       in: header
-      name: X-Employee-Of
+      name: X-Oauth-Flow
       schema:
-        minimum: 1
-        type:
-        - integer
-        - 'null'
+        type: string
     X-Oauth-Scopes:
       description: Список зон доступа, полученных приложением
       example: ah:access
       in: header
       name: X-Oauth-Scopes
       schema:
+        type: string
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
         type: string
   schemas:
     OpenApiError:
@@ -134,22 +134,6 @@ components:
       required:
       - error
       type: object
-    ListItemsByEmployeeIdResult:
-      description: Список объявлений по сотруднику компании
-      properties:
-        hasNext:
-          description: Можно пагинировать дальше по списку
-          type: boolean
-        items:
-          description: Список идентификаторов объявлений
-          items:
-            description: Идентификатор объявления
-            type: integer
-          type: array
-      required:
-      - hasNext
-      - items
-      type: object
     ListItemsByEmployeeIdBody:
       properties:
         categoryId:
@@ -169,6 +153,22 @@ components:
       required:
       - employeeId
       - categoryId
+      type: object
+    ListItemsByEmployeeIdResult:
+      description: Список объявлений по сотруднику компании
+      properties:
+        hasNext:
+          description: Можно пагинировать дальше по списку
+          type: boolean
+        items:
+          description: Список идентификаторов объявлений
+          items:
+            description: Идентификатор объявления
+            type: integer
+          type: array
+      required:
+      - hasNext
+      - items
       type: object
   securitySchemes:
     AuthorizationCode:

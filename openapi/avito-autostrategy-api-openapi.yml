@@ -392,96 +392,14 @@ paths:
       - Autostrategy
 components:
   schemas:
-    Stat:
-      description: Статистика по дням с агрегацией по всем объявлениям в кампании
-      items:
-        properties:
-          calls:
-            description: Факт по звонкам
-            example: 10
-            type: integer
-          callsForecast:
-            description: Предсказание звонков
-            properties:
-              from:
-                description: Нижняя граница предсказания
-                example: 8
-                type: integer
-              to:
-                description: Верхняя граница предсказания
-                example: 12
-                type: integer
-            required:
-            - from
-            - to
-            type:
-            - object
-            - 'null'
-          date:
-            description: Дата в формате `YYYY-MM-DD`
-            example: '2021-01-25'
-            format: date
-            type: string
-          views:
-            description: Факт по просмотрам
-            example: 100
-            type: integer
-          viewsForecast:
-            properties:
-              from:
-                description: Нижняя граница предсказания
-                example: 80
-                type: integer
-              to:
-                description: Верхняя граница предсказания
-                example: 120
-                type: integer
-            required:
-            - from
-            - to
-            type:
-            - object
-            - 'null'
-        required:
-        - date
-        - calls
-        - views
-        type: object
-      type: array
-    GetCampaignsBadRequestError:
+    GetStatRequestBody:
       properties:
-        error:
-          properties:
-            fieldErrors:
-              description: Описание ошибок валидации полей
-              properties:
-                limit:
-                  description: Ошибка валидации поля **limit**
-                  type: string
-                offset:
-                  description: Ошибка валидации поля **offset**
-                  type: string
-                orderBy:
-                  description: Ошибка валидации поля **orderBy**
-                  properties:
-                    column:
-                      description: Ошибка валидации поля **column**
-                      type: string
-                    direction:
-                      description: Ошибка валидации поля **direction**
-                      type: string
-                  type: object
-                statusId:
-                  description: Ошибка валидации поля **statusId**
-                  type: string
-              type: object
-            message:
-              description: Сообщение об ошибке
-              example: bad request
-              type: string
-          required:
-          - message
-          type: object
+        campaignId:
+          description: Идентификатор запущенной или уже прошедшей кампании
+          example: 3456432
+          type: integer
+      required:
+      - campaignId
       type: object
     Budget:
       description: Бюджет кампании
@@ -667,6 +585,127 @@ components:
       type:
       - object
       - 'null'
+    Stat:
+      description: Статистика по дням с агрегацией по всем объявлениям в кампании
+      items:
+        properties:
+          calls:
+            description: Факт по звонкам
+            example: 10
+            type: integer
+          callsForecast:
+            description: Предсказание звонков
+            properties:
+              from:
+                description: Нижняя граница предсказания
+                example: 8
+                type: integer
+              to:
+                description: Верхняя граница предсказания
+                example: 12
+                type: integer
+            required:
+            - from
+            - to
+            type:
+            - object
+            - 'null'
+          date:
+            description: Дата в формате `YYYY-MM-DD`
+            example: '2021-01-25'
+            format: date
+            type: string
+          views:
+            description: Факт по просмотрам
+            example: 100
+            type: integer
+          viewsForecast:
+            properties:
+              from:
+                description: Нижняя граница предсказания
+                example: 80
+                type: integer
+              to:
+                description: Верхняя граница предсказания
+                example: 120
+                type: integer
+            required:
+            - from
+            - to
+            type:
+            - object
+            - 'null'
+        required:
+        - date
+        - calls
+        - views
+        type: object
+      type: array
+    StopCampaignRequestBody:
+      properties:
+        campaignId:
+          description: Идентификатор активной кампании
+          example: 3456432
+          type: integer
+        version:
+          description: Текущая версия кампании
+          example: 3
+          type: integer
+      required:
+      - campaignId
+      - version
+      type: object
+    EditCampaignRequestBody:
+      properties:
+        budget:
+          description: Новый бюджет кампании в рублях
+          example: 1000
+          type: integer
+        calcId:
+          description: Идентификатор расчета бюджета из ответа ручки `/autostrategy/v1/budget`
+          example: 123
+          type:
+          - integer
+          - 'null'
+        campaignId:
+          description: Идентификатор активной кампании
+          example: 3456432
+          type: integer
+        description:
+          description: Новое описание кампании
+          example: Toyota, Lexus, BMW, Audi 2019 и 2020 года выпуска
+          type: string
+        finishTime:
+          description: Новое время окончания кампании
+          example: '2020-08-24T14:15:22Z'
+          format: date-time
+          type: string
+        items:
+          description: Новый список индентификаторов объявлений, которые будут продвигаться с помощью данной кампании
+          example:
+          - 123123214
+          - 455454235
+          - 87746346
+          items:
+            type: integer
+          type: array
+        startTime:
+          description: Новое время начала кампании
+          example: '2019-08-24T14:15:22Z'
+          format: date-time
+          type: string
+        title:
+          description: Новое название кампании
+          example: Внедорожники Москвы и Санкт-Петербурга
+          type: string
+        version:
+          description: Текущая версия кампании
+          example: 3
+          type: integer
+      required:
+      - campaignId
+      - version
+      type: object
     EditCampaignConflictError:
       properties:
         error:
@@ -701,76 +740,6 @@ components:
           - message
           type: object
       type: object
-    StopCampaignRequestBody:
-      properties:
-        campaignId:
-          description: Идентификатор активной кампании
-          example: 3456432
-          type: integer
-        version:
-          description: Текущая версия кампании
-          example: 3
-          type: integer
-      required:
-      - campaignId
-      - version
-      type: object
-    CreateCampaignBadRequestError:
-      properties:
-        error:
-          properties:
-            fieldErrors:
-              description: Описание ошибок валидации полей
-              properties:
-                budget:
-                  description: Ошибка валидации поля **budget**
-                  type: string
-                budgetBonus:
-                  description: Ошибка валидации поля **budgetBonus**
-                  type: string
-                budgetReal:
-                  description: Ошибка валидации поля **budgetReal**
-                  type: string
-                campaignType:
-                  description: Ошибка валидации поля **campaignType**
-                  type: string
-                description:
-                  description: Ошибка валидации поля **description**
-                  type: string
-                finishTime:
-                  description: Ошибка валидации поля **finishTime**
-                  type: string
-                items:
-                  description: Ошибка валидации поля **items**
-                  type: string
-                startTime:
-                  description: Ошибка валидации поля **startTime**
-                  type: string
-                title:
-                  description: Ошибка валидации поля **title**
-                  type: string
-              type: object
-            message:
-              description: Сообщение об ошибке
-              example: bad request
-              type: string
-          required:
-          - message
-          type: object
-      type: object
-    Campaigns:
-      description: Список кампаний
-      properties:
-        campaigns:
-          description: Список кампаний, удовлетворяющих фильтрам, с учетом смещения и ограничения
-          items:
-            $ref: '#/components/schemas/Campaign'
-          type: array
-        totalCount:
-          description: Общее количество кампаний, удовлетворяющих фильтрам
-          example: 10
-          type: integer
-      type: object
     autostrategyServiceError:
       properties:
         error:
@@ -784,41 +753,31 @@ components:
           - message
           type: object
       type: object
-    GetStatRequestBody:
-      properties:
-        campaignId:
-          description: Идентификатор запущенной или уже прошедшей кампании
-          example: 3456432
-          type: integer
-      required:
-      - campaignId
-      type: object
-    GetBudgetBadRequestError:
+    autostrategyAuthError:
       properties:
         error:
           properties:
-            fieldErrors:
-              description: Описание ошибок валидации полей
-              properties:
-                campaignType:
-                  description: Ошибка валидации поля **campaignType**
-                  type: string
-                finishTime:
-                  description: Ошибка валидации поля **finishTime**
-                  type: string
-                items:
-                  description: Ошибка валидации поля **items**
-                  type: string
-                startTime:
-                  description: Ошибка валидации поля **startTime**
-                  type: string
-              type: object
             message:
               description: Сообщение об ошибке
-              example: bad request
+              example: unauthorized
               type: string
           required:
           - message
+          type: object
+      type: object
+    CreateCampaignConflictError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки. Возможные ошибки:<br/> `1` - общий бюджет меньше минимального<br/> `2` - реальный бюджет меньше минимального<br/> `3` - недостаточно бонусов на счете<br/> `5` - часть или все объявления уже продвигаются<br/> `6` - тариф не активен<br/> `7` - бюджет выше максимального<br/>
+              example: 6
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: create campaign failed
+              type: string
           type: object
       type: object
     Campaign:
@@ -887,6 +846,86 @@ components:
       type:
       - object
       - 'null'
+    GetCampaignInfoRequestBody:
+      properties:
+        campaignId:
+          description: Идентификатор активной кампании
+          example: 3456432
+          type: integer
+      required:
+      - campaignId
+      type: object
+    GetBudgetBadRequestError:
+      properties:
+        error:
+          properties:
+            fieldErrors:
+              description: Описание ошибок валидации полей
+              properties:
+                campaignType:
+                  description: Ошибка валидации поля **campaignType**
+                  type: string
+                finishTime:
+                  description: Ошибка валидации поля **finishTime**
+                  type: string
+                items:
+                  description: Ошибка валидации поля **items**
+                  type: string
+                startTime:
+                  description: Ошибка валидации поля **startTime**
+                  type: string
+              type: object
+            message:
+              description: Сообщение об ошибке
+              example: bad request
+              type: string
+          required:
+          - message
+          type: object
+      type: object
+    GetBudgetConflictError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки. Возможные ошибки:<br/> `1` - Слишком много объявлений для расчета бюджета<br/> `6` - Тариф не активен<br/>
+              example: 6
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: get budget failed
+              type: string
+          type: object
+      type: object
+    GetBudgetRequestBody:
+      properties:
+        campaignType:
+          description: Тип кампании. Возможные типы:<br/> `AS` - Автостратегия. Cтратегия расчитана на определенное количество автомобилей, которые находятся в продаже<br/> `AP` - Автопилот. Cтратегия расчитана на все автомобили, которые находятся в продаже<br/>
+          example: AS
+          type: string
+        finishTime:
+          description: Время окончания кампании.<br/>**Обязательно только для типа кампании `AS`**
+          example: '2020-08-24T14:15:22Z'
+          format: date-time
+          type: string
+        items:
+          description: Список индентификаторов объявлений, которые будут продвигаться с помощью данной кампании. <br/>**Обязательно только для типа кампании `AS`**
+          example:
+          - 123123214
+          - 455454235
+          - 87746346
+          items:
+            type: integer
+          type: array
+        startTime:
+          description: Время начала кампании.<br/>**Обязательно только для типа кампании `AS`**
+          example: '2019-08-24T14:15:22Z'
+          format: date-time
+          type: string
+      required:
+      - campaignType
+      type: object
     GetStatRequestError:
       properties:
         error:
@@ -911,87 +950,48 @@ components:
           - message
           type: object
       type: object
-    autostrategyAuthError:
+    CreateCampaignBadRequestError:
       properties:
         error:
           properties:
+            fieldErrors:
+              description: Описание ошибок валидации полей
+              properties:
+                budget:
+                  description: Ошибка валидации поля **budget**
+                  type: string
+                budgetBonus:
+                  description: Ошибка валидации поля **budgetBonus**
+                  type: string
+                budgetReal:
+                  description: Ошибка валидации поля **budgetReal**
+                  type: string
+                campaignType:
+                  description: Ошибка валидации поля **campaignType**
+                  type: string
+                description:
+                  description: Ошибка валидации поля **description**
+                  type: string
+                finishTime:
+                  description: Ошибка валидации поля **finishTime**
+                  type: string
+                items:
+                  description: Ошибка валидации поля **items**
+                  type: string
+                startTime:
+                  description: Ошибка валидации поля **startTime**
+                  type: string
+                title:
+                  description: Ошибка валидации поля **title**
+                  type: string
+              type: object
             message:
               description: Сообщение об ошибке
-              example: unauthorized
+              example: bad request
               type: string
           required:
           - message
           type: object
-      type: object
-    ConflictError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки. Возможные ошибки:<br/> `2` - кампания не найдена<br/>
-              example: 2
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: campaign not found
-              type: string
-          type: object
-      type: object
-    CreateCampaignRequestBody:
-      properties:
-        budget:
-          description: Выделенный бюджет на кампанию в рублях.<br/>**Обязательно только для типа кампании `AS`**
-          example: 10000
-          type: integer
-        budgetBonus:
-          description: Бонусная часть бюджета, в рублях, которая спишется засчет бонусов.<br/>**Может быть только для типа кампании `AP`**
-          example: 100
-          type: integer
-        budgetReal:
-          description: Часть бюджета на кампанию в рублях.<br/>**Обязательно только для типа кампании `AP`**
-          example: 10000
-          type: integer
-        calcId:
-          description: Идентфикатор расчета бюджета из ответа ручки `/autostrategy/v1/budget`
-          example: 123
-          type:
-          - integer
-          - 'null'
-        campaignType:
-          description: Тип кампании. Возможные типы:<br/> `AS` - Автостратегия. Cтратегия расчитана на определенное количество автомобилей, которые находятся в продаже<br/> `AP` - Автопилот. Cтратегия расчитана на все автомобили, которые находятся в продаже<br/>
-          example: AS
-          type: string
-        description:
-          description: Описание кампании
-          example: Toyota, Lexus, BMW 2020 года выпуска
-          type: string
-        finishTime:
-          description: Время окончания кампании.<br/>**Обязательно только для типа кампании `AS`**
-          example: '2019-10-24T14:15:22Z'
-          format: date-time
-          type: string
-        items:
-          description: Список индентификаторов объявлений, которые будут продвигаться с помощью данной кампании.<br/>**Обязательно только для типа кампании `AS`**
-          example:
-          - 123123214
-          - 455454235
-          - 87746346
-          items:
-            type: integer
-          type: array
-        startTime:
-          description: Время начала кампании.<br/>**Обязательно только для типа кампании `AS`**
-          example: '2019-08-24T14:15:22Z'
-          format: date-time
-          type: string
-        title:
-          description: Название кампании
-          example: Внедорожники Москвы
-          type: string
-      required:
-      - campaignType
-      - title
       type: object
     GetCampaignsRequestBody:
       properties:
@@ -1054,6 +1054,28 @@ components:
       required:
       - limit
       type: object
+    StopCampaignBadRequestError:
+      properties:
+        error:
+          properties:
+            fieldErrors:
+              description: Описание ошибок валидации полей
+              properties:
+                campaignId:
+                  description: Ошибка валидации поля **campaignId**
+                  type: string
+                version:
+                  description: Ошибка валидации поля **version**
+                  type: string
+              type: object
+            message:
+              description: Сообщение об ошибке
+              example: bad request
+              type: string
+          required:
+          - message
+          type: object
+      type: object
     EditCampaignBadRequestError:
       properties:
         error:
@@ -1094,29 +1116,73 @@ components:
           - message
           type: object
       type: object
-    GetCampaignInfoRequestBody:
+    CreateCampaignRequestBody:
       properties:
-        campaignId:
-          description: Идентификатор активной кампании
-          example: 3456432
+        budget:
+          description: Выделенный бюджет на кампанию в рублях.<br/>**Обязательно только для типа кампании `AS`**
+          example: 10000
           type: integer
+        budgetBonus:
+          description: Бонусная часть бюджета, в рублях, которая спишется засчет бонусов.<br/>**Может быть только для типа кампании `AP`**
+          example: 100
+          type: integer
+        budgetReal:
+          description: Часть бюджета на кампанию в рублях.<br/>**Обязательно только для типа кампании `AP`**
+          example: 10000
+          type: integer
+        calcId:
+          description: Идентфикатор расчета бюджета из ответа ручки `/autostrategy/v1/budget`
+          example: 123
+          type:
+          - integer
+          - 'null'
+        campaignType:
+          description: Тип кампании. Возможные типы:<br/> `AS` - Автостратегия. Cтратегия расчитана на определенное количество автомобилей, которые находятся в продаже<br/> `AP` - Автопилот. Cтратегия расчитана на все автомобили, которые находятся в продаже<br/>
+          example: AS
+          type: string
+        description:
+          description: Описание кампании
+          example: Toyota, Lexus, BMW 2020 года выпуска
+          type: string
+        finishTime:
+          description: Время окончания кампании.<br/>**Обязательно только для типа кампании `AS`**
+          example: '2019-10-24T14:15:22Z'
+          format: date-time
+          type: string
+        items:
+          description: Список индентификаторов объявлений, которые будут продвигаться с помощью данной кампании.<br/>**Обязательно только для типа кампании `AS`**
+          example:
+          - 123123214
+          - 455454235
+          - 87746346
+          items:
+            type: integer
+          type: array
+        startTime:
+          description: Время начала кампании.<br/>**Обязательно только для типа кампании `AS`**
+          example: '2019-08-24T14:15:22Z'
+          format: date-time
+          type: string
+        title:
+          description: Название кампании
+          example: Внедорожники Москвы
+          type: string
       required:
-      - campaignId
+      - campaignType
+      - title
       type: object
-    CreateCampaignConflictError:
+    Campaigns:
+      description: Список кампаний
       properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки. Возможные ошибки:<br/> `1` - общий бюджет меньше минимального<br/> `2` - реальный бюджет меньше минимального<br/> `3` - недостаточно бонусов на счете<br/> `5` - часть или все объявления уже продвигаются<br/> `6` - тариф не активен<br/> `7` - бюджет выше максимального<br/>
-              example: 6
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: create campaign failed
-              type: string
-          type: object
+        campaigns:
+          description: Список кампаний, удовлетворяющих фильтрам, с учетом смещения и ограничения
+          items:
+            $ref: '#/components/schemas/Campaign'
+          type: array
+        totalCount:
+          description: Общее количество кампаний, удовлетворяющих фильтрам
+          example: 10
+          type: integer
       type: object
     GetCampaignInfoForecastResult:
       description: Предсказание звонков и просмотров на завтра
@@ -1169,112 +1235,31 @@ components:
           - to
           type: object
       type: object
-    GetBudgetRequestBody:
-      properties:
-        campaignType:
-          description: Тип кампании. Возможные типы:<br/> `AS` - Автостратегия. Cтратегия расчитана на определенное количество автомобилей, которые находятся в продаже<br/> `AP` - Автопилот. Cтратегия расчитана на все автомобили, которые находятся в продаже<br/>
-          example: AS
-          type: string
-        finishTime:
-          description: Время окончания кампании.<br/>**Обязательно только для типа кампании `AS`**
-          example: '2020-08-24T14:15:22Z'
-          format: date-time
-          type: string
-        items:
-          description: Список индентификаторов объявлений, которые будут продвигаться с помощью данной кампании. <br/>**Обязательно только для типа кампании `AS`**
-          example:
-          - 123123214
-          - 455454235
-          - 87746346
-          items:
-            type: integer
-          type: array
-        startTime:
-          description: Время начала кампании.<br/>**Обязательно только для типа кампании `AS`**
-          example: '2019-08-24T14:15:22Z'
-          format: date-time
-          type: string
-      required:
-      - campaignType
-      type: object
-    EditCampaignRequestBody:
-      properties:
-        budget:
-          description: Новый бюджет кампании в рублях
-          example: 1000
-          type: integer
-        calcId:
-          description: Идентификатор расчета бюджета из ответа ручки `/autostrategy/v1/budget`
-          example: 123
-          type:
-          - integer
-          - 'null'
-        campaignId:
-          description: Идентификатор активной кампании
-          example: 3456432
-          type: integer
-        description:
-          description: Новое описание кампании
-          example: Toyota, Lexus, BMW, Audi 2019 и 2020 года выпуска
-          type: string
-        finishTime:
-          description: Новое время окончания кампании
-          example: '2020-08-24T14:15:22Z'
-          format: date-time
-          type: string
-        items:
-          description: Новый список индентификаторов объявлений, которые будут продвигаться с помощью данной кампании
-          example:
-          - 123123214
-          - 455454235
-          - 87746346
-          items:
-            type: integer
-          type: array
-        startTime:
-          description: Новое время начала кампании
-          example: '2019-08-24T14:15:22Z'
-          format: date-time
-          type: string
-        title:
-          description: Новое название кампании
-          example: Внедорожники Москвы и Санкт-Петербурга
-          type: string
-        version:
-          description: Текущая версия кампании
-          example: 3
-          type: integer
-      required:
-      - campaignId
-      - version
-      type: object
-    GetBudgetConflictError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки. Возможные ошибки:<br/> `1` - Слишком много объявлений для расчета бюджета<br/> `6` - Тариф не активен<br/>
-              example: 6
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: get budget failed
-              type: string
-          type: object
-      type: object
-    StopCampaignBadRequestError:
+    GetCampaignsBadRequestError:
       properties:
         error:
           properties:
             fieldErrors:
               description: Описание ошибок валидации полей
               properties:
-                campaignId:
-                  description: Ошибка валидации поля **campaignId**
+                limit:
+                  description: Ошибка валидации поля **limit**
                   type: string
-                version:
-                  description: Ошибка валидации поля **version**
+                offset:
+                  description: Ошибка валидации поля **offset**
+                  type: string
+                orderBy:
+                  description: Ошибка валидации поля **orderBy**
+                  properties:
+                    column:
+                      description: Ошибка валидации поля **column**
+                      type: string
+                    direction:
+                      description: Ошибка валидации поля **direction**
+                      type: string
+                  type: object
+                statusId:
+                  description: Ошибка валидации поля **statusId**
                   type: string
               type: object
             message:
@@ -1283,6 +1268,21 @@ components:
               type: string
           required:
           - message
+          type: object
+      type: object
+    ConflictError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки. Возможные ошибки:<br/> `2` - кампания не найдена<br/>
+              example: 2
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: campaign not found
+              type: string
           type: object
       type: object
   parameters:

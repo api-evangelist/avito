@@ -70,6 +70,17 @@ paths:
       - Core
 components:
   schemas:
+    UpdatePriceRequest:
+      properties:
+        price:
+          description: Цена
+          example: 100
+          type: integer
+      required:
+      - price
+      type: object
+    tooManyRequests:
+      type: object
     UpdatePriceResponse:
       properties:
         result:
@@ -79,8 +90,6 @@ components:
           type: object
       required:
       - result
-      type: object
-    tooManyRequests:
       type: object
     authError:
       properties:
@@ -100,14 +109,23 @@ components:
           - message
           type: object
       type: object
-    UpdatePriceRequest:
+    badRequestError:
       properties:
-        price:
-          description: Цена
-          example: 100
-          type: integer
-      required:
-      - price
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 400
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Bad Request
+              type: string
+          required:
+          - code
+          - message
+          type: object
       type: object
     notFoundError:
       properties:
@@ -121,24 +139,6 @@ components:
             message:
               description: Сообщение об ошибке
               example: Not found
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    badRequestError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 400
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Bad Request
               type: string
           required:
           - code

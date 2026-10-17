@@ -307,101 +307,6 @@ paths:
       tags:
       - Transactions
 components:
-  schemas:
-    errorResult:
-      additionalProperties: false
-      description: Результат с ошибкой
-      properties:
-        message:
-          $ref: '#/components/schemas/errorMessage'
-      required:
-      - message
-      type: object
-    errorFields:
-      description: Ошибки валидации
-      items:
-        additionalProperties: false
-        description: Ошибка валидации поля
-        properties:
-          field:
-            $ref: '#/components/schemas/errorField'
-          message:
-            $ref: '#/components/schemas/errorMessage'
-        required:
-        - field
-        - message
-        type: object
-      type: array
-    errorMessage:
-      description: Сообщение об ошибке
-      example: Ошибка
-      type: string
-    defaultErrorResponse:
-      additionalProperties: false
-      properties:
-        error:
-          additionalProperties: false
-          description: Ошибка
-          properties:
-            code:
-              description: Код ошибки
-              example: 1001
-              type: integer
-            message:
-              $ref: '#/components/schemas/errorMessage'
-          required:
-          - code
-          - message
-          type: object
-      required:
-      - error
-      type: object
-    errorResponse:
-      additionalProperties: false
-      properties:
-        result:
-          $ref: '#/components/schemas/errorResult'
-      required:
-      - result
-      type: object
-    transactionStatus:
-      description: Статус транзакции
-      enum:
-      - processing
-      - success
-      - error
-      example: success
-      type: string
-    errorField:
-      description: Наименование поля
-      example: userId
-      type: string
-    id:
-      description: Идентификатор
-      example: 123456
-      minimum: 1
-      type: integer
-    transactionId:
-      description: Идентификатор транзакции
-      example: b52717c26fbc027acc34f165490fd4fdf404f3aa
-      minLength: 1
-      type: string
-  parameters:
-    authHeader:
-      description: Токен для авторизации
-      in: header
-      name: Authorization
-      required: true
-      schema:
-        example: Bearer ACCESS_TOKEN
-        type: string
-    transactionIdPathParameter:
-      description: Идентификатор транзакции
-      in: path
-      name: transaction_id
-      required: true
-      schema:
-        $ref: '#/components/schemas/transactionId'
   responses:
     forbidden:
       content:
@@ -409,6 +314,18 @@ components:
           schema:
             $ref: '#/components/schemas/errorResponse'
       description: Действие запрещено
+    notFound:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorResponse'
+      description: Не найдено
+    defaultTooManyRequests:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Превышено количество запросов
     defaultInternalServerError:
       content:
         application/json:
@@ -433,18 +350,101 @@ components:
             - result
             type: object
       description: Неверный запрос
-    notFound:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/errorResponse'
-      description: Не найдено
-    defaultTooManyRequests:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Превышено количество запросов
+  schemas:
+    errorFields:
+      description: Ошибки валидации
+      items:
+        additionalProperties: false
+        description: Ошибка валидации поля
+        properties:
+          field:
+            $ref: '#/components/schemas/errorField'
+          message:
+            $ref: '#/components/schemas/errorMessage'
+        required:
+        - field
+        - message
+        type: object
+      type: array
+    errorField:
+      description: Наименование поля
+      example: userId
+      type: string
+    transactionStatus:
+      description: Статус транзакции
+      enum:
+      - processing
+      - success
+      - error
+      example: success
+      type: string
+    id:
+      description: Идентификатор
+      example: 123456
+      minimum: 1
+      type: integer
+    errorResult:
+      additionalProperties: false
+      description: Результат с ошибкой
+      properties:
+        message:
+          $ref: '#/components/schemas/errorMessage'
+      required:
+      - message
+      type: object
+    errorMessage:
+      description: Сообщение об ошибке
+      example: Ошибка
+      type: string
+    errorResponse:
+      additionalProperties: false
+      properties:
+        result:
+          $ref: '#/components/schemas/errorResult'
+      required:
+      - result
+      type: object
+    defaultErrorResponse:
+      additionalProperties: false
+      properties:
+        error:
+          additionalProperties: false
+          description: Ошибка
+          properties:
+            code:
+              description: Код ошибки
+              example: 1001
+              type: integer
+            message:
+              $ref: '#/components/schemas/errorMessage'
+          required:
+          - code
+          - message
+          type: object
+      required:
+      - error
+      type: object
+    transactionId:
+      description: Идентификатор транзакции
+      example: b52717c26fbc027acc34f165490fd4fdf404f3aa
+      minLength: 1
+      type: string
+  parameters:
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
+    transactionIdPathParameter:
+      description: Идентификатор транзакции
+      in: path
+      name: transaction_id
+      required: true
+      schema:
+        $ref: '#/components/schemas/transactionId'
   securitySchemes:
     ClientCredentials:
       description: 'Используйте OAuth2 с механизмом `client_credentials` для доступа к возможностям учётной записи агентства. [Подробнее](#tag/Access)

@@ -259,33 +259,115 @@ paths:
       tags:
       - Invite
 components:
+  schemas:
+    errorFields:
+      description: Ошибки валидации
+      items:
+        additionalProperties: false
+        description: Ошибка валидации поля
+        properties:
+          field:
+            $ref: '#/components/schemas/errorField'
+          message:
+            $ref: '#/components/schemas/errorMessage'
+        required:
+        - field
+        - message
+        type: object
+      type: array
+    errorField:
+      description: Наименование поля
+      example: userId
+      type: string
+    errorResult:
+      additionalProperties: false
+      description: Результат с ошибкой
+      properties:
+        message:
+          $ref: '#/components/schemas/errorMessage'
+      required:
+      - message
+      type: object
+    errorResponse:
+      additionalProperties: false
+      properties:
+        result:
+          $ref: '#/components/schemas/errorResult'
+      required:
+      - result
+      type: object
+    defaultErrorResponse:
+      additionalProperties: false
+      properties:
+        error:
+          additionalProperties: false
+          description: Ошибка
+          properties:
+            code:
+              description: Код ошибки
+              example: 1001
+              type: integer
+            message:
+              $ref: '#/components/schemas/errorMessage'
+          required:
+          - code
+          - message
+          type: object
+      required:
+      - error
+      type: object
+    inviteId:
+      additionalProperties: false
+      description: Идентификатор приглашения нового клиента
+      properties:
+        inviteId:
+          $ref: '#/components/schemas/id'
+      required:
+      - inviteId
+      type: object
+    errorMessage:
+      description: Сообщение об ошибке
+      example: Ошибка
+      type: string
+    notFoundResponseStatus:
+      description: Статус ответа
+      enum:
+      - not-found
+      example: not-found
+      type: string
+    badRequestResponseStatus:
+      description: Статус ответа
+      enum:
+      - bad-request
+      example: bad-request
+      type: string
+    id:
+      description: Идентификатор
+      example: 123456
+      minimum: 1
+      type: integer
+    linkType:
+      description: Тип связи с клиентом
+      enum:
+      - adv
+      - trx
+      example: adv
+      type: string
+    okResponseStatus:
+      description: Статус результата ответа
+      enum:
+      - ok
+      example: ok
+      type: string
   responses:
-    forbidden:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/errorResponse'
-      description: Действие запрещено
-    defaultInternalServerError:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Ошибка сервера
-    unauthorized:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/errorResponse'
-      description: Требуется авторизация
-    badRequestWithStatus:
+    badRequestFieldsWithStatus:
       content:
         application/json:
           schema:
             additionalProperties: false
             properties:
               result:
-                $ref: '#/components/schemas/errorResult'
+                $ref: '#/components/schemas/errorFields'
               status:
                 $ref: '#/components/schemas/badRequestResponseStatus'
             required:
@@ -308,14 +390,14 @@ components:
             - result
             type: object
       description: Не найдено
-    badRequestFieldsWithStatus:
+    badRequestWithStatus:
       content:
         application/json:
           schema:
             additionalProperties: false
             properties:
               result:
-                $ref: '#/components/schemas/errorFields'
+                $ref: '#/components/schemas/errorResult'
               status:
                 $ref: '#/components/schemas/badRequestResponseStatus'
             required:
@@ -323,112 +405,30 @@ components:
             - result
             type: object
       description: Неверный запрос
+    forbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorResponse'
+      description: Действие запрещено
     defaultTooManyRequests:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/defaultErrorResponse'
       description: Превышено количество запросов
-  schemas:
-    errorMessage:
-      description: Сообщение об ошибке
-      example: Ошибка
-      type: string
-    errorResponse:
-      additionalProperties: false
-      properties:
-        result:
-          $ref: '#/components/schemas/errorResult'
-      required:
-      - result
-      type: object
-    errorField:
-      description: Наименование поля
-      example: userId
-      type: string
-    okResponseStatus:
-      description: Статус результата ответа
-      enum:
-      - ok
-      example: ok
-      type: string
-    id:
-      description: Идентификатор
-      example: 123456
-      minimum: 1
-      type: integer
-    inviteId:
-      additionalProperties: false
-      description: Идентификатор приглашения нового клиента
-      properties:
-        inviteId:
-          $ref: '#/components/schemas/id'
-      required:
-      - inviteId
-      type: object
-    errorResult:
-      additionalProperties: false
-      description: Результат с ошибкой
-      properties:
-        message:
-          $ref: '#/components/schemas/errorMessage'
-      required:
-      - message
-      type: object
-    notFoundResponseStatus:
-      description: Статус ответа
-      enum:
-      - not-found
-      example: not-found
-      type: string
-    defaultErrorResponse:
-      additionalProperties: false
-      properties:
-        error:
-          additionalProperties: false
-          description: Ошибка
-          properties:
-            code:
-              description: Код ошибки
-              example: 1001
-              type: integer
-            message:
-              $ref: '#/components/schemas/errorMessage'
-          required:
-          - code
-          - message
-          type: object
-      required:
-      - error
-      type: object
-    errorFields:
-      description: Ошибки валидации
-      items:
-        additionalProperties: false
-        description: Ошибка валидации поля
-        properties:
-          field:
-            $ref: '#/components/schemas/errorField'
-          message:
-            $ref: '#/components/schemas/errorMessage'
-        required:
-        - field
-        - message
-        type: object
-      type: array
-    linkType:
-      description: Тип связи с клиентом
-      enum:
-      - adv
-      - trx
-      example: adv
-      type: string
-    badRequestResponseStatus:
-      description: Статус ответа
-      enum:
-      - bad-request
-      example: bad-request
-      type: string
+    defaultInternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Ошибка сервера
+    unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorResponse'
+      description: Требуется авторизация
   parameters:
     authHeader:
       description: Токен для авторизации

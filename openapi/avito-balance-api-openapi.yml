@@ -205,60 +205,26 @@ paths:
       tags:
       - Balance
 components:
-  responses:
-    defaultForbidden:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Действие запрещено
-    defaultInternalServerError:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Ошибка сервера
-    defaultUnauthorized:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Требуется авторизация
-    defaultTooManyRequests:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Превышено количество запросов
-    defaultBadRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Неверный запрос
-  parameters:
-    authHeader:
-      description: Токен для авторизации
-      in: header
-      name: Authorization
-      required: true
-      schema:
-        example: Bearer ACCESS_TOKEN
-        type: string
   schemas:
-    dateTime:
-      description: Дата в формате RFC3339
-      example: '2025-05-02T11:00:00+03:00'
-      format: date-time
+    transactionId:
+      description: Идентификатор транзакции
+      example: b52717c26fbc027acc34f165490fd4fdf404f3aa
+      minLength: 1
       type: string
     offset:
       description: Смещение, с которого начинается выборка
       example: 10
       minimum: 0
       type: integer
-    errorMessage:
-      description: Сообщение об ошибке
-      example: Ошибка
+    id:
+      description: Идентификатор
+      example: 123456
+      minimum: 1
+      type: integer
+    dateTime:
+      description: Дата в формате RFC3339
+      example: '2025-05-02T11:00:00+03:00'
+      format: date-time
       type: string
     limit:
       description: Ограничение количества сущностей в выборке
@@ -266,6 +232,10 @@ components:
       maximum: 1000
       minimum: 1
       type: integer
+    errorMessage:
+      description: Сообщение об ошибке
+      example: Ошибка
+      type: string
     defaultErrorResponse:
       additionalProperties: false
       properties:
@@ -290,16 +260,46 @@ components:
       description: Сумма в копейках
       example: 100000
       type: integer
-    id:
-      description: Идентификатор
-      example: 123456
-      minimum: 1
-      type: integer
-    transactionId:
-      description: Идентификатор транзакции
-      example: b52717c26fbc027acc34f165490fd4fdf404f3aa
-      minLength: 1
-      type: string
+  responses:
+    defaultForbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Действие запрещено
+    defaultTooManyRequests:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Превышено количество запросов
+    defaultInternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Ошибка сервера
+    defaultBadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Неверный запрос
+    defaultUnauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Требуется авторизация
+  parameters:
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
   securitySchemes:
     ClientCredentials:
       description: 'Используйте OAuth2 с механизмом `client_credentials` для доступа к возможностям учётной записи агентства. [Подробнее](#tag/Access)

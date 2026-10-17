@@ -212,19 +212,6 @@ paths:
       - Call
 components:
   schemas:
-    CreateComplaint:
-      properties:
-        callId:
-          description: Идентификатор звонка
-          format: int64
-          type: integer
-        message:
-          description: Текст жалобы
-          type: string
-      required:
-      - callId
-      - message
-      type: object
     serviceError:
       properties:
         error:
@@ -242,6 +229,41 @@ components:
           - code
           - message
           type: object
+      type: object
+    CreateComplaint:
+      properties:
+        callId:
+          description: Идентификатор звонка
+          format: int64
+          type: integer
+        message:
+          description: Текст жалобы
+          type: string
+      required:
+      - callId
+      - message
+      type: object
+    CallsByTime:
+      properties:
+        dateTimeFrom:
+          description: Время с которого нужно начинать поиск звонков по startTime (строка в формате RFC3339)
+          example: '2021-01-02T15:04:05Z'
+          type: string
+        limit:
+          description: Размер выборки
+          format: int64
+          type: integer
+        offset:
+          description: 'Смещение выборки (по-умолчанию 0). Для улучшения производительности лучше использовать
+
+            максимальный startTime звонка из предыдущей выборки
+
+            '
+          format: int64
+          type: integer
+      required:
+      - dateTimeFrom
+      - limit
       type: object
     CpaError:
       properties:
@@ -269,6 +291,19 @@ components:
           example: ЦД недоступно для обжалования
           type: string
       type: object
+    tooManyRequestsError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 429
+              format: int32
+              type: integer
+          required:
+          - code
+          type: object
+      type: object
     notFoundError:
       properties:
         error:
@@ -285,28 +320,6 @@ components:
           required:
           - code
           - message
-          type: object
-      type: object
-    CallById:
-      properties:
-        callId:
-          description: Идентификатор звонка
-          format: int64
-          type: integer
-      required:
-      - callId
-      type: object
-    tooManyRequestsError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 429
-              format: int32
-              type: integer
-          required:
-          - code
           type: object
       type: object
     CallV2:
@@ -380,36 +393,23 @@ components:
           example: '0.0109999'
           type: number
       type: object
-    CallsByTime:
+    CallById:
       properties:
-        dateTimeFrom:
-          description: Время с которого нужно начинать поиск звонков по startTime (строка в формате RFC3339)
-          example: '2021-01-02T15:04:05Z'
-          type: string
-        limit:
-          description: Размер выборки
-          format: int64
-          type: integer
-        offset:
-          description: 'Смещение выборки (по-умолчанию 0). Для улучшения производительности лучше использовать
-
-            максимальный startTime звонка из предыдущей выборки
-
-            '
+        callId:
+          description: Идентификатор звонка
           format: int64
           type: integer
       required:
-      - dateTimeFrom
-      - limit
+      - callId
       type: object
   headers:
-    X-RateLimit-Remaining:
-      description: Доступное количество запросов в текущем временном окне
+    X-RateLimit-Limit:
+      description: Количество запросов в минуту
       schema:
         format: int32
         type: integer
-    X-RateLimit-Limit:
-      description: Количество запросов в минуту
+    X-RateLimit-Remaining:
+      description: Доступное количество запросов в текущем временном окне
       schema:
         format: int32
         type: integer

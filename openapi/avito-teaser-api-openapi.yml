@@ -136,11 +136,6 @@ paths:
       x-trailing-slash: true
 components:
   schemas:
-    CreateTeaserResponseDataAutoteka:
-      properties:
-        teaser:
-          $ref: '#/components/schemas/TeaserWithoutDataAutoteka'
-      type: object
     TeaserResponse:
       description: Тизер и статус готовности
       properties:
@@ -161,6 +156,47 @@ components:
       - status
       - data
       type: object
+    internalError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 500
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Service is temporary unavailable
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    CreateTeaserResponseDataAutoteka:
+      properties:
+        teaser:
+          $ref: '#/components/schemas/TeaserWithoutDataAutoteka'
+      type: object
+    validatingError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 400
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Validation error
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
     RequestTeaserByVehicleIdAutoteka:
       properties:
         vehicleId:
@@ -168,6 +204,43 @@ components:
           type: string
       required:
       - vehicleId
+      type: object
+    forbiddenError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 403
+              format: int32
+              type: integer
+            message:
+              description: Сообщение об ошибке
+              example: Forbidden
+              type: string
+          required:
+          - code
+          - message
+          type: object
+      type: object
+    TeaserWithoutDataAutoteka:
+      properties:
+        status:
+          description: Текущий статус генерации тизера
+          enum:
+          - success
+          - processing
+          example: processing
+          type: string
+        teaserId:
+          description: Идентификатор сгенерированного тизера, по которому его можно получить
+          example: 1
+          format: int64
+          minimum: 1
+          type: integer
+      required:
+      - teaserId
+      - status
       type: object
     Teaser:
       description: Тизер
@@ -299,6 +372,19 @@ components:
       type:
       - object
       - 'null'
+    tooManyRequestsError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 429
+              format: int32
+              type: integer
+          required:
+          - code
+          type: object
+      type: object
     notFoundError:
       properties:
         error:
@@ -317,105 +403,19 @@ components:
           - message
           type: object
       type: object
-    TeaserWithoutDataAutoteka:
-      properties:
-        status:
-          description: Текущий статус генерации тизера
-          enum:
-          - success
-          - processing
-          example: processing
-          type: string
-        teaserId:
-          description: Идентификатор сгенерированного тизера, по которому его можно получить
-          example: 1
-          format: int64
-          minimum: 1
-          type: integer
-      required:
-      - teaserId
-      - status
-      type: object
-    validatingError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 400
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Validation error
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    tooManyRequestsError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 429
-              format: int32
-              type: integer
-          required:
-          - code
-          type: object
-      type: object
-    forbiddenError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 403
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Forbidden
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
-    internalError:
-      properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 500
-              format: int32
-              type: integer
-            message:
-              description: Сообщение об ошибке
-              example: Service is temporary unavailable
-              type: string
-          required:
-          - code
-          - message
-          type: object
-      type: object
     CreateTeaserResponseBodyAutoteka:
       properties:
         result:
           $ref: '#/components/schemas/CreateTeaserResponseDataAutoteka'
       type: object
   headers:
-    X-RateLimit-Remaining:
-      description: Доступное количество запросов в текущем временном окне
+    X-RateLimit-Limit:
+      description: Количество запросов в минуту
       schema:
         format: int32
         type: integer
-    X-RateLimit-Limit:
-      description: Количество запросов в минуту
+    X-RateLimit-Remaining:
+      description: Доступное количество запросов в текущем временном окне
       schema:
         format: int32
         type: integer

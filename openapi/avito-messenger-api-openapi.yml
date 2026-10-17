@@ -529,6 +529,61 @@ paths:
         source: "$ch = curl_init(\"https://api.avito.ru/messenger/v3/webhook\");\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n\t\"Content-Type: application/json\",\n\t\"Authorization: Bearer <TOKEN>\",\n]);\ncurl_setopt($ch, CURLOPT_POST, true);\n\ncurl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([\n\t\"url\" => \"https://test.test\",\n], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));\n\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\n$result = curl_exec($ch);\ncurl_close($ch);"
 components:
   parameters:
+    itemIds:
+      description: Получение чатов только по объявлениям с указанными item_id
+      in: query
+      name: item_ids
+      schema:
+        example: 12345,6789
+        items:
+          format: int64
+          type: integer
+        type: array
+    chatId:
+      description: Идентификатор чата (клиента)
+      in: path
+      name: chat_id
+      required: true
+      schema:
+        type: string
+    limit:
+      description: Количество сообщений / чатов для запроса
+      in: query
+      name: limit
+      schema:
+        default: 100
+        example: 50
+        format: int32
+        maximum: 100
+        minimum: 1
+        type: integer
+    messageId:
+      description: Идентификатор сообщения
+      in: path
+      name: message_id
+      required: true
+      schema:
+        type: string
+    voiceIds:
+      description: Получение файлов голосовых сообщений с указанными voice_id
+      in: query
+      name: voice_ids
+      required: true
+      schema:
+        items:
+          type: string
+        type: array
+    offset:
+      description: Сдвиг сообщений / чатов для запроса
+      in: query
+      name: offset
+      schema:
+        default: 0
+        example: 50
+        format: int32
+        maximum: 1000
+        minimum: 0
+        type: integer
     chatTypes:
       description: "Фильтрация возвращаемых чатов. \n* u2i — чаты по объявлениям;\n* u2u — чаты между пользователями;\n* a2u — чаты между пользователями и Авито;\n"
       in: query
@@ -543,70 +598,6 @@ components:
           - a2u
           type: string
         type: array
-    voiceIds:
-      description: Получение файлов голосовых сообщений с указанными voice_id
-      in: query
-      name: voice_ids
-      required: true
-      schema:
-        items:
-          type: string
-        type: array
-    authHeader:
-      description: Токен для авторизации
-      in: header
-      name: Authorization
-      required: true
-      schema:
-        example: Bearer ACCESS_TOKEN
-        type: string
-    messageId:
-      description: Идентификатор сообщения
-      in: path
-      name: message_id
-      required: true
-      schema:
-        type: string
-    userId:
-      description: Идентификатор пользователя (клиента)
-      in: path
-      name: user_id
-      required: true
-      schema:
-        format: int64
-        type: integer
-    offset:
-      description: Сдвиг сообщений / чатов для запроса
-      in: query
-      name: offset
-      schema:
-        default: 0
-        example: 50
-        format: int32
-        maximum: 1000
-        minimum: 0
-        type: integer
-    limit:
-      description: Количество сообщений / чатов для запроса
-      in: query
-      name: limit
-      schema:
-        default: 100
-        example: 50
-        format: int32
-        maximum: 100
-        minimum: 1
-        type: integer
-    itemIds:
-      description: Получение чатов только по объявлениям с указанными item_id
-      in: query
-      name: item_ids
-      schema:
-        example: 12345,6789
-        items:
-          format: int64
-          type: integer
-        type: array
     unreadOnly:
       description: При значении true метод возвращает только непрочитанные чаты
       in: query
@@ -615,12 +606,21 @@ components:
         default: false
         example: true
         type: boolean
-    chatId:
-      description: Идентификатор чата (клиента)
+    userId:
+      description: Идентификатор пользователя (клиента)
       in: path
-      name: chat_id
+      name: user_id
       required: true
       schema:
+        format: int64
+        type: integer
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
         type: string
   schemas:
     Messages:
@@ -670,77 +670,6 @@ components:
             type: string
         type: object
       type: array
-    addBlacklistRequestBody:
-      properties:
-        users:
-          items:
-            properties:
-              context:
-                properties:
-                  item_id:
-                    format: int64
-                    type: integer
-                  reason_id:
-                    description: причина, по которой блокируем пользователя, 1 - спам, 2 - мошенничество, 3 - оскорбления и хамство, 4 - другая причина
-                    enum:
-                    - 1
-                    - 2
-                    - 3
-                    - 4
-                    type: integer
-                type: object
-              user_id:
-                description: id пользователя которого хотим заблокировать
-                example: 94235311
-                format: int64
-                type: integer
-            type: object
-          type: array
-      type: object
-    sendImageMessageRequestBody:
-      properties:
-        image_id:
-          description: Идентификатор загруженного изображения
-          type: string
-      required:
-      - image_id
-      type: object
-    MessageQuote:
-      description: цитируемое сообщение
-      properties:
-        author_id:
-          example: 94235311
-          format: int64
-          type: integer
-        content:
-          $ref: '#/components/schemas/MessageContent'
-        created:
-          example: 1571654040
-          format: int64
-          type: integer
-        id:
-          type: string
-        type:
-          enum:
-          - text
-          - image
-          - link
-          - item
-          - location
-          - call
-          - deleted
-          - voice
-          - system
-          type: string
-      type: object
-    Chats:
-      properties:
-        chats:
-          description: Список чатов
-          items:
-            $ref: '#/components/schemas/Chat'
-          type: array
-      type: object
     Chat:
       properties:
         context:
@@ -913,88 +842,65 @@ components:
             type: object
           type: array
       type: object
-    sendMessageRequestBody:
+    webhookSubscribeRequestBody:
       properties:
-        message:
-          properties:
-            text:
-              description: Текст сообщения (максимум 1000 символов)
-              maxLength: 1000
-              type: string
-          type: object
-        type:
-          description: Тип сообщения
-          enum:
-          - text
+        url:
+          description: Url на который будут отправляться нотификации
           type: string
       required:
       - url
       type: object
-    WebhookMessage:
+    Chats:
       properties:
-        author_id:
-          description: ID пользователя, отправившего сообщение
-          example: 123
-          type: integer
-        chat_id:
-          description: Уникальный идентификатор чата, куда отправлено сообщение
-          example: abc
+        chats:
+          description: Список чатов
+          items:
+            $ref: '#/components/schemas/Chat'
+          type: array
+      type: object
+    sendImageMessageRequestBody:
+      properties:
+        image_id:
+          description: Идентификатор загруженного изображения
           type: string
-        chat_type:
-          description: Тип чата (u2i - чат по объявлению, u2u - чат по профилю пользователя, a2u - чат по профилю пользователя c Авито)
-          enum:
-          - u2i
-          - u2u
-          - a2u
-          example: u2i
-          type: string
-        content:
-          $ref: '#/components/schemas/MessageContent'
-        created:
-          description: Unix-timestamp времени создания сообщения
-          example: 123
-          type: integer
-        id:
-          description: Уникальный идентификатор сообщения
-          example: abc
-          type: string
-        item_id:
-          description: ID объявления, актуально только для чатов с типом u2i
-          example: 123
-          type:
-          - integer
-          - 'null'
-        published_at:
-          description: Время публикации сообщения в формате RFC3339 в UTC
-          example: '1973-03-04T13:33:09Z'
-          type: string
-        read:
-          description: Unix-timestamp времени прочтения, если сообщение уже прочитано
-          example: 123
-          type:
-          - integer
-          - 'null'
-        type:
-          description: Тип сообщения
-          enum:
-          - text
-          - image
-          - system
-          - item
-          - call
-          - link
-          - location
-          - deleted
-          - appCall
-          - file
-          - video
-          - voice
-          example: text
-          type: string
-        user_id:
-          description: ID пользователя, получившего сообщение. Это всегда аккаунт, на который зарегистрирован вебхук
-          example: 123
-          type: integer
+      required:
+      - image_id
+      type: object
+    addBlacklistRequestBody:
+      properties:
+        users:
+          items:
+            properties:
+              context:
+                properties:
+                  item_id:
+                    format: int64
+                    type: integer
+                  reason_id:
+                    description: причина, по которой блокируем пользователя, 1 - спам, 2 - мошенничество, 3 - оскорбления и хамство, 4 - другая причина
+                    enum:
+                    - 1
+                    - 2
+                    - 3
+                    - 4
+                    type: integer
+                type: object
+              user_id:
+                description: id пользователя которого хотим заблокировать
+                example: 94235311
+                format: int64
+                type: integer
+            type: object
+          type: array
+      type: object
+    VoiceFiles:
+      properties:
+        voices_urls:
+          additionalProperties:
+            example: https://avito.ru/voice_url
+            format: uri
+            type: string
+          type: object
       type: object
     MessageContent:
       description: Для сообщений типов "appCall" "file" "video" возвращается empty object (данные типы не поддерживаются)
@@ -1135,6 +1041,117 @@ components:
           - object
           - 'null'
       type: object
+    MessageQuote:
+      description: цитируемое сообщение
+      properties:
+        author_id:
+          example: 94235311
+          format: int64
+          type: integer
+        content:
+          $ref: '#/components/schemas/MessageContent'
+        created:
+          example: 1571654040
+          format: int64
+          type: integer
+        id:
+          type: string
+        type:
+          enum:
+          - text
+          - image
+          - link
+          - item
+          - location
+          - call
+          - deleted
+          - voice
+          - system
+          type: string
+      type: object
+    WebhookMessage:
+      properties:
+        author_id:
+          description: ID пользователя, отправившего сообщение
+          example: 123
+          type: integer
+        chat_id:
+          description: Уникальный идентификатор чата, куда отправлено сообщение
+          example: abc
+          type: string
+        chat_type:
+          description: Тип чата (u2i - чат по объявлению, u2u - чат по профилю пользователя, a2u - чат по профилю пользователя c Авито)
+          enum:
+          - u2i
+          - u2u
+          - a2u
+          example: u2i
+          type: string
+        content:
+          $ref: '#/components/schemas/MessageContent'
+        created:
+          description: Unix-timestamp времени создания сообщения
+          example: 123
+          type: integer
+        id:
+          description: Уникальный идентификатор сообщения
+          example: abc
+          type: string
+        item_id:
+          description: ID объявления, актуально только для чатов с типом u2i
+          example: 123
+          type:
+          - integer
+          - 'null'
+        published_at:
+          description: Время публикации сообщения в формате RFC3339 в UTC
+          example: '1973-03-04T13:33:09Z'
+          type: string
+        read:
+          description: Unix-timestamp времени прочтения, если сообщение уже прочитано
+          example: 123
+          type:
+          - integer
+          - 'null'
+        type:
+          description: Тип сообщения
+          enum:
+          - text
+          - image
+          - system
+          - item
+          - call
+          - link
+          - location
+          - deleted
+          - appCall
+          - file
+          - video
+          - voice
+          example: text
+          type: string
+        user_id:
+          description: ID пользователя, получившего сообщение. Это всегда аккаунт, на который зарегистрирован вебхук
+          example: 123
+          type: integer
+      type: object
+    sendMessageRequestBody:
+      properties:
+        message:
+          properties:
+            text:
+              description: Текст сообщения (максимум 1000 символов)
+              maxLength: 1000
+              type: string
+          type: object
+        type:
+          description: Тип сообщения
+          enum:
+          - text
+          type: string
+      required:
+      - url
+      type: object
     PayloadStruct:
       properties:
         type:
@@ -1143,23 +1160,6 @@ components:
           type: string
         value:
           $ref: '#/components/schemas/WebhookMessage'
-      type: object
-    VoiceFiles:
-      properties:
-        voices_urls:
-          additionalProperties:
-            example: https://avito.ru/voice_url
-            format: uri
-            type: string
-          type: object
-      type: object
-    webhookSubscribeRequestBody:
-      properties:
-        url:
-          description: Url на который будут отправляться нотификации
-          type: string
-      required:
-      - url
       type: object
   securitySchemes:
     AuthorizationCode:

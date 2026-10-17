@@ -181,6 +181,634 @@ paths:
       - DeliveryTariffication
 components:
   schemas:
+    TermsZone:
+      properties:
+        deliveryProviderZoneId:
+          description: Id зоны сроков на стороне службы доставки
+          example: z42
+          type: string
+        maxTerm:
+          description: Максимальный срок доставки в рабочих днях
+          example: 2
+          format: int32
+          type: integer
+        minTerm:
+          description: Минимальный срок доставки в рабочих днях
+          example: 1
+          format: int32
+          type: integer
+        name:
+          description: Человекопонятное название зоны (будет использоваться в интерфейсной части)
+          example: зона z42
+          type: string
+      type: object
+    TariffZone:
+      properties:
+        deliveryProviderZoneId:
+          description: Id тарифной зоны на стороне службы доставки
+          example: t42
+          type: string
+        items:
+          description: "Модели расчета цены для каждой из услуг.\n<br>\nСтоимость доставки складывается из суммы стоимостей описанных здесь услуг. <br />\nМодели расчета разделены на B2C и С2С. Это значит, что для расчета стоимости доставки C2C посылки будут использоваться C2C модели расчета.  <br />\nЕсли в тарифной зоне нет подходящих моделей, то терминалы относящиеся к такой тарифной зоне не будут участвовать в расчете и показе.  <br /> \n**Необходимо указывать модели расчета для С2С и для B2C, даже если цены совпадают.** <br />\nНо для сохранения обратной совместимости, пока СД не начала поддерживать разделение на B2C и С2С, для B2C и C2C будут использоваться С2С модели расчета.\n"
+          example:
+          - calculationMechanic: GAP_TO_COST
+            chargeableParameter: WEIGHT
+            serviceName: DELIVERY
+            values:
+            - cost: 50000
+              maxWeight: 3000
+            - cost: 60000
+              maxWeight: 7000
+            - cost: 70000
+              maxWeight: 10000
+            - cost: 90000
+              maxWeight: 20000
+          - calculationMechanic: GAP_TO_PERCENT
+            chargeableParameter: DECLARED_COST
+            serviceName: INSURANCE
+            values:
+            - maxDeclaredCost: 10000
+              percent: 1
+            - maxDeclaredCost: 1000000
+              percent: 1.5
+          - calculationMechanic: GAP_TO_COST
+            chargeableParameter: PAID_WEIGHT
+            serviceName: DELIVERY_B2C
+            values:
+            - cost: 45000
+              dimensionalFactor: 5000
+              maxWeight: 3000
+            - cost: 55000
+              dimensionalFactor: 5000
+              maxWeight: 7000
+            - cost: 65000
+              dimensionalFactor: 5000
+              maxWeight: 10000
+            - cost: 85000
+              dimensionalFactor: 5000
+              maxWeight: 20000
+          - calculationMechanic: GAP_TO_PERCENT
+            chargeableParameter: DECLARED_COST
+            serviceName: INSURANCE_B2C
+            values:
+            - maxDeclaredCost: 10000
+              percent: 1.5
+            - maxDeclaredCost: 1000000
+              percent: 2
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryC2C'
+            - $ref: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryB2C'
+            - $ref: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryC2CWithStepCost'
+            - $ref: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryB2CWithStepCost'
+            - $ref: '#/components/schemas/DeliveryTariffZone-ServiceInsuranceC2C'
+            - $ref: '#/components/schemas/DeliveryTariffZone-ServiceInsuranceB2C'
+            - $ref: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryC2CWithStepMinCost'
+            - $ref: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryB2CWithStepMinCost'
+          type: array
+        name:
+          description: Человекопонятное название тарифной зоны (будет использоваться в интерфейсной части)
+          example: Тарифная зона t42
+          type: string
+      required:
+      - name
+      - deliveryProviderTariffZoneId
+      - items
+      type: object
+    DeliveryError:
+      properties:
+        code:
+          description: код ошибки
+          example: fail
+          title: код ошибки
+          type: string
+        message:
+          description: Человекопонятное описание ошибки
+          example: something went wrong
+          title: описание ошибки
+          type: string
+      required:
+      - code
+      - message
+      type:
+      - object
+      - 'null'
+    DeliveryTariffZone-ServiceDeliveryB2C:
+      description: Описание модели тарификации какой-либо из услуг доставки
+      discriminator:
+        mapping:
+          DIMENSIONS: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryB2CByDimension'
+          PAID_WEIGHT: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryB2CByPaidWeight'
+          WEIGHT: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryB2CByWeight'
+        propertyName: chargeableParameter
+      properties:
+        calculationMechanic:
+          description: 'Механика расчета стоимости <br />
+
+            `GAP_TO_COST` - Механизм расчета при которой в зависимости от параметров отправления подбирается минимально возможное значение параметра `chargeableParameter` и соответствующая ему стоимость доставки
+
+            '
+          enum:
+          - GAP_TO_COST
+          type: string
+        chargeableParameter:
+          description: "Параметр, относительно которого расчитывается стоимость доставки отправления\n<br />\n  `WEIGHT` - Расчет относительно веса отправления<br />\n  `DIMENSIONS` - Расчет относительно габаритов отправления<br />\n  `PAID_WEIGHT` - Расчет относительно платного веса (большего из реального и объемного весов)<br />\n"
+          enum:
+          - WEIGHT
+          - DIMENSIONS
+          - PAID_WEIGHT
+          example: WEIGHT
+          type: string
+        serviceName:
+          description: Услуга доставки B2C
+          enum:
+          - DELIVERY_B2C
+          example: DELIVERY_B2C
+          type: string
+      required:
+      - serviceName
+      - calculationMechanic
+      - chargeableParameter
+      title: Доставка B2C
+      type: object
+    DeliveryTariffZone-ServiceDeliveryB2CWithStepMinCost:
+      description: Описание модели тарификации какой-либо из услуг доставки
+      properties:
+        calculationMechanic:
+          description: 'Механика расчета стоимости, при которой указывается диапазон с начальной стоимостью, шагом и ценой за шаг, а также минимальной ценой за доставку.
+
+            '
+          enum:
+          - WEIGHT_INTERVALS_WITH_MIN_COST
+          type: string
+        chargeableParameter:
+          description: 'При значении `WEIGHT` или `PAID_WEIGHT` работает такая логика подсчета цены: cost + ((Платный вес товара - minWeight) / step с округлением вверх) * costPerStep
+
+            '
+          enum:
+          - WEIGHT
+          - PAID_WEIGHT
+          type: string
+        minCost:
+          description: Минимальная цена за доставку в копейках. Применяется, если посчитанная цена за доставку на основе values оказалась ниже minCost
+          format: int32
+          type: integer
+        serviceName:
+          description: Услуга доставки
+          enum:
+          - DELIVERY_B2C
+          example: DELIVERY_B2C
+          type: string
+        values:
+          description: Список диапазонов весов с начальной стоимостью, шагом и ценой за шаг.
+          items:
+            properties:
+              cost:
+                description: Начальная стоимость доставки отправления в копейках, соответствующая диапазону весов от предыдущего значения maxWeight до текущего.
+                example: 20000
+                format: int32
+                type: integer
+              costPerStep:
+                description: Цена одного шага в копейках.
+                example: 5000
+                format: int32
+                type: integer
+              maxWeight:
+                description: Верхняя граница веса отправления (включительно) в граммах, до которой услуга доставки отправления не превышающего данный вес будет тарифицироваться.
+                example: 2000
+                format: int32
+                type: integer
+              minWeight:
+                description: Нижняя граница веса отправления в граммах, от которой отсчитывается количество шагов, цену которых необходимо добавить к начальной стоимости.
+                example: 1000
+                format: int32
+                type: integer
+              step:
+                description: Шаг веса в граммах, за который прибавляется значение `costPerStep` к конечной сумме доставки.
+                example: 100
+                format: int32
+                type: integer
+            type: object
+          type: array
+      required:
+      - serviceName
+      - calculationMechanic
+      - chargeableParameter
+      - minCost
+      - values
+      title: Доставка B2C с шаговой ценой и минимальной ценой
+      type: object
+    AddTaskReply:
+      properties:
+        data:
+          properties:
+            taskId:
+              description: "id задачи, по которому можно узнать результат выполнения операции используя \n[метод получения результата выполнения задачи](#operation/GetTask)\n"
+              format: int64
+              type: integer
+          type:
+          - object
+          - 'null'
+        error:
+          properties:
+            code:
+              description: код ошибки
+              example: fail
+              title: код ошибки
+              type: string
+            message:
+              description: человекопонятное описание ошибки
+              example: something went wrong
+              title: описание ошибки
+              type: string
+          required:
+          - code
+          - message
+          type:
+          - object
+          - 'null'
+      type: object
+    DeliveryTariffZone-ServiceDeliveryB2CWithStepCost:
+      description: Описание модели тарификации какой-либо из услуг доставки
+      properties:
+        calculationMechanic:
+          description: 'Механика расчета стоимости, при которой указывается диапазон с начальной стоимостью, шагом и ценой за шаг.
+
+            '
+          enum:
+          - WEIGHT_INTERVALS
+          type: string
+        chargeableParameter:
+          description: 'При значении `WEIGHT` работает такая логика подсчета цены: cost + ((Вес товара - minWeight) / step с округлением вверх) * costPerStep
+
+            '
+          enum:
+          - WEIGHT
+          type: string
+        serviceName:
+          description: Услуга доставки
+          enum:
+          - DELIVERY_B2C
+          example: DELIVERY_B2C
+          type: string
+        values:
+          description: Список диапазонов весов с начальной стоимостью, шагом и ценой за шаг.
+          items:
+            properties:
+              cost:
+                description: Начальная стоимость доставки отправления в копейках, соответствующая диапазону весов от предыдущего значения maxWeight до текущего.
+                example: 20000
+                format: int32
+                type: integer
+              costPerStep:
+                description: Цена одного шага в копейках.
+                example: 5000
+                format: int32
+                type: integer
+              maxWeight:
+                description: Верхняя граница веса отправления (включительно) в граммах, до которой услуга доставки отправления не превышающего данный вес будет тарифицироваться.
+                example: 2000
+                format: int32
+                type: integer
+              minWeight:
+                description: Нижняя граница веса отправления в граммах, от которой отсчитывается количество шагов, цену которых необходимо добавить к начальной стоимости.
+                example: 1000
+                format: int32
+                type: integer
+              step:
+                description: Шаг веса в граммах, за который прибавляется значение `costPerStep` к конечной сумме доставки.
+                example: 100
+                format: int32
+                type: integer
+            type: object
+          type: array
+      required:
+      - serviceName
+      - calculationMechanic
+      - chargeableParameter
+      - values
+      title: Доставка B2C с шаговой ценой
+      type: object
+    DeliveryTariffZone-ServiceDeliveryC2CWithStepCost:
+      description: Описание модели тарификации какой-либо из услуг доставки
+      properties:
+        calculationMechanic:
+          description: 'Механика расчета стоимости, при которой указывается диапазон с начальной стоимостью, шагом и ценой за шаг.
+
+            '
+          enum:
+          - WEIGHT_INTERVALS
+          type: string
+        chargeableParameter:
+          description: 'При значении `WEIGHT` работает такая логика подсчета цены: cost + ((Вес товара - minWeight) / step с округлением вверх) * costPerStep
+
+            '
+          enum:
+          - WEIGHT
+          type: string
+        serviceName:
+          description: Услуга доставки
+          enum:
+          - DELIVERY
+          example: DELIVERY
+          type: string
+        values:
+          description: Список диапазонов весов с начальной стоимостью, шагом и ценой за шаг.
+          items:
+            properties:
+              cost:
+                description: Начальная стоимость доставки отправления в копейках, соответствующая диапазону весов от предыдущего значения maxWeight до текущего.
+                example: 20000
+                format: int32
+                type: integer
+              costPerStep:
+                description: Цена одного шага в копейках.
+                example: 5000
+                format: int32
+                type: integer
+              maxWeight:
+                description: Верхняя граница веса отправления (включительно) в граммах, до которой услуга доставки отправления не превышающего данный вес будет тарифицироваться.
+                example: 2000
+                format: int32
+                type: integer
+              minWeight:
+                description: Нижняя граница веса отправления в граммах, от которой отсчитывается количество шагов, цену которых необходимо добавить к начальной стоимости.
+                example: 1000
+                format: int32
+                type: integer
+              step:
+                description: Шаг веса в граммах, за который прибавляется значение `costPerStep` к конечной сумме доставки.
+                example: 100
+                format: int32
+                type: integer
+            type: object
+          type: array
+      required:
+      - serviceName
+      - calculationMechanic
+      - chargeableParameter
+      - values
+      title: Доставка C2C с шаговой ценой
+      type: object
+    DeliveryTariffZone-ServiceDeliveryC2CWithStepMinCost:
+      description: Описание модели тарификации какой-либо из услуг доставки
+      properties:
+        calculationMechanic:
+          description: 'Механика расчета стоимости, при которой указывается диапазон с начальной стоимостью, шагом и ценой за шаг, а также минимальной ценой за доставку.
+
+            '
+          enum:
+          - WEIGHT_INTERVALS_WITH_MIN_COST
+          type: string
+        chargeableParameter:
+          description: 'При значении `WEIGHT` или `PAID_WEIGHT` работает такая логика подсчета цены: cost + ((Платный вес товара - minWeight) / step с округлением вверх) * costPerStep
+
+            '
+          enum:
+          - WEIGHT
+          - PAID_WEIGHT
+          type: string
+        minCost:
+          description: Минимальная цена за доставку в копейках. Применяется, если посчитанная цена за доставку на основе values оказалась ниже minCost
+          format: int32
+          type: integer
+        serviceName:
+          description: Услуга доставки
+          enum:
+          - DELIVERY
+          example: DELIVERY
+          type: string
+        values:
+          description: Список диапазонов весов с начальной стоимостью, шагом и ценой за шаг.
+          items:
+            properties:
+              cost:
+                description: Начальная стоимость доставки отправления в копейках, соответствующая диапазону весов от предыдущего значения maxWeight до текущего.
+                example: 20000
+                format: int32
+                type: integer
+              costPerStep:
+                description: Цена одного шага в копейках.
+                example: 5000
+                format: int32
+                type: integer
+              maxWeight:
+                description: Верхняя граница веса отправления (включительно) в граммах, до которой услуга доставки отправления не превышающего данный вес будет тарифицироваться.
+                example: 2000
+                format: int32
+                type: integer
+              minWeight:
+                description: Нижняя граница веса отправления в граммах, от которой отсчитывается количество шагов, цену которых необходимо добавить к начальной стоимости.
+                example: 1000
+                format: int32
+                type: integer
+              step:
+                description: Шаг веса в граммах, за который прибавляется значение `costPerStep` к конечной сумме доставки.
+                example: 100
+                format: int32
+                type: integer
+            type: object
+          type: array
+      required:
+      - serviceName
+      - calculationMechanic
+      - chargeableParameter
+      - minCost
+      - values
+      title: Доставка C2C с шаговой ценой и минимальной ценой
+      type: object
+    AddTariffReply:
+      properties:
+        data:
+          properties:
+            taskId:
+              description: id задачи на добавление тарифа, по которому узнать статус загрузки тарифа
+              format: int32
+              type: integer
+          type:
+          - object
+          - 'null'
+        error:
+          $ref: '#/components/schemas/DeliveryError'
+      type: object
+    UpdateTermsRequest:
+      description: Список зон сроков
+      items:
+        $ref: '#/components/schemas/TermsZone'
+      type: array
+    DeliveryTariffZone-ServiceInsuranceB2C:
+      description: Описание модели тарификации какой-либо из услуг доставки
+      properties:
+        calculationMechanic:
+          description: Механика расчета стоимости
+          enum:
+          - GAP_TO_PERCENT
+          type: string
+        chargeableParameter:
+          enum:
+          - DECLARED_COST
+          example: DECLARED_COST
+          type: string
+        serviceName:
+          enum:
+          - INSURANCE_B2C
+          example: INSURANCE_B2C
+          type: string
+        values:
+          description: Список значений для рассчета страховки.
+          items:
+            properties:
+              maxDeclaredCost:
+                description: Верхняя граница объявленной стоимости отправления (в копейках), до которой (не включительно) услуга страховки отправления не превышающего данную стоимость будет тарифицироваться в соответствии со значением указанным в поле percent
+                example: 10000
+                format: int32
+                type: integer
+              percent:
+                description: Процент от объявленной стоимости, по которому рассчитывается стоимость страховки отправления в диапазоне от предыдущего maxDeclaredCost до текущего
+                example: 1
+                format: float
+                type: number
+            type: object
+          type: array
+      required:
+      - serviceName
+      - calculationMechanic
+      - chargeableParameter
+      - values
+      title: Страховка B2C
+      type: object
+    UpdateTermsReply:
+      properties:
+        data:
+          properties:
+            taskId:
+              format: int32
+              type: integer
+          required:
+          - taskId
+          type: object
+        error:
+          $ref: '#/components/schemas/DeliveryError'
+      type: object
+    Zone:
+      properties:
+        tariffZoneId:
+          description: Идентификатор [тарифной зоны](#tag/AvitoDeliveryTariffZone); ссылается на один из объектов в поле tariffZones
+          example: t42
+          type: string
+        termsZoneId:
+          description: Идентификатор [зоны сроков](#tag/AvitoDeliveryTariffZone); ссылается на один из объектов в поле termsZones
+          example: z42
+          type: string
+        type:
+          description: "Буквенные обозначения типа являются DEPRECATED, используйте числовые обозначения.<br /><br />\nТип доставки, которую описывают данные условия\n<br />\n  `0` - `S-PUDO2S-PUDO`: Доставка из собственных ПВЗ в собственные ПВЗ. Обратите внимание, что если существует направление `тег 1` -> `тег 2` S-PUDO2S-PUDO, то **обязательно** должно существовать направление `тег 2` -> `тег 1` S-PUDO2S-PUDO для возможности возврата товара<br /><br />\n  `3` - `S-AREA2S-AREA`: Доставка из собственной области доставки в собственную область доставки<br /><br />\n  `4` - `S-PUDO2S-AREA`: Доставка из собственных ПВЗ в собственные области доставки<br /><br />\n  `5` - `S-PUDO-BTW-F-HUB`: Доставка из своего ПВЗ в чужой ХАБ на прямом потоке или из чужого ХАБа в свой ПВЗ на обратном потоке<br />\n                  (тут важно обратить внимание, что только одна зона может быть установлена для одного tagFrom, \n                  что эквивалентно тому, что один свой ПВЗ может быть связан только с одним ХАБом чужой службы доставки)<br /><br />\n  `6` - `S-HUB-BTW-S-PUDO`: Доставка из своего ХАБа в свой ПВЗ на прямом потоке или из своего ПВЗ в свой ХАБ на обратном потоке<br /><br />\n"
+          enum:
+          - '0'
+          - '3'
+          - '4'
+          - '5'
+          - '6'
+          - S-PUDO2S-PUDO
+          - S-AREA2S-AREA
+          - S-PUDO2S-AREA
+          - S-PUDO-BTW-F-HUB
+          - S-HUB-BTW-S-PUDO
+          example: '0'
+          type: string
+      type: object
+    Delivery-zipCode:
+      example: '324654'
+      title: Почтовый индекс. Не может быть пустым. Должен содержать 6 цифр.
+      type: string
+    DeliveryTariffZone-ServiceInsuranceC2C:
+      description: Описание модели тарификации какой-либо из услуг доставки
+      properties:
+        calculationMechanic:
+          description: Механика расчета стоимости
+          enum:
+          - GAP_TO_PERCENT
+          type: string
+        chargeableParameter:
+          enum:
+          - DECLARED_COST
+          example: DECLARED_COST
+          type: string
+        serviceName:
+          enum:
+          - INSURANCE
+          example: INSURANCE
+          type: string
+        values:
+          description: Список значений для рассчета страховки.
+          items:
+            properties:
+              maxDeclaredCost:
+                description: Верхняя граница объявленной стоимости отправления (в копейках), до которой (не включительно) услуга страховки отправления не превышающего данную стоимость будет тарифицироваться в соответствии со значением указанным в поле percent
+                example: 10000
+                format: int32
+                type: integer
+              percent:
+                description: Процент от объявленной стоимости, по которому рассчитывается стоимость страховки отправления в диапазоне от предыдущего maxDeclaredCost до текущего
+                example: 1
+                format: float
+                type: number
+            type: object
+          type: array
+      required:
+      - serviceName
+      - calculationMechanic
+      - chargeableParameter
+      - values
+      title: Страховка C2C
+      type: object
+    DeliveryProviderAreaNumber:
+      description: "id области доставки на стороне службы доставки \n(передается при загрузке областей доставки и будет использоваться при создании заказа \nв качестве идентификатора адресного объекта забора/доставки отправления)\n"
+      example: 7989jgftyf-jkghtd
+      maxLength: 128
+      minLength: 1
+      type: string
+    DeliveryTariffZone-ServiceDeliveryC2C:
+      description: Описание модели тарификации какой-либо из услуг доставки
+      discriminator:
+        mapping:
+          DIMENSIONS: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryC2CByDimension'
+          PAID_WEIGHT: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryC2CByPaidWeight'
+          WEIGHT: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryC2CByWeight'
+        propertyName: chargeableParameter
+      properties:
+        calculationMechanic:
+          description: 'Механика расчета стоимости <br />
+
+            `GAP_TO_COST` - Механизм расчета при которой в зависимости от параметров отправления подбирается минимально возможное значение параметра `chargeableParameter` и соответствующая ему стоимость доставки
+
+            '
+          enum:
+          - GAP_TO_COST
+          type: string
+        chargeableParameter:
+          description: "Параметр, относительно которого расчитывается стоимость доставки отправления\n<br />\n  `WEIGHT` - Расчет относительно веса отправления<br />\n  `DIMENSIONS` - Расчет относительно габаритов отправления<br />\n  `PAID_WEIGHT` - Расчет относительно платного веса (большего из реального и объемного весов)<br />\n"
+          enum:
+          - WEIGHT
+          - DIMENSIONS
+          - PAID_WEIGHT
+          example: WEIGHT
+          type: string
+        serviceName:
+          description: Услуга доставки C2C
+          enum:
+          - DELIVERY
+          example: DELIVERY
+          type: string
+      required:
+      - serviceName
+      - calculationMechanic
+      - chargeableParameter
+      title: Доставка C2C
+      type: object
+    AddAreasRequest:
+      items:
+        $ref: '#/components/schemas/Area'
+      type: array
     Schedule:
       description: "Значения интервала времени в течение дня должны быть в диапазоне от `00:00:00` до `23:59:59`.\nИнтервал работы после полуночи необходимо переносить в следующий день недели.\n\nПравильно:\n  - `\"fri\": [\"09:00:00/12:00:00\", \"13:00:00/18:00:00\"]` – расписание в пятницу с 9 до 18 с перерывом с 12 до 13\n  - `\"sun\": []` – выходной в воскресенье\n\nНеправильно:\n  - `\"mon\": [\"09:00/18:00\"]` – не хватает значения секунд\n  - `\"tue\": [\"09:00:00/01:00:00\"]` – интервал заходит на следующий день\n  - `\"wen\": [\"09:00:00/00:00:00\"]` – максимальное значение границы должно быть `23:59:59`\n"
       properties:
@@ -206,6 +834,164 @@ components:
       - fri
       - sat
       - sun
+      type: object
+    cutoffAndSchedule:
+      properties:
+        cutoff:
+          properties:
+            cutoffTime:
+              description: время катофа (время локальное - будет использована временая зона area)
+              example: '15:04:05'
+              format: hh:mm:ss
+              type: string
+            daysAfterCutoff:
+              description: 'количество дней, которые надо пропустить исходя из расписания, если сроки рассчитываются после времени указанного в cutoffTime.
+
+                1 - пропускаем один день.
+
+                '
+              example: 1
+              type: integer
+            daysBeforeCutoff:
+              description: 'количество дней, которые надо пропустить исходя из расписания, если сроки рассчитываются до времени указанного в cutoffTime.
+
+                0 - не пропускаются дни.
+
+                '
+              example: 0
+              type: integer
+          required:
+          - cutoffTime
+          - daysBeforeCutoff
+          - daysAfterCutoff
+          type: object
+        regularSchedule:
+          $ref: '#/components/schemas/Schedule'
+      required:
+      - cutoff
+      - regularSchedule
+      type: object
+    AddTariffRequestV2:
+      properties:
+        deliveryProviderTariffId:
+          description: 'Идентификатор тарифного плана на стороне службы доставки - должен быть уникален.
+
+            '
+          example: FAST_FROM_2020-02-10
+          title: id тарифного плана на стороне службы доставки
+          type: string
+        directions:
+          items:
+            $ref: '#/components/schemas/DirectionV2'
+          title: Список направлений доставки в тарифном плане
+          type: array
+        name:
+          description: Человекопонятное название тарифного плана
+          example: Быстрый от 2020-02-10
+          title: Название тарифного плана
+          type: string
+        tariffType:
+          description: 'Тип разделения тарифа по габаритам товаров.
+
+            - MGT - малогабаритные товары
+
+            - KGT - крупногабаритные товары
+
+            Если поле не указано, то тариф должен содержать оба типа разделения (для обратной совместимости со старыми тарифами).
+
+            '
+          enum:
+          - MGT
+          - KGT
+          title: Тип тарифа
+          type: string
+        tariffZones:
+          items:
+            $ref: '#/components/schemas/TariffZone'
+          title: Список тарифных зон
+          type: array
+        termsZones:
+          items:
+            $ref: '#/components/schemas/TermsZone'
+          title: Список зон сроков
+          type: array
+      required:
+      - name
+      - deliveryProviderTariffId
+      - directions
+      - tariffZones
+      - termsZones
+      type: object
+    DeliveryError4XX:
+      properties:
+        message:
+          description: Человекопонятное описание ошибки
+          example: something went wrong
+          title: Описание ошибки
+          type: string
+        status:
+          description: false – в случае возникновения ошибки
+          example: false
+          title: статус
+          type: boolean
+      required:
+      - code
+      - message
+      type:
+      - object
+      - 'null'
+    DeliveryDayTimeIntervals:
+      description: 'Список интервалов времени внутри одного дня, в формате - `hh:mm:ss/hh:mm:ss`
+
+        Время локальное для региона загружаемых данных.
+
+        '
+      items:
+        $ref: '#/components/schemas/DeliveryDayTimeInterval'
+      type: array
+    Area:
+      properties:
+        deliverySchedule:
+          allOf:
+          - $ref: '#/components/schemas/cutoffAndSchedule'
+          - description: описание регулярного расписания по доставке заказов в текущей области
+        directionTag:
+          $ref: '#/components/schemas/Delivery-directionTag'
+        intakeSchedule:
+          allOf:
+          - $ref: '#/components/schemas/cutoffAndSchedule'
+          - description: описание регулярного расписания по доставке заказов в текущей области
+        providerAreaNumber:
+          $ref: '#/components/schemas/DeliveryProviderAreaNumber'
+        restrictions:
+          allOf:
+          - $ref: '#/components/schemas/Restriction'
+          - description: Максимальные ограничения для данной области для услуг доставки/забора заказа
+        services:
+          description: Доступные в области услуги. Забор (intake), доставка (delivery)
+          items:
+            enum:
+            - intake
+            - delivery
+            type: string
+          type: array
+        utcTimezone:
+          description: UTC зона области досатвки
+          example: 1
+          type: string
+        zipCodes:
+          description: список почтовых индексов входящих в данную зону доставки (область курьерской доставки/забора)
+          items:
+            $ref: '#/components/schemas/Delivery-zipCode'
+          minLength: 1
+          type: array
+      required:
+      - directionTag
+      - providerAreaNumber
+      - services
+      - utcTimezone
+      - zipCodes
+      - restrictions
       type: object
     DirectionV2:
       properties:
@@ -282,801 +1068,15 @@ components:
       - maxDimensions
       - maxDeclaredCost
       type: object
-    AddAreasRequest:
-      items:
-        $ref: '#/components/schemas/Area'
-      type: array
-    DeliveryTariffZone-ServiceDeliveryC2CWithStepMinCost:
-      description: Описание модели тарификации какой-либо из услуг доставки
-      properties:
-        calculationMechanic:
-          description: 'Механика расчета стоимости, при которой указывается диапазон с начальной стоимостью, шагом и ценой за шаг, а также минимальной ценой за доставку.
-
-            '
-          enum:
-          - WEIGHT_INTERVALS_WITH_MIN_COST
-          type: string
-        chargeableParameter:
-          description: 'При значении `WEIGHT` или `PAID_WEIGHT` работает такая логика подсчета цены: cost + ((Платный вес товара - minWeight) / step с округлением вверх) * costPerStep
-
-            '
-          enum:
-          - WEIGHT
-          - PAID_WEIGHT
-          type: string
-        minCost:
-          description: Минимальная цена за доставку в копейках. Применяется, если посчитанная цена за доставку на основе values оказалась ниже minCost
-          format: int32
-          type: integer
-        serviceName:
-          description: Услуга доставки
-          enum:
-          - DELIVERY
-          example: DELIVERY
-          type: string
-        values:
-          description: Список диапазонов весов с начальной стоимостью, шагом и ценой за шаг.
-          items:
-            properties:
-              cost:
-                description: Начальная стоимость доставки отправления в копейках, соответствующая диапазону весов от предыдущего значения maxWeight до текущего.
-                example: 20000
-                format: int32
-                type: integer
-              costPerStep:
-                description: Цена одного шага в копейках.
-                example: 5000
-                format: int32
-                type: integer
-              maxWeight:
-                description: Верхняя граница веса отправления (включительно) в граммах, до которой услуга доставки отправления не превышающего данный вес будет тарифицироваться.
-                example: 2000
-                format: int32
-                type: integer
-              minWeight:
-                description: Нижняя граница веса отправления в граммах, от которой отсчитывается количество шагов, цену которых необходимо добавить к начальной стоимости.
-                example: 1000
-                format: int32
-                type: integer
-              step:
-                description: Шаг веса в граммах, за который прибавляется значение `costPerStep` к конечной сумме доставки.
-                example: 100
-                format: int32
-                type: integer
-            type: object
-          type: array
-      required:
-      - serviceName
-      - calculationMechanic
-      - chargeableParameter
-      - minCost
-      - values
-      title: Доставка C2C с шаговой ценой и минимальной ценой
-      type: object
     Delivery-directionTag:
       description: "Тэг направления, к которому привязывается пункт_самовывоза / индекс (область доставки).\n<br />\nИспользуется для связки в направлениях тарифа. Поля:\n  - `directionTagFrom`\n  - `directionTagTo`\n"
       example: moscow-2020-12-12
       title: Тэг направления
       type: string
-    DeliveryTariffZone-ServiceDeliveryC2C:
-      description: Описание модели тарификации какой-либо из услуг доставки
-      discriminator:
-        mapping:
-          DIMENSIONS: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryC2CByDimension'
-          PAID_WEIGHT: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryC2CByPaidWeight'
-          WEIGHT: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryC2CByWeight'
-        propertyName: chargeableParameter
-      properties:
-        calculationMechanic:
-          description: 'Механика расчета стоимости <br />
-
-            `GAP_TO_COST` - Механизм расчета при которой в зависимости от параметров отправления подбирается минимально возможное значение параметра `chargeableParameter` и соответствующая ему стоимость доставки
-
-            '
-          enum:
-          - GAP_TO_COST
-          type: string
-        chargeableParameter:
-          description: "Параметр, относительно которого расчитывается стоимость доставки отправления\n<br />\n  `WEIGHT` - Расчет относительно веса отправления<br />\n  `DIMENSIONS` - Расчет относительно габаритов отправления<br />\n  `PAID_WEIGHT` - Расчет относительно платного веса (большего из реального и объемного весов)<br />\n"
-          enum:
-          - WEIGHT
-          - DIMENSIONS
-          - PAID_WEIGHT
-          example: WEIGHT
-          type: string
-        serviceName:
-          description: Услуга доставки C2C
-          enum:
-          - DELIVERY
-          example: DELIVERY
-          type: string
-      required:
-      - serviceName
-      - calculationMechanic
-      - chargeableParameter
-      title: Доставка C2C
-      type: object
-    Delivery-zipCode:
-      example: '324654'
-      title: Почтовый индекс. Не может быть пустым. Должен содержать 6 цифр.
-      type: string
-    AddTariffRequestV2:
-      properties:
-        deliveryProviderTariffId:
-          description: 'Идентификатор тарифного плана на стороне службы доставки - должен быть уникален.
-
-            '
-          example: FAST_FROM_2020-02-10
-          title: id тарифного плана на стороне службы доставки
-          type: string
-        directions:
-          items:
-            $ref: '#/components/schemas/DirectionV2'
-          title: Список направлений доставки в тарифном плане
-          type: array
-        name:
-          description: Человекопонятное название тарифного плана
-          example: Быстрый от 2020-02-10
-          title: Название тарифного плана
-          type: string
-        tariffType:
-          description: 'Тип разделения тарифа по габаритам товаров.
-
-            - MGT - малогабаритные товары
-
-            - KGT - крупногабаритные товары
-
-            Если поле не указано, то тариф должен содержать оба типа разделения (для обратной совместимости со старыми тарифами).
-
-            '
-          enum:
-          - MGT
-          - KGT
-          title: Тип тарифа
-          type: string
-        tariffZones:
-          items:
-            $ref: '#/components/schemas/TariffZone'
-          title: Список тарифных зон
-          type: array
-        termsZones:
-          items:
-            $ref: '#/components/schemas/TermsZone'
-          title: Список зон сроков
-          type: array
-      required:
-      - name
-      - deliveryProviderTariffId
-      - directions
-      - tariffZones
-      - termsZones
-      type: object
-    Area:
-      properties:
-        deliverySchedule:
-          allOf:
-          - $ref: '#/components/schemas/cutoffAndSchedule'
-          - description: описание регулярного расписания по доставке заказов в текущей области
-        directionTag:
-          $ref: '#/components/schemas/Delivery-directionTag'
-        intakeSchedule:
-          allOf:
-          - $ref: '#/components/schemas/cutoffAndSchedule'
-          - description: описание регулярного расписания по доставке заказов в текущей области
-        providerAreaNumber:
-          $ref: '#/components/schemas/DeliveryProviderAreaNumber'
-        restrictions:
-          allOf:
-          - $ref: '#/components/schemas/Restriction'
-          - description: Максимальные ограничения для данной области для услуг доставки/забора заказа
-        services:
-          description: Доступные в области услуги. Забор (intake), доставка (delivery)
-          items:
-            enum:
-            - intake
-            - delivery
-            type: string
-          type: array
-        utcTimezone:
-          description: UTC зона области досатвки
-          example: 1
-          type: string
-        zipCodes:
-          description: список почтовых индексов входящих в данную зону доставки (область курьерской доставки/забора)
-          items:
-            $ref: '#/components/schemas/Delivery-zipCode'
-          minLength: 1
-          type: array
-      required:
-      - directionTag
-      - providerAreaNumber
-      - services
-      - utcTimezone
-      - zipCodes
-      - restrictions
-      type: object
-    DeliveryDayTimeIntervals:
-      description: 'Список интервалов времени внутри одного дня, в формате - `hh:mm:ss/hh:mm:ss`
-
-        Время локальное для региона загружаемых данных.
-
-        '
-      items:
-        $ref: '#/components/schemas/DeliveryDayTimeInterval'
-      type: array
-    TariffZone:
-      properties:
-        deliveryProviderZoneId:
-          description: Id тарифной зоны на стороне службы доставки
-          example: t42
-          type: string
-        items:
-          description: "Модели расчета цены для каждой из услуг.\n<br>\nСтоимость доставки складывается из суммы стоимостей описанных здесь услуг. <br />\nМодели расчета разделены на B2C и С2С. Это значит, что для расчета стоимости доставки C2C посылки будут использоваться C2C модели расчета.  <br />\nЕсли в тарифной зоне нет подходящих моделей, то терминалы относящиеся к такой тарифной зоне не будут участвовать в расчете и показе.  <br /> \n**Необходимо указывать модели расчета для С2С и для B2C, даже если цены совпадают.** <br />\nНо для сохранения обратной совместимости, пока СД не начала поддерживать разделение на B2C и С2С, для B2C и C2C будут использоваться С2С модели расчета.\n"
-          example:
-          - calculationMechanic: GAP_TO_COST
-            chargeableParameter: WEIGHT
-            serviceName: DELIVERY
-            values:
-            - cost: 50000
-              maxWeight: 3000
-            - cost: 60000
-              maxWeight: 7000
-            - cost: 70000
-              maxWeight: 10000
-            - cost: 90000
-              maxWeight: 20000
-          - calculationMechanic: GAP_TO_PERCENT
-            chargeableParameter: DECLARED_COST
-            serviceName: INSURANCE
-            values:
-            - maxDeclaredCost: 10000
-              percent: 1
-            - maxDeclaredCost: 1000000
-              percent: 1.5
-          - calculationMechanic: GAP_TO_COST
-            chargeableParameter: PAID_WEIGHT
-            serviceName: DELIVERY_B2C
-            values:
-            - cost: 45000
-              dimensionalFactor: 5000
-              maxWeight: 3000
-            - cost: 55000
-              dimensionalFactor: 5000
-              maxWeight: 7000
-            - cost: 65000
-              dimensionalFactor: 5000
-              maxWeight: 10000
-            - cost: 85000
-              dimensionalFactor: 5000
-              maxWeight: 20000
-          - calculationMechanic: GAP_TO_PERCENT
-            chargeableParameter: DECLARED_COST
-            serviceName: INSURANCE_B2C
-            values:
-            - maxDeclaredCost: 10000
-              percent: 1.5
-            - maxDeclaredCost: 1000000
-              percent: 2
-          items:
-            anyOf:
-            - $ref: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryC2C'
-            - $ref: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryB2C'
-            - $ref: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryC2CWithStepCost'
-            - $ref: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryB2CWithStepCost'
-            - $ref: '#/components/schemas/DeliveryTariffZone-ServiceInsuranceC2C'
-            - $ref: '#/components/schemas/DeliveryTariffZone-ServiceInsuranceB2C'
-            - $ref: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryC2CWithStepMinCost'
-            - $ref: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryB2CWithStepMinCost'
-          type: array
-        name:
-          description: Человекопонятное название тарифной зоны (будет использоваться в интерфейсной части)
-          example: Тарифная зона t42
-          type: string
-      required:
-      - name
-      - deliveryProviderTariffZoneId
-      - items
-      type: object
-    AddTaskReply:
-      properties:
-        data:
-          properties:
-            taskId:
-              description: "id задачи, по которому можно узнать результат выполнения операции используя \n[метод получения результата выполнения задачи](#operation/GetTask)\n"
-              format: int64
-              type: integer
-          type:
-          - object
-          - 'null'
-        error:
-          properties:
-            code:
-              description: код ошибки
-              example: fail
-              title: код ошибки
-              type: string
-            message:
-              description: человекопонятное описание ошибки
-              example: something went wrong
-              title: описание ошибки
-              type: string
-          required:
-          - code
-          - message
-          type:
-          - object
-          - 'null'
-      type: object
     DeliveryDayTimeInterval:
       description: Интервал времени внутри одного дня `hh:mm:ss/hh:mm:ss`
       example: 09:00:00/12:00:00
       type: string
-    TermsZone:
-      properties:
-        deliveryProviderZoneId:
-          description: Id зоны сроков на стороне службы доставки
-          example: z42
-          type: string
-        maxTerm:
-          description: Максимальный срок доставки в рабочих днях
-          example: 2
-          format: int32
-          type: integer
-        minTerm:
-          description: Минимальный срок доставки в рабочих днях
-          example: 1
-          format: int32
-          type: integer
-        name:
-          description: Человекопонятное название зоны (будет использоваться в интерфейсной части)
-          example: зона z42
-          type: string
-      type: object
-    cutoffAndSchedule:
-      properties:
-        cutoff:
-          properties:
-            cutoffTime:
-              description: время катофа (время локальное - будет использована временая зона area)
-              example: '15:04:05'
-              format: hh:mm:ss
-              type: string
-            daysAfterCutoff:
-              description: 'количество дней, которые надо пропустить исходя из расписания, если сроки рассчитываются после времени указанного в cutoffTime.
-
-                1 - пропускаем один день.
-
-                '
-              example: 1
-              type: integer
-            daysBeforeCutoff:
-              description: 'количество дней, которые надо пропустить исходя из расписания, если сроки рассчитываются до времени указанного в cutoffTime.
-
-                0 - не пропускаются дни.
-
-                '
-              example: 0
-              type: integer
-          required:
-          - cutoffTime
-          - daysBeforeCutoff
-          - daysAfterCutoff
-          type: object
-        regularSchedule:
-          $ref: '#/components/schemas/Schedule'
-      required:
-      - cutoff
-      - regularSchedule
-      type: object
-    DeliveryTariffZone-ServiceInsuranceB2C:
-      description: Описание модели тарификации какой-либо из услуг доставки
-      properties:
-        calculationMechanic:
-          description: Механика расчета стоимости
-          enum:
-          - GAP_TO_PERCENT
-          type: string
-        chargeableParameter:
-          enum:
-          - DECLARED_COST
-          example: DECLARED_COST
-          type: string
-        serviceName:
-          enum:
-          - INSURANCE_B2C
-          example: INSURANCE_B2C
-          type: string
-        values:
-          description: Список значений для рассчета страховки.
-          items:
-            properties:
-              maxDeclaredCost:
-                description: Верхняя граница объявленной стоимости отправления (в копейках), до которой (не включительно) услуга страховки отправления не превышающего данную стоимость будет тарифицироваться в соответствии со значением указанным в поле percent
-                example: 10000
-                format: int32
-                type: integer
-              percent:
-                description: Процент от объявленной стоимости, по которому рассчитывается стоимость страховки отправления в диапазоне от предыдущего maxDeclaredCost до текущего
-                example: 1
-                format: float
-                type: number
-            type: object
-          type: array
-      required:
-      - serviceName
-      - calculationMechanic
-      - chargeableParameter
-      - values
-      title: Страховка B2C
-      type: object
-    DeliveryError:
-      properties:
-        code:
-          description: код ошибки
-          example: fail
-          title: код ошибки
-          type: string
-        message:
-          description: Человекопонятное описание ошибки
-          example: something went wrong
-          title: описание ошибки
-          type: string
-      required:
-      - code
-      - message
-      type:
-      - object
-      - 'null'
-    DeliveryTariffZone-ServiceInsuranceC2C:
-      description: Описание модели тарификации какой-либо из услуг доставки
-      properties:
-        calculationMechanic:
-          description: Механика расчета стоимости
-          enum:
-          - GAP_TO_PERCENT
-          type: string
-        chargeableParameter:
-          enum:
-          - DECLARED_COST
-          example: DECLARED_COST
-          type: string
-        serviceName:
-          enum:
-          - INSURANCE
-          example: INSURANCE
-          type: string
-        values:
-          description: Список значений для рассчета страховки.
-          items:
-            properties:
-              maxDeclaredCost:
-                description: Верхняя граница объявленной стоимости отправления (в копейках), до которой (не включительно) услуга страховки отправления не превышающего данную стоимость будет тарифицироваться в соответствии со значением указанным в поле percent
-                example: 10000
-                format: int32
-                type: integer
-              percent:
-                description: Процент от объявленной стоимости, по которому рассчитывается стоимость страховки отправления в диапазоне от предыдущего maxDeclaredCost до текущего
-                example: 1
-                format: float
-                type: number
-            type: object
-          type: array
-      required:
-      - serviceName
-      - calculationMechanic
-      - chargeableParameter
-      - values
-      title: Страховка C2C
-      type: object
-    Zone:
-      properties:
-        tariffZoneId:
-          description: Идентификатор [тарифной зоны](#tag/AvitoDeliveryTariffZone); ссылается на один из объектов в поле tariffZones
-          example: t42
-          type: string
-        termsZoneId:
-          description: Идентификатор [зоны сроков](#tag/AvitoDeliveryTariffZone); ссылается на один из объектов в поле termsZones
-          example: z42
-          type: string
-        type:
-          description: "Буквенные обозначения типа являются DEPRECATED, используйте числовые обозначения.<br /><br />\nТип доставки, которую описывают данные условия\n<br />\n  `0` - `S-PUDO2S-PUDO`: Доставка из собственных ПВЗ в собственные ПВЗ. Обратите внимание, что если существует направление `тег 1` -> `тег 2` S-PUDO2S-PUDO, то **обязательно** должно существовать направление `тег 2` -> `тег 1` S-PUDO2S-PUDO для возможности возврата товара<br /><br />\n  `3` - `S-AREA2S-AREA`: Доставка из собственной области доставки в собственную область доставки<br /><br />\n  `4` - `S-PUDO2S-AREA`: Доставка из собственных ПВЗ в собственные области доставки<br /><br />\n  `5` - `S-PUDO-BTW-F-HUB`: Доставка из своего ПВЗ в чужой ХАБ на прямом потоке или из чужого ХАБа в свой ПВЗ на обратном потоке<br />\n                  (тут важно обратить внимание, что только одна зона может быть установлена для одного tagFrom, \n                  что эквивалентно тому, что один свой ПВЗ может быть связан только с одним ХАБом чужой службы доставки)<br /><br />\n  `6` - `S-HUB-BTW-S-PUDO`: Доставка из своего ХАБа в свой ПВЗ на прямом потоке или из своего ПВЗ в свой ХАБ на обратном потоке<br /><br />\n"
-          enum:
-          - '0'
-          - '3'
-          - '4'
-          - '5'
-          - '6'
-          - S-PUDO2S-PUDO
-          - S-AREA2S-AREA
-          - S-PUDO2S-AREA
-          - S-PUDO-BTW-F-HUB
-          - S-HUB-BTW-S-PUDO
-          example: '0'
-          type: string
-      type: object
-    DeliveryTariffZone-ServiceDeliveryB2CWithStepMinCost:
-      description: Описание модели тарификации какой-либо из услуг доставки
-      properties:
-        calculationMechanic:
-          description: 'Механика расчета стоимости, при которой указывается диапазон с начальной стоимостью, шагом и ценой за шаг, а также минимальной ценой за доставку.
-
-            '
-          enum:
-          - WEIGHT_INTERVALS_WITH_MIN_COST
-          type: string
-        chargeableParameter:
-          description: 'При значении `WEIGHT` или `PAID_WEIGHT` работает такая логика подсчета цены: cost + ((Платный вес товара - minWeight) / step с округлением вверх) * costPerStep
-
-            '
-          enum:
-          - WEIGHT
-          - PAID_WEIGHT
-          type: string
-        minCost:
-          description: Минимальная цена за доставку в копейках. Применяется, если посчитанная цена за доставку на основе values оказалась ниже minCost
-          format: int32
-          type: integer
-        serviceName:
-          description: Услуга доставки
-          enum:
-          - DELIVERY_B2C
-          example: DELIVERY_B2C
-          type: string
-        values:
-          description: Список диапазонов весов с начальной стоимостью, шагом и ценой за шаг.
-          items:
-            properties:
-              cost:
-                description: Начальная стоимость доставки отправления в копейках, соответствующая диапазону весов от предыдущего значения maxWeight до текущего.
-                example: 20000
-                format: int32
-                type: integer
-              costPerStep:
-                description: Цена одного шага в копейках.
-                example: 5000
-                format: int32
-                type: integer
-              maxWeight:
-                description: Верхняя граница веса отправления (включительно) в граммах, до которой услуга доставки отправления не превышающего данный вес будет тарифицироваться.
-                example: 2000
-                format: int32
-                type: integer
-              minWeight:
-                description: Нижняя граница веса отправления в граммах, от которой отсчитывается количество шагов, цену которых необходимо добавить к начальной стоимости.
-                example: 1000
-                format: int32
-                type: integer
-              step:
-                description: Шаг веса в граммах, за который прибавляется значение `costPerStep` к конечной сумме доставки.
-                example: 100
-                format: int32
-                type: integer
-            type: object
-          type: array
-      required:
-      - serviceName
-      - calculationMechanic
-      - chargeableParameter
-      - minCost
-      - values
-      title: Доставка B2C с шаговой ценой и минимальной ценой
-      type: object
-    DeliveryTariffZone-ServiceDeliveryC2CWithStepCost:
-      description: Описание модели тарификации какой-либо из услуг доставки
-      properties:
-        calculationMechanic:
-          description: 'Механика расчета стоимости, при которой указывается диапазон с начальной стоимостью, шагом и ценой за шаг.
-
-            '
-          enum:
-          - WEIGHT_INTERVALS
-          type: string
-        chargeableParameter:
-          description: 'При значении `WEIGHT` работает такая логика подсчета цены: cost + ((Вес товара - minWeight) / step с округлением вверх) * costPerStep
-
-            '
-          enum:
-          - WEIGHT
-          type: string
-        serviceName:
-          description: Услуга доставки
-          enum:
-          - DELIVERY
-          example: DELIVERY
-          type: string
-        values:
-          description: Список диапазонов весов с начальной стоимостью, шагом и ценой за шаг.
-          items:
-            properties:
-              cost:
-                description: Начальная стоимость доставки отправления в копейках, соответствующая диапазону весов от предыдущего значения maxWeight до текущего.
-                example: 20000
-                format: int32
-                type: integer
-              costPerStep:
-                description: Цена одного шага в копейках.
-                example: 5000
-                format: int32
-                type: integer
-              maxWeight:
-                description: Верхняя граница веса отправления (включительно) в граммах, до которой услуга доставки отправления не превышающего данный вес будет тарифицироваться.
-                example: 2000
-                format: int32
-                type: integer
-              minWeight:
-                description: Нижняя граница веса отправления в граммах, от которой отсчитывается количество шагов, цену которых необходимо добавить к начальной стоимости.
-                example: 1000
-                format: int32
-                type: integer
-              step:
-                description: Шаг веса в граммах, за который прибавляется значение `costPerStep` к конечной сумме доставки.
-                example: 100
-                format: int32
-                type: integer
-            type: object
-          type: array
-      required:
-      - serviceName
-      - calculationMechanic
-      - chargeableParameter
-      - values
-      title: Доставка C2C с шаговой ценой
-      type: object
-    DeliveryTariffZone-ServiceDeliveryB2C:
-      description: Описание модели тарификации какой-либо из услуг доставки
-      discriminator:
-        mapping:
-          DIMENSIONS: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryB2CByDimension'
-          PAID_WEIGHT: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryB2CByPaidWeight'
-          WEIGHT: '#/components/schemas/DeliveryTariffZone-ServiceDeliveryB2CByWeight'
-        propertyName: chargeableParameter
-      properties:
-        calculationMechanic:
-          description: 'Механика расчета стоимости <br />
-
-            `GAP_TO_COST` - Механизм расчета при которой в зависимости от параметров отправления подбирается минимально возможное значение параметра `chargeableParameter` и соответствующая ему стоимость доставки
-
-            '
-          enum:
-          - GAP_TO_COST
-          type: string
-        chargeableParameter:
-          description: "Параметр, относительно которого расчитывается стоимость доставки отправления\n<br />\n  `WEIGHT` - Расчет относительно веса отправления<br />\n  `DIMENSIONS` - Расчет относительно габаритов отправления<br />\n  `PAID_WEIGHT` - Расчет относительно платного веса (большего из реального и объемного весов)<br />\n"
-          enum:
-          - WEIGHT
-          - DIMENSIONS
-          - PAID_WEIGHT
-          example: WEIGHT
-          type: string
-        serviceName:
-          description: Услуга доставки B2C
-          enum:
-          - DELIVERY_B2C
-          example: DELIVERY_B2C
-          type: string
-      required:
-      - serviceName
-      - calculationMechanic
-      - chargeableParameter
-      title: Доставка B2C
-      type: object
-    AddTariffReply:
-      properties:
-        data:
-          properties:
-            taskId:
-              description: id задачи на добавление тарифа, по которому узнать статус загрузки тарифа
-              format: int32
-              type: integer
-          type:
-          - object
-          - 'null'
-        error:
-          $ref: '#/components/schemas/DeliveryError'
-      type: object
-    UpdateTermsReply:
-      properties:
-        data:
-          properties:
-            taskId:
-              format: int32
-              type: integer
-          required:
-          - taskId
-          type: object
-        error:
-          $ref: '#/components/schemas/DeliveryError'
-      type: object
-    DeliveryProviderAreaNumber:
-      description: "id области доставки на стороне службы доставки \n(передается при загрузке областей доставки и будет использоваться при создании заказа \nв качестве идентификатора адресного объекта забора/доставки отправления)\n"
-      example: 7989jgftyf-jkghtd
-      maxLength: 128
-      minLength: 1
-      type: string
-    DeliveryError4XX:
-      properties:
-        message:
-          description: Человекопонятное описание ошибки
-          example: something went wrong
-          title: Описание ошибки
-          type: string
-        status:
-          description: false – в случае возникновения ошибки
-          example: false
-          title: статус
-          type: boolean
-      required:
-      - code
-      - message
-      type:
-      - object
-      - 'null'
-    UpdateTermsRequest:
-      description: Список зон сроков
-      items:
-        $ref: '#/components/schemas/TermsZone'
-      type: array
-    DeliveryTariffZone-ServiceDeliveryB2CWithStepCost:
-      description: Описание модели тарификации какой-либо из услуг доставки
-      properties:
-        calculationMechanic:
-          description: 'Механика расчета стоимости, при которой указывается диапазон с начальной стоимостью, шагом и ценой за шаг.
-
-            '
-          enum:
-          - WEIGHT_INTERVALS
-          type: string
-        chargeableParameter:
-          description: 'При значении `WEIGHT` работает такая логика подсчета цены: cost + ((Вес товара - minWeight) / step с округлением вверх) * costPerStep
-
-            '
-          enum:
-          - WEIGHT
-          type: string
-        serviceName:
-          description: Услуга доставки
-          enum:
-          - DELIVERY_B2C
-          example: DELIVERY_B2C
-          type: string
-        values:
-          description: Список диапазонов весов с начальной стоимостью, шагом и ценой за шаг.
-          items:
-            properties:
-              cost:
-                description: Начальная стоимость доставки отправления в копейках, соответствующая диапазону весов от предыдущего значения maxWeight до текущего.
-                example: 20000
-                format: int32
-                type: integer
-              costPerStep:
-                description: Цена одного шага в копейках.
-                example: 5000
-                format: int32
-                type: integer
-              maxWeight:
-                description: Верхняя граница веса отправления (включительно) в граммах, до которой услуга доставки отправления не превышающего данный вес будет тарифицироваться.
-                example: 2000
-                format: int32
-                type: integer
-              minWeight:
-                description: Нижняя граница веса отправления в граммах, от которой отсчитывается количество шагов, цену которых необходимо добавить к начальной стоимости.
-                example: 1000
-                format: int32
-                type: integer
-              step:
-                description: Шаг веса в граммах, за который прибавляется значение `costPerStep` к конечной сумме доставки.
-                example: 100
-                format: int32
-                type: integer
-            type: object
-          type: array
-      required:
-      - serviceName
-      - calculationMechanic
-      - chargeableParameter
-      - values
-      title: Доставка B2C с шаговой ценой
-      type: object
   responses:
     DeliveryForbidden:
       content:

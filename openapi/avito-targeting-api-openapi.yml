@@ -267,6 +267,25 @@ paths:
       - Targeting
 components:
   schemas:
+    errorFields:
+      description: Ошибки валидации
+      items:
+        additionalProperties: false
+        description: Ошибка валидации поля
+        properties:
+          field:
+            $ref: '#/components/schemas/errorField'
+          message:
+            $ref: '#/components/schemas/errorMessage'
+        required:
+        - field
+        - message
+        type: object
+      type: array
+    errorField:
+      description: Наименование поля
+      example: userId
+      type: string
     targetTaskId:
       additionalProperties: false
       description: Идентификатор задачи проверки ИНН клиентов
@@ -276,31 +295,12 @@ components:
       required:
       - taskId
       type: object
-    errorMessage:
-      description: Сообщение об ошибке
-      example: Ошибка
-      type: string
-    inn:
-      description: ИНН
-      example: 1234567890
-      maxLength: 12
-      minLength: 10
-      type: string
-    errorField:
-      description: Наименование поля
-      example: userId
-      type: string
-    okResponseStatus:
-      description: Статус результата ответа
+    unauthorizedResponseStatus:
+      description: Статус ответа
       enum:
-      - ok
-      example: ok
+      - unauthorized
+      example: unauthorized
       type: string
-    id:
-      description: Идентификатор
-      example: 123456
-      minimum: 1
-      type: integer
     errorResult:
       additionalProperties: false
       description: Результат с ошибкой
@@ -310,12 +310,6 @@ components:
       required:
       - message
       type: object
-    notFoundResponseStatus:
-      description: Статус ответа
-      enum:
-      - not-found
-      example: not-found
-      type: string
     defaultErrorResponse:
       additionalProperties: false
       properties:
@@ -336,40 +330,76 @@ components:
       required:
       - error
       type: object
-    errorFields:
-      description: Ошибки валидации
-      items:
-        additionalProperties: false
-        description: Ошибка валидации поля
-        properties:
-          field:
-            $ref: '#/components/schemas/errorField'
-          message:
-            $ref: '#/components/schemas/errorMessage'
-        required:
-        - field
-        - message
-        type: object
-      type: array
-    badRequestResponseStatus:
-      description: Статус ответа
-      enum:
-      - bad-request
-      example: bad-request
-      type: string
-    unauthorizedResponseStatus:
-      description: Статус ответа
-      enum:
-      - unauthorized
-      example: unauthorized
-      type: string
     forbiddenResponseStatus:
       description: Статус ответа
       enum:
       - forbidden
       example: forbidden
       type: string
+    errorMessage:
+      description: Сообщение об ошибке
+      example: Ошибка
+      type: string
+    notFoundResponseStatus:
+      description: Статус ответа
+      enum:
+      - not-found
+      example: not-found
+      type: string
+    badRequestResponseStatus:
+      description: Статус ответа
+      enum:
+      - bad-request
+      example: bad-request
+      type: string
+    id:
+      description: Идентификатор
+      example: 123456
+      minimum: 1
+      type: integer
+    okResponseStatus:
+      description: Статус результата ответа
+      enum:
+      - ok
+      example: ok
+      type: string
+    inn:
+      description: ИНН
+      example: 1234567890
+      maxLength: 12
+      minLength: 10
+      type: string
   responses:
+    badRequestFieldsWithStatus:
+      content:
+        application/json:
+          schema:
+            additionalProperties: false
+            properties:
+              result:
+                $ref: '#/components/schemas/errorFields'
+              status:
+                $ref: '#/components/schemas/badRequestResponseStatus'
+            required:
+            - status
+            - result
+            type: object
+      description: Неверный запрос
+    notFoundWithStatus:
+      content:
+        application/json:
+          schema:
+            additionalProperties: false
+            properties:
+              result:
+                $ref: '#/components/schemas/errorResult'
+              status:
+                $ref: '#/components/schemas/notFoundResponseStatus'
+            required:
+            - status
+            - result
+            type: object
+      description: Не найдено
     unauthorizedWithStatus:
       content:
         application/json:
@@ -385,6 +415,12 @@ components:
             - result
             type: object
       description: Требуется авторизация
+    defaultTooManyRequests:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/defaultErrorResponse'
+      description: Превышено количество запросов
     defaultInternalServerError:
       content:
         application/json:
@@ -406,42 +442,6 @@ components:
             - result
             type: object
       description: Действие запрещено
-    notFoundWithStatus:
-      content:
-        application/json:
-          schema:
-            additionalProperties: false
-            properties:
-              result:
-                $ref: '#/components/schemas/errorResult'
-              status:
-                $ref: '#/components/schemas/notFoundResponseStatus'
-            required:
-            - status
-            - result
-            type: object
-      description: Не найдено
-    badRequestFieldsWithStatus:
-      content:
-        application/json:
-          schema:
-            additionalProperties: false
-            properties:
-              result:
-                $ref: '#/components/schemas/errorFields'
-              status:
-                $ref: '#/components/schemas/badRequestResponseStatus'
-            required:
-            - status
-            - result
-            type: object
-      description: Неверный запрос
-    defaultTooManyRequests:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/defaultErrorResponse'
-      description: Превышено количество запросов
   parameters:
     authHeader:
       description: Токен для авторизации

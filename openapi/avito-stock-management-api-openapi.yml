@@ -159,15 +159,38 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    unauthError:
-      additionalProperties: false
+    stockEditResult:
       properties:
-        message:
-          description: Сообщение о том, что пользователь не авторизован. Если текст ошибки "Unsupported flow for endpoint", значит в авторизационном заголовке "X-Oauth-Flow" не передан "authorization_code"
-          example: Unsupported flow for endpoint
-          type: string
-      required:
-      - message
+        stocks:
+          items:
+            description: Остатки в объявлении
+            properties:
+              errors:
+                description: Ошибки при обновлении остатка
+                example: []
+                items:
+                  type: string
+                type: array
+              external_id:
+                description: Идентификатор объявления во внешней системе
+                example: AB123456
+                type:
+                - string
+                - 'null'
+              item_id:
+                description: Идентификатор объявления на сайте
+                example: 123321
+                format: int64
+                type: integer
+              success:
+                description: Успешно ли прошло обновление остатков
+                example: true
+                type: boolean
+            required:
+            - item_id
+            - success
+            type: object
+          type: array
       type: object
     stocksInfoResult:
       properties:
@@ -206,6 +229,16 @@ components:
             type: object
           type: array
       type: object
+    unauthError:
+      additionalProperties: false
+      properties:
+        message:
+          description: Сообщение о том, что пользователь не авторизован. Если текст ошибки "Unsupported flow for endpoint", значит в авторизационном заголовке "X-Oauth-Flow" не передан "authorization_code"
+          example: Unsupported flow for endpoint
+          type: string
+      required:
+      - message
+      type: object
     errorMessage:
       additionalProperties: false
       properties:
@@ -216,39 +249,31 @@ components:
       required:
       - message
       type: object
-    stockEditResult:
-      properties:
-        stocks:
-          items:
-            description: Остатки в объявлении
-            properties:
-              errors:
-                description: Ошибки при обновлении остатка
-                example: []
-                items:
-                  type: string
-                type: array
-              external_id:
-                description: Идентификатор объявления во внешней системе
-                example: AB123456
-                type:
-                - string
-                - 'null'
-              item_id:
-                description: Идентификатор объявления на сайте
-                example: 123321
-                format: int64
-                type: integer
-              success:
-                description: Успешно ли прошло обновление остатков
-                example: true
-                type: boolean
-            required:
-            - item_id
-            - success
-            type: object
-          type: array
-      type: object
+  responses:
+    internalError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorMessage'
+      description: Internal Error
+    badRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorMessage'
+      description: Bad request
+    unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/unauthError'
+      description: Unauthorized
+    tooManyRequests:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorMessage'
+      description: Too Many Requests
   parameters:
     authHeader:
       description: Токен для авторизации
@@ -258,31 +283,6 @@ components:
       schema:
         example: Bearer ACCESS_TOKEN
         type: string
-  responses:
-    internalError:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/errorMessage'
-      description: Internal Error
-    unauthorized:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/unauthError'
-      description: Unauthorized
-    badRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/errorMessage'
-      description: Bad request
-    tooManyRequests:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/errorMessage'
-      description: Too Many Requests
   securitySchemes:
     AuthorizationCode:
       description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](#tag/ApplicationAccess)

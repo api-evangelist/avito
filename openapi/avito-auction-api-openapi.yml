@@ -177,26 +177,6 @@ paths:
       tags:
       - Auction
 components:
-  headers:
-    X-RateLimit-Remaining:
-      description: Доступное количество запросов в текущем временном окне
-      schema:
-        format: int32
-        type: integer
-    X-RateLimit-Limit:
-      description: Количество запросов в минуту
-      schema:
-        format: int32
-        type: integer
-  parameters:
-    authHeader:
-      description: Токен для авторизации
-      in: header
-      name: Authorization
-      required: true
-      schema:
-        example: Bearer ACCESS_TOKEN
-        type: string
   responses:
     internalError:
       content:
@@ -204,19 +184,40 @@ components:
           schema:
             $ref: '#/components/schemas/error'
       description: Internal Error
-    unauthorized:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Unauthorized
     badRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
       description: Bad request
+    unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Unauthorized
+  headers:
+    X-RateLimit-Limit:
+      description: Количество запросов в минуту
+      schema:
+        format: int32
+        type: integer
+    X-RateLimit-Remaining:
+      description: Доступное количество запросов в текущем временном окне
+      schema:
+        format: int32
+        type: integer
   schemas:
+    error:
+      additionalProperties: false
+      properties:
+        message:
+          description: Текст ошибки
+          example: Что-то пошло не так
+          type: string
+      required:
+      - message
+      type: object
     tooManyRequestsError:
       properties:
         error:
@@ -230,16 +231,15 @@ components:
           - code
           type: object
       type: object
-    error:
-      additionalProperties: false
-      properties:
-        message:
-          description: Текст ошибки
-          example: Что-то пошло не так
-          type: string
-      required:
-      - message
-      type: object
+  parameters:
+    authHeader:
+      description: Токен для авторизации
+      in: header
+      name: Authorization
+      required: true
+      schema:
+        example: Bearer ACCESS_TOKEN
+        type: string
   securitySchemes:
     AuthorizationCode:
       description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](#tag/ApplicationAccess)

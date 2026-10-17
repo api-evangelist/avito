@@ -257,6 +257,49 @@ paths:
       - Cpxpromo
 components:
   schemas:
+    bid:
+      properties:
+        compare:
+          description: Количество процентных пунктов. (На сколько выше в сравнении с конкурентами)
+          type: integer
+        maxForecast:
+          description: Максимальное кол-во ЦД за цену ЦД
+          type: integer
+        minForecast:
+          description: Минимальное кол-во ЦД за цену ЦД
+          type: integer
+        valuePenny:
+          description: Цена за целевое действие (в копейках)
+          type: integer
+      required:
+      - valuePenny
+      - minForecast
+      - maxForecast
+      - compare
+      type: object
+    budget:
+      properties:
+        budgets:
+          items:
+            $ref: '#/components/schemas/budgetValue'
+          maxItems: 200
+          minItems: 1
+          type: array
+        maxLimitPenny:
+          description: Максимальный лимит (в копейках)
+          type: integer
+        minLimitPenny:
+          description: Минимальный лимит (в копейках)
+          type: integer
+        recBudgetPenny:
+          description: Рекомендованный лимит (в копейках)
+          type: integer
+      required:
+      - budgets
+      - minLimitPenny
+      - maxLimitPenny
+      - recBudgetPenny
+      type: object
     getPromotionsByItemIdsOut:
       properties:
         items:
@@ -281,6 +324,19 @@ components:
           type: array
       required:
       - items
+      type: object
+    tooManyRequestsError:
+      properties:
+        error:
+          properties:
+            code:
+              description: Код ошибки
+              example: 429
+              format: int32
+              type: integer
+          required:
+          - code
+          type: object
       type: object
     manual:
       properties:
@@ -325,18 +381,29 @@ components:
       type:
       - object
       - 'null'
-    tooManyRequestsError:
+    autoPromotion:
       properties:
-        error:
-          properties:
-            code:
-              description: Код ошибки
-              example: 429
-              format: int32
-              type: integer
-          required:
-          - code
-          type: object
+        budgetPenny:
+          description: Текущий бюджет в копейках
+          type: integer
+        budgetType:
+          description: Тип бюджета ("1d" - дневной | "7d" - недельный | "30d" - месячный)
+          type: string
+      required:
+      - budgetPenny
+      - budgetType
+      type:
+      - object
+      - 'null'
+    error:
+      additionalProperties: false
+      properties:
+        message:
+          description: Текст ошибки
+          example: Что-то пошло не так
+          type: string
+      required:
+      - message
       type: object
     ManualBid:
       properties:
@@ -362,131 +429,6 @@ components:
       - itemID
       - bidPenny
       - actionTypeID
-      type: object
-    error:
-      additionalProperties: false
-      properties:
-        message:
-          description: Текст ошибки
-          example: Что-то пошло не так
-          type: string
-      required:
-      - message
-      type: object
-    budgetValue:
-      properties:
-        compare:
-          description: Количество процентных пунктов. (На сколько выше в сравнении с конкурентами)
-          type: integer
-        maxForecast:
-          description: Максимальное кол-во ЦД за цену ЦД
-          type: integer
-        minForecast:
-          description: Минимальное кол-во ЦД за цену ЦД
-          type: integer
-        valuePenny:
-          description: Бюджет (в копейках)
-          type: integer
-      required:
-      - valuePenny
-      - minForecast
-      - maxForecast
-      - compare
-      type: object
-    autoPromotion:
-      properties:
-        budgetPenny:
-          description: Текущий бюджет в копейках
-          type: integer
-        budgetType:
-          description: Тип бюджета ("1d" - дневной | "7d" - недельный | "30d" - месячный)
-          type: string
-      required:
-      - budgetPenny
-      - budgetType
-      type:
-      - object
-      - 'null'
-    auto:
-      properties:
-        budgetPenny:
-          description: Текущий бюджет (в копейках)
-          type:
-          - integer
-          - 'null'
-        budgetType:
-          description: Тип бюджета ("1d" - дневной | "7d" - недельный | "30d" - месячный)
-          type:
-          - string
-          - 'null'
-        dailyBudget:
-          $ref: '#/components/schemas/budget'
-        maxBudgetPenny:
-          description: Максимальный бюджет (в копейках)
-          type: integer
-        minBudgetPenny:
-          description: Минимальный бюджет (в копейках)
-          type: integer
-        monthlyBudget:
-          $ref: '#/components/schemas/budget'
-        weeklyBudget:
-          $ref: '#/components/schemas/budget'
-      required:
-      - minBudgetPenny
-      - maxBudgetPenny
-      - dailyBudget
-      - weeklyBudget
-      - monthlyBudget
-      type:
-      - object
-      - 'null'
-    budget:
-      properties:
-        budgets:
-          items:
-            $ref: '#/components/schemas/budgetValue'
-          maxItems: 200
-          minItems: 1
-          type: array
-        maxLimitPenny:
-          description: Максимальный лимит (в копейках)
-          type: integer
-        minLimitPenny:
-          description: Минимальный лимит (в копейках)
-          type: integer
-        recBudgetPenny:
-          description: Рекомендованный лимит (в копейках)
-          type: integer
-      required:
-      - budgets
-      - minLimitPenny
-      - maxLimitPenny
-      - recBudgetPenny
-      type: object
-    getBidsOut:
-      properties:
-        actionTypeID:
-          description: Тип события (1 - звонок | 5 - пакет кликов | 7 - мессенджер, передача контакта в чате)
-          type: integer
-        auto:
-          $ref: '#/components/schemas/auto'
-        manual:
-          $ref: '#/components/schemas/manual'
-        selectedType:
-          description: Выбранный тип продвижения ("manual" - ручное продвижение | "auto" - автоматическое продвижение)
-          type: string
-      required:
-      - actionTypeID
-      - selectedType
-      type: object
-    RemovePromotion:
-      properties:
-        itemID:
-          description: Идентификатор объявления
-          example: 123456789
-          type: integer
-      required:
-      - itemID
       type: object
     getPromotionsByItemIdsIn:
       properties:
@@ -525,6 +467,15 @@ components:
       - budgetType
       - actionTypeID
       type: object
+    RemovePromotion:
+      properties:
+        itemID:
+          description: Идентификатор объявления
+          example: 123456789
+          type: integer
+      required:
+      - itemID
+      type: object
     manualPromotion:
       properties:
         bidPenny:
@@ -540,7 +491,7 @@ components:
       type:
       - object
       - 'null'
-    bid:
+    budgetValue:
       properties:
         compare:
           description: Количество процентных пунктов. (На сколько выше в сравнении с конкурентами)
@@ -552,7 +503,7 @@ components:
           description: Минимальное кол-во ЦД за цену ЦД
           type: integer
         valuePenny:
-          description: Цена за целевое действие (в копейках)
+          description: Бюджет (в копейках)
           type: integer
       required:
       - valuePenny
@@ -560,36 +511,85 @@ components:
       - maxForecast
       - compare
       type: object
+    getBidsOut:
+      properties:
+        actionTypeID:
+          description: Тип события (1 - звонок | 5 - пакет кликов | 7 - мессенджер, передача контакта в чате)
+          type: integer
+        auto:
+          $ref: '#/components/schemas/auto'
+        manual:
+          $ref: '#/components/schemas/manual'
+        selectedType:
+          description: Выбранный тип продвижения ("manual" - ручное продвижение | "auto" - автоматическое продвижение)
+          type: string
+      required:
+      - actionTypeID
+      - selectedType
+      type: object
+    auto:
+      properties:
+        budgetPenny:
+          description: Текущий бюджет (в копейках)
+          type:
+          - integer
+          - 'null'
+        budgetType:
+          description: Тип бюджета ("1d" - дневной | "7d" - недельный | "30d" - месячный)
+          type:
+          - string
+          - 'null'
+        dailyBudget:
+          $ref: '#/components/schemas/budget'
+        maxBudgetPenny:
+          description: Максимальный бюджет (в копейках)
+          type: integer
+        minBudgetPenny:
+          description: Минимальный бюджет (в копейках)
+          type: integer
+        monthlyBudget:
+          $ref: '#/components/schemas/budget'
+        weeklyBudget:
+          $ref: '#/components/schemas/budget'
+      required:
+      - minBudgetPenny
+      - maxBudgetPenny
+      - dailyBudget
+      - weeklyBudget
+      - monthlyBudget
+      type:
+      - object
+      - 'null'
+  headers:
+    X-RateLimit-Remaining:
+      description: Доступное количество запросов в текущем временном окне
+      schema:
+        format: int32
+        type: integer
+    X-RateLimit-Limit:
+      description: Количество запросов в минуту
+      schema:
+        format: int32
+        type: integer
   responses:
-    internalError:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Internal Error
     badRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
       description: Bad request
+    internalError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Internal Error
     unauthorized:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
       description: Unauthorized
-  headers:
-    X-RateLimit-Limit:
-      description: Количество запросов в минуту
-      schema:
-        format: int32
-        type: integer
-    X-RateLimit-Remaining:
-      description: Доступное количество запросов в текущем временном окне
-      schema:
-        format: int32
-        type: integer
   parameters:
     authHeader:
       description: Токен для авторизации

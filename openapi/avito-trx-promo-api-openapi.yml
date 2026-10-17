@@ -175,44 +175,46 @@ paths:
       tags:
       - Trx Promo
 components:
+  responses:
+    errorV3Forbidden:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/apiV3error403'
+      description: Forbidden
+    errorV3Unauthenticated:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/apiV3error401'
+      description: Unauthenticated
+    errorV3InternalError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/apiV3error500'
+      description: InternalError
+    errorV3BadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/apiV3error400'
+      description: BadRequest
   schemas:
-    CancelResponse:
+    apiV3error400:
       additionalProperties: false
       properties:
-        success:
+        bad-request:
           additionalProperties: false
           properties:
-            result:
-              items:
-                properties:
-                  error:
-                    properties:
-                      code:
-                        enum:
-                        - 1001
-                        - 1002
-                        type: integer
-                      message:
-                        type: string
-                    required:
-                    - code
-                    - message
-                    type: object
-                  itemID:
-                    type: integer
-                  success:
-                    type: boolean
-                required:
-                - itemID
-                - success
-                type: object
-              type: array
+            message:
+              type: string
           required:
-          - result
+          - message
           type: object
       required:
-      - success
-      title: okResponse
+      - bad-request
+      title: BadRequestResponse
       type: object
     ApplyReq:
       additionalProperties: false
@@ -244,6 +246,51 @@ components:
       required:
       - items
       title: requestBody
+      type: object
+    apiV3error401:
+      additionalProperties: false
+      properties:
+        unauthenticated:
+          additionalProperties: false
+          properties:
+            message:
+              type: string
+          required:
+          - message
+          type: object
+      required:
+      - unauthenticated
+      title: UnauthenticatedResponse
+      type: object
+    apiV3error403:
+      additionalProperties: false
+      properties:
+        forbidden:
+          additionalProperties: false
+          properties:
+            message:
+              type: string
+          required:
+          - message
+          type: object
+      required:
+      - forbidden
+      title: ForbiddenResponse
+      type: object
+    apiV3error500:
+      additionalProperties: false
+      properties:
+        internal-error:
+          additionalProperties: false
+          properties:
+            message:
+              type: string
+          required:
+          - message
+          type: object
+      required:
+      - internal-error
+      title: InternalErrorResponse
       type: object
     ApplyResponse:
       additionalProperties: false
@@ -301,36 +348,6 @@ components:
       required:
       - success
       title: okResponse
-      type: object
-    apiV3error500:
-      additionalProperties: false
-      properties:
-        internal-error:
-          additionalProperties: false
-          properties:
-            message:
-              type: string
-          required:
-          - message
-          type: object
-      required:
-      - internal-error
-      title: InternalErrorResponse
-      type: object
-    apiV3error403:
-      additionalProperties: false
-      properties:
-        forbidden:
-          additionalProperties: false
-          properties:
-            message:
-              type: string
-          required:
-          - message
-          type: object
-      required:
-      - forbidden
-      title: ForbiddenResponse
       type: object
     CommissionResponse:
       additionalProperties: false
@@ -391,42 +408,49 @@ components:
       - success
       title: okResponse
       type: object
-    apiV3error401:
+    CancelResponse:
       additionalProperties: false
       properties:
-        unauthenticated:
+        success:
           additionalProperties: false
           properties:
-            message:
-              type: string
+            result:
+              items:
+                properties:
+                  error:
+                    properties:
+                      code:
+                        enum:
+                        - 1001
+                        - 1002
+                        type: integer
+                      message:
+                        type: string
+                    required:
+                    - code
+                    - message
+                    type: object
+                  itemID:
+                    type: integer
+                  success:
+                    type: boolean
+                required:
+                - itemID
+                - success
+                type: object
+              type: array
           required:
-          - message
+          - result
           type: object
       required:
-      - unauthenticated
-      title: UnauthenticatedResponse
-      type: object
-    apiV3error400:
-      additionalProperties: false
-      properties:
-        bad-request:
-          additionalProperties: false
-          properties:
-            message:
-              type: string
-          required:
-          - message
-          type: object
-      required:
-      - bad-request
-      title: BadRequestResponse
+      - success
+      title: okResponse
       type: object
   parameters:
-    OAuthFlow:
-      description: Выбранный флоу авторизации по протоколу OAuth 2.0
+    OAuthScopes:
+      description: Список зон доступа
       in: header
-      name: x-oauth-flow
-      required: true
+      name: x-oauth-scopes
       schema:
         type: string
     OAuthAuthenticatedUserId:
@@ -436,37 +460,13 @@ components:
       required: true
       schema:
         type: string
-    OAuthScopes:
-      description: Список зон доступа
+    OAuthFlow:
+      description: Выбранный флоу авторизации по протоколу OAuth 2.0
       in: header
-      name: x-oauth-scopes
+      name: x-oauth-flow
+      required: true
       schema:
         type: string
-  responses:
-    errorV3BadRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/apiV3error400'
-      description: BadRequest
-    errorV3Forbidden:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/apiV3error403'
-      description: Forbidden
-    errorV3InternalError:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/apiV3error500'
-      description: InternalError
-    errorV3Unauthenticated:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/apiV3error401'
-      description: Unauthenticated
   securitySchemes:
     AuthorizationCode:
       description: Это API использует OAuth 2 с механизмом authorization_code. Используйте его для доступа к данным других пользователей при разработке стороннего приложения. [Подробнее](#tag/ApplicationAccess)

@@ -180,57 +180,6 @@ paths:
       - Ratings
 components:
   schemas:
-    ReviewItem:
-      description: Структура объявления
-      properties:
-        id:
-          description: ID объявления
-          example: 1234567
-          type: integer
-        title:
-          description: Заголовок объявления
-          example: Автомобиль 2020-го года
-          type: string
-      type:
-      - object
-      - 'null'
-    Rating:
-      properties:
-        reviewsCount:
-          description: Общее количество активных отзывов
-          example: 21
-          type: integer
-        reviewsWithScoreCount:
-          description: Количество активных отзывов, влияющих на формирование рейтинга
-          example: 12
-          type: integer
-        score:
-          description: Оценка рейтинга
-          example: 4.3
-          format: float
-          type: number
-      required:
-      - score
-      - reviewsWithScoreCount
-      - reviewsCount
-      type:
-      - object
-      - 'null'
-    RejectReason:
-      description: Причина отклонения отзыва
-      properties:
-        id:
-          description: ID причины отклонения
-          example: 100
-          type: integer
-        title:
-          description: Заголовок причины отклонения
-          example: Нецензурная лексика
-          type: string
-      required:
-      - id
-      - title
-      type: object
     ReviewImage:
       description: Структура изображения, приложенного к отзыву
       properties:
@@ -247,19 +196,20 @@ components:
       - number
       - sizes
       type: object
-    ReviewImageSize:
-      description: Структура изображения определенного разрешения
+    ReviewError:
+      description: Ошибка Bad Request
       properties:
-        size:
-          description: Разрешение изображения в формате 100x100
-          example: 100x100
+        code:
+          description: Код ошибки
+          example: validation
           type: string
-        url:
-          description: Ссылка на изображение
+        message:
+          description: Текст ошибки
+          example: Field `offset` is not integer
           type: string
       required:
-      - size
-      - url
+      - code
+      - message
       type: object
     GetReviewsResponse:
       properties:
@@ -312,6 +262,29 @@ components:
       type:
       - object
       - 'null'
+    RemoveAnswerResponse:
+      properties:
+        success:
+          description: Статус успешности запроса
+          example: true
+          type: boolean
+      required:
+      - success
+      type: object
+    ReviewItem:
+      description: Структура объявления
+      properties:
+        id:
+          description: ID объявления
+          example: 1234567
+          type: integer
+        title:
+          description: Заголовок объявления
+          example: Автомобиль 2020-го года
+          type: string
+      type:
+      - object
+      - 'null'
     CreateAnswerRequestBody:
       properties:
         message:
@@ -326,19 +299,67 @@ components:
       - reviewId
       - message
       type: object
-    CreateAnswerResponse:
+    GetRatingInfoResponse:
       properties:
-        createdAt:
-          description: Timestamp создания ответа
-          example: 1571654040
-          type: integer
+        isEnabled:
+          description: Включен ли рейтинг
+          example: true
+          type: boolean
+        rating:
+          $ref: '#/components/schemas/Rating'
+      required:
+      - isEnabled
+      type: object
+    RejectReason:
+      description: Причина отклонения отзыва
+      properties:
         id:
-          description: ID ответа
-          example: 1234567
+          description: ID причины отклонения
+          example: 100
           type: integer
+        title:
+          description: Заголовок причины отклонения
+          example: Нецензурная лексика
+          type: string
       required:
       - id
-      - createdAt
+      - title
+      type: object
+    Rating:
+      properties:
+        reviewsCount:
+          description: Общее количество активных отзывов
+          example: 21
+          type: integer
+        reviewsWithScoreCount:
+          description: Количество активных отзывов, влияющих на формирование рейтинга
+          example: 12
+          type: integer
+        score:
+          description: Оценка рейтинга
+          example: 4.3
+          format: float
+          type: number
+      required:
+      - score
+      - reviewsWithScoreCount
+      - reviewsCount
+      type:
+      - object
+      - 'null'
+    ReviewImageSize:
+      description: Структура изображения определенного разрешения
+      properties:
+        size:
+          description: Разрешение изображения в формате 100x100
+          example: 100x100
+          type: string
+        url:
+          description: Ссылка на изображение
+          type: string
+      required:
+      - size
+      - url
       type: object
     ReviewSender:
       description: Структура отправителя отзыва
@@ -415,40 +436,19 @@ components:
       - canAnswer
       - createdAt
       type: object
-    GetRatingInfoResponse:
+    CreateAnswerResponse:
       properties:
-        isEnabled:
-          description: Включен ли рейтинг
-          example: true
-          type: boolean
-        rating:
-          $ref: '#/components/schemas/Rating'
+        createdAt:
+          description: Timestamp создания ответа
+          example: 1571654040
+          type: integer
+        id:
+          description: ID ответа
+          example: 1234567
+          type: integer
       required:
-      - isEnabled
-      type: object
-    RemoveAnswerResponse:
-      properties:
-        success:
-          description: Статус успешности запроса
-          example: true
-          type: boolean
-      required:
-      - success
-      type: object
-    ReviewError:
-      description: Ошибка Bad Request
-      properties:
-        code:
-          description: Код ошибки
-          example: validation
-          type: string
-        message:
-          description: Текст ошибки
-          example: Field `offset` is not integer
-          type: string
-      required:
-      - code
-      - message
+      - id
+      - createdAt
       type: object
   parameters:
     authHeader:
